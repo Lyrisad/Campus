@@ -1686,6 +1686,9 @@ modal2-title{
   background-color: #e74c3c;
 }
 
+.historyTask{
+  text-decoration: line-through;
+}
 
 footer {
   font-size: 12px;

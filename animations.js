@@ -1650,7 +1650,7 @@ async function fetchTasksHistory() {
       html += `<tr class="task-history-row">
                 <td>${task.id}</td>
                 <td>${task.concerne}</td>
-                <td>${task.tache}</td>
+                <td class="historyTask">${task.tache}</td>
                 <td class="importance-cell importance-${task.importance.toLowerCase()}">${
         task.importance
       }</td>
