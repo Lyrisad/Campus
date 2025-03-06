@@ -1,0 +1,1669 @@
+body {
+  background: linear-gradient(to right, #66a1b4, #ffffff);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  user-select: none;
+}
+
+h3 {
+  font-size: 1.1rem;
+  color: #0077cc;
+}
+
+.important {
+  font-weight: bold;
+  color: #f49f42;
+}
+
+#homePage {
+  display: flex;
+  flex-direction: column;
+}
+
+strong {
+  font-weight: bold;
+  color: #f49f42;
+}
+
+.CampusCandorContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+  background: linear-gradient(to right, #ffffff, #66a1b4);
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #188ec8;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+.header h1 {
+  margin: 0;
+  padding: 15px;
+  font-weight: 400;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0;
+  margin-right: 40px;
+}
+
+.header a {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.header a:hover {
+  color: #f49f42;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CampusLogo {
+  background-image: url("/images/Candor_Campus_logo_Blanc.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 250px;
+  height: 100px;
+  margin-left: 30px;
+}
+
+/* Adjusting the hat */
+#universityHAT {
+  background-image: url("/images/UNIVERSITYHAT.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 250px;
+  height: 150px;
+  position: absolute; /* Position it above the container */
+  top: calc(50% - 31.5%); /* Adjust position to align with CCbody-container */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center the hat exactly */
+  z-index: 10; /* Ensure it's above the container */
+}
+
+/* Main container */
+.CCbody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100%;
+  background: linear-gradient(to right, #66a1b4, #ffffff);
+  border-bottom: #f49f42 2px solid;
+  position: relative; /* Needed for positioning the hat */
+}
+
+/* Content container */
+.CCbody-container {
+  z-index: 1;
+  border-left: 4px solid #f49f42;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+  height: 60%;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Contenu textuel */
+.CCbody-content {
+  padding: 40px;
+  width: 50%;
+}
+
+.CCbody-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #0077cc;
+  text-align: left;
+}
+
+.CCbody-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+/* Bouton */
+.goToForm {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #0077cc;
+  color: #fff;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.goToForm:hover {
+  background-color: #005fa3;
+  cursor: pointer;
+}
+
+/* Section image */
+.CCbody-image {
+  background-image: url("/images/daryl-removebg-preview.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 50%;
+  height: 100%;
+}
+
+/* Section A Propos */
+.about-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+}
+
+.about-container {
+  width: 50%;
+  text-align: left;
+}
+
+.about-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #0077cc;
+}
+
+.about-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Section Formations */
+.services-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 0px 20px 30px 20px;
+  height: fit-content;
+}
+.services-container {
+  width: 50%;
+  text-align: left;
+  margin: 0 auto;
+}
+
+.services-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #0077cc;
+}
+
+.services-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+  gap: 20px; /* Espacement entre les cartes */
+}
+
+.service-item {
+  user-select: none;
+  background: #f4f9fb;
+  border: 1px solid #f49f42;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.service-item:hover {
+  border: 1px solid #188ec8;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: #f6f5f5;
+}
+
+.service-title {
+  font-size: 1.3rem;
+  color: #0077cc;
+  margin-bottom: 10px;
+}
+
+.service-text {
+  font-size: 1rem;
+  color: #555;
+}
+/* Section Contact */
+/* Section Contact */
+
+/* Notification popup */
+.notification-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #0077cc;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 9999;
+}
+
+.notification-popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification-popup.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.contact-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  width: 100%;
+  height: fit-content;
+  text-align: center;
+}
+
+.contact-container {
+  text-align: left;
+  padding: 60px 25px;
+  width: 50%;
+  border-radius: 10px;
+}
+
+.contact-title {
+  padding-left: 5px;
+  font-size: 2.5rem;
+  color: #0077cc;
+}
+
+.contact-p {
+  padding-left: 5px;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.contact-details {
+  display: flex;
+  justify-content: space-between; /* Espacement entre les cartes */
+  gap: 20px; /* Espacement latéral entre les contacts */
+}
+
+.contact-item {
+  border: 1px solid #f49f42;
+  background: #f4f9fb;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  flex: 1; /* Permet aux éléments de prendre un espace égal */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-item:hover {
+  border: 1px solid #188ec8;
+  transform: translateY(-5px);
+  background-color: #f6f5f5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.contact-subtitle {
+  font-size: 1.5rem;
+  color: #188ec8;
+  margin-bottom: 10px;
+}
+
+.contact-text {
+  user-select: text;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.contact-text strong {
+  color: #0077cc;
+}
+
+.formation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, #66a1b4, #ffffff);
+  width: 100%;
+  height: 90vh;
+}
+
+#for001,
+#for002,
+#for004,
+#for006,
+#for007,
+#for009,
+#for010,
+#for011,
+#for012 {
+  display: none;
+}
+
+/* Section principale */
+.formation-section {
+  margin-top: 30px;
+  padding: 30px 80px 30px 80px;
+  width: 70%;
+  border-left: 4px solid #f49f42;
+  border-radius: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.formation-title {
+  font-size: 32px;
+  color: #0077cc;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.formation-p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.formation-description {
+  font-size: 17px;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+h2 {
+  font-size: 24px;
+  color: #0077cc;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: square;
+  margin-left: 30px;
+  font-size: 17px;
+  color: #666;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+/* Pied de page */
+footer {
+  background-color: #0077cc;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.back-button {
+  position: fixed;
+  left: 2%;
+  top: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: transparent;
+  font-size: 3rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.back-button:hover {
+  transform: scale(1.02);
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Section formulaire de rendez-vous */
+#appointment-section {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+  height: fit-content;
+  background: linear-gradient(to right, #66a1b4, #ffffff);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.appointment-container {
+  display: flex;
+  border-left: 4px solid #f49f42;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 45%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.appointment-title {
+  font-size: 32px;
+  width: 600px;
+  font-weight: bold;
+  color: #0077cc;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.appointment-description {
+  font-size: 16px;
+  width: 600px;
+  text-align: left;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.appointment-form {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #0077cc;
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(0, 77, 153, 0.5);
+}
+
+textarea {
+  resize: none;
+  min-height: 100px;
+}
+
+.submit-button {
+  width: 100%;
+  background-color: #0077cc;
+  color: white;
+  font-size: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #005fa3;
+}
+
+.loginContainer{
+  border-left: 4px solid #f49f42;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px 35px 20px;
+  width: 400px;
+  height: fit-content;
+  border-radius: 15px;
+  background-color: #f4f9fb;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
+}
+
+.textLogin{
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.loginContainer label{
+  font-size: 1.1rem;
+  color: #005fa3;
+  margin-bottom: 10px;
+}
+
+.loginContainer h2{
+  font-size: 2.4rem;
+}
+
+#adminLogin{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 90vh;
+}
+
+#errorMessage {
+  font-size: 0.9rem;
+  color: red;
+  margin-top: 10px;
+}
+
+/* General Admin Panel Styles */
+#adminPanel {
+  background-color: #f4f9fb;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-container {
+  width: 95%;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+
+.admin-container h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#addFormationButton{
+  width: 300px;
+  background-color: #0077cc;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formation-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.formation-actions button {
+  background-color: #0077cc;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formation-actions button:hover {
+  background-color: #005fa3;
+}
+/* Styles pour le tableau de formations */
+#formationsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#formationsTable th,
+#formationsTable td {
+  text-align: left;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+}
+
+#formationsTable thead th {
+  background-color: #f2f2f2;
+  color: #0077cc;
+  font-weight: bold;
+}
+
+#formationsTable tbody td {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+#formationsTable tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#formationsTable tbody tr:hover {
+  background-color: #f4f4f4;
+}
+
+/* Boutons d'action dans le tableau */
+#formationsTable .edit-formation,
+#formationsTable .delete-formation {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: #fff;
+}
+
+#formationsTable .edit-formation {
+  background-color: #0077cc;
+}
+
+#formationsTable .delete-formation {
+  background-color: #d9534f;
+}
+
+#formationsTable .edit-formation:hover {
+  background-color: #005fa3;
+}
+
+#formationsTable .delete-formation:hover {
+  background-color: #c9302c;
+}
+
+.clickable-date{
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s;
+  color: black;
+}
+
+.clickable-date:hover{
+  opacity: 0.8;
+}
+
+.ID-FOR{
+  width: 20px;
+}
+
+.Actions-FOR{
+  width: 250px;
+}
+
+/* Logout Button */
+#logoutButton {
+  width: 300px;
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#logoutButton:hover {
+  background-color: #d32f2f;
+}
+
+/* Modal Background */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+}
+
+.modal-content h3 {
+  font-size: 1.5rem;
+  color: #0077cc;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.modal-content label {
+  display: block;
+  font-size: 1rem;
+  color: #333333;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.modal-content input:focus {
+  border-color: #0077cc;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 119, 204, 0.5);
+}
+
+.modal-content .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-content .submit-button {
+  background-color: #0077cc;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content .submit-button:hover {
+  background-color: #005fa3;
+}
+
+.modal-content .cancel-button {
+  background-color: #f44336;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content .cancel-button:hover {
+  background-color: #d32f2f;
+}
+
+
+
+@media (max-width: 1300px) {
+  .about-container,
+  .services-container,
+  .contact-container {
+    width: 90%;
+  }
+
+  .CCbody-container{
+    width: 85%;
+  }
+}
+
+/* Media Queries for Tablets (768px and below) */
+@media (max-width: 900px) {
+  body{
+    height: 100%;
+  }
+
+  .CampusCandorContainer {
+    flex-direction: column;
+  }
+
+  .header {
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .CampusLogo{
+    margin-left: 0px;
+  }
+
+  .menu {
+    font-weight: 700;
+    background-color: #f49f42;
+    width: 100%;
+    justify-content: space-evenly;
+    margin: 0;
+  }
+
+  .CCbody-container {
+    width: 90%;
+    height: 60%;
+    padding: 0 30px;
+  }
+
+  .CCbody-content {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .CCbody-image {
+    display: none;
+  }
+
+  .about-container,
+  .services-container,
+  .contact-container {
+    width: 90%;
+  }
+
+  .services-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  }
+
+  .contact-details {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .back-button{
+    display: none;
+  }
+  
+  .formation-container{
+    height: fit-content;
+    justify-content: center;
+  }
+
+  .formation-section {
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+
+  .appointment-container {
+    width: 80%;
+  }
+}
+
+/* Media Queries for Phones (480px and below) */
+@media (max-width: 510px) {
+  body {
+    height: auto;
+    font-size: 14px; /* Smaller font size for small screens */
+  }
+
+  .notification-popup{
+    width: 70%;
+    bottom:20px;
+    right: 20px;
+  }
+
+  .header h1 {
+    font-size: 1.2rem;
+    padding: 10px;
+  }
+
+  .header-container {
+    flex-direction: column;
+  }
+
+  .menu a {
+    padding: 5px;
+  }
+
+  #universityHAT {
+    display: none;
+  }
+
+    .CCbody-container {
+    border: none;
+    width: 100%;
+    border-radius: 0;
+    height: 100%;
+    padding: 0px;
+  }
+
+  .goToForm{
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .CCbody-content {
+    padding: 20px;
+    width: 100%;
+  }
+
+
+  .CCbody-title {
+    font-size: 2.5rem;
+  }
+
+  .CCbody-text {
+    font-size: 1.2rem;
+  }
+
+  .services-list {
+    grid-template-columns: 1fr; /* 1 column */
+  }
+
+  .about-container {
+    width: 100%;
+  }
+
+  .services-container{
+    width: 100%;
+  }
+
+  .contact-container{
+    width: 100%;
+  }
+
+  .contact-item {
+    padding: 15px;
+  }
+
+  .formation-container{
+    background: none;
+    background-color: #ffffff;
+    box-shadow: none;
+    height: 100%;
+  }
+
+  .formation-section {
+    margin: 0;
+    width: 90%;
+    padding: 20px 0 20px 0;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
+
+
+  .appointment-title,
+  .appointment-description {
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .appointment-form {
+    width: 100%;
+  }
+}
+
+#formationSelect{
+  width: 100%;
+  padding: 10px;
+  border: none;
+  color: white;
+  background-color: #0077cc;
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    transition: all 0.3s;
+}
+
+#formationSelect:hover{
+  background-color: #005fa3;
+  cursor: pointer;
+}
+
+#formationSelect option{
+  background-color: #005fa3;
+  color: white;
+}
+
+#dateSelect{
+  width: 100%;
+  padding: 10px;
+  border: none;
+  color: white;
+  background-color: #0077cc;
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    transition: all 0.3s;
+}
+
+#dateSelect:hover{
+  background-color: #005fa3;
+  cursor: pointer;
+}
+
+.btn-add{
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add:hover{
+  background-color: #005fa3;
+}
+
+.btn-remove{
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remove:hover{
+  background-color: #d32f2f;
+}
+/* Conteneur global du bloc des demandes */
+#pendingRequests {
+  margin-top: 20px;
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 95%;
+}
+
+/* Titre du bloc */
+#pendingRequests h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Style du tableau */
+#pendingRequestsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* En-tête du tableau */
+#pendingRequestsTable thead th {
+  background-color: #f8f8f8;
+  color: #0077cc;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Corps du tableau */
+#pendingRequestsTable tbody td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+/* Lignes alternées */
+#pendingRequestsTable tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Effet hover sur une ligne */
+#pendingRequestsTable tbody tr:hover {
+  background-color: #e9e9e9;
+}
+
+/* Boutons d'action dans le tableau */
+#pendingRequestsTable button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+}
+
+#pendingRequestsTable button.btn-accept {
+  background-color: #28a745;
+  color: #fff;
+  width: 100%;
+}
+
+#pendingRequestsTable button.btn-refuse {
+  background-color: #dc3545;
+  color: #fff;
+  width: 100%;
+  margin-top: 10px;
+}
+
+#pendingRequestsTable button:hover {
+  opacity: 0.9;
+}
+
+.employeesList{
+  font-size: 15px;
+  width: fit-content;
+}
+
+/* Modal de confirmation */
+#confirmModal2 {
+  display: none; /* caché par défaut */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5); /* fond semi-transparent */
+}
+
+#confirmModal2 .modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+#confirmModal2 .modal-actions {
+  margin-top: 20px;
+}
+
+#confirmModal2 .modal-actions button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+#confirmModal2 .btn-yes {
+  width: 100px;
+  background-color: #d9534f;
+  color: #fff;
+}
+
+#confirmModal2 .btn-yes:hover {
+  background-color: #c9302c;
+}
+
+#confirmModal2 .btn-no {
+  width: 100px;
+  background-color: #0077cc;
+  color: #fff;
+}
+
+#confirmModal2 .btn-no:hover {
+  background-color: #005fa3;
+}
+
+modal2-title{
+  font-size: 1.5rem;
+  color: #0077cc;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Modal Participants */
+#participantsModal {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: none;
+  background-color: rgba(0,0,0,0.5);
+}
+#participantsModal .modal-content {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 0px 20px 20px 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 8px;
+  position: relative;
+}
+#participantsModal .close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #aaa;
+}
+#participantsModal .close-button:hover {
+  color: #000;
+}
+#participantsModal h3 {
+  display: flex;
+  font-size: 1.3rem;
+  margin-top: 0;
+  color: #333;
+}
+#participantsModal #participantsList {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+#modalDate{
+  color: #f49f42;
+}
+
+.btn-remove-participant{
+  width: 100%;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remove-participant:hover{
+  background-color: #d32f2f;
+}
+
+#btnAddParticipant{
+  width: 100%;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#btnAddParticipant:hover{
+  background-color: #005fa3;
+}
+
+/* Historique Panel Styles */
+#historiquePanel {
+  margin: 20px auto;
+  padding: 20px;
+  width: 95%;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+#historiquePanel h3 {
+  text-align: left;
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#archivesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#archivesTable thead {
+  background-color: #f2f2f2;
+  color: #0077cc;
+}
+
+#archivesTable th,
+#archivesTable td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+}
+
+#archivesTable tbody tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+#archivesTable tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Style du container de filtres */
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#archiveSearch {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+#archiveDateFilter {
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+#archiveDateFilter:hover {
+  background-color: #005fa3;
+  cursor: pointer;
+}
+
+/* Bouton d'accès au calendrier */
+.calendar-btn {
+  width: 300px;
+  background-color: #f49f42 !important;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.calendar-btn:hover {
+  background-color: #d47f00 !important;
+}
+
+/* Modal */
+#calendarModal .modal {
+  display: none; /* Masqué par défaut */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+#calendarModal .modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 6px;
+  max-width: 50%;
+  position: relative;
+}
+
+/* Bouton de fermeture */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+/* FullCalendar */
+#calendar {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.fc-event {
+ text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+.fc-event:hover {
+  opacity: 0.8;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+/* ===== MODULE TÂCHES ===== */
+.tasks-module {
+  width: 95%;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre du module */
+.tasks-module h3 {
+  text-align: left;
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Formulaire de création de tâche */
+.task-form {
+  margin-bottom: 30px;
+}
+.task-form .form-group {
+  margin-bottom: 15px;
+}
+.task-form .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #444;
+}
+.task-form .form-group input,
+.task-form .form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#taskImportance {
+  background-color: #e9e9e9cc;
+  transition: all 0.3s;
+  color: #333;
+  border: none;
+  padding: 12px;
+}
+
+#taskImportance:hover{
+  cursor: pointer;
+  background-color: #3333;
+}
+
+.task-form .submit-btn {
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #f49f42;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.task-form .submit-btn:hover {
+  background-color: #d47f00;
+}
+
+/* Tables de tâches */
+.tasks-active, .tasks-history {
+  margin-bottom: 30px;
+}
+.tasks-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+.tasks-table th,
+.tasks-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 0.95em;
+}
+.tasks-table th {
+  background-color: #f2f2f2;
+  color: #0077cc;
+}
+.tasks-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+.tasks-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+/* Pour l'historique, on réduit l'opacité */
+.task-history-row {
+  opacity: 0.7;
+}
+
+/* Boutons dans les tableaux */
+.btn-complete-task,
+.btn-delete-task {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-right: 5px;
+  transition: background-color 0.2s ease;
+}
+.btn-complete-task {
+  background-color: #37ec5f;
+  color: #fff;
+}
+.btn-complete-task:hover {
+  background-color: #32d14c;
+}
+.btn-delete-task {
+  background-color: #e74c3c;
+  color: #fff;
+}
+.btn-delete-task:hover {
+  background-color: #cf3f31;
+}
+
+/* Bouton pour effacer l'historique */
+.clear-history-btn {
+  margin: 15px auto;
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s ease;
+}
+.clear-history-btn:hover {
+  background-color: #cf3f31;
+}
+
+footer {
+  font-size: 12px;
+  padding: 15px;
+}

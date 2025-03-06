@@ -1,0 +1,2 @@
+Pouvoir faire une extraction des participants.
+Faire une sheet taches, ID | CONCERNE | TACHE | CODE COULEUR (VERT,ORANGE,ROUGE) | ETAT (DUE, ACCOMPLIE) 
