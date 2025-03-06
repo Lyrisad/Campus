@@ -1663,6 +1663,30 @@ modal2-title{
   background-color: #cf3f31;
 }
 
+/* Styles for the importance cell */
+.importance-cell {
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  padding: 6px 10px;
+}
+
+/* When importance is 'vert' */
+.importance-vert {
+  background-color: #37ec5f;
+}
+
+/* When importance is 'orange' */
+.importance-orange {
+  background-color: #f49f42;
+}
+
+/* When importance is 'rouge' */
+.importance-rouge {
+  background-color: #e74c3c;
+}
+
+
 footer {
   font-size: 12px;
   padding: 15px;

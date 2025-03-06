@@ -546,6 +546,7 @@ function initAdminPanel() {
       console.log("Demande acceptée :", result);
       await fetchPendingRequests();
       await fetchFormations();
+      showNotification("Demande acceptée avec succès !");
     } catch (error) {
       console.error(
         "Erreur lors de l'acceptation de la demande :",
@@ -561,6 +562,7 @@ function initAdminPanel() {
       const result = await response.json();
       console.log("Demande refusée :", result);
       await fetchPendingRequests();
+      showNotification("Demande refusée avec succès !");
     } catch (error) {
       console.error("Erreur lors du refus de la demande :", error.message);
     }
@@ -1564,11 +1566,17 @@ async function fetchTasks() {
                 <td>${task.id}</td>
                 <td>${task.concerne}</td>
                 <td>${task.tache}</td>
-                <td>${task.importance}</td>
+                <td class="importance-cell importance-${task.importance.toLowerCase()}">${
+        task.importance
+      }</td>
                 <td>${task.etat}</td>
                 <td>
-                  <button class="btn-complete-task" data-id="${task.id}">Accompli</button>
-                  <button class="btn-delete-task" data-id="${task.id}">Supprimer</button>
+                  <button class="btn-complete-task" data-id="${
+                    task.id
+                  }">Accompli</button>
+                  <button class="btn-delete-task" data-id="${
+                    task.id
+                  }">Supprimer</button>
                 </td>
               </tr>`;
     });
@@ -1643,9 +1651,13 @@ async function fetchTasksHistory() {
                 <td>${task.id}</td>
                 <td>${task.concerne}</td>
                 <td>${task.tache}</td>
-                <td>${task.importance}</td>
+                <td class="importance-cell importance-${task.importance.toLowerCase()}">${
+        task.importance
+      }</td>
                 <td>${task.etat}</td>
-                <td><button class="btn-delete-task" data-id="${task.id}">Supprimer</button></td>
+                <td><button class="btn-delete-task" data-id="${
+                  task.id
+                }">Supprimer</button></td>
               </tr>`;
     });
     html += `</tbody></table>`;

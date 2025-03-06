@@ -1,480 +1,139 @@
-const _0x41d644 = _0x30bf;
-(function (_0x5bb1fb, _0x504bee) {
-  const _0x276a67 = _0x30bf,
-    _0x5325fc = _0x5bb1fb();
+const _0x36280d = _0x51c6;
+(function (_0x1f2dc2, _0x190e1b) {
+  const _0x51dff9 = _0x51c6,
+    _0x4c66d6 = _0x1f2dc2();
   while (!![]) {
     try {
-      const _0x1baf9a =
-        (parseInt(_0x276a67(0x124)) / 0x1) *
-          (parseInt(_0x276a67(0x21c)) / 0x2) +
-        (parseInt(_0x276a67(0x113)) / 0x3) *
-          (-parseInt(_0x276a67(0x101)) / 0x4) +
-        (parseInt(_0x276a67(0x227)) / 0x5) *
-          (parseInt(_0x276a67(0x1f6)) / 0x6) +
-        -parseInt(_0x276a67(0x108)) / 0x7 +
-        (-parseInt(_0x276a67(0x1e5)) / 0x8) *
-          (parseInt(_0x276a67(0x155)) / 0x9) +
-        (-parseInt(_0x276a67(0x1dc)) / 0xa) *
-          (parseInt(_0x276a67(0x1b9)) / 0xb) +
-        (parseInt(_0x276a67(0xef)) / 0xc) * (parseInt(_0x276a67(0x1e4)) / 0xd);
-      if (_0x1baf9a === _0x504bee) break;
-      else _0x5325fc["push"](_0x5325fc["shift"]());
-    } catch (_0x4195f1) {
-      _0x5325fc["push"](_0x5325fc["shift"]());
+      const _0x242770 =
+        -parseInt(_0x51dff9(0x91)) / 0x1 +
+        parseInt(_0x51dff9(0xed)) / 0x2 +
+        parseInt(_0x51dff9(0x19d)) / 0x3 +
+        (parseInt(_0x51dff9(0x93)) / 0x4) * (parseInt(_0x51dff9(0x112)) / 0x5) +
+        -parseInt(_0x51dff9(0x190)) / 0x6 +
+        (-parseInt(_0x51dff9(0x1a4)) / 0x7) *
+          (parseInt(_0x51dff9(0x15f)) / 0x8) +
+        parseInt(_0x51dff9(0x141)) / 0x9;
+      if (_0x242770 === _0x190e1b) break;
+      else _0x4c66d6["push"](_0x4c66d6["shift"]());
+    } catch (_0x3299e6) {
+      _0x4c66d6["push"](_0x4c66d6["shift"]());
     }
   }
-})(_0x41bc, 0x50ea4);
-function _0x41bc() {
-  const _0x48a430 = [
-    "trim",
-    "?action=readTasksHistory",
-    "\x0a\x20\x20\x20\x20\x20\x20\x20\x20<h3>Demandes\x20en\x20attente</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<table\x20id=\x22pendingRequestsTable\x22\x20border=\x221\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>ID</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Manager</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Email</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Téléphone</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Formation</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Date</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Message</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Employees</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Actions</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tbody>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tbody>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</table>\x0a\x20\x20\x20\x20\x20\x20",
-    "Formation\x20supprimée\x20avec\x20succès\x20!",
-    "map",
-    "115eQoWPU",
-    "manager",
-    "?action=readArchives",
-    "activeTasksContainer",
-    "data-formation-id",
-    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn-complete-task\x22\x20data-id=\x22",
-    "data-email",
-    ";\x22>",
-    "show",
-    "string",
-    "\x0a\x20\x20\x20\x20\x20\x20<table\x20class=\x22tasks-table\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>ID</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Concerne</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Tâche</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Importance</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>État</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Actions</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<tbody>\x0a\x20\x20\x20\x20",
-    "La\x20limite\x20de\x20participants\x20pour\x20une\x20formation\x20est\x20de\x2012,\x20merci\x20de\x20retirer\x20des\x20participants\x20ou\x20de\x20reserver\x20une\x20autre\x20date.",
-    "getMonth",
-    "archivesTable",
-    "concerne",
-    "adminPanel",
-    "24LPNWqi",
-    "importance",
-    "test",
-    "confirmNo2",
-    "#employeeTable\x20tbody\x20tr",
-    "https://script.google.com/macros/s/AKfycbyTxVIekVUyRSUafBPEzQGaK2goS1zqMi8qLoeESNhvk3XXbPSFyyjyJkuBWjWG5btvAA/exec",
-    ".btn-remove",
-    "prev,next\x20today",
-    "</div>",
-    "stringify",
-    "confirmMessage2",
-    "#formationsTable\x20tbody\x20tr",
-    "Modifier\x20une\x20Formation",
-    "modalDate",
-    "servicesSection",
-    "Erreur\x20lors\x20du\x20parsing\x20d\x27un\x20bloc\x20:",
-    "btnAddParticipant",
-    "<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>",
-    "1094812cKaCek",
-    "?action=add&id=",
-    "Demande\x20acceptée\x20:",
-    "\x20-\x20",
-    "notificationPopup",
-    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>",
-    "Formation\x20enregistrée\x20avec\x20succès\x20!",
-    "1721538PPlAIx",
-    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<td>",
-    "service_x5g594z",
-    "Êtes-vous\x20sûr\x20de\x20vouloir\x20supprimer\x20cette\x20formation\x20?",
-    "Une\x20erreur\x20s\x27est\x20produite,\x20veuillez\x20réessayer.",
-    "createElement",
-    "render",
-    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20class=\x22employeesList\x22>",
-    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td><button\x20class=\x22btn-delete-task\x22\x20data-id=\x22",
-    "getElementsByTagName",
-    "availableDates",
-    "3WGkdxD",
-    "add",
-    "confirmModal2",
-    "pendingRequestsTable",
-    ".btn-remove-participant",
-    "participants",
-    "\x22>Supprimer</button></td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>",
-    "Archiving\x20completed\x20successfully.",
-    "json",
-    "target",
-    "Erreur\x20lors\x20de\x20la\x20suppression\x20de\x20la\x20tâche:\x20",
-    "?action=update&id=",
-    "text",
-    ".back-button",
-    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22edit-formation\x22\x20data-id=\x22",
-    "taskConcerne",
-    "<option\x20value=\x22\x22>Toutes\x20les\x20dates</option>",
-    "1lDOTmH",
-    "item-",
-    ".btn-add",
-    "|||",
-    "Adresse\x20mail\x20copiée\x20(",
-    "<p>Aucune\x20tâche\x20accomplie.</p>",
-    "phone",
-    "confirmYes2",
-    "\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>",
-    "Effacement\x20en\x20cours,\x20veuillez\x20patienter..",
-    "set",
-    "selectedIndex",
-    "click",
-    "includes",
-    "Veuillez\x20patienter..\x20Ajout\x20de\x20tâche\x20en\x20cours.",
-    "find",
-    "tbody",
-    "#homePage",
-    ";\x20expires=",
-    "parse",
-    "fullBlock",
-    "none",
-    "toString",
-    "from",
-    "scrollY",
-    "matricule",
-    "\x22>Accompli</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn-delete-task\x22\x20data-id=\x22",
-    "getAttribute",
-    "toLowerCase",
-    "Ajouter\x20une\x20Formation",
-    "input",
-    "display",
-    "style",
-    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn-remove-participant\x22\x20data-index=\x22",
-    "newEntity",
-    "input[name=\x22entity[]\x22]",
-    "name",
-    "endsWith",
-    "data-date",
-    "Aucune\x20date\x20disponible",
-    "errorMessage",
-    "message",
-    "formationsData",
-    "taskForm",
-    "Erreur\x20lors\x20de\x20l\x27ajout\x20de\x20la\x20formation\x20:",
-    "extendedProps",
-    "scrollTo",
-    "&formation=",
-    ".menu-item",
-    "6093ieshEC",
-    "getBoundingClientRect",
-    "top",
-    "formation",
-    "btn-remove",
-    "cookie",
-    "formationName",
-    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>",
-    "\x22>Retirer</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20",
-    "Demande\x20ajoutée\x20:",
-    "Erreur\x20lors\x20du\x20parsing\x20des\x20participants:",
-    "&telephone=",
-    "&tache=",
-    "reset",
-    "\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>",
-    "flex",
-    "padStart",
-    ".contact-item",
-    "Suppression\x20:",
-    "hidden",
-    "appendChild",
-    "true",
-    "Participants\x20mis\x20à\x20jour\x20:",
-    "Voulez-vous\x20vraiment\x20effacer\x20l\x27historique\x20des\x20tâches\x20accomplies\x20?",
-    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<td\x20class=\x22data-formation\x22>",
-    "Aucun\x20message",
-    "modalTitle",
-    "querySelectorAll",
-    "btn-add",
-    "Erreur\x20lors\x20de\x20la\x20mise\x20à\x20jour\x20des\x20participants\x20:",
-    "replace",
-    "textContent",
-    "Erreur\x20lors\x20de\x20l\x27envoi\x20:",
-    "formationId",
-    "src",
-    "<span\x20class=\x22clickable-date\x22\x20data-formation-id=\x22",
-    "Tâche\x20ajoutée\x20avec\x20succès\x20!",
-    "body",
-    "values",
-    ".clickable-date",
-    "password",
-    "max",
-    "?action=delete&id=",
-    "?action=addTask&concerne=",
-    "clipboard",
-    "success",
-    "start",
-    "?action=clearTasksHistory",
-    "<p>Aucun\x20participant\x20pour\x20cette\x20date.</p>",
-    "Erreur\x20lors\x20de\x20l\x27affichage\x20d\x27un\x20bloc\x20:",
-    "adminAuth",
-    "Erreur\x20lors\x20de\x20la\x20mise\x20à\x20jour\x20de\x20l\x27état\x20de\x20la\x20tâche:\x20",
-    "fetchFormations",
-    "Tâche\x20supprimée\x20avec\x20succès\x20!",
-    "&participants=",
-    "CC1234!",
-    "length",
-    "value",
-    "#f49f42",
-    "submitForm",
-    "?action=deleteTask&id=",
-    "has",
-    "option",
-    "calendarModal",
-    "Erreur\x20lors\x20de\x20la\x20suppression\x20de\x20la\x20formation\x20:",
-    "&importance=",
-    "archiveDateFilter",
-    "change",
-    "&date=",
-    "<tr\x20class=\x22task-history-row\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>",
-    "btn-refuse",
-    "Erreur\x20lors\x20de\x20l\x27effacement\x20de\x20l\x27historique:\x20",
-    "adminLogin",
-    "?action=updateTaskState&id=",
-    "getTime",
-    "/12)</span>",
-    "slice",
-    "Archiving\x20error:",
-    "Erreur\x20lors\x20de\x20l\x27ajout\x20de\x20la\x20demande\x20:",
-    "<h3>Demandes\x20en\x20attente</h3><p>Aucune\x20demande\x20de\x20formation\x20en\x20attente..\x20:(</p>",
-    "tache",
-    "template_mhmywm3",
-    "&email=",
-    "dateSelect",
-    "isArray",
-    "DOMContentLoaded",
-    "preventDefault",
-    "then",
-    "join",
-    "telephone",
-    "Erreur\x20de\x20parsing\x20du\x20participant:",
-    "handleFormationsData",
-    "edit-formation",
-    "getElementById",
-    "CampusCandor",
-    "getFullYear",
-    "Formation\x20not\x20found\x20for\x20ID:\x20",
-    "Ajout\x20:",
-    "appointmentForm",
-    "taskDescription",
-    "44lzFuWH",
-    "\x0a\x20\x20\x20\x20<div\x20id=\x22addParticipantSection\x22\x20style=\x22margin-top:15px;\x22>\x0a\x20\x20\x20\x20\x20\x20<h4>Ajouter\x20un\x20participant</h4>\x0a\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22newMatricule\x22\x20placeholder=\x22Matricule\x22\x20style=\x22margin-right:5px;\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22newName\x22\x20placeholder=\x22Nom/Prénom\x22\x20style=\x22margin-right:5px;\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22newEntity\x22\x20placeholder=\x22Entité\x22\x20style=\x22margin-right:5px;\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20<button\x20id=\x22btnAddParticipant\x22>Ajouter\x20participant(e)</button>\x0a\x20\x20\x20\x20</div>\x0a\x20\x20",
-    "/12)",
-    "split",
-    "entity",
-    "fetchFormations\x20function\x20is\x20not\x20available.",
-    "?action=readPending",
-    "\x5c$&",
-    "?action=readTasks",
-    "Erreur\x20updateTaskState:",
-    "grey",
-    "newName",
-    "closest",
-    "currentFormationsData",
-    "Veuillez\x20patienter..\x20Suppression\x20de\x20tâche\x20en\x20cours.",
-    "&etat=",
-    "push",
-    "Mise\x20à\x20jour\x20:",
-    "Calendar",
-    "addEventListener",
-    "participantsModal",
-    "tasksHistoryContainer",
-    "remove",
-    "\x22>Supprimer</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>",
-    "formation-name-modal",
-    "Participants\x20pour\x20la\x20formation\x20:",
-    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>",
-    "calendar",
-    "Erreur\x20lors\x20de\x20la\x20récupération\x20des\x20tâches\x20actives.",
-    "log",
-    "Identifiant\x20ou\x20mot\x20de\x20passe\x20incorrect.",
-    "closeParticipantsModal",
-    "employees",
-    "<div>",
-    "data-id",
-    "16000WHDqql",
-    "getDate",
-    "\x0a\x20\x20\x20\x20\x20\x20\x20\x20</tbody>\x0a\x20\x20\x20\x20\x20\x20</table>\x0a\x20\x20\x20\x20",
-    "pendingRequests",
-    "archiveSearch",
-    "contains",
-    "?action=archive",
-    "function",
-    "3758729UxLafz",
-    "296veSlPm",
-    "</tbody></table>",
-    "\x22\x20style=\x22cursor:pointer;\x20margin-right:5px;\x20background-color:",
-    "closeCalendar",
-    "disabled",
-    "date",
-    "Erreur\x20lors\x20du\x20parsing\x20des\x20blocs\x20:",
-    "newMatricule",
-    "closeModal",
-    ".btn-complete-task",
-    "Participant\x20retiré\x20avec\x20succès\x20!",
-    "querySelector",
-    "&name=",
-    "formationsTable",
-    "Suppression\x20en\x20cours,\x20veuillez\x20patienter..",
-    "smooth",
-    "\x0a\x20\x20\x20\x20\x20\x20\x20\x20<td>",
-    "12510RwbRHo",
-    "concat",
-    "nameEmployee",
-    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn-accept\x22\x20data-id=\x22",
-    "indexOf",
-    "<tr><td\x20colspan=\x274\x27>Aucun\x20historique\x20disponible</td></tr>",
-    "email",
-    "btn-accept",
-    "input[name=\x22nameEmployee[]\x22]",
-    "removeEventListener",
-    "Erreur\x20lors\x20du\x20refus\x20de\x20la\x20demande\x20:",
-    "&manager=",
-    "<br>",
-    "logoutButton",
-    "classList",
-    "\x22>Refuser</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20",
-    "delete-formation",
-    "innerHeight",
-    "red",
-    "match",
-    "etat",
-    "error",
-    "\x22>Accepter</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn-refuse\x22\x20data-id=\x22",
-    "data-index",
-    "Error\x20calling\x20archive\x20action:",
-    "username",
-    "&dates=",
-    "Merci,\x20votre\x20demande\x20a\x20été\x20envoyée\x20avec\x20succès\x20!",
-    "Erreur\x20lors\x20de\x20la\x20copie\x20de\x20l\x27email\x20:\x20",
-    "Erreur\x20lors\x20de\x20la\x20mise\x20à\x20jour\x20de\x20la\x20formation\x20:",
-    "substring",
-    "sort",
-    "=;\x20Max-Age=-99999999;",
-    "innerHTML",
-    "&employees=",
-    "?action=deletePending&id=",
-    "menuAdmin",
-    "submit",
-    "512586XalLPJ",
-    "exec",
-    "formationSelect",
-    "#3333",
-    "#37ec5f",
-    "forEach",
-  ];
-  _0x41bc = function () {
-    return _0x48a430;
-  };
-  return _0x41bc();
+})(_0x3a9c, 0xc7981);
+const SCRIPT_URL = _0x36280d(0xbd);
+function parseDDMMYYYY(_0x1a1ade) {
+  const _0x4153b7 = _0x36280d,
+    _0x52e838 = _0x1a1ade[_0x4153b7(0x1a0)]("/");
+  return new Date(_0x52e838[0x2], _0x52e838[0x1] - 0x1, _0x52e838[0x0]);
 }
-const SCRIPT_URL = _0x41d644(0xf4);
-function parseDDMMYYYY(_0x9d9b04) {
-  const _0x223f65 = _0x41d644,
-    _0x1763e7 = _0x9d9b04[_0x223f65(0x1bc)]("/");
-  return new Date(_0x1763e7[0x2], _0x1763e7[0x1] - 0x1, _0x1763e7[0x0]);
-}
-function isSameDate(_0x129ff0, _0x2b0cc7) {
-  const _0x21cb99 = _0x41d644;
+function isSameDate(_0x21397c, _0xaa87bb) {
+  const _0x137c2d = _0x36280d;
   return (
-    _0x129ff0[_0x21cb99(0x1b4)]() === _0x2b0cc7["getFullYear"]() &&
-    _0x129ff0[_0x21cb99(0xeb)]() === _0x2b0cc7[_0x21cb99(0xeb)]() &&
-    _0x129ff0[_0x21cb99(0x1dd)]() === _0x2b0cc7[_0x21cb99(0x1dd)]()
+    _0x21397c[_0x137c2d(0x17a)]() === _0xaa87bb[_0x137c2d(0x17a)]() &&
+    _0x21397c[_0x137c2d(0xc0)]() === _0xaa87bb[_0x137c2d(0xc0)]() &&
+    _0x21397c["getDate"]() === _0xaa87bb[_0x137c2d(0xdd)]()
   );
 }
-function convertDDMMYYYYToFull(_0x6adbe3) {
-  const _0x50d0f1 = parseDDMMYYYY(_0x6adbe3);
-  return _0x50d0f1["toString"]();
+function convertDDMMYYYYToFull(_0x653d71) {
+  const _0x208364 = _0x36280d,
+    _0x315518 = parseDDMMYYYY(_0x653d71);
+  return _0x315518[_0x208364(0x174)]();
 }
-function formatDateToDDMMYYYY(_0x585468) {
-  const _0x23b86f = _0x41d644;
-  if (/^\d{2}\/\d{2}\/\d{4}$/[_0x23b86f(0xf1)](_0x585468)) return _0x585468;
-  if (_0x585468[_0x23b86f(0x1fa)]("T") !== -0x1) {
-    const _0x4cc860 = new Date(_0x585468);
-    if (isNaN(_0x4cc860)) return _0x585468;
-    const _0x20aefb = _0x4cc860[_0x23b86f(0x1dd)]()
-        [_0x23b86f(0x13a)]()
+function formatDateToDDMMYYYY(_0xfdd475) {
+  const _0x52bbfc = _0x36280d;
+  if (/^\d{2}\/\d{2}\/\d{4}$/[_0x52bbfc(0x134)](_0xfdd475)) return _0xfdd475;
+  if (_0xfdd475["indexOf"]("T") !== -0x1) {
+    const _0x5be6b1 = new Date(_0xfdd475);
+    if (isNaN(_0x5be6b1)) return _0xfdd475;
+    const _0x5d3aad = _0x5be6b1[_0x52bbfc(0xdd)]()
+        [_0x52bbfc(0x174)]()
+        [_0x52bbfc(0x191)](0x2, "0"),
+      _0x11fcfd = (_0x5be6b1["getMonth"]() + 0x1)
+        [_0x52bbfc(0x174)]()
         ["padStart"](0x2, "0"),
-      _0x5d2ef7 = (_0x4cc860[_0x23b86f(0xeb)]() + 0x1)
-        [_0x23b86f(0x13a)]()
-        [_0x23b86f(0x165)](0x2, "0"),
-      _0x545320 = _0x4cc860[_0x23b86f(0x1b4)]();
-    return _0x20aefb + "/" + _0x5d2ef7 + "/" + _0x545320;
+      _0x46236e = _0x5be6b1[_0x52bbfc(0x17a)]();
+    return _0x5d3aad + "/" + _0x11fcfd + "/" + _0x46236e;
   }
-  const _0x2b0abb = parseDDMMYYYY(_0x585468);
-  if (isNaN(_0x2b0abb)) return _0x585468;
-  const _0x13c3a6 = _0x2b0abb[_0x23b86f(0x1dd)]()
-      [_0x23b86f(0x13a)]()
-      [_0x23b86f(0x165)](0x2, "0"),
-    _0x34a87d = (_0x2b0abb["getMonth"]() + 0x1)
-      [_0x23b86f(0x13a)]()
-      [_0x23b86f(0x165)](0x2, "0"),
-    _0x143814 = _0x2b0abb["getFullYear"]();
-  return _0x13c3a6 + "/" + _0x34a87d + "/" + _0x143814;
+  const _0x1e9212 = parseDDMMYYYY(_0xfdd475);
+  if (isNaN(_0x1e9212)) return _0xfdd475;
+  const _0x278e95 = _0x1e9212[_0x52bbfc(0xdd)]()
+      [_0x52bbfc(0x174)]()
+      [_0x52bbfc(0x191)](0x2, "0"),
+    _0x488071 = (_0x1e9212["getMonth"]() + 0x1)
+      [_0x52bbfc(0x174)]()
+      [_0x52bbfc(0x191)](0x2, "0"),
+    _0x586010 = _0x1e9212["getFullYear"]();
+  return _0x278e95 + "/" + _0x488071 + "/" + _0x586010;
 }
-function convertDDMMYYYYToFull(_0x1ffd27) {
-  const _0x440361 = _0x41d644,
-    _0x3ab638 = _0x1ffd27[_0x440361(0x1bc)]("/");
-  if (_0x3ab638[_0x440361(0x18d)] !== 0x3) return _0x1ffd27;
-  const _0x3743ae = new Date(
-    _0x3ab638[0x2],
-    _0x3ab638[0x1] - 0x1,
-    _0x3ab638[0x0]
+function convertDDMMYYYYToFull(_0x26840c) {
+  const _0x4c4f82 = _0x36280d,
+    _0x395385 = _0x26840c[_0x4c4f82(0x1a0)]("/");
+  if (_0x395385[_0x4c4f82(0xae)] !== 0x3) return _0x26840c;
+  const _0x1de2ea = new Date(
+    _0x395385[0x2],
+    _0x395385[0x1] - 0x1,
+    _0x395385[0x0]
   );
-  return _0x3743ae[_0x440361(0x13a)]();
+  return _0x1de2ea[_0x4c4f82(0x174)]();
 }
-function getBlocks(_0x2f0a9f) {
-  const _0x376359 = _0x41d644,
-    _0x1797ff = /(\[.*?\])\s*\((.*?)\)/g;
-  let _0x341558 = [],
-    _0x2e997c;
-  while ((_0x2e997c = _0x1797ff["exec"](_0x2f0a9f)) !== null) {
-    _0x341558[_0x376359(0x1c9)]({
-      json: _0x2e997c[0x1],
-      date: _0x2e997c[0x2],
-      fullBlock: _0x2e997c[0x0],
+function getBlocks(_0x2abf85) {
+  const _0x33f4b0 = /(\[.*?\])\s*\((.*?)\)/g;
+  let _0x2afc13 = [],
+    _0x3a3160;
+  while ((_0x3a3160 = _0x33f4b0["exec"](_0x2abf85)) !== null) {
+    _0x2afc13["push"]({
+      json: _0x3a3160[0x1],
+      date: _0x3a3160[0x2],
+      fullBlock: _0x3a3160[0x0],
     });
   }
-  return _0x341558;
+  return _0x2afc13;
 }
-const contactItems = document[_0x41d644(0x170)](_0x41d644(0x166)),
-  notificationPopup = document[_0x41d644(0x1b2)](_0x41d644(0x105)),
-  showNotification = (_0x4b2d60) => {
-    const _0x3ddd7c = _0x41d644,
-      _0x2bba9e = notificationPopup["querySelector"]("p");
-    if (_0x2bba9e) _0x2bba9e["textContent"] = _0x4b2d60;
-    notificationPopup[_0x3ddd7c(0x204)]["add"](_0x3ddd7c(0x22f)),
-      notificationPopup[_0x3ddd7c(0x204)][_0x3ddd7c(0x1cf)](_0x3ddd7c(0x168)),
+const contactItems = document[_0x36280d(0x119)](_0x36280d(0x197)),
+  notificationPopup = document[_0x36280d(0x103)](_0x36280d(0x15d)),
+  showNotification = (_0x201a04) => {
+    const _0x58a6d8 = _0x36280d,
+      _0xa9b413 = notificationPopup["querySelector"]("p");
+    if (_0xa9b413) _0xa9b413["textContent"] = _0x201a04;
+    notificationPopup[_0x58a6d8(0x168)]["add"](_0x58a6d8(0x147)),
+      notificationPopup[_0x58a6d8(0x168)][_0x58a6d8(0x159)](_0x58a6d8(0xd4)),
       setTimeout(() => {
-        const _0x4b4ba6 = _0x3ddd7c;
-        notificationPopup["classList"][_0x4b4ba6(0x114)](_0x4b4ba6(0x168)),
-          notificationPopup["classList"][_0x4b4ba6(0x1cf)](_0x4b4ba6(0x22f));
+        const _0x56855c = _0x58a6d8;
+        notificationPopup[_0x56855c(0x168)][_0x56855c(0x13c)]("hidden"),
+          notificationPopup[_0x56855c(0x168)][_0x56855c(0x159)]("show");
       }, 0xbb8);
   };
-function getParticipantsCount(_0x210ced, _0x19f893) {
-  const _0x5513f2 = _0x41d644;
-  let _0xebdc97 = 0x0;
-  if (_0x210ced[_0x5513f2(0x118)]) {
-    const _0x31afb8 = /(\[.*?\])\s*\((.*?)\)/g;
-    let _0x174edc;
-    const _0x3a6fbd = parseDDMMYYYY(_0x19f893);
+function getParticipantsCount(_0x48c807, _0x536c10) {
+  const _0x4628ff = _0x36280d;
+  let _0x3e4a33 = 0x0;
+  if (_0x48c807[_0x4628ff(0xe0)]) {
+    const _0x4fdd10 = /(\[.*?\])\s*\((.*?)\)/g;
+    let _0x40a8a1;
+    const _0x139505 = parseDDMMYYYY(_0x536c10);
     while (
-      (_0x174edc = _0x31afb8[_0x5513f2(0x21d)](_0x210ced[_0x5513f2(0x118)])) !==
-      null
+      (_0x40a8a1 = _0x4fdd10["exec"](_0x48c807[_0x4628ff(0xe0)])) !== null
     ) {
       try {
-        let _0x268454 = new Date(_0x174edc[0x2]);
-        if (isSameDate(_0x268454, _0x3a6fbd)) {
-          const _0x1e6955 = JSON[_0x5513f2(0x137)](_0x174edc[0x1]);
-          let _0x4ddc39 = Array[_0x5513f2(0x1a9)](_0x1e6955)
-            ? _0x1e6955
-            : [_0x1e6955];
-          _0xebdc97 += _0x4ddc39["length"];
+        let _0x5c088e = new Date(_0x40a8a1[0x2]);
+        if (isSameDate(_0x5c088e, _0x139505)) {
+          const _0xaf9584 = JSON[_0x4628ff(0x126)](_0x40a8a1[0x1]);
+          let _0x5b8617 = Array[_0x4628ff(0xd5)](_0xaf9584)
+            ? _0xaf9584
+            : [_0xaf9584];
+          _0x3e4a33 += _0x5b8617[_0x4628ff(0xae)];
         }
-      } catch (_0x3cc4ca) {
-        console[_0x5513f2(0x20b)](_0x5513f2(0x15f), _0x3cc4ca);
+      } catch (_0xd5173b) {
+        console[_0x4628ff(0x123)](_0x4628ff(0x12c), _0xd5173b);
       }
     }
   }
-  return _0xebdc97;
+  return _0x3e4a33;
 }
-document[_0x41d644(0x1cc)](_0x41d644(0x1aa), () => {
-  const _0x3dc798 = initNotifications();
+document[_0x36280d(0x1a8)](_0x36280d(0x180), () => {
+  const _0x481fd7 = initNotifications();
   initNavigation(),
     initAdminPanel(),
-    initAppointmentForm(_0x3dc798),
+    initAppointmentForm(_0x481fd7),
     initEmployeeTable(),
     runArchiveProcess(),
     fetchArchives(),
@@ -482,1587 +141,1905 @@ document[_0x41d644(0x1cc)](_0x41d644(0x1aa), () => {
     fetchTasksHistory();
 });
 function initNavigation() {
-  const _0x2b65da = _0x41d644,
-    _0xd2324e = document[_0x2b65da(0x170)](".service-item"),
-    _0x1155b8 = document["querySelector"](_0x2b65da(0x135)),
-    _0x185503 = document[_0x2b65da(0x170)](".formation-container"),
-    _0x424c60 = document["getElementById"]("appointment-section"),
-    _0x176941 = document[_0x2b65da(0x1b2)](_0x2b65da(0x19d)),
-    _0x52038e = document[_0x2b65da(0x1b2)](_0x2b65da(0x21a)),
-    _0x6f19c8 = document[_0x2b65da(0x170)](_0x2b65da(0x120)),
-    _0x40932e = document[_0x2b65da(0x170)](_0x2b65da(0x154)),
-    _0xe7b890 = document[_0x2b65da(0x170)](".goToForm"),
-    _0xbf6c2c = document["getElementById"](_0x2b65da(0xee)),
-    _0x59f457 = () => {
-      const _0x4c231e = _0x2b65da;
-      _0x185503[_0x4c231e(0x221)]((_0xa4903f) => {
-        const _0x5517c7 = _0x4c231e;
-        _0xa4903f["style"][_0x5517c7(0x143)] = _0x5517c7(0x139);
+  const _0x4be615 = _0x36280d,
+    _0x158c75 = document["querySelectorAll"](_0x4be615(0x151)),
+    _0x475075 = document[_0x4be615(0x9f)](_0x4be615(0x19e)),
+    _0x49fe80 = document[_0x4be615(0x119)](_0x4be615(0xbc)),
+    _0x2f1ffe = document[_0x4be615(0x103)](_0x4be615(0x184)),
+    _0x4864ff = document[_0x4be615(0x103)]("adminLogin"),
+    _0x4533b9 = document[_0x4be615(0x103)](_0x4be615(0x9e)),
+    _0x4d4368 = document[_0x4be615(0x119)](".back-button"),
+    _0x1ad00e = document[_0x4be615(0x119)](_0x4be615(0x158)),
+    _0x25ef93 = document[_0x4be615(0x119)](_0x4be615(0x150)),
+    _0x5b181a = document[_0x4be615(0x103)](_0x4be615(0x14a)),
+    _0x558df1 = () => {
+      const _0xccb499 = _0x4be615;
+      _0x49fe80[_0xccb499(0x97)]((_0x3756d0) => {
+        const _0xbaff8b = _0xccb499;
+        _0x3756d0[_0xbaff8b(0xa4)]["display"] = _0xbaff8b(0x1b7);
       });
     };
-  _0xd2324e[_0x2b65da(0x221)]((_0x2dc5d7) => {
-    const _0x4ef7ad = _0x2b65da;
-    _0x2dc5d7[_0x4ef7ad(0x1cc)](_0x4ef7ad(0x130), () => {
-      const _0x44bf2b = _0x4ef7ad,
-        _0x52bf23 = _0x2dc5d7["id"][_0x44bf2b(0x173)](_0x44bf2b(0x125), ""),
-        _0x5894d5 = document[_0x44bf2b(0x1f0)]("#" + _0x52bf23);
-      _0x5894d5 &&
-        ((_0x176941[_0x44bf2b(0x144)][_0x44bf2b(0x143)] = _0x44bf2b(0x139)),
-        (_0x1155b8[_0x44bf2b(0x144)]["display"] = _0x44bf2b(0x139)),
-        (_0x424c60["style"][_0x44bf2b(0x143)] = _0x44bf2b(0x139)),
-        _0x59f457(),
-        (_0x5894d5["style"][_0x44bf2b(0x143)] = _0x44bf2b(0x164)));
+  _0x158c75[_0x4be615(0x97)]((_0x27b8ec) => {
+    const _0x489b97 = _0x4be615;
+    _0x27b8ec["addEventListener"](_0x489b97(0x16c), () => {
+      const _0x27603d = _0x489b97,
+        _0x5a1148 = _0x27b8ec["id"][_0x27603d(0x1b8)](_0x27603d(0xc6), ""),
+        _0x35359f = document[_0x27603d(0x9f)]("#" + _0x5a1148);
+      _0x35359f &&
+        ((_0x4864ff["style"][_0x27603d(0xce)] = _0x27603d(0x1b7)),
+        (_0x475075[_0x27603d(0xa4)]["display"] = _0x27603d(0x1b7)),
+        (_0x2f1ffe[_0x27603d(0xa4)][_0x27603d(0xce)] = _0x27603d(0x1b7)),
+        _0x558df1(),
+        (_0x35359f["style"][_0x27603d(0xce)] = _0x27603d(0xad)));
     });
   }),
-    _0x6f19c8[_0x2b65da(0x221)]((_0x5a9fa4) => {
-      const _0x4297a9 = _0x2b65da;
-      _0x5a9fa4[_0x4297a9(0x1cc)](_0x4297a9(0x130), () => {
-        const _0x9d7bbf = _0x4297a9;
-        (_0x1155b8[_0x9d7bbf(0x144)][_0x9d7bbf(0x143)] = _0x9d7bbf(0x164)),
-          (_0x176941[_0x9d7bbf(0x144)]["display"] = "none"),
-          (_0x424c60[_0x9d7bbf(0x144)][_0x9d7bbf(0x143)] = _0x9d7bbf(0x139)),
-          (_0xbf6c2c[_0x9d7bbf(0x144)][_0x9d7bbf(0x143)] = _0x9d7bbf(0x139)),
-          _0x59f457();
-        const _0x7749a2 = document[_0x9d7bbf(0x1b2)](_0x9d7bbf(0xfd));
-        if (_0x7749a2) {
-          const _0x547e7d =
-              _0x7749a2[_0x9d7bbf(0x156)]()[_0x9d7bbf(0x157)] +
-              window[_0x9d7bbf(0x13c)],
-            _0x5cb9cd = window[_0x9d7bbf(0x207)] / 0xa;
-          window["scrollTo"]({
-            top: _0x547e7d - _0x5cb9cd,
-            behavior: _0x9d7bbf(0x1f4),
+    _0x4d4368[_0x4be615(0x97)]((_0x535309) => {
+      const _0x510a22 = _0x4be615;
+      _0x535309[_0x510a22(0x1a8)](_0x510a22(0x16c), () => {
+        const _0x420d76 = _0x510a22;
+        (_0x475075[_0x420d76(0xa4)]["display"] = "flex"),
+          (_0x4864ff[_0x420d76(0xa4)][_0x420d76(0xce)] = "none"),
+          (_0x2f1ffe[_0x420d76(0xa4)][_0x420d76(0xce)] = _0x420d76(0x1b7)),
+          (_0x5b181a[_0x420d76(0xa4)][_0x420d76(0xce)] = _0x420d76(0x1b7)),
+          _0x558df1();
+        const _0x564d85 = document["getElementById"](_0x420d76(0x116));
+        if (_0x564d85) {
+          const _0xeafa76 =
+              _0x564d85["getBoundingClientRect"]()["top"] +
+              window[_0x420d76(0x157)],
+            _0x52d0d8 = window[_0x420d76(0xc9)] / 0xa;
+          window[_0x420d76(0x12f)]({
+            top: _0xeafa76 - _0x52d0d8,
+            behavior: _0x420d76(0x11f),
           });
         }
       });
     }),
-    _0x40932e["forEach"]((_0x438199) => {
-      const _0x2cac4a = _0x2b65da;
-      _0x438199[_0x2cac4a(0x1cc)](_0x2cac4a(0x130), (_0x56a2f7) => {
-        const _0x2993be = _0x2cac4a;
-        _0x56a2f7[_0x2993be(0x1ab)]();
-        const _0x186987 = _0x438199[_0x2993be(0x13f)]("data-target"),
-          _0x4cd745 = document["getElementById"](_0x186987);
-        _0x4cd745 &&
-          ((_0x1155b8[_0x2993be(0x144)][_0x2993be(0x143)] = _0x2993be(0x164)),
-          (_0x424c60[_0x2993be(0x144)]["display"] = _0x2993be(0x139)),
-          _0x59f457(),
-          (_0x176941[_0x2993be(0x144)][_0x2993be(0x143)] = "none"),
-          (_0xbf6c2c[_0x2993be(0x144)][_0x2993be(0x143)] = "none"),
+    _0x1ad00e["forEach"]((_0x44adda) => {
+      _0x44adda["addEventListener"]("click", (_0x4d8c8b) => {
+        const _0x2e14d2 = _0x51c6;
+        _0x4d8c8b[_0x2e14d2(0x95)]();
+        const _0x362b7b = _0x44adda[_0x2e14d2(0x12d)](_0x2e14d2(0x1b2)),
+          _0x5c2987 = document["getElementById"](_0x362b7b);
+        _0x5c2987 &&
+          ((_0x475075[_0x2e14d2(0xa4)][_0x2e14d2(0xce)] = _0x2e14d2(0xad)),
+          (_0x2f1ffe[_0x2e14d2(0xa4)][_0x2e14d2(0xce)] = "none"),
+          _0x558df1(),
+          (_0x4864ff[_0x2e14d2(0xa4)][_0x2e14d2(0xce)] = _0x2e14d2(0x1b7)),
+          (_0x5b181a[_0x2e14d2(0xa4)]["display"] = _0x2e14d2(0x1b7)),
           setTimeout(() => {
-            const _0x46e7da = _0x2993be,
-              _0x148451 =
-                _0x4cd745[_0x46e7da(0x156)]()[_0x46e7da(0x157)] +
-                window[_0x46e7da(0x13c)],
-              _0x4aeada = window[_0x46e7da(0x207)] / 0xa;
-            window[_0x46e7da(0x152)]({
-              top: _0x148451 - _0x4aeada,
-              behavior: _0x46e7da(0x1f4),
+            const _0x393cdc = _0x2e14d2,
+              _0x200ed8 =
+                _0x5c2987["getBoundingClientRect"]()[_0x393cdc(0x1ac)] +
+                window[_0x393cdc(0x157)],
+              _0x14f45b = window[_0x393cdc(0xc9)] / 0xa;
+            window[_0x393cdc(0x12f)]({
+              top: _0x200ed8 - _0x14f45b,
+              behavior: _0x393cdc(0x11f),
             });
           }, 0x64));
       });
     }),
-    _0xe7b890["forEach"]((_0xfdc6aa) => {
-      const _0x511d74 = _0x2b65da;
-      _0xfdc6aa[_0x511d74(0x1cc)](_0x511d74(0x130), () => {
-        const _0x95e542 = _0x511d74;
-        (_0x424c60[_0x95e542(0x144)][_0x95e542(0x143)] = _0x95e542(0x164)),
-          _0x59f457(),
-          (_0x1155b8[_0x95e542(0x144)][_0x95e542(0x143)] = _0x95e542(0x139)),
-          (_0x176941[_0x95e542(0x144)][_0x95e542(0x143)] = _0x95e542(0x139)),
-          (_0xbf6c2c[_0x95e542(0x144)][_0x95e542(0x143)] = _0x95e542(0x139));
+    _0x25ef93["forEach"]((_0x253759) => {
+      const _0x332c23 = _0x4be615;
+      _0x253759["addEventListener"](_0x332c23(0x16c), () => {
+        const _0xfcd10b = _0x332c23;
+        (_0x2f1ffe["style"]["display"] = _0xfcd10b(0xad)),
+          _0x558df1(),
+          (_0x475075["style"][_0xfcd10b(0xce)] = _0xfcd10b(0x1b7)),
+          (_0x4864ff["style"][_0xfcd10b(0xce)] = _0xfcd10b(0x1b7)),
+          (_0x5b181a[_0xfcd10b(0xa4)]["display"] = _0xfcd10b(0x1b7));
       });
     }),
-    _0x52038e[_0x2b65da(0x1cc)](_0x2b65da(0x130), () => {
-      const _0x37111a = _0x2b65da;
-      getCookie(_0x37111a(0x187)) === _0x37111a(0x16a)
-        ? ((document[_0x37111a(0x1b2)]("adminPanel")[_0x37111a(0x144)][
-            _0x37111a(0x143)
-          ] = _0x37111a(0x164)),
-          (document[_0x37111a(0x1b2)](_0x37111a(0x19d))[_0x37111a(0x144)][
-            _0x37111a(0x143)
-          ] = _0x37111a(0x139)))
-        : ((document["getElementById"](_0x37111a(0x19d))[_0x37111a(0x144)][
-            _0x37111a(0x143)
+    _0x4533b9[_0x4be615(0x1a8)](_0x4be615(0x16c), () => {
+      const _0x2b022a = _0x4be615;
+      getCookie(_0x2b022a(0x1b6)) === _0x2b022a(0x182)
+        ? ((document[_0x2b022a(0x103)](_0x2b022a(0x14a))["style"][
+            _0x2b022a(0xce)
           ] = "flex"),
-          (document[_0x37111a(0x1b2)](_0x37111a(0xee))["style"][
-            _0x37111a(0x143)
-          ] = _0x37111a(0x139))),
-        _0x59f457(),
-        (_0x1155b8[_0x37111a(0x144)][_0x37111a(0x143)] = _0x37111a(0x139)),
-        (_0x424c60[_0x37111a(0x144)][_0x37111a(0x143)] = "none");
+          (document[_0x2b022a(0x103)](_0x2b022a(0x164))[_0x2b022a(0xa4)][
+            _0x2b022a(0xce)
+          ] = _0x2b022a(0x1b7)))
+        : ((document["getElementById"]("adminLogin")[_0x2b022a(0xa4)][
+            "display"
+          ] = _0x2b022a(0xad)),
+          (document[_0x2b022a(0x103)](_0x2b022a(0x14a))[_0x2b022a(0xa4)][
+            _0x2b022a(0xce)
+          ] = "none")),
+        _0x558df1(),
+        (_0x475075[_0x2b022a(0xa4)]["display"] = _0x2b022a(0x1b7)),
+        (_0x2f1ffe[_0x2b022a(0xa4)][_0x2b022a(0xce)] = _0x2b022a(0x1b7));
     });
 }
 function initNotifications() {
-  const _0x498a37 = _0x41d644,
-    _0x269cad = document[_0x498a37(0x170)](".contact-item"),
-    _0x5271ec = document["getElementById"](_0x498a37(0x105)),
-    _0x3cc76c = (_0x48f7a1) => {
-      const _0x43b112 = _0x498a37,
-        _0x383841 = _0x5271ec[_0x43b112(0x1f0)]("p");
-      if (_0x383841) _0x383841[_0x43b112(0x174)] = _0x48f7a1;
-      _0x5271ec[_0x43b112(0x204)][_0x43b112(0x114)]("show"),
-        _0x5271ec[_0x43b112(0x204)][_0x43b112(0x1cf)]("hidden"),
+  const _0x595c5c = _0x36280d,
+    _0x6c5054 = document[_0x595c5c(0x119)](_0x595c5c(0x197)),
+    _0x3639f7 = document[_0x595c5c(0x103)](_0x595c5c(0x15d)),
+    _0x32e4a2 = (_0x300fa7) => {
+      const _0x368c12 = _0x595c5c,
+        _0xe9ffb1 = _0x3639f7["querySelector"]("p");
+      if (_0xe9ffb1) _0xe9ffb1[_0x368c12(0x87)] = _0x300fa7;
+      _0x3639f7["classList"]["add"]("show"),
+        _0x3639f7[_0x368c12(0x168)][_0x368c12(0x159)](_0x368c12(0xd4)),
         setTimeout(() => {
-          const _0x74e214 = _0x43b112;
-          _0x5271ec[_0x74e214(0x204)][_0x74e214(0x114)](_0x74e214(0x168)),
-            _0x5271ec[_0x74e214(0x204)]["remove"](_0x74e214(0x22f));
+          const _0x47a469 = _0x368c12;
+          _0x3639f7[_0x47a469(0x168)][_0x47a469(0x13c)](_0x47a469(0xd4)),
+            _0x3639f7[_0x47a469(0x168)][_0x47a469(0x159)](_0x47a469(0x147));
         }, 0xbb8);
     };
   return (
-    _0x269cad[_0x498a37(0x221)]((_0x8fbac0) => {
-      const _0x3973d7 = _0x498a37;
-      _0x8fbac0[_0x3973d7(0x1cc)](_0x3973d7(0x130), () => {
-        const _0x490729 = _0x3973d7,
-          _0x4f5dae = _0x8fbac0[_0x490729(0x13f)](_0x490729(0x22d));
-        _0x4f5dae &&
-          navigator[_0x490729(0x181)]
-            ["writeText"](_0x4f5dae)
-            [_0x490729(0x1ac)](() =>
-              _0x3cc76c(_0x490729(0x128) + _0x4f5dae + ")")
+    _0x6c5054[_0x595c5c(0x97)]((_0x25c772) => {
+      const _0x4dafb7 = _0x595c5c;
+      _0x25c772[_0x4dafb7(0x1a8)]("click", () => {
+        const _0x31e94c = _0x4dafb7,
+          _0x57f674 = _0x25c772[_0x31e94c(0x12d)](_0x31e94c(0x18d));
+        _0x57f674 &&
+          navigator[_0x31e94c(0xe3)]
+            ["writeText"](_0x57f674)
+            [_0x31e94c(0x140)](() =>
+              _0x32e4a2(_0x31e94c(0x1b1) + _0x57f674 + ")")
             )
-            ["catch"]((_0x3ba88d) =>
-              console[_0x490729(0x20b)](_0x490729(0x212), _0x3ba88d)
+            [_0x31e94c(0xef)]((_0x20a9ec) =>
+              console["error"](_0x31e94c(0xbf), _0x20a9ec)
             );
       });
     }),
-    _0x3cc76c
+    _0x32e4a2
   );
 }
 function initAdminPanel() {
-  const _0x22cfce = _0x41d644,
-    _0x1fdd4e = document[_0x22cfce(0x1b2)]("adminPanel"),
-    _0x4ef06a = document[_0x22cfce(0x1b2)](_0x22cfce(0x19d)),
-    _0x50887f = document["getElementById"](_0x22cfce(0x20f)),
-    _0x4c0efb = document[_0x22cfce(0x1b2)](_0x22cfce(0x17d)),
-    _0x55ab52 = document[_0x22cfce(0x1b2)]("submitLogin"),
-    _0x127e82 = document[_0x22cfce(0x1b2)](_0x22cfce(0x14c)),
-    _0x2f3165 = document["getElementById"](_0x22cfce(0x203)),
-    _0x3e2a74 = document[_0x22cfce(0x1b2)]("addFormationButton"),
-    _0x25d4d6 = document["getElementById"](_0x22cfce(0x1f2))["querySelector"](
-      _0x22cfce(0x134)
+  const _0x5564fb = _0x36280d,
+    _0x262fbb = document["getElementById"](_0x5564fb(0x14a)),
+    _0x21eabe = document[_0x5564fb(0x103)](_0x5564fb(0x164)),
+    _0x35397e = document["getElementById"]("username"),
+    _0x1426f0 = document["getElementById"]("password"),
+    _0x1fc390 = document[_0x5564fb(0x103)]("submitLogin"),
+    _0x895dd5 = document["getElementById"]("errorMessage"),
+    _0x50b232 = document[_0x5564fb(0x103)](_0x5564fb(0x176)),
+    _0x246bd1 = document[_0x5564fb(0x103)](_0x5564fb(0xb3)),
+    _0x94b758 = document[_0x5564fb(0x103)](_0x5564fb(0xc2))["querySelector"](
+      _0x5564fb(0x11a)
     ),
-    _0x266d17 = document[_0x22cfce(0x1b2)]("formationModal"),
-    _0x54c0a5 = document[_0x22cfce(0x1b2)](_0x22cfce(0x16f)),
-    _0x4c3716 = document[_0x22cfce(0x1b2)](_0x22cfce(0x15b)),
-    _0x46520c = document[_0x22cfce(0x1b2)]("formationDates"),
-    _0xe976d4 = document["getElementById"](_0x22cfce(0x1ed)),
-    _0x5798d4 = _0x22cfce(0x1b3),
-    _0x4f1f70 = _0x22cfce(0x18c);
-  let _0x57a5b1 = [],
-    _0x513c09 = [];
-  const _0xda1155 = (_0x5a7b1c) => {
-      const _0x4c0b88 = _0x22cfce;
-      (_0x127e82[_0x4c0b88(0x174)] = _0x5a7b1c),
-        (_0x127e82[_0x4c0b88(0x144)]["color"] = _0x4c0b88(0x208));
+    _0x487d40 = document["getElementById"](_0x5564fb(0x130)),
+    _0x4c6425 = document[_0x5564fb(0x103)](_0x5564fb(0xd0)),
+    _0x32efcb = document["getElementById"](_0x5564fb(0x171)),
+    _0x1cb753 = document[_0x5564fb(0x103)](_0x5564fb(0x10a)),
+    _0x3d7870 = document[_0x5564fb(0x103)]("closeModal"),
+    _0x51b6ac = "CampusCandor",
+    _0x4824a9 = _0x5564fb(0x163);
+  let _0x2325fc = [],
+    _0x50fe90 = [];
+  const _0x39ae89 = (_0x48b685) => {
+      const _0xb02008 = _0x5564fb;
+      (_0x895dd5[_0xb02008(0x87)] = _0x48b685),
+        (_0x895dd5[_0xb02008(0xa4)]["color"] = "red");
     },
-    _0x47bfaa = () => {
-      const _0x222443 = _0x22cfce;
-      _0x127e82[_0x222443(0x174)] = "";
+    _0x55deaf = () => {
+      const _0x176ffd = _0x5564fb;
+      _0x895dd5[_0x176ffd(0x87)] = "";
     },
-    _0x5b3f16 = async () => {
-      const _0x6d3e5a = _0x22cfce;
+    _0x30a2cc = async () => {
+      const _0x3accb7 = _0x5564fb;
       try {
-        const _0x354e96 = await fetch(SCRIPT_URL + "?action=read"),
-          _0xac9312 = await _0x354e96[_0x6d3e5a(0x11b)]();
-        if (!_0xac9312 || !_0xac9312[_0x6d3e5a(0x17b)]) {
-          (_0x57a5b1 = []), _0x23160f();
+        const _0x2f898e = await fetch(SCRIPT_URL + _0x3accb7(0x1ba)),
+          _0x3106e4 = await _0x2f898e[_0x3accb7(0xfd)]();
+        if (!_0x3106e4 || !_0x3106e4[_0x3accb7(0x178)]) {
+          (_0x2325fc = []), _0x418532();
           return;
         }
-        (_0x57a5b1 = _0xac9312["values"]["map"]((_0x34d4ab) => ({
-          id: parseInt(_0x34d4ab["id"]),
-          name: _0x34d4ab["name"],
-          availableDates: _0x34d4ab["availableDates"],
-          participants: _0x34d4ab[_0x6d3e5a(0x118)],
-        }))),
-          (window[_0x6d3e5a(0x14e)] = _0x57a5b1),
-          _0x23160f();
-      } catch (_0x22aa67) {
-        console[_0x6d3e5a(0x20b)](
+        (_0x2325fc = _0x3106e4[_0x3accb7(0x178)][_0x3accb7(0x9d)](
+          (_0x4c1369) => ({
+            id: parseInt(_0x4c1369["id"]),
+            name: _0x4c1369[_0x3accb7(0x1a1)],
+            availableDates: _0x4c1369[_0x3accb7(0xb8)],
+            participants: _0x4c1369[_0x3accb7(0xe0)],
+          })
+        )),
+          (window[_0x3accb7(0x188)] = _0x2325fc),
+          _0x418532();
+      } catch (_0x10790c) {
+        console[_0x3accb7(0x123)](
           "Erreur\x20lors\x20de\x20la\x20récupération\x20des\x20formations\x20:",
-          _0x22aa67[_0x6d3e5a(0x14d)]
+          _0x10790c["message"]
         );
       }
     };
-  window["fetchFormations"] = _0x5b3f16;
-  const _0x57647e = async (_0x5f2a1, _0x2bb4f6) => {
-      const _0xfdc6af = _0x22cfce,
-        _0x36c58b =
-          _0x57a5b1["length"] > 0x0
-            ? Math[_0xfdc6af(0x17e)](
-                ..._0x57a5b1[_0xfdc6af(0x226)]((_0x578a38) => _0x578a38["id"])
+  window["fetchFormations"] = _0x30a2cc;
+  const _0x174101 = async (_0x164a97, _0x533a61) => {
+      const _0x1e60fc = _0x5564fb,
+        _0x317bc3 =
+          _0x2325fc[_0x1e60fc(0xae)] > 0x0
+            ? Math[_0x1e60fc(0x142)](
+                ..._0x2325fc[_0x1e60fc(0x9d)]((_0x35c66d) => _0x35c66d["id"])
               ) + 0x1
             : 0x1;
       try {
-        const _0x382341 =
+        const _0x2be3e3 =
             SCRIPT_URL +
-            _0xfdc6af(0x102) +
-            _0x36c58b +
-            _0xfdc6af(0x1f1) +
-            encodeURIComponent(_0x5f2a1) +
-            _0xfdc6af(0x210) +
-            encodeURIComponent(_0x2bb4f6[_0xfdc6af(0x1ad)](",")),
-          _0x329f04 = await fetch(_0x382341),
-          _0x193dd5 = await _0x329f04["json"]();
-        console[_0xfdc6af(0x1d6)](_0xfdc6af(0x1b6), _0x193dd5),
-          await _0x5b3f16();
-      } catch (_0x239726) {
-        console[_0xfdc6af(0x20b)](
-          _0xfdc6af(0x150),
-          _0x239726[_0xfdc6af(0x14d)]
-        );
-      }
-    },
-    _0x418433 = async (_0x54f30e, _0x5b133a, _0x19900b) => {
-      const _0x553309 = _0x22cfce;
-      try {
-        const _0x2c99ac =
-            SCRIPT_URL +
-            _0x553309(0x11e) +
-            _0x54f30e +
+            _0x1e60fc(0xf4) +
+            _0x317bc3 +
             "&name=" +
-            encodeURIComponent(_0x5b133a) +
-            _0x553309(0x210) +
-            encodeURIComponent(_0x19900b["join"](",")),
-          _0x493f68 = await fetch(_0x2c99ac),
-          _0x4eeb35 = await _0x493f68["json"]();
-        console[_0x553309(0x1d6)](_0x553309(0x1ca), _0x4eeb35),
-          await _0x5b3f16();
-      } catch (_0x40d192) {
-        console[_0x553309(0x20b)](
-          _0x553309(0x213),
-          _0x40d192[_0x553309(0x14d)]
+            encodeURIComponent(_0x164a97) +
+            "&dates=" +
+            encodeURIComponent(_0x533a61[_0x1e60fc(0x8a)](",")),
+          _0x7573a8 = await fetch(_0x2be3e3),
+          _0x3aff6c = await _0x7573a8[_0x1e60fc(0xfd)]();
+        console["log"]("Ajout\x20:", _0x3aff6c), await _0x30a2cc();
+      } catch (_0x57528b) {
+        console["error"](
+          "Erreur\x20lors\x20de\x20l\x27ajout\x20de\x20la\x20formation\x20:",
+          _0x57528b[_0x1e60fc(0xf9)]
         );
       }
     },
-    _0x6e2768 = async (_0x1b90e6) => {
-      const _0x375e1e = _0x22cfce;
+    _0x323e44 = async (_0x329678, _0xaab575, _0x12be44) => {
+      const _0x53ec25 = _0x5564fb;
       try {
-        const _0x131ed7 = SCRIPT_URL + _0x375e1e(0x17f) + _0x1b90e6,
-          _0x3a9e86 = await fetch(_0x131ed7),
-          _0x19d48a = await _0x3a9e86[_0x375e1e(0x11b)]();
-        console["log"](_0x375e1e(0x167), _0x19d48a), await _0x5b3f16();
-      } catch (_0x5e2f3a) {
-        console[_0x375e1e(0x20b)](
-          _0x375e1e(0x195),
-          _0x5e2f3a[_0x375e1e(0x14d)]
+        const _0x3c561d =
+            SCRIPT_URL +
+            _0x53ec25(0x139) +
+            _0x329678 +
+            _0x53ec25(0xd6) +
+            encodeURIComponent(_0xaab575) +
+            _0x53ec25(0x146) +
+            encodeURIComponent(_0x12be44["join"](",")),
+          _0x1ac031 = await fetch(_0x3c561d),
+          _0x3910e1 = await _0x1ac031[_0x53ec25(0xfd)]();
+        console[_0x53ec25(0xe4)](_0x53ec25(0x10d), _0x3910e1),
+          await _0x30a2cc();
+      } catch (_0x147455) {
+        console[_0x53ec25(0x123)](
+          "Erreur\x20lors\x20de\x20la\x20mise\x20à\x20jour\x20de\x20la\x20formation\x20:",
+          _0x147455[_0x53ec25(0xf9)]
         );
       }
     },
-    _0x23160f = () => {
-      const _0x3f32dd = _0x22cfce;
-      (_0x25d4d6[_0x3f32dd(0x217)] = ""),
-        _0x57a5b1[_0x3f32dd(0x221)]((_0x311c66) => {
-          const _0x3b9ce8 = _0x3f32dd,
-            _0xa82db1 = document[_0x3b9ce8(0x10d)]("tr");
-          (_0xa82db1[_0x3b9ce8(0x217)] =
-            "\x0a\x20\x20\x20\x20\x20\x20\x20\x20<td>" +
-            _0x311c66["id"] +
-            _0x3b9ce8(0x16d) +
-            _0x311c66[_0x3b9ce8(0x148)] +
+    _0xdbd446 = async (_0x5ba23c) => {
+      const _0x10fe8e = _0x5564fb;
+      try {
+        const _0x200410 = SCRIPT_URL + "?action=delete&id=" + _0x5ba23c,
+          _0x4dadc8 = await fetch(_0x200410),
+          _0x175717 = await _0x4dadc8["json"]();
+        console["log"](_0x10fe8e(0xb0), _0x175717), await _0x30a2cc();
+      } catch (_0x118487) {
+        console[_0x10fe8e(0x123)](_0x10fe8e(0x131), _0x118487[_0x10fe8e(0xf9)]);
+      }
+    },
+    _0x418532 = () => {
+      const _0x3b0479 = _0x5564fb;
+      (_0x94b758["innerHTML"] = ""),
+        _0x2325fc[_0x3b0479(0x97)]((_0x479d63) => {
+          const _0x3dd8c3 = _0x3b0479,
+            _0x545ba9 = document[_0x3dd8c3(0xc1)]("tr");
+          (_0x545ba9[_0x3dd8c3(0xb7)] =
+            _0x3dd8c3(0x129) +
+            _0x479d63["id"] +
+            _0x3dd8c3(0x162) +
+            _0x479d63["name"] +
             "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<td>" +
-            (_0x311c66[_0x3b9ce8(0x112)]
-              ? _0x4ed2a6(_0x311c66[_0x3b9ce8(0x112)], _0x311c66)
+            (_0x479d63[_0x3dd8c3(0xb8)]
+              ? _0x52e048(_0x479d63[_0x3dd8c3(0xb8)], _0x479d63)
               : "") +
-            _0x3b9ce8(0x121) +
-            _0x311c66["id"] +
-            "\x22>Modifier</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22delete-formation\x22\x20data-id=\x22" +
-            _0x311c66["id"] +
-            "\x22>Supprimer</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</td>\x0a\x20\x20\x20\x20\x20\x20"),
-            _0x25d4d6[_0x3b9ce8(0x169)](_0xa82db1);
+            "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22edit-formation\x22\x20data-id=\x22" +
+            _0x479d63["id"] +
+            _0x3dd8c3(0xca) +
+            _0x479d63["id"] +
+            _0x3dd8c3(0xd3)),
+            _0x94b758[_0x3dd8c3(0x172)](_0x545ba9);
         }),
-        document[_0x3f32dd(0x170)](_0x3f32dd(0x17c))[_0x3f32dd(0x221)](
-          (_0x33a8d5) => {
-            const _0x43f9cd = _0x3f32dd;
-            _0x33a8d5[_0x43f9cd(0x1cc)](_0x43f9cd(0x130), () => {
-              const _0x1ea86b = _0x43f9cd,
-                _0x18ecea = _0x33a8d5["getAttribute"](_0x1ea86b(0x22b)),
-                _0x11af86 = _0x33a8d5[_0x1ea86b(0x13f)](_0x1ea86b(0x14a)),
-                _0x101a6d = _0x57a5b1[_0x1ea86b(0x133)](
-                  (_0x3616a3) => _0x3616a3["id"] === parseInt(_0x18ecea)
-                );
-              _0x101a6d && showParticipantsModal(_0x101a6d, _0x11af86);
-            });
-          }
-        );
+        document[_0x3b0479(0x119)](_0x3b0479(0x16b))["forEach"]((_0x56b58b) => {
+          const _0xf0e294 = _0x3b0479;
+          _0x56b58b[_0xf0e294(0x1a8)](_0xf0e294(0x16c), () => {
+            const _0x20d6ee = _0xf0e294,
+              _0x49265d = _0x56b58b["getAttribute"](_0x20d6ee(0x175)),
+              _0x555a67 = _0x56b58b[_0x20d6ee(0x12d)](_0x20d6ee(0x125)),
+              _0xb1385a = _0x2325fc["find"](
+                (_0xc49920) => _0xc49920["id"] === parseInt(_0x49265d)
+              );
+            _0xb1385a && showParticipantsModal(_0xb1385a, _0x555a67);
+          });
+        });
     };
-  window[_0x22cfce(0x14e)] = _0x57a5b1;
-  function _0x4ed2a6(_0x398d0f, _0x100ecb) {
-    const _0x161989 = _0x22cfce;
-    if (!_0x398d0f) return "";
-    let _0x1ec354 = _0x398d0f[_0x161989(0x1bc)](",");
-    return _0x1ec354[_0x161989(0x226)]((_0x271111) => {
-      const _0x245069 = _0x161989;
-      let _0x4fea02 = _0x271111[_0x245069(0x222)](),
-        _0xabe26e = formatDateToDDMMYYYY(_0x4fea02),
-        _0x4c9b19 = _0x100ecb
-          ? getParticipantsCount(_0x100ecb, _0xabe26e)
+  window[_0x5564fb(0x188)] = _0x2325fc;
+  function _0x52e048(_0x436c68, _0x4296f8) {
+    const _0x2e1a52 = _0x5564fb;
+    if (!_0x436c68) return "";
+    let _0x5c0d6a = _0x436c68[_0x2e1a52(0x1a0)](",");
+    return _0x5c0d6a[_0x2e1a52(0x9d)]((_0x103834) => {
+      const _0x248ceb = _0x2e1a52;
+      let _0x478938 = _0x103834[_0x248ceb(0x15a)](),
+        _0x35a6db = formatDateToDDMMYYYY(_0x478938),
+        _0x25c974 = _0x4296f8
+          ? getParticipantsCount(_0x4296f8, _0x35a6db)
           : 0x0,
-        _0x1821ac = _0x245069(0x21f);
-      if (_0x4c9b19 > 0x0 && _0x4c9b19 < 0x6) _0x1821ac = "#FFA500";
-      else _0x4c9b19 >= 0x6 && (_0x1821ac = _0x245069(0x220));
+        _0x3abed9 = "#3333";
+      if (_0x25c974 > 0x0 && _0x25c974 < 0x6) _0x3abed9 = "#FFA500";
+      else _0x25c974 >= 0x6 && (_0x3abed9 = _0x248ceb(0x9b));
       return (
-        _0x245069(0x178) +
-        _0x100ecb["id"] +
-        "\x22\x20data-date=\x22" +
-        _0xabe26e +
-        _0x245069(0x1e7) +
-        _0x1821ac +
-        _0x245069(0x22e) +
-        _0xabe26e +
+        _0x248ceb(0x10e) +
+        _0x4296f8["id"] +
+        _0x248ceb(0xb2) +
+        _0x35a6db +
+        _0x248ceb(0xa8) +
+        _0x3abed9 +
+        _0x248ceb(0x179) +
+        _0x35a6db +
         "\x20(" +
-        _0x4c9b19 +
-        _0x245069(0x1a0)
+        _0x25c974 +
+        _0x248ceb(0xe5)
       );
     })["join"]("\x20");
   }
-  const _0x49125 = async () => {
-      const _0x462589 = _0x22cfce;
+  const _0x10d8f7 = async () => {
+      const _0x2e2e86 = _0x5564fb;
       try {
-        const _0x5c7611 = await fetch(SCRIPT_URL + _0x462589(0x1bf)),
-          _0x5e538c = await _0x5c7611[_0x462589(0x11b)]();
-        if (!_0x5e538c || !_0x5e538c[_0x462589(0x17b)]) {
-          (_0x513c09 = []), _0x123bc9();
+        const _0x590938 = await fetch(SCRIPT_URL + _0x2e2e86(0x101)),
+          _0x117a60 = await _0x590938[_0x2e2e86(0xfd)]();
+        if (!_0x117a60 || !_0x117a60[_0x2e2e86(0x178)]) {
+          (_0x50fe90 = []), _0x58d6ef();
           return;
         }
-        (_0x513c09 = _0x5e538c[_0x462589(0x17b)]), _0x123bc9();
-      } catch (_0x5ea5df) {
-        console[_0x462589(0x20b)](
-          "Erreur\x20lors\x20de\x20la\x20récupération\x20des\x20demandes\x20en\x20attente\x20:",
-          _0x5ea5df[_0x462589(0x14d)]
-        );
+        (_0x50fe90 = _0x117a60[_0x2e2e86(0x178)]), _0x58d6ef();
+      } catch (_0x29461f) {
+        console[_0x2e2e86(0x123)](_0x2e2e86(0x89), _0x29461f[_0x2e2e86(0xf9)]);
       }
     },
-    _0x123bc9 = () => {
-      const _0x260814 = _0x22cfce,
-        _0x5158db = document[_0x260814(0x1b2)](_0x260814(0x1df));
-      if (!_0x513c09 || _0x513c09[_0x260814(0x18d)] === 0x0)
-        _0x5158db[_0x260814(0x217)] = _0x260814(0x1a4);
+    _0x58d6ef = () => {
+      const _0x3d6cf2 = _0x5564fb,
+        _0x5abf7b = document["getElementById"](_0x3d6cf2(0x192));
+      if (!_0x50fe90 || _0x50fe90["length"] === 0x0)
+        _0x5abf7b[_0x3d6cf2(0xb7)] = _0x3d6cf2(0x11c);
       else {
-        _0x5158db[_0x260814(0x217)] = _0x260814(0x224);
-        const _0x5704a4 = document[_0x260814(0x1b2)]("pendingRequestsTable"),
-          _0x23670f = _0x5704a4["querySelector"](_0x260814(0x134));
-        _0x513c09[_0x260814(0x221)]((_0x14b58d) => {
-          const _0x4363b5 = _0x260814;
-          let _0x5a9c23 = _0x14b58d[_0x4363b5(0x1ea)];
-          if (_0x14b58d[_0x4363b5(0x1ea)]) {
-            let _0x6ce647 = new Date(_0x14b58d["date"]);
-            if (!isNaN(_0x6ce647)) {
-              let _0x2f7889 = _0x6ce647[_0x4363b5(0x1dd)]()
+        _0x5abf7b[_0x3d6cf2(0xb7)] = _0x3d6cf2(0x17d);
+        const _0x36d683 = document["getElementById"](_0x3d6cf2(0x137)),
+          _0x4232f1 = _0x36d683[_0x3d6cf2(0x9f)](_0x3d6cf2(0x11a));
+        _0x50fe90[_0x3d6cf2(0x97)]((_0xd2def9) => {
+          const _0x34bb3b = _0x3d6cf2;
+          let _0x7e1c2a = _0xd2def9["date"];
+          if (_0xd2def9["date"]) {
+            let _0x260809 = new Date(_0xd2def9[_0x34bb3b(0x94)]);
+            if (!isNaN(_0x260809)) {
+              let _0x5bdb8f = _0x260809[_0x34bb3b(0xdd)]()
+                  [_0x34bb3b(0x174)]()
+                  [_0x34bb3b(0x191)](0x2, "0"),
+                _0x5f34e7 = (_0x260809[_0x34bb3b(0xc0)]() + 0x1)
                   ["toString"]()
-                  [_0x4363b5(0x165)](0x2, "0"),
-                _0x4051d7 = (_0x6ce647[_0x4363b5(0xeb)]() + 0x1)
-                  [_0x4363b5(0x13a)]()
-                  [_0x4363b5(0x165)](0x2, "0"),
-                _0x276c20 = _0x6ce647[_0x4363b5(0x1b4)]();
-              _0x5a9c23 = _0x2f7889 + "/" + _0x4051d7 + "/" + _0x276c20;
+                  ["padStart"](0x2, "0"),
+                _0x1cb59a = _0x260809[_0x34bb3b(0x17a)]();
+              _0x7e1c2a = _0x5bdb8f + "/" + _0x5f34e7 + "/" + _0x1cb59a;
             }
           }
-          let _0x21261d = "";
+          let _0x203295 = "";
           try {
-            const _0x3b8d8f = JSON[_0x4363b5(0x137)](_0x14b58d["employees"]);
-            Array["isArray"](_0x3b8d8f)
-              ? (_0x21261d = _0x3b8d8f[_0x4363b5(0x226)](
-                  (_0x182cb7) =>
-                    _0x182cb7[_0x4363b5(0x13d)] +
-                    _0x4363b5(0x104) +
-                    _0x182cb7["nameEmployee"] +
+            const _0x31ea60 = JSON[_0x34bb3b(0x126)](
+              _0xd2def9[_0x34bb3b(0xf5)]
+            );
+            Array[_0x34bb3b(0xd5)](_0x31ea60)
+              ? (_0x203295 = _0x31ea60[_0x34bb3b(0x9d)](
+                  (_0x18340d) =>
+                    _0x18340d[_0x34bb3b(0xaa)] +
+                    "\x20-\x20" +
+                    _0x18340d[_0x34bb3b(0x195)] +
                     "\x20(" +
-                    _0x182cb7[_0x4363b5(0x1bd)] +
+                    _0x18340d["entity"] +
                     ")"
-                )[_0x4363b5(0x1ad)](_0x4363b5(0x202)))
-              : (_0x21261d = _0x14b58d[_0x4363b5(0x1d9)]);
-          } catch (_0x1aefa9) {
-            _0x21261d = _0x14b58d["employees"];
+                )["join"](_0x34bb3b(0x18a)))
+              : (_0x203295 = _0xd2def9[_0x34bb3b(0xf5)]);
+          } catch (_0x384222) {
+            _0x203295 = _0xd2def9[_0x34bb3b(0xf5)];
           }
-          const _0x3dfdf4 = document[_0x4363b5(0x10d)]("tr");
-          (_0x3dfdf4["innerHTML"] =
-            _0x4363b5(0x12c) +
-            _0x14b58d["id"] +
+          const _0x43a567 = document[_0x34bb3b(0xc1)]("tr");
+          (_0x43a567[_0x34bb3b(0xb7)] =
+            "\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>" +
+            _0xd2def9["id"] +
+            _0x34bb3b(0x10b) +
+            _0xd2def9[_0x34bb3b(0x17b)] +
+            _0x34bb3b(0x10b) +
+            _0xd2def9[_0x34bb3b(0x128)] +
+            _0x34bb3b(0x10b) +
+            _0xd2def9[_0x34bb3b(0x106)] +
+            _0x34bb3b(0x10b) +
+            _0xd2def9[_0x34bb3b(0x115)] +
+            _0x34bb3b(0x10b) +
+            _0x7e1c2a +
             "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>" +
-            _0x14b58d[_0x4363b5(0x228)] +
-            "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>" +
-            _0x14b58d[_0x4363b5(0x1fc)] +
-            "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>" +
-            _0x14b58d[_0x4363b5(0x1ae)] +
-            _0x4363b5(0x15c) +
-            _0x14b58d[_0x4363b5(0x158)] +
-            "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>" +
-            _0x5a9c23 +
-            "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>" +
-            _0x14b58d[_0x4363b5(0x14d)] +
-            _0x4363b5(0x10f) +
-            _0x21261d +
-            _0x4363b5(0x1f9) +
-            _0x14b58d["id"] +
-            _0x4363b5(0x20c) +
-            _0x14b58d["id"] +
-            _0x4363b5(0x205)),
-            _0x23670f[_0x4363b5(0x169)](_0x3dfdf4);
+            _0xd2def9[_0x34bb3b(0xf9)] +
+            "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20class=\x22employeesList\x22>" +
+            _0x203295 +
+            _0x34bb3b(0x104) +
+            _0xd2def9["id"] +
+            _0x34bb3b(0x88) +
+            _0xd2def9["id"] +
+            "\x22>Refuser</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20"),
+            _0x4232f1["appendChild"](_0x43a567);
         }),
-          _0x23670f["addEventListener"](_0x260814(0x130), (_0x24e431) => {
-            const _0x2b2138 = _0x260814,
-              _0x35031c = _0x24e431[_0x2b2138(0x11c)],
-              _0x30ec0b = parseInt(_0x35031c[_0x2b2138(0x13f)]("data-id"));
-            _0x35031c["classList"][_0x2b2138(0x1e1)](_0x2b2138(0x1fd)) &&
-              _0x29b230(_0x30ec0b),
-              _0x35031c[_0x2b2138(0x204)][_0x2b2138(0x1e1)](_0x2b2138(0x19b)) &&
-                _0x1f305d(_0x30ec0b);
+          _0x4232f1[_0x3d6cf2(0x1a8)](_0x3d6cf2(0x16c), (_0x2cb74d) => {
+            const _0x219efb = _0x3d6cf2,
+              _0x4ce9ad = _0x2cb74d[_0x219efb(0xa2)],
+              _0x3598a5 = parseInt(_0x4ce9ad[_0x219efb(0x12d)]("data-id"));
+            _0x4ce9ad["classList"][_0x219efb(0x13f)]("btn-accept") &&
+              _0x368a92(_0x3598a5),
+              _0x4ce9ad[_0x219efb(0x168)]["contains"](_0x219efb(0x19a)) &&
+                _0x51d84e(_0x3598a5);
           });
       }
     },
-    _0x29b230 = async (_0x266040) => {
-      const _0xcc22a9 = _0x22cfce;
+    _0x368a92 = async (_0x5e2061) => {
+      const _0x1d4a46 = _0x5564fb;
       try {
-        const _0x36aa48 = SCRIPT_URL + "?action=accept&id=" + _0x266040,
-          _0x2dbb62 = await fetch(_0x36aa48),
-          _0x5ccf05 = await _0x2dbb62[_0xcc22a9(0x11b)]();
-        console["log"](_0xcc22a9(0x103), _0x5ccf05),
-          await _0x49125(),
-          await _0x5b3f16();
-      } catch (_0x3f8d6d) {
-        console["error"](
+        const _0x3a891b = SCRIPT_URL + "?action=accept&id=" + _0x5e2061,
+          _0x1ff73a = await fetch(_0x3a891b),
+          _0x5aa736 = await _0x1ff73a[_0x1d4a46(0xfd)]();
+        console[_0x1d4a46(0xe4)](_0x1d4a46(0x154), _0x5aa736),
+          await _0x10d8f7(),
+          await _0x30a2cc(),
+          showNotification(_0x1d4a46(0x1a7));
+      } catch (_0x319072) {
+        console[_0x1d4a46(0x123)](
           "Erreur\x20lors\x20de\x20l\x27acceptation\x20de\x20la\x20demande\x20:",
-          _0x3f8d6d[_0xcc22a9(0x14d)]
+          _0x319072["message"]
         );
       }
     },
-    _0x1f305d = async (_0xadd4ac) => {
-      const _0x413391 = _0x22cfce;
+    _0x51d84e = async (_0x3e76f7) => {
+      const _0x1a3523 = _0x5564fb;
       try {
-        const _0x570200 = SCRIPT_URL + _0x413391(0x219) + _0xadd4ac,
-          _0x47256e = await fetch(_0x570200),
-          _0x52ae83 = await _0x47256e[_0x413391(0x11b)]();
-        console[_0x413391(0x1d6)]("Demande\x20refusée\x20:", _0x52ae83),
-          await _0x49125();
-      } catch (_0x584ce6) {
-        console["error"](_0x413391(0x200), _0x584ce6["message"]);
+        const _0x535351 = SCRIPT_URL + _0x1a3523(0x9a) + _0x3e76f7,
+          _0xbf6868 = await fetch(_0x535351),
+          _0x2a58e8 = await _0xbf6868[_0x1a3523(0xfd)]();
+        console[_0x1a3523(0xe4)](_0x1a3523(0x153), _0x2a58e8),
+          await _0x10d8f7(),
+          showNotification(_0x1a3523(0xa3));
+      } catch (_0x2a612e) {
+        console[_0x1a3523(0x123)](_0x1a3523(0xfc), _0x2a612e[_0x1a3523(0xf9)]);
       }
     };
-  document["getElementById"](_0x22cfce(0x116)) &&
-    document[_0x22cfce(0x1b2)](_0x22cfce(0x116))[_0x22cfce(0x1cc)](
-      _0x22cfce(0x130),
-      (_0x5f27e0) => {
-        const _0x4de8d5 = _0x22cfce,
-          _0x2c489d = _0x5f27e0[_0x4de8d5(0x11c)],
-          _0x446745 = parseInt(_0x2c489d[_0x4de8d5(0x13f)]("data-id"));
-        _0x2c489d[_0x4de8d5(0x204)][_0x4de8d5(0x1e1)]("btn-accept") &&
-          _0x29b230(_0x446745),
-          _0x2c489d[_0x4de8d5(0x204)]["contains"](_0x4de8d5(0x19b)) &&
-            _0x1f305d(_0x446745);
+  document[_0x5564fb(0x103)]("pendingRequestsTable") &&
+    document[_0x5564fb(0x103)](_0x5564fb(0x137))["addEventListener"](
+      _0x5564fb(0x16c),
+      (_0x38a028) => {
+        const _0x5b8581 = _0x5564fb,
+          _0x403e42 = _0x38a028[_0x5b8581(0xa2)],
+          _0x4df37c = parseInt(_0x403e42[_0x5b8581(0x12d)](_0x5b8581(0xe7)));
+        _0x403e42[_0x5b8581(0x168)][_0x5b8581(0x13f)](_0x5b8581(0x181)) &&
+          _0x368a92(_0x4df37c),
+          _0x403e42[_0x5b8581(0x168)][_0x5b8581(0x13f)](_0x5b8581(0x19a)) &&
+            _0x51d84e(_0x4df37c);
       }
     );
-  let _0x556ac8 = ![],
-    _0x428f51 = null;
-  const _0x1de0c3 = (_0x33355a, _0x260ba2 = null) => {
-      const _0x5b6eae = _0x22cfce;
-      (_0x54c0a5["textContent"] = _0x33355a),
-        (_0x4c3716[_0x5b6eae(0x18e)] = _0x260ba2 ? _0x260ba2["name"] : ""),
-        _0x260ba2 && _0x260ba2[_0x5b6eae(0x112)]
-          ? (_0x46520c[_0x5b6eae(0x18e)] = _0x260ba2["availableDates"]
-              [_0x5b6eae(0x1bc)](",")
-              [_0x5b6eae(0x226)]((_0x586c78) =>
-                formatDateToDDMMYYYY(_0x586c78[_0x5b6eae(0x222)]())
-              )
-              [_0x5b6eae(0x1ad)](",\x20"))
-          : (_0x46520c[_0x5b6eae(0x18e)] = ""),
-        (_0x556ac8 = !!_0x260ba2),
-        (_0x428f51 = _0x260ba2 ? _0x260ba2["id"] : null),
-        (_0x266d17[_0x5b6eae(0x144)][_0x5b6eae(0x143)] = _0x5b6eae(0x164));
+  let _0x595c9a = ![],
+    _0x1a98c6 = null;
+  const _0x193a1b = (_0x1afc06, _0x26dfce = null) => {
+      const _0x35edf5 = _0x5564fb;
+      (_0x4c6425["textContent"] = _0x1afc06),
+        (_0x32efcb["value"] = _0x26dfce ? _0x26dfce["name"] : ""),
+        _0x26dfce && _0x26dfce[_0x35edf5(0xb8)]
+          ? (_0x1cb753[_0x35edf5(0x1a6)] = _0x26dfce[_0x35edf5(0xb8)]
+              [_0x35edf5(0x1a0)](",")
+              ["map"]((_0x27bd98) => formatDateToDDMMYYYY(_0x27bd98["trim"]()))
+              ["join"](",\x20"))
+          : (_0x1cb753["value"] = ""),
+        (_0x595c9a = !!_0x26dfce),
+        (_0x1a98c6 = _0x26dfce ? _0x26dfce["id"] : null),
+        (_0x487d40[_0x35edf5(0xa4)][_0x35edf5(0xce)] = _0x35edf5(0xad));
     },
-    _0x16434c = () => {
-      const _0x45bd0b = _0x22cfce;
-      (_0x266d17[_0x45bd0b(0x144)][_0x45bd0b(0x143)] = _0x45bd0b(0x139)),
-        formationForm[_0x45bd0b(0x162)]();
+    _0x34d9e9 = () => {
+      const _0x20138b = _0x5564fb;
+      (_0x487d40[_0x20138b(0xa4)][_0x20138b(0xce)] = _0x20138b(0x1b7)),
+        formationForm[_0x20138b(0xbb)]();
     };
-  getCookie(_0x22cfce(0x187)) === _0x22cfce(0x16a) && (_0x5b3f16(), _0x49125()),
-    _0x55ab52[_0x22cfce(0x1cc)](_0x22cfce(0x130), () => {
-      const _0x58d552 = _0x22cfce,
-        _0x170606 = _0x50887f[_0x58d552(0x18e)][_0x58d552(0x222)](),
-        _0x62faa4 = _0x4c0efb["value"];
-      _0x170606 === _0x5798d4 && _0x62faa4 === _0x4f1f70
-        ? (_0x47bfaa(),
-          setCookie("adminAuth", "true", 0x7),
-          (_0x4ef06a[_0x58d552(0x144)]["display"] = "none"),
-          (document[_0x58d552(0x1b2)](_0x58d552(0xee))["style"][
-            _0x58d552(0x143)
-          ] = _0x58d552(0x164)),
-          _0x5b3f16(),
-          _0x49125())
-        : _0xda1155(_0x58d552(0x1d7));
+  getCookie("adminAuth") === _0x5564fb(0x182) && (_0x30a2cc(), _0x10d8f7()),
+    _0x1fc390[_0x5564fb(0x1a8)](_0x5564fb(0x16c), () => {
+      const _0x5a78af = _0x5564fb,
+        _0x1608c8 = _0x35397e[_0x5a78af(0x1a6)][_0x5a78af(0x15a)](),
+        _0x35d094 = _0x1426f0[_0x5a78af(0x1a6)];
+      _0x1608c8 === _0x51b6ac && _0x35d094 === _0x4824a9
+        ? (_0x55deaf(),
+          setCookie("adminAuth", _0x5a78af(0x182), 0x7),
+          (_0x21eabe[_0x5a78af(0xa4)]["display"] = _0x5a78af(0x1b7)),
+          (document[_0x5a78af(0x103)](_0x5a78af(0x14a))["style"][
+            _0x5a78af(0xce)
+          ] = _0x5a78af(0xad)),
+          _0x30a2cc(),
+          _0x10d8f7())
+        : _0x39ae89("Identifiant\x20ou\x20mot\x20de\x20passe\x20incorrect.");
     }),
-    _0x2f3165[_0x22cfce(0x1cc)](_0x22cfce(0x130), () => {
-      const _0x54ebf7 = _0x22cfce;
-      (document[_0x54ebf7(0x1b2)]("adminPanel")[_0x54ebf7(0x144)]["display"] =
-        _0x54ebf7(0x139)),
-        (_0x4ef06a[_0x54ebf7(0x144)][_0x54ebf7(0x143)] = _0x54ebf7(0x164)),
-        (_0x50887f[_0x54ebf7(0x18e)] = ""),
-        (_0x4c0efb[_0x54ebf7(0x18e)] = ""),
-        _0x47bfaa(),
-        eraseCookie(_0x54ebf7(0x187));
+    _0x50b232[_0x5564fb(0x1a8)](_0x5564fb(0x16c), () => {
+      const _0x2f3c90 = _0x5564fb;
+      (document[_0x2f3c90(0x103)]("adminPanel")[_0x2f3c90(0xa4)]["display"] =
+        _0x2f3c90(0x1b7)),
+        (_0x21eabe[_0x2f3c90(0xa4)]["display"] = "flex"),
+        (_0x35397e[_0x2f3c90(0x1a6)] = ""),
+        (_0x1426f0[_0x2f3c90(0x1a6)] = ""),
+        _0x55deaf(),
+        eraseCookie(_0x2f3c90(0x1b6));
     }),
-    _0x3e2a74[_0x22cfce(0x1cc)]("click", () => {
-      const _0x37ee9b = _0x22cfce;
-      _0x1de0c3(_0x37ee9b(0x141));
+    _0x246bd1[_0x5564fb(0x1a8)](_0x5564fb(0x16c), () => {
+      const _0x2e8087 = _0x5564fb;
+      _0x193a1b(_0x2e8087(0x138));
     }),
-    formationForm[_0x22cfce(0x1cc)](_0x22cfce(0x21b), async (_0x38cdd5) => {
-      const _0x1dc42b = _0x22cfce;
+    formationForm["addEventListener"](_0x5564fb(0x199), async (_0x23adb0) => {
+      const _0x1fd119 = _0x5564fb;
       showNotification(
         "Enregistrement\x20en\x20cours,\x20veuillez\x20patienter.."
       ),
         setTimeout(() => {
-          const _0x55c0a0 = _0x30bf;
-          showNotification(_0x55c0a0(0x107));
+          showNotification("Formation\x20enregistrée\x20avec\x20succès\x20!");
         }, 0xfa0),
-        _0x38cdd5[_0x1dc42b(0x1ab)]();
-      const _0x17da2b = _0x4c3716["value"]["trim"](),
-        _0x37cdc6 = _0x46520c[_0x1dc42b(0x18e)]
+        _0x23adb0[_0x1fd119(0x95)]();
+      const _0x1bd43f = _0x32efcb["value"][_0x1fd119(0x15a)](),
+        _0x33f3fa = _0x1cb753[_0x1fd119(0x1a6)]
           ["split"](",")
-          [_0x1dc42b(0x226)]((_0x5517a6) => _0x5517a6[_0x1dc42b(0x222)]());
-      _0x556ac8
-        ? await _0x418433(_0x428f51, _0x17da2b, _0x37cdc6)
-        : await _0x57647e(_0x17da2b, _0x37cdc6),
-        _0x16434c();
+          [_0x1fd119(0x9d)]((_0x350d27) => _0x350d27[_0x1fd119(0x15a)]());
+      _0x595c9a
+        ? await _0x323e44(_0x1a98c6, _0x1bd43f, _0x33f3fa)
+        : await _0x174101(_0x1bd43f, _0x33f3fa),
+        _0x34d9e9();
     }),
-    _0xe976d4[_0x22cfce(0x1cc)](_0x22cfce(0x130), _0x16434c),
-    _0x25d4d6["addEventListener"](_0x22cfce(0x130), async (_0x2ac9d9) => {
-      const _0x55d7d6 = _0x22cfce,
-        _0x2bca51 = _0x2ac9d9[_0x55d7d6(0x11c)],
-        _0x13c9eb = parseInt(_0x2bca51[_0x55d7d6(0x13f)](_0x55d7d6(0x1db)));
-      if (_0x2bca51[_0x55d7d6(0x204)][_0x55d7d6(0x1e1)](_0x55d7d6(0x1b1))) {
-        const _0x255945 = _0x57a5b1[_0x55d7d6(0x133)](
-          (_0x65c1ae) => _0x65c1ae["id"] === _0x13c9eb
+    _0x3d7870[_0x5564fb(0x1a8)](_0x5564fb(0x16c), _0x34d9e9),
+    _0x94b758["addEventListener"](_0x5564fb(0x16c), async (_0x5e2247) => {
+      const _0x5f46c1 = _0x5564fb,
+        _0x2daab9 = _0x5e2247[_0x5f46c1(0xa2)],
+        _0x16d966 = parseInt(_0x2daab9[_0x5f46c1(0x12d)](_0x5f46c1(0xe7)));
+      if (_0x2daab9["classList"][_0x5f46c1(0x13f)]("edit-formation")) {
+        const _0x3ef9d0 = _0x2325fc["find"](
+          (_0x13ce7f) => _0x13ce7f["id"] === _0x16d966
         );
-        _0x1de0c3(_0x55d7d6(0xfb), _0x255945);
+        _0x193a1b(_0x5f46c1(0xfe), _0x3ef9d0);
       } else {
-        if (_0x2bca51[_0x55d7d6(0x204)]["contains"](_0x55d7d6(0x206))) {
-          const _0x32a573 = await customConfirm(_0x55d7d6(0x10b));
-          _0x32a573 &&
-            (showNotification(_0x55d7d6(0x1f3)),
+        if (_0x2daab9[_0x5f46c1(0x168)][_0x5f46c1(0x13f)](_0x5f46c1(0x187))) {
+          const _0x53532b = await customConfirm(_0x5f46c1(0x185));
+          _0x53532b &&
+            (showNotification(
+              "Suppression\x20en\x20cours,\x20veuillez\x20patienter.."
+            ),
             setTimeout(() => {
-              const _0x1ac533 = _0x55d7d6;
-              showNotification(_0x1ac533(0x225));
+              const _0x146d18 = _0x5f46c1;
+              showNotification(_0x146d18(0x189));
             }, 0xfa0),
-            await _0x6e2768(_0x13c9eb));
+            await _0xdbd446(_0x16d966));
         }
       }
     });
 }
-function customConfirm(_0xb1628c) {
-  return new Promise((_0x516126) => {
-    const _0x24b02b = _0x30bf,
-      _0x577b99 = document[_0x24b02b(0x1b2)](_0x24b02b(0x115)),
-      _0x1a43ff = document[_0x24b02b(0x1b2)](_0x24b02b(0xf9)),
-      _0x84a3dd = document[_0x24b02b(0x1b2)](_0x24b02b(0x12b)),
-      _0x57dfee = document["getElementById"](_0x24b02b(0xf2));
-    (_0x1a43ff["textContent"] = _0xb1628c),
-      (_0x577b99[_0x24b02b(0x144)]["display"] = "block");
-    function _0x4ead2b() {
-      const _0x458729 = _0x24b02b;
-      (_0x577b99["style"][_0x458729(0x143)] = "none"),
-        _0x84a3dd[_0x458729(0x1ff)]("click", _0x596608),
-        _0x57dfee[_0x458729(0x1ff)](_0x458729(0x130), _0x5b99ae);
+function customConfirm(_0x5ddd3c) {
+  return new Promise((_0x1567ef) => {
+    const _0x6a4453 = _0x51c6,
+      _0xd3a489 = document[_0x6a4453(0x103)](_0x6a4453(0x99)),
+      _0x5dbed8 = document[_0x6a4453(0x103)](_0x6a4453(0xcf)),
+      _0x3f182e = document["getElementById"]("confirmYes2"),
+      _0x3820c0 = document["getElementById"](_0x6a4453(0x1ad));
+    (_0x5dbed8[_0x6a4453(0x87)] = _0x5ddd3c),
+      (_0xd3a489[_0x6a4453(0xa4)][_0x6a4453(0xce)] = "block");
+    function _0x5404db() {
+      const _0x36d539 = _0x6a4453;
+      (_0xd3a489[_0x36d539(0xa4)][_0x36d539(0xce)] = _0x36d539(0x1b7)),
+        _0x3f182e[_0x36d539(0x118)](_0x36d539(0x16c), _0x1c1a8b),
+        _0x3820c0["removeEventListener"](_0x36d539(0x16c), _0x262e67);
     }
-    function _0x596608() {
-      _0x4ead2b(), _0x516126(!![]);
+    function _0x1c1a8b() {
+      _0x5404db(), _0x1567ef(!![]);
     }
-    function _0x5b99ae() {
-      _0x4ead2b(), _0x516126(![]);
+    function _0x262e67() {
+      _0x5404db(), _0x1567ef(![]);
     }
-    _0x84a3dd[_0x24b02b(0x1cc)](_0x24b02b(0x130), _0x596608),
-      _0x57dfee[_0x24b02b(0x1cc)](_0x24b02b(0x130), _0x5b99ae);
+    _0x3f182e[_0x6a4453(0x1a8)](_0x6a4453(0x16c), _0x1c1a8b),
+      _0x3820c0[_0x6a4453(0x1a8)](_0x6a4453(0x16c), _0x262e67);
   });
 }
-function showParticipantsModal(_0x2d5f27, _0x477933) {
-  const _0x3690b9 = _0x41d644;
-  console[_0x3690b9(0x1d6)](_0x3690b9(0x1d2), _0x2d5f27, _0x477933);
-  const _0x33cde5 = document[_0x3690b9(0x1b2)](_0x3690b9(0x1cd)),
-    _0x4e7794 = document["getElementById"](_0x3690b9(0xfc)),
-    _0x3b1804 = document["getElementById"](_0x3690b9(0x1d1)),
-    _0x173aec = document[_0x3690b9(0x1b2)]("participantsList");
-  (_0x4e7794["textContent"] = _0x477933),
-    (_0x3b1804[_0x3690b9(0x174)] = _0x2d5f27["name"]);
-  const _0x129fd4 = /(\[.*?\])\s*\((.*?)\)/g;
-  let _0x82f94d = [],
-    _0x45d82a;
-  const _0x5e562a = parseDDMMYYYY(_0x477933);
+function showParticipantsModal(_0x28b04c, _0x403f9a) {
+  const _0x5ddd5f = _0x36280d;
+  console[_0x5ddd5f(0xe4)](_0x5ddd5f(0x1b4), _0x28b04c, _0x403f9a);
+  const _0x330c89 = document[_0x5ddd5f(0x103)]("participantsModal"),
+    _0x1b9ef4 = document["getElementById"](_0x5ddd5f(0x9c)),
+    _0x26e8f9 = document[_0x5ddd5f(0x103)](_0x5ddd5f(0x1b5)),
+    _0x32355f = document[_0x5ddd5f(0x103)](_0x5ddd5f(0x17e));
+  (_0x1b9ef4["textContent"] = _0x403f9a),
+    (_0x26e8f9["textContent"] = _0x28b04c[_0x5ddd5f(0x1a1)]);
+  const _0x4b138d = /(\[.*?\])\s*\((.*?)\)/g;
+  let _0x3b746e = [],
+    _0x27b883;
+  const _0x4a5147 = parseDDMMYYYY(_0x403f9a);
   while (
-    (_0x45d82a = _0x129fd4[_0x3690b9(0x21d)](_0x2d5f27[_0x3690b9(0x118)])) !==
+    (_0x27b883 = _0x4b138d[_0x5ddd5f(0x8b)](_0x28b04c[_0x5ddd5f(0xe0)])) !==
     null
   ) {
     try {
-      let _0x243da1 = new Date(_0x45d82a[0x2]);
-      isSameDate(_0x243da1, _0x5e562a) && _0x82f94d["push"](_0x45d82a[0x0]);
-    } catch (_0x311883) {
-      console[_0x3690b9(0x20b)](_0x3690b9(0x1eb), _0x311883);
+      let _0x4fa2f1 = new Date(_0x27b883[0x2]);
+      isSameDate(_0x4fa2f1, _0x4a5147) && _0x3b746e["push"](_0x27b883[0x0]);
+    } catch (_0x4b2018) {
+      console[_0x5ddd5f(0x123)](
+        "Erreur\x20lors\x20du\x20parsing\x20des\x20blocs\x20:",
+        _0x4b2018
+      );
     }
   }
-  let _0x37c9bd = [];
-  _0x82f94d[_0x3690b9(0x221)]((_0xba4f53) => {
-    const _0x424f4b = _0x3690b9,
-      _0x5d4c6b = _0xba4f53[_0x424f4b(0x209)](/(\[.*?\])\s*\((.*?)\)/);
-    if (_0x5d4c6b && _0x5d4c6b[0x1])
+  let _0x4465dc = [];
+  _0x3b746e[_0x5ddd5f(0x97)]((_0x594705) => {
+    const _0x5a4049 = _0x5ddd5f,
+      _0x26bf4d = _0x594705["match"](/(\[.*?\])\s*\((.*?)\)/);
+    if (_0x26bf4d && _0x26bf4d[0x1])
       try {
-        const _0x8d6c7 = JSON[_0x424f4b(0x137)](_0x5d4c6b[0x1]);
-        let _0x5844ad = Array[_0x424f4b(0x1a9)](_0x8d6c7)
-          ? _0x8d6c7
-          : [_0x8d6c7];
-        _0x37c9bd = _0x37c9bd[_0x424f4b(0x1f7)](_0x5844ad);
-      } catch (_0x58dc37) {
-        console[_0x424f4b(0x20b)](_0x424f4b(0xfe), _0x58dc37);
+        const _0x970c18 = JSON[_0x5a4049(0x126)](_0x26bf4d[0x1]);
+        let _0x3d586f = Array[_0x5a4049(0xd5)](_0x970c18)
+          ? _0x970c18
+          : [_0x970c18];
+        _0x4465dc = _0x4465dc[_0x5a4049(0x117)](_0x3d586f);
+      } catch (_0x485741) {
+        console["error"](
+          "Erreur\x20lors\x20du\x20parsing\x20d\x27un\x20bloc\x20:",
+          _0x485741
+        );
       }
   });
-  let _0x323d97 = "";
-  if (_0x37c9bd[_0x3690b9(0x18d)] === 0x0) _0x323d97 += _0x3690b9(0x185);
+  let _0x4adba2 = "";
+  if (_0x4465dc[_0x5ddd5f(0xae)] === 0x0) _0x4adba2 += _0x5ddd5f(0xda);
   else {
-    _0x323d97 +=
-      "\x0a\x20\x20\x20\x20\x20\x20<table\x20style=\x22width:100%;\x20border-collapse:collapse;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr\x20style=\x22background-color:#f9f9f9;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>N°</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>Matricule</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>Nom/Prenom</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>Entité</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>Action</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<tbody>\x0a\x20\x20\x20\x20";
-    let _0x394543 = getBlocks(_0x2d5f27["participants"])["filter"](
-      (_0x4d7a48) => {
-        const _0x2afb47 = _0x3690b9;
-        let _0x4215fd = new Date(_0x4d7a48[_0x2afb47(0x1ea)]);
-        return isSameDate(_0x4215fd, _0x5e562a);
+    _0x4adba2 += _0x5ddd5f(0xd8);
+    let _0x1644b3 = getBlocks(_0x28b04c["participants"])[_0x5ddd5f(0x8e)](
+      (_0x51a6eb) => {
+        const _0xe59eb2 = _0x5ddd5f;
+        let _0x525d9c = new Date(_0x51a6eb[_0xe59eb2(0x94)]);
+        return isSameDate(_0x525d9c, _0x4a5147);
       }
     );
-    _0x394543[_0x3690b9(0x221)]((_0x29ca2d, _0x4b1ca1) => {
-      const _0x1ba888 = _0x3690b9;
+    _0x1644b3[_0x5ddd5f(0x97)]((_0x50b886, _0x168c9c) => {
+      const _0x43e7ce = _0x5ddd5f;
       try {
-        const _0xc23980 = JSON[_0x1ba888(0x137)](_0x29ca2d[_0x1ba888(0x11b)]),
-          _0x5a61ff = Array[_0x1ba888(0x1a9)](_0xc23980)
-            ? _0xc23980[0x0]
-            : _0xc23980;
-        _0x323d97 +=
-          _0x1ba888(0x163) +
-          (_0x4b1ca1 + 0x1) +
-          _0x1ba888(0x1d3) +
-          _0x5a61ff[_0x1ba888(0x13d)] +
-          _0x1ba888(0x1d3) +
-          _0x5a61ff[_0x1ba888(0x1f8)] +
-          _0x1ba888(0x1d3) +
-          _0x5a61ff[_0x1ba888(0x1bd)] +
-          _0x1ba888(0x145) +
-          _0x4b1ca1 +
-          _0x1ba888(0x15d);
-      } catch (_0x3a797c) {
-        console[_0x1ba888(0x20b)](_0x1ba888(0x186), _0x3a797c);
+        const _0x5ca17c = JSON["parse"](_0x50b886[_0x43e7ce(0xfd)]),
+          _0x10458d = Array["isArray"](_0x5ca17c) ? _0x5ca17c[0x0] : _0x5ca17c;
+        _0x4adba2 +=
+          _0x43e7ce(0xe8) +
+          (_0x168c9c + 0x1) +
+          _0x43e7ce(0x173) +
+          _0x10458d[_0x43e7ce(0xaa)] +
+          _0x43e7ce(0x173) +
+          _0x10458d["nameEmployee"] +
+          "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>" +
+          _0x10458d[_0x43e7ce(0x8d)] +
+          _0x43e7ce(0x149) +
+          _0x168c9c +
+          _0x43e7ce(0x1a5);
+      } catch (_0xf9c2c0) {
+        console[_0x43e7ce(0x123)](_0x43e7ce(0xdb), _0xf9c2c0);
       }
     }),
-      (_0x323d97 += _0x3690b9(0x1de));
+      (_0x4adba2 += _0x5ddd5f(0x186));
   }
-  (_0x323d97 += _0x3690b9(0x1ba)),
-    (_0x173aec[_0x3690b9(0x217)] = _0x323d97),
-    (_0x33cde5["style"][_0x3690b9(0x143)] = "flex"),
-    document[_0x3690b9(0x1b2)]("btnAddParticipant")[_0x3690b9(0x1cc)](
-      "click",
+  (_0x4adba2 += _0x5ddd5f(0xc7)),
+    (_0x32355f[_0x5ddd5f(0xb7)] = _0x4adba2),
+    (_0x330c89[_0x5ddd5f(0xa4)][_0x5ddd5f(0xce)] = _0x5ddd5f(0xad)),
+    document["getElementById"]("btnAddParticipant")[_0x5ddd5f(0x1a8)](
+      _0x5ddd5f(0x16c),
       () => {
-        const _0x4c96a0 = _0x3690b9;
-        document["getElementById"](_0x4c96a0(0xff))[_0x4c96a0(0x1e9)] = !![];
-        const _0x5bfb0e = document["getElementById"](_0x4c96a0(0x1ec))["value"][
-            _0x4c96a0(0x222)
-          ](),
-          _0x4c643b = document["getElementById"](_0x4c96a0(0x1c4))["value"][
-            "trim"
-          ](),
-          _0xb61d5c = document[_0x4c96a0(0x1b2)](_0x4c96a0(0x146))["value"][
-            _0x4c96a0(0x222)
-          ]();
-        if (!_0x5bfb0e || !_0x4c643b || !_0xb61d5c) {
-          (document[_0x4c96a0(0x1b2)](_0x4c96a0(0xff))[_0x4c96a0(0x1e9)] = ![]),
-            showNotification("Veuillez\x20remplir\x20tous\x20les\x20champs.");
+        const _0x189685 = _0x5ddd5f;
+        document["getElementById"](_0x189685(0xff))[_0x189685(0x1b0)] = !![];
+        const _0x363e6c =
+            document[_0x189685(0x103)]("newMatricule")[_0x189685(0x1a6)][
+              _0x189685(0x15a)
+            ](),
+          _0x34ab12 = document[_0x189685(0x103)](_0x189685(0xeb))[
+            _0x189685(0x1a6)
+          ]["trim"](),
+          _0x3e2d02 =
+            document[_0x189685(0x103)]("newEntity")[_0x189685(0x1a6)][
+              _0x189685(0x15a)
+            ]();
+        if (!_0x363e6c || !_0x34ab12 || !_0x3e2d02) {
+          (document["getElementById"](_0x189685(0xff))[_0x189685(0x1b0)] = ![]),
+            showNotification(_0x189685(0x148));
           return;
         }
-        showNotification("Ajout\x20en\x20cours,\x20veuillez\x20patienter..");
-        const _0x29e154 = {
-          matricule: _0x5bfb0e,
-          nameEmployee: _0x4c643b,
-          entity: _0xb61d5c,
+        showNotification(_0x189685(0xa9));
+        const _0x415ac7 = {
+          matricule: _0x363e6c,
+          nameEmployee: _0x34ab12,
+          entity: _0x3e2d02,
         };
-        addParticipantToFormation(_0x2d5f27, _0x477933, _0x29e154),
+        addParticipantToFormation(_0x28b04c, _0x403f9a, _0x415ac7),
           setTimeout(() => {
-            const _0x3f7712 = _0x4c96a0;
-            (document[_0x3f7712(0x1b2)](_0x3f7712(0xff))["disabled"] = ![]),
-              showNotification("Participant\x20ajouté\x20avec\x20succès\x20!"),
+            const _0x274268 = _0x189685;
+            (document[_0x274268(0x103)](_0x274268(0xff))["disabled"] = ![]),
+              showNotification(_0x274268(0xe9)),
               window["fetchFormations"]();
           }, 0xfa0);
       }
     ),
-    document[_0x3690b9(0x170)](_0x3690b9(0x117))["forEach"]((_0x275d59) => {
-      const _0x2d42c6 = _0x3690b9;
-      _0x275d59[_0x2d42c6(0x1cc)](_0x2d42c6(0x130), () => {
-        const _0xf5ed08 = _0x2d42c6;
-        showNotification(_0xf5ed08(0x12d));
-        const _0x4eacf0 = parseInt(
-          _0x275d59[_0xf5ed08(0x13f)](_0xf5ed08(0x20d))
-        );
-        removeParticipantFromFormation(_0x2d5f27, _0x477933, _0x4eacf0),
-          setTimeout(() => {
-            const _0x55de32 = _0xf5ed08;
-            showNotification(_0x55de32(0x1ef));
-          }, 0xfa0);
-      });
-    });
+    document["querySelectorAll"](_0x5ddd5f(0x16e))[_0x5ddd5f(0x97)](
+      (_0x4a9b9d) => {
+        const _0x2d0dc9 = _0x5ddd5f;
+        _0x4a9b9d[_0x2d0dc9(0x1a8)]("click", () => {
+          const _0x5aed43 = _0x2d0dc9;
+          showNotification(_0x5aed43(0xcc));
+          const _0x6f6106 = parseInt(
+            _0x4a9b9d[_0x5aed43(0x12d)](_0x5aed43(0x194))
+          );
+          removeParticipantFromFormation(_0x28b04c, _0x403f9a, _0x6f6106),
+            setTimeout(() => {
+              const _0x2a2a59 = _0x5aed43;
+              showNotification(_0x2a2a59(0x144));
+            }, 0xfa0);
+        });
+      }
+    );
 }
-document[_0x41d644(0x1b2)](_0x41d644(0x1d8))["addEventListener"](
-  _0x41d644(0x130),
+document[_0x36280d(0x103)](_0x36280d(0x14f))["addEventListener"](
+  _0x36280d(0x16c),
   () => {
-    const _0x450e49 = _0x41d644;
-    document["getElementById"](_0x450e49(0x1cd))["style"][_0x450e49(0x143)] =
-      "none";
+    const _0x1d33dc = _0x36280d;
+    document[_0x1d33dc(0x103)](_0x1d33dc(0xdc))[_0x1d33dc(0xa4)]["display"] =
+      _0x1d33dc(0x1b7);
   }
 );
-async function addParticipantToFormation(_0x370de8, _0x32c3fa, _0x1cabb1) {
-  const _0x11c9b2 = _0x41d644,
-    _0x8e21a3 = convertDDMMYYYYToFull(_0x32c3fa),
-    _0x55a7b1 = JSON[_0x11c9b2(0xf8)]([_0x1cabb1]) + "\x20(" + _0x8e21a3 + ")";
-  _0x370de8[_0x11c9b2(0x118)] &&
-  _0x370de8[_0x11c9b2(0x118)][_0x11c9b2(0x222)]()[_0x11c9b2(0x18d)] > 0x0
-    ? (_0x370de8[_0x11c9b2(0x118)] =
-        _0x370de8[_0x11c9b2(0x118)][_0x11c9b2(0x222)]() + ",\x20" + _0x55a7b1)
-    : (_0x370de8[_0x11c9b2(0x118)] = _0x55a7b1);
+async function addParticipantToFormation(_0x1a6118, _0x47d84a, _0x23b11d) {
+  const _0x6b307a = _0x36280d,
+    _0x30a91e = convertDDMMYYYYToFull(_0x47d84a),
+    _0x39311f = JSON[_0x6b307a(0xe6)]([_0x23b11d]) + "\x20(" + _0x30a91e + ")";
+  _0x1a6118[_0x6b307a(0xe0)] &&
+  _0x1a6118[_0x6b307a(0xe0)][_0x6b307a(0x15a)]()[_0x6b307a(0xae)] > 0x0
+    ? (_0x1a6118["participants"] =
+        _0x1a6118["participants"][_0x6b307a(0x15a)]() + ",\x20" + _0x39311f)
+    : (_0x1a6118[_0x6b307a(0xe0)] = _0x39311f);
   await updateFormationParticipantsInSheet(
-    _0x370de8["id"],
-    _0x370de8[_0x11c9b2(0x118)]
+    _0x1a6118["id"],
+    _0x1a6118["participants"]
   );
-  if (typeof window[_0x11c9b2(0x189)] === "function")
-    await window["fetchFormations"]();
+  if (typeof window["fetchFormations"] === _0x6b307a(0x143))
+    await window[_0x6b307a(0xaf)]();
   else
     typeof fetchFormations === "function"
       ? await fetchFormations()
-      : console[_0x11c9b2(0x20b)](_0x11c9b2(0x1be));
-  const _0x28eaa3 = window[_0x11c9b2(0x14e)][_0x11c9b2(0x133)](
-    (_0x29cfa9) => _0x29cfa9["id"] === _0x370de8["id"]
+      : console[_0x6b307a(0x123)](
+          "fetchFormations\x20function\x20is\x20not\x20available."
+        );
+  const _0x22f621 = window[_0x6b307a(0x188)][_0x6b307a(0x1af)](
+    (_0x8a8fd6) => _0x8a8fd6["id"] === _0x1a6118["id"]
   );
-  showParticipantsModal(_0x28eaa3, _0x32c3fa);
+  showParticipantsModal(_0x22f621, _0x47d84a);
 }
-async function removeParticipantFromFormation(_0x596e96, _0x38cbd2, _0x312291) {
-  const _0x2b41d6 = _0x41d644;
-  let _0x6e0e68 = getBlocks(_0x596e96[_0x2b41d6(0x118)]),
-    _0x1c542f = [],
-    _0x3c8e06 = 0x0;
-  const _0x29a0a6 = parseDDMMYYYY(_0x38cbd2);
-  function _0x4e1bca(_0x246390) {
-    const _0xf06eba = _0x2b41d6;
+async function removeParticipantFromFormation(_0x11c096, _0x165482, _0x1eee6e) {
+  const _0x41a26c = _0x36280d;
+  let _0x2f3a85 = getBlocks(_0x11c096[_0x41a26c(0xe0)]),
+    _0xb17a8 = [],
+    _0x216f2a = 0x0;
+  const _0x3da029 = parseDDMMYYYY(_0x165482);
+  function _0x52df9d(_0x134632) {
+    const _0xf9bb20 = _0x41a26c;
     return (
-      (_0x246390 = _0x246390[_0xf06eba(0x222)]()),
-      _0x246390[_0xf06eba(0x149)]("))") ? _0x246390 : _0x246390 + ")"
+      (_0x134632 = _0x134632[_0xf9bb20(0x15a)]()),
+      _0x134632[_0xf9bb20(0xcd)]("))") ? _0x134632 : _0x134632 + ")"
     );
   }
-  for (
-    let _0x395da1 = 0x0;
-    _0x395da1 < _0x6e0e68[_0x2b41d6(0x18d)];
-    _0x395da1++
-  ) {
-    let _0x33c511 = _0x6e0e68[_0x395da1],
-      _0x3cfe3b = new Date(_0x33c511["date"]);
-    isSameDate(_0x3cfe3b, _0x29a0a6)
-      ? (_0x3c8e06 !== _0x312291 &&
-          _0x1c542f[_0x2b41d6(0x1c9)](_0x4e1bca(_0x33c511[_0x2b41d6(0x138)])),
-        _0x3c8e06++)
-      : _0x1c542f["push"](_0x4e1bca(_0x33c511["fullBlock"]));
+  for (let _0x1bb5f5 = 0x0; _0x1bb5f5 < _0x2f3a85["length"]; _0x1bb5f5++) {
+    let _0x146263 = _0x2f3a85[_0x1bb5f5],
+      _0x283304 = new Date(_0x146263[_0x41a26c(0x94)]);
+    isSameDate(_0x283304, _0x3da029)
+      ? (_0x216f2a !== _0x1eee6e &&
+          _0xb17a8[_0x41a26c(0x11e)](_0x52df9d(_0x146263[_0x41a26c(0xec)])),
+        _0x216f2a++)
+      : _0xb17a8[_0x41a26c(0x11e)](_0x52df9d(_0x146263[_0x41a26c(0xec)]));
   }
-  (_0x596e96[_0x2b41d6(0x118)] =
-    _0x1c542f[_0x2b41d6(0x1ad)](",\x20")[_0x2b41d6(0x222)]()),
+  (_0x11c096[_0x41a26c(0xe0)] = _0xb17a8[_0x41a26c(0x8a)](",\x20")["trim"]()),
     await updateFormationParticipantsInSheet(
-      _0x596e96["id"],
-      _0x596e96[_0x2b41d6(0x118)]
+      _0x11c096["id"],
+      _0x11c096["participants"]
     ),
-    showParticipantsModal(_0x596e96, _0x38cbd2);
+    showParticipantsModal(_0x11c096, _0x165482);
 }
-function escapeRegExp(_0x166647) {
-  const _0x12725e = _0x41d644;
-  return _0x166647["replace"](/[.*+?^${}()|[\]\\]/g, _0x12725e(0x1c0));
+function escapeRegExp(_0x12485b) {
+  return _0x12485b["replace"](/[.*+?^${}()|[\]\\]/g, "\x5c$&");
 }
-async function updateFormationParticipantsInSheet(_0x4550e4, _0x5d58c0) {
-  const _0x5a32c4 = _0x41d644;
+async function updateFormationParticipantsInSheet(_0x5577d1, _0x57f675) {
+  const _0xebfe98 = _0x36280d;
   try {
-    const _0x3d9edc =
+    const _0x6a4cc5 =
         SCRIPT_URL +
-        "?action=updateParticipants&id=" +
-        _0x4550e4 +
-        _0x5a32c4(0x18b) +
-        encodeURIComponent(_0x5d58c0),
-      _0x544174 = await fetch(_0x3d9edc),
-      _0x162259 = await _0x544174[_0x5a32c4(0x11b)]();
-    console[_0x5a32c4(0x1d6)](_0x5a32c4(0x16b), _0x162259),
-      typeof window[_0x5a32c4(0x189)] === _0x5a32c4(0x1e3) &&
+        _0xebfe98(0x16a) +
+        _0x5577d1 +
+        _0xebfe98(0x102) +
+        encodeURIComponent(_0x57f675),
+      _0x2a9c65 = await fetch(_0x6a4cc5),
+      _0x3b143b = await _0x2a9c65[_0xebfe98(0xfd)]();
+    console[_0xebfe98(0xe4)](_0xebfe98(0x1ab), _0x3b143b),
+      typeof window[_0xebfe98(0xaf)] === "function" &&
         (await window["fetchFormations"]());
-  } catch (_0x30bfae) {
-    console[_0x5a32c4(0x20b)](_0x5a32c4(0x172), _0x30bfae[_0x5a32c4(0x14d)]);
+  } catch (_0x57f1b7) {
+    console[_0xebfe98(0x123)](_0xebfe98(0x19b), _0x57f1b7[_0xebfe98(0xf9)]);
   }
 }
-function initAppointmentForm(_0x4ed683) {
-  const _0x17c683 = _0x41d644;
-  emailjs["init"]("4sYz-WzrDCXInmUCl"), populateAppointmentFormFormations();
-  const _0x3ec402 = document[_0x17c683(0x1b2)](_0x17c683(0x1b7)),
-    _0x46193f = document[_0x17c683(0x1b2)](_0x17c683(0x190));
-  _0x46193f["addEventListener"](_0x17c683(0x130), (_0xafb5e1) => {
-    const _0x24c8b4 = _0x17c683;
-    _0xafb5e1["preventDefault"]();
-    const _0x4046a2 = document[_0x24c8b4(0x1b2)](_0x24c8b4(0x148))[
-        _0x24c8b4(0x18e)
+function initAppointmentForm(_0x3b00b7) {
+  const _0xa6f0f0 = _0x36280d;
+  emailjs[_0xa6f0f0(0xea)](_0xa6f0f0(0xab)),
+    populateAppointmentFormFormations();
+  const _0x432e7e = document[_0xa6f0f0(0x103)]("appointmentForm"),
+    _0x537935 = document[_0xa6f0f0(0x103)](_0xa6f0f0(0x155));
+  _0x537935[_0xa6f0f0(0x1a8)](_0xa6f0f0(0x16c), (_0x5627ee) => {
+    const _0x2fb259 = _0xa6f0f0;
+    _0x5627ee[_0x2fb259(0x95)]();
+    const _0x53342c = document[_0x2fb259(0x103)](_0x2fb259(0x1a1))[
+        _0x2fb259(0x1a6)
       ],
-      _0x15968a = document["getElementById"](_0x24c8b4(0x1fc))[
-        _0x24c8b4(0x18e)
-      ],
-      _0x4137ba = document["getElementById"](_0x24c8b4(0x12a))["value"],
-      _0x1bbc6f = document[_0x24c8b4(0x1b2)](_0x24c8b4(0x21e)),
-      _0x5c87a5 = document[_0x24c8b4(0x1b2)](_0x24c8b4(0x1a8)),
-      _0x409758 = _0x1bbc6f["options"][_0x1bbc6f[_0x24c8b4(0x12f)]],
-      _0x4715e2 = _0x409758 ? _0x409758[_0x24c8b4(0x11f)] : "",
-      _0x5817a0 = _0x5c87a5[_0x24c8b4(0x18e)],
-      _0x59efa5 = document[_0x24c8b4(0x1b2)](_0x24c8b4(0x14d))[
-        _0x24c8b4(0x18e)
-      ],
-      _0x361e55 = [],
-      _0x1c94af = document[_0x24c8b4(0x170)](_0x24c8b4(0xf3));
-    _0x1c94af[_0x24c8b4(0x221)]((_0x4cb51b) => {
-      const _0x2055e5 = _0x24c8b4,
-        _0x50552c = _0x4cb51b[_0x2055e5(0x1f0)](
-          "input[name=\x22matricule[]\x22]"
-        )[_0x2055e5(0x18e)]["trim"](),
-        _0x10beb6 = _0x4cb51b[_0x2055e5(0x1f0)](_0x2055e5(0x1fe))[
-          _0x2055e5(0x18e)
-        ]["trim"](),
-        _0x182cf9 = _0x4cb51b["querySelector"](_0x2055e5(0x147))[
-          _0x2055e5(0x18e)
-        ]["trim"]();
-      _0x50552c &&
-        _0x10beb6 &&
-        _0x182cf9 &&
-        _0x361e55[_0x2055e5(0x1c9)]({
-          matricule: _0x50552c,
-          nameEmployee: _0x10beb6,
-          entity: _0x182cf9,
+      _0x4b5f4f = document[_0x2fb259(0x103)]("email")["value"],
+      _0x40ad4d = document["getElementById"]("phone")[_0x2fb259(0x1a6)],
+      _0x5e73ca = document["getElementById"](_0x2fb259(0xb1)),
+      _0x3e1556 = document[_0x2fb259(0x103)]("dateSelect"),
+      _0x217215 = _0x5e73ca[_0x2fb259(0x170)][_0x5e73ca["selectedIndex"]],
+      _0x1469c6 = _0x217215 ? _0x217215[_0x2fb259(0x15c)] : "",
+      _0x51dca6 = _0x3e1556[_0x2fb259(0x1a6)],
+      _0x52016c = document["getElementById"](_0x2fb259(0xf9))["value"],
+      _0x475a08 = [],
+      _0x14a2e6 = document[_0x2fb259(0x119)](_0x2fb259(0xf7));
+    _0x14a2e6[_0x2fb259(0x97)]((_0x5187da) => {
+      const _0x1f596d = _0x2fb259,
+        _0x27b15f = _0x5187da[_0x1f596d(0x9f)](_0x1f596d(0x16f))[
+          _0x1f596d(0x1a6)
+        ][_0x1f596d(0x15a)](),
+        _0x3b7245 = _0x5187da[_0x1f596d(0x9f)](_0x1f596d(0x122))[
+          _0x1f596d(0x1a6)
+        ][_0x1f596d(0x15a)](),
+        _0x3d889a = _0x5187da[_0x1f596d(0x9f)](_0x1f596d(0x10f))[
+          _0x1f596d(0x1a6)
+        ][_0x1f596d(0x15a)]();
+      _0x27b15f &&
+        _0x3b7245 &&
+        _0x3d889a &&
+        _0x475a08[_0x1f596d(0x11e)]({
+          matricule: _0x27b15f,
+          nameEmployee: _0x3b7245,
+          entity: _0x3d889a,
         });
     });
-    const _0x12969f = window[_0x24c8b4(0x1c6)][_0x24c8b4(0x133)](
-      (_0x372a0c) =>
-        parseInt(_0x372a0c["id"]) === parseInt(_0x1bbc6f[_0x24c8b4(0x18e)])
+    const _0x3175a8 = window[_0x2fb259(0x11b)][_0x2fb259(0x1af)](
+      (_0xc8e6db) =>
+        parseInt(_0xc8e6db["id"]) === parseInt(_0x5e73ca[_0x2fb259(0x1a6)])
     );
-    let _0x3a125b = _0x12969f
-      ? getParticipantsCount(_0x12969f, _0x5817a0)
+    let _0x287d2d = _0x3175a8
+      ? getParticipantsCount(_0x3175a8, _0x51dca6)
       : 0x0;
-    if (_0x3a125b + _0x361e55[_0x24c8b4(0x18d)] > 0xc) {
-      _0x4ed683(_0x24c8b4(0x232));
+    if (_0x287d2d + _0x475a08["length"] > 0xc) {
+      _0x3b00b7(
+        "La\x20limite\x20de\x20participants\x20pour\x20une\x20formation\x20est\x20de\x2012,\x20merci\x20de\x20retirer\x20des\x20participants\x20ou\x20de\x20reserver\x20une\x20autre\x20date."
+      );
       return;
     }
-    const _0x113a40 =
-        _0x59efa5[_0x24c8b4(0x222)]() === "" ? _0x24c8b4(0x16e) : _0x59efa5,
-      _0x28a6db = _0x361e55[_0x24c8b4(0x226)](
-        (_0x1e9f42) =>
-          _0x1e9f42[_0x24c8b4(0x13d)] +
-          _0x24c8b4(0x104) +
-          _0x1e9f42[_0x24c8b4(0x1f8)] +
+    const _0x169fc5 =
+        _0x52016c[_0x2fb259(0x15a)]() === "" ? _0x2fb259(0x10c) : _0x52016c,
+      _0x5f2bbe = _0x475a08[_0x2fb259(0x9d)](
+        (_0x5c9427) =>
+          _0x5c9427["matricule"] +
+          _0x2fb259(0x1b3) +
+          _0x5c9427[_0x2fb259(0x195)] +
           "\x20(" +
-          _0x1e9f42["entity"] +
+          _0x5c9427[_0x2fb259(0x8d)] +
           ")"
-      )[_0x24c8b4(0x1ad)]("\x0a"),
-      _0x26109c = {
-        name: _0x4046a2,
-        email: _0x15968a,
-        phone: _0x4137ba,
-        formation: _0x4715e2,
-        date: _0x5817a0,
-        message: _0x113a40,
-        employees: _0x28a6db,
+      )[_0x2fb259(0x8a)]("\x0a"),
+      _0x53c705 = {
+        name: _0x53342c,
+        email: _0x4b5f4f,
+        phone: _0x40ad4d,
+        formation: _0x1469c6,
+        date: _0x51dca6,
+        message: _0x169fc5,
+        employees: _0x5f2bbe,
       };
-    emailjs["send"](_0x24c8b4(0x10a), _0x24c8b4(0x1a6), _0x26109c)
-      [_0x24c8b4(0x1ac)](() => {
-        const _0x5894bb = _0x24c8b4;
-        _0x4ed683(_0x5894bb(0x211)), _0x3ec402["reset"]();
+    emailjs[_0x2fb259(0x110)](_0x2fb259(0x16d), _0x2fb259(0x120), _0x53c705)
+      [_0x2fb259(0x140)](() => {
+        const _0x4518e4 = _0x2fb259;
+        _0x3b00b7(_0x4518e4(0x108)), _0x432e7e[_0x4518e4(0xbb)]();
       })
-      ["catch"]((_0x42097e) => {
-        const _0x2980a7 = _0x24c8b4;
-        console[_0x2980a7(0x20b)](_0x2980a7(0x175), _0x42097e),
-          alert(_0x2980a7(0x10c));
+      [_0x2fb259(0xef)]((_0x5206d9) => {
+        const _0x47a486 = _0x2fb259;
+        console[_0x47a486(0x123)](_0x47a486(0x18e), _0x5206d9),
+          alert(_0x47a486(0xcb));
       }),
       addPendingRequest({
-        manager: _0x4046a2,
-        email: _0x15968a,
-        telephone: _0x4137ba,
-        formation: _0x4715e2,
-        date: _0x5817a0,
-        message: _0x59efa5,
-        employees: JSON[_0x24c8b4(0xf8)](_0x361e55),
+        manager: _0x53342c,
+        email: _0x4b5f4f,
+        telephone: _0x40ad4d,
+        formation: _0x1469c6,
+        date: _0x51dca6,
+        message: _0x52016c,
+        employees: JSON[_0x2fb259(0xe6)](_0x475a08),
       });
   });
 }
-function addPendingRequest(_0x1d82d3) {
-  const _0x29dc84 = _0x41d644,
-    _0x322941 =
+function addPendingRequest(_0x36fe20) {
+  const _0x1b179b = _0x36280d,
+    _0x444f5d =
       SCRIPT_URL +
       "?action=addPending" +
-      _0x29dc84(0x201) +
-      encodeURIComponent(_0x1d82d3["manager"]) +
-      _0x29dc84(0x1a7) +
-      encodeURIComponent(_0x1d82d3[_0x29dc84(0x1fc)]) +
-      _0x29dc84(0x160) +
-      encodeURIComponent(_0x1d82d3[_0x29dc84(0x1ae)]) +
-      _0x29dc84(0x153) +
-      encodeURIComponent(_0x1d82d3[_0x29dc84(0x158)]) +
-      _0x29dc84(0x199) +
-      encodeURIComponent(_0x1d82d3[_0x29dc84(0x1ea)]) +
-      "&message=" +
-      encodeURIComponent(_0x1d82d3[_0x29dc84(0x14d)]) +
-      _0x29dc84(0x218) +
-      encodeURIComponent(_0x1d82d3["employees"]);
-  fetch(_0x322941)
-    [_0x29dc84(0x1ac)]((_0x1bb917) => _0x1bb917[_0x29dc84(0x11b)]())
-    [_0x29dc84(0x1ac)]((_0x5d3b89) =>
-      console["log"](_0x29dc84(0x15e), _0x5d3b89)
+      "&manager=" +
+      encodeURIComponent(_0x36fe20[_0x1b179b(0x17b)]) +
+      _0x1b179b(0xa1) +
+      encodeURIComponent(_0x36fe20[_0x1b179b(0x128)]) +
+      _0x1b179b(0xc4) +
+      encodeURIComponent(_0x36fe20[_0x1b179b(0x106)]) +
+      _0x1b179b(0xba) +
+      encodeURIComponent(_0x36fe20[_0x1b179b(0x115)]) +
+      _0x1b179b(0x145) +
+      encodeURIComponent(_0x36fe20[_0x1b179b(0x94)]) +
+      _0x1b179b(0x1aa) +
+      encodeURIComponent(_0x36fe20[_0x1b179b(0xf9)]) +
+      _0x1b179b(0x13e) +
+      encodeURIComponent(_0x36fe20[_0x1b179b(0xf5)]);
+  fetch(_0x444f5d)
+    [_0x1b179b(0x140)]((_0x4481c1) => _0x4481c1[_0x1b179b(0xfd)]())
+    ["then"]((_0x2b5789) =>
+      console[_0x1b179b(0xe4)](_0x1b179b(0xb9), _0x2b5789)
     )
-    ["catch"]((_0x2d93b0) => console["error"](_0x29dc84(0x1a3), _0x2d93b0));
+    [_0x1b179b(0xef)]((_0x42f163) =>
+      console[_0x1b179b(0x123)](_0x1b179b(0xee), _0x42f163)
+    );
 }
 function populateAppointmentFormFormations() {
-  const _0x16d63e = _0x41d644;
-  window[_0x16d63e(0x1b0)] = function (_0x92fabc) {
-    const _0x47eee2 = _0x16d63e;
-    let _0x20ed73 = [];
-    _0x92fabc &&
-      _0x92fabc[_0x47eee2(0x17b)] &&
-      (_0x20ed73 = _0x92fabc[_0x47eee2(0x17b)]);
-    window["currentFormationsData"] = _0x20ed73;
-    const _0xcdc47a = document[_0x47eee2(0x1b2)](_0x47eee2(0x21e));
-    (_0xcdc47a[_0x47eee2(0x217)] = ""),
-      _0x20ed73[_0x47eee2(0x221)]((_0x4601e9) => {
-        const _0x466654 = _0x47eee2,
-          _0x4a7f40 = document[_0x466654(0x10d)](_0x466654(0x193));
-        (_0x4a7f40[_0x466654(0x18e)] = _0x4601e9["id"]),
-          (_0x4a7f40[_0x466654(0x11f)] = "" + _0x4601e9[_0x466654(0x148)]),
-          _0xcdc47a[_0x466654(0x169)](_0x4a7f40);
+  const _0x262d79 = _0x36280d;
+  window[_0x262d79(0x124)] = function (_0x4a1cfc) {
+    const _0x42b092 = _0x262d79;
+    let _0x2017ce = [];
+    _0x4a1cfc &&
+      _0x4a1cfc[_0x42b092(0x178)] &&
+      (_0x2017ce = _0x4a1cfc["values"]);
+    window[_0x42b092(0x11b)] = _0x2017ce;
+    const _0x44e1ee = document["getElementById"]("formationSelect");
+    (_0x44e1ee["innerHTML"] = ""),
+      _0x2017ce["forEach"]((_0x59e21a) => {
+        const _0x51d859 = _0x42b092,
+          _0x282d0d = document["createElement"]("option");
+        (_0x282d0d["value"] = _0x59e21a["id"]),
+          (_0x282d0d[_0x51d859(0x15c)] = "" + _0x59e21a[_0x51d859(0x1a1)]),
+          _0x44e1ee[_0x51d859(0x172)](_0x282d0d);
       }),
-      _0xcdc47a[_0x47eee2(0x1cc)](_0x47eee2(0x198), () => {
-        const _0x184a68 = _0x47eee2;
-        updateDateSelect(_0xcdc47a, window[_0x184a68(0x1c6)]);
+      _0x44e1ee["addEventListener"](_0x42b092(0x1ae), () => {
+        updateDateSelect(_0x44e1ee, window["currentFormationsData"]);
       }),
-      updateDateSelect(_0xcdc47a, window[_0x47eee2(0x1c6)]);
+      updateDateSelect(_0x44e1ee, window[_0x42b092(0x11b)]);
   };
-  const _0xc5f02f = document[_0x16d63e(0x10d)]("script");
-  (_0xc5f02f[_0x16d63e(0x177)] =
-    SCRIPT_URL + "?action=read&callback=handleFormationsData"),
-    document[_0x16d63e(0x17a)][_0x16d63e(0x169)](_0xc5f02f);
+  const _0xbd65a8 = document[_0x262d79(0xc1)](_0x262d79(0x152));
+  (_0xbd65a8[_0x262d79(0x12a)] = SCRIPT_URL + _0x262d79(0x183)),
+    document["body"]["appendChild"](_0xbd65a8);
 }
-function updateDateSelect(_0x4a05db, _0x37192f) {
-  const _0xb6e968 = _0x41d644,
-    _0xdb80f3 = document["getElementById"](_0xb6e968(0x1a8));
-  _0xdb80f3[_0xb6e968(0x217)] = "";
-  const _0x53cb35 = parseInt(_0x4a05db[_0xb6e968(0x18e)]),
-    _0x38bf2c = _0x37192f[_0xb6e968(0x133)](
-      (_0x5e16ec) => parseInt(_0x5e16ec["id"]) === _0x53cb35
+function updateDateSelect(_0x294c0b, _0x18096e) {
+  const _0x320b00 = _0x36280d,
+    _0xfe7144 = document[_0x320b00(0x103)](_0x320b00(0x113));
+  _0xfe7144[_0x320b00(0xb7)] = "";
+  const _0x180550 = parseInt(_0x294c0b[_0x320b00(0x1a6)]),
+    _0x1bfb11 = _0x18096e["find"](
+      (_0x100e79) => parseInt(_0x100e79["id"]) === _0x180550
     );
-  if (_0x38bf2c && _0x38bf2c[_0xb6e968(0x112)]) {
-    let _0x518a25 = _0x38bf2c[_0xb6e968(0x112)];
-    typeof _0x518a25 === _0xb6e968(0x230) &&
-      (_0x518a25 = _0x518a25["split"](","));
-    if (_0x518a25["length"] > 0x0)
-      _0x518a25[_0xb6e968(0x221)]((_0x29a025) => {
-        const _0x4d642c = _0xb6e968;
-        let _0x39bdf5 = _0x29a025[_0x4d642c(0x222)](),
-          _0x3c26f8 = formatDateToDDMMYYYY(_0x39bdf5),
-          _0x198c94 = _0x38bf2c
-            ? getParticipantsCount(_0x38bf2c, _0x3c26f8)
+  if (_0x1bfb11 && _0x1bfb11[_0x320b00(0xb8)]) {
+    let _0x2fb50e = _0x1bfb11[_0x320b00(0xb8)];
+    typeof _0x2fb50e === _0x320b00(0x196) &&
+      (_0x2fb50e = _0x2fb50e["split"](","));
+    if (_0x2fb50e["length"] > 0x0)
+      _0x2fb50e[_0x320b00(0x97)]((_0x281d11) => {
+        const _0x39d6a1 = _0x320b00;
+        let _0x314e6f = _0x281d11["trim"](),
+          _0x131425 = formatDateToDDMMYYYY(_0x314e6f),
+          _0x27c9ae = _0x1bfb11
+            ? getParticipantsCount(_0x1bfb11, _0x131425)
             : 0x0;
-        const _0xe6750 = document[_0x4d642c(0x10d)]("option");
-        (_0xe6750[_0x4d642c(0x18e)] = _0x39bdf5),
-          (_0xe6750["text"] =
-            _0x3c26f8 + "\x20(" + _0x198c94 + _0x4d642c(0x1bb)),
-          _0xdb80f3[_0x4d642c(0x169)](_0xe6750);
+        const _0x37fedc = document[_0x39d6a1(0xc1)]("option");
+        (_0x37fedc[_0x39d6a1(0x1a6)] = _0x314e6f),
+          (_0x37fedc[_0x39d6a1(0x15c)] =
+            _0x131425 + "\x20(" + _0x27c9ae + _0x39d6a1(0x18b)),
+          _0xfe7144["appendChild"](_0x37fedc);
       });
     else {
-      const _0x336f39 = document[_0xb6e968(0x10d)](_0xb6e968(0x193));
-      (_0x336f39[_0xb6e968(0x18e)] = ""),
-        (_0x336f39[_0xb6e968(0x11f)] = _0xb6e968(0x14b)),
-        _0xdb80f3[_0xb6e968(0x169)](_0x336f39);
+      const _0x2e6d0d = document[_0x320b00(0xc1)](_0x320b00(0x105));
+      (_0x2e6d0d["value"] = ""),
+        (_0x2e6d0d["text"] = _0x320b00(0x133)),
+        _0xfe7144[_0x320b00(0x172)](_0x2e6d0d);
     }
   } else {
-    const _0x3967aa = document["createElement"]("option");
-    (_0x3967aa["value"] = ""),
-      (_0x3967aa[_0xb6e968(0x11f)] = _0xb6e968(0x14b)),
-      _0xdb80f3[_0xb6e968(0x169)](_0x3967aa);
+    const _0x1b2987 = document[_0x320b00(0xc1)](_0x320b00(0x105));
+    (_0x1b2987[_0x320b00(0x1a6)] = ""),
+      (_0x1b2987[_0x320b00(0x15c)] = "Aucune\x20date\x20disponible"),
+      _0xfe7144[_0x320b00(0x172)](_0x1b2987);
   }
 }
-function setCookie(_0x264174, _0x10070f, _0x5eec1d) {
-  const _0x27fe3c = _0x41d644;
-  let _0x56d34b = "";
-  if (_0x5eec1d) {
-    const _0x1c6b3d = new Date();
-    _0x1c6b3d["setTime"](
-      _0x1c6b3d[_0x27fe3c(0x19f)]() + _0x5eec1d * 0x18 * 0x3c * 0x3c * 0x3e8
+function setCookie(_0x171da5, _0x1a52c7, _0x6254f) {
+  const _0x5cea98 = _0x36280d;
+  let _0x17c7a5 = "";
+  if (_0x6254f) {
+    const _0x2f265e = new Date();
+    _0x2f265e[_0x5cea98(0xfb)](
+      _0x2f265e["getTime"]() + _0x6254f * 0x18 * 0x3c * 0x3c * 0x3e8
     ),
-      (_0x56d34b = _0x27fe3c(0x136) + _0x1c6b3d["toUTCString"]());
+      (_0x17c7a5 = ";\x20expires=" + _0x2f265e["toUTCString"]());
   }
-  document[_0x27fe3c(0x15a)] =
-    _0x264174 +
+  document[_0x5cea98(0xc8)] =
+    _0x171da5 +
     "=" +
-    (_0x10070f || "") +
-    _0x56d34b +
+    (_0x1a52c7 || "") +
+    _0x17c7a5 +
     ";\x20path=/;\x20SameSite=Lax";
 }
-function getCookie(_0x32277d) {
-  const _0x14b36c = _0x41d644,
-    _0x23a737 = _0x32277d + "=",
-    _0x362d3b = document[_0x14b36c(0x15a)]["split"](";");
-  for (
-    let _0x3b62be = 0x0;
-    _0x3b62be < _0x362d3b[_0x14b36c(0x18d)];
-    _0x3b62be++
-  ) {
-    let _0x1b6528 = _0x362d3b[_0x3b62be];
-    while (_0x1b6528["charAt"](0x0) === "\x20")
-      _0x1b6528 = _0x1b6528[_0x14b36c(0x214)](0x1, _0x1b6528[_0x14b36c(0x18d)]);
-    if (_0x1b6528[_0x14b36c(0x1fa)](_0x23a737) === 0x0)
-      return _0x1b6528[_0x14b36c(0x214)](
-        _0x23a737[_0x14b36c(0x18d)],
-        _0x1b6528["length"]
+function getCookie(_0x5d4995) {
+  const _0x3870f7 = _0x36280d,
+    _0xb9fcef = _0x5d4995 + "=",
+    _0x30858c = document[_0x3870f7(0xc8)]["split"](";");
+  for (let _0x6b8d02 = 0x0; _0x6b8d02 < _0x30858c["length"]; _0x6b8d02++) {
+    let _0x2794e8 = _0x30858c[_0x6b8d02];
+    while (_0x2794e8["charAt"](0x0) === "\x20")
+      _0x2794e8 = _0x2794e8["substring"](0x1, _0x2794e8[_0x3870f7(0xae)]);
+    if (_0x2794e8[_0x3870f7(0x100)](_0xb9fcef) === 0x0)
+      return _0x2794e8[_0x3870f7(0xdf)](
+        _0xb9fcef[_0x3870f7(0xae)],
+        _0x2794e8["length"]
       );
   }
   return null;
 }
-function eraseCookie(_0x4ca747) {
-  const _0x1aa0c7 = _0x41d644;
-  document["cookie"] = _0x4ca747 + _0x1aa0c7(0x216);
+function eraseCookie(_0x4a2b99) {
+  document["cookie"] = _0x4a2b99 + "=;\x20Max-Age=-99999999;";
 }
 function initEmployeeTable() {
-  const _0x54db8c = _0x41d644,
-    _0x1663e5 = document[_0x54db8c(0x1b2)]("employeeTable"),
-    _0x253250 = _0x1663e5[_0x54db8c(0x1f0)](_0x54db8c(0x134)),
-    _0x5c39d7 = 0xc,
-    _0x48b9cb = 0x1;
-  function _0x46c6bb() {
-    const _0x30f0d6 = _0x54db8c,
-      _0x5dad09 = _0x253250[_0x30f0d6(0x170)]("tr");
-    _0x5dad09[_0x30f0d6(0x221)]((_0x353568) => {
-      const _0x201a05 = _0x30f0d6,
-        _0x3bb034 = _0x353568["querySelector"](_0x201a05(0xf5));
-      _0x3bb034["disabled"] = _0x5dad09[_0x201a05(0x18d)] <= _0x48b9cb;
+  const _0x4131bf = _0x36280d,
+    _0x332ad6 = document[_0x4131bf(0x103)]("employeeTable"),
+    _0x2dcef8 = _0x332ad6["querySelector"](_0x4131bf(0x11a)),
+    _0x51c833 = 0xc,
+    _0x314f7f = 0x1;
+  function _0x5c980b() {
+    const _0xdb39f4 = _0x4131bf,
+      _0xd443c5 = _0x2dcef8[_0xdb39f4(0x119)]("tr");
+    _0xd443c5["forEach"]((_0xb8e810) => {
+      const _0xa1b390 = _0xdb39f4,
+        _0x210251 = _0xb8e810[_0xa1b390(0x9f)](_0xa1b390(0x14b));
+      _0x210251["disabled"] = _0xd443c5[_0xa1b390(0xae)] <= _0x314f7f;
     });
-    const _0x403b2d = _0x253250[_0x30f0d6(0x170)](_0x30f0d6(0x126));
-    _0x403b2d[_0x30f0d6(0x221)]((_0xfd6c82) => {
-      const _0x59d3da = _0x30f0d6;
-      _0xfd6c82["disabled"] =
-        _0x253250[_0x59d3da(0x170)]("tr")[_0x59d3da(0x18d)] >= _0x5c39d7;
+    const _0x32923a = _0x2dcef8["querySelectorAll"](".btn-add");
+    _0x32923a["forEach"]((_0x275c2d) => {
+      const _0x40cf3d = _0xdb39f4;
+      _0x275c2d["disabled"] =
+        _0x2dcef8[_0x40cf3d(0x119)]("tr")["length"] >= _0x51c833;
     });
   }
-  function _0x566f52() {
-    const _0x40af61 = _0x54db8c,
-      _0x292045 = _0x253250[_0x40af61(0x170)]("tr")[_0x40af61(0x18d)];
-    if (_0x292045 < _0x5c39d7) {
-      const _0x539f28 = _0x253250[_0x40af61(0x1f0)]("tr")["cloneNode"](!![]);
-      _0x539f28[_0x40af61(0x170)]("input")["forEach"]((_0xbc159b) => {
-        _0xbc159b["value"] = "";
-      }),
-        _0x253250[_0x40af61(0x169)](_0x539f28),
-        _0x46c6bb();
+  function _0x335ab8() {
+    const _0x170ba6 = _0x4131bf,
+      _0x2ec6d0 = _0x2dcef8[_0x170ba6(0x119)]("tr")["length"];
+    if (_0x2ec6d0 < _0x51c833) {
+      const _0x44ebaa = _0x2dcef8[_0x170ba6(0x9f)]("tr")[_0x170ba6(0x12e)](
+        !![]
+      );
+      _0x44ebaa[_0x170ba6(0x119)](_0x170ba6(0xf8))[_0x170ba6(0x97)](
+        (_0xd7e76c) => {
+          const _0x32ea97 = _0x170ba6;
+          _0xd7e76c[_0x32ea97(0x1a6)] = "";
+        }
+      ),
+        _0x2dcef8[_0x170ba6(0x172)](_0x44ebaa),
+        _0x5c980b();
     }
   }
-  function _0x357f24(_0x5a5652) {
-    const _0x35edc6 = _0x54db8c,
-      _0x2e97cb = _0x253250[_0x35edc6(0x170)]("tr")["length"];
-    _0x2e97cb > _0x48b9cb && (_0x5a5652[_0x35edc6(0x1cf)](), _0x46c6bb());
+  function _0x49ee37(_0x2e34b0) {
+    const _0x5d1ec0 = _0x4131bf,
+      _0x29025c = _0x2dcef8["querySelectorAll"]("tr")["length"];
+    _0x29025c > _0x314f7f && (_0x2e34b0[_0x5d1ec0(0x159)](), _0x5c980b());
   }
-  _0x253250["addEventListener"](_0x54db8c(0x130), (_0x3d47d2) => {
-    const _0x37803e = _0x54db8c;
-    _0x3d47d2[_0x37803e(0x11c)][_0x37803e(0x204)][_0x37803e(0x1e1)](
-      _0x37803e(0x171)
-    ) && _0x566f52();
+  _0x2dcef8["addEventListener"]("click", (_0x442fdf) => {
+    const _0x12fa01 = _0x4131bf;
+    _0x442fdf[_0x12fa01(0xa2)][_0x12fa01(0x168)]["contains"](
+      _0x12fa01(0x1a2)
+    ) && _0x335ab8();
     if (
-      _0x3d47d2[_0x37803e(0x11c)]["classList"][_0x37803e(0x1e1)](
-        _0x37803e(0x159)
+      _0x442fdf[_0x12fa01(0xa2)][_0x12fa01(0x168)][_0x12fa01(0x13f)](
+        "btn-remove"
       )
     ) {
-      const _0x1b4ea7 = _0x3d47d2[_0x37803e(0x11c)][_0x37803e(0x1c5)]("tr");
-      _0x357f24(_0x1b4ea7);
+      const _0x394842 = _0x442fdf[_0x12fa01(0xa2)][_0x12fa01(0xd1)]("tr");
+      _0x49ee37(_0x394842);
     }
   }),
-    _0x46c6bb();
+    _0x5c980b();
 }
-function formatDateClient(_0x27a3ac) {
-  const _0x4b2c54 = _0x41d644;
+function formatDateClient(_0x32be83) {
+  const _0x8be7b7 = _0x36280d;
   if (
-    _0x27a3ac &&
-    _0x27a3ac[_0x4b2c54(0x131)]("/") &&
-    _0x27a3ac[_0x4b2c54(0x18d)] === 0xa
+    _0x32be83 &&
+    _0x32be83[_0x8be7b7(0x135)]("/") &&
+    _0x32be83[_0x8be7b7(0xae)] === 0xa
   )
-    return _0x27a3ac;
-  const _0x4f3913 = new Date(_0x27a3ac);
-  if (!isNaN(_0x4f3913)) {
-    const _0x315b50 = ("0" + _0x4f3913[_0x4b2c54(0x1dd)]())["slice"](-0x2),
-      _0x58fbae = ("0" + (_0x4f3913["getMonth"]() + 0x1))[_0x4b2c54(0x1a1)](
+    return _0x32be83;
+  const _0x1afb25 = new Date(_0x32be83);
+  if (!isNaN(_0x1afb25)) {
+    const _0x40689d = ("0" + _0x1afb25[_0x8be7b7(0xdd)]())[_0x8be7b7(0x136)](
         -0x2
       ),
-      _0x1bc9d2 = _0x4f3913["getFullYear"]();
-    return _0x315b50 + "/" + _0x58fbae + "/" + _0x1bc9d2;
+      _0x3faefe = ("0" + (_0x1afb25["getMonth"]() + 0x1))[_0x8be7b7(0x136)](
+        -0x2
+      ),
+      _0xae8b44 = _0x1afb25[_0x8be7b7(0x17a)]();
+    return _0x40689d + "/" + _0x3faefe + "/" + _0xae8b44;
   }
-  return _0x27a3ac;
+  return _0x32be83;
+}
+function _0x51c6(_0x53076a, _0x20a07f) {
+  const _0x3a9c6b = _0x3a9c();
+  return (
+    (_0x51c6 = function (_0x51c62b, _0x42665a) {
+      _0x51c62b = _0x51c62b - 0x87;
+      let _0x1272a9 = _0x3a9c6b[_0x51c62b];
+      return _0x1272a9;
+    }),
+    _0x51c6(_0x53076a, _0x20a07f)
+  );
 }
 async function runArchiveProcess() {
-  const _0x56e4b3 = _0x41d644;
+  const _0x1f4478 = _0x36280d;
   try {
-    const _0x5141a6 = await fetch(SCRIPT_URL + _0x56e4b3(0x1e2)),
-      _0xc7cb01 = await _0x5141a6[_0x56e4b3(0x11b)]();
-    _0xc7cb01[_0x56e4b3(0x182)]
-      ? console["log"](_0x56e4b3(0x11a))
-      : console["error"](_0x56e4b3(0x1a2), _0xc7cb01[_0x56e4b3(0x20b)]);
-  } catch (_0x1cbd9f) {
-    console[_0x56e4b3(0x20b)](_0x56e4b3(0x20e), _0x1cbd9f);
+    const _0x50a589 = await fetch(SCRIPT_URL + "?action=archive"),
+      _0x197ded = await _0x50a589[_0x1f4478(0xfd)]();
+    _0x197ded[_0x1f4478(0x193)]
+      ? console[_0x1f4478(0xe4)](_0x1f4478(0xf1))
+      : console["error"]("Archiving\x20error:", _0x197ded[_0x1f4478(0x123)]);
+  } catch (_0x5a455a) {
+    console["error"](_0x1f4478(0x156), _0x5a455a);
   }
 }
 function filterArchives() {
-  const _0x49f225 = _0x41d644,
-    _0x10d9f7 = document["getElementById"](_0x49f225(0x1e0))
-      ["value"][_0x49f225(0x222)]()
-      [_0x49f225(0x140)](),
-    _0x113223 = document[_0x49f225(0x1b2)](_0x49f225(0x197))[_0x49f225(0x18e)],
-    _0x4d1907 = document[_0x49f225(0x1b2)]("archivesTable")[_0x49f225(0x1f0)](
-      _0x49f225(0x134)
+  const _0x586c46 = _0x36280d,
+    _0x51226e = document[_0x586c46(0x103)](_0x586c46(0x114))
+      [_0x586c46(0x1a6)][_0x586c46(0x15a)]()
+      [_0x586c46(0xc3)](),
+    _0x4223f3 =
+      document[_0x586c46(0x103)]("archiveDateFilter")[_0x586c46(0x1a6)],
+    _0x4fb2ae = document["getElementById"](_0x586c46(0xf0))[_0x586c46(0x9f)](
+      _0x586c46(0x11a)
     ),
-    _0x411ec3 = _0x4d1907[_0x49f225(0x111)]("tr");
+    _0x7f1357 = _0x4fb2ae[_0x586c46(0xe2)]("tr");
   for (
-    let _0x58f124 = 0x0;
-    _0x58f124 < _0x411ec3[_0x49f225(0x18d)];
-    _0x58f124++
+    let _0x2091e1 = 0x0;
+    _0x2091e1 < _0x7f1357[_0x586c46(0xae)];
+    _0x2091e1++
   ) {
-    const _0x31773b = _0x411ec3[_0x58f124]["getElementsByTagName"]("td"),
-      _0xa85601 = _0x31773b[0x1][_0x49f225(0x174)][_0x49f225(0x140)](),
-      _0x28f9ef = _0x31773b[0x2][_0x49f225(0x174)]["trim"](),
-      _0x93d0d0 = _0x31773b[0x3][_0x49f225(0x174)]["toLowerCase"](),
-      _0x5c4b09 =
-        _0xa85601["includes"](_0x10d9f7) ||
-        _0x93d0d0[_0x49f225(0x131)](_0x10d9f7),
-      _0x140fcb = _0x113223 === "" || _0x28f9ef === _0x113223;
-    _0x411ec3[_0x58f124][_0x49f225(0x144)][_0x49f225(0x143)] =
-      _0x5c4b09 && _0x140fcb ? "" : _0x49f225(0x139);
+    const _0x16bb80 = _0x7f1357[_0x2091e1][_0x586c46(0xe2)]("td"),
+      _0x181987 = _0x16bb80[0x1][_0x586c46(0x87)][_0x586c46(0xc3)](),
+      _0x3fdc90 = _0x16bb80[0x2][_0x586c46(0x87)][_0x586c46(0x15a)](),
+      _0x2def4e = _0x16bb80[0x3]["textContent"][_0x586c46(0xc3)](),
+      _0x14b651 =
+        _0x181987["includes"](_0x51226e) ||
+        _0x2def4e[_0x586c46(0x135)](_0x51226e),
+      _0x4df385 = _0x4223f3 === "" || _0x3fdc90 === _0x4223f3;
+    _0x7f1357[_0x2091e1][_0x586c46(0xa4)][_0x586c46(0xce)] =
+      _0x14b651 && _0x4df385 ? "" : _0x586c46(0x1b7);
   }
 }
 function populateArchiveDateFilter() {
-  const _0x4ba1f5 = _0x41d644,
-    _0xa02bfd = document[_0x4ba1f5(0x1b2)](_0x4ba1f5(0xec))[_0x4ba1f5(0x1f0)](
-      _0x4ba1f5(0x134)
+  const _0x4ec417 = _0x36280d,
+    _0x26ea83 = document[_0x4ec417(0x103)](_0x4ec417(0xf0))[_0x4ec417(0x9f)](
+      "tbody"
     ),
-    _0x27397a = _0xa02bfd[_0x4ba1f5(0x111)]("tr"),
-    _0x55feae = new Set();
+    _0x2072dd = _0x26ea83[_0x4ec417(0xe2)]("tr"),
+    _0x207eb8 = new Set();
   for (
-    let _0x9c73f9 = 0x0;
-    _0x9c73f9 < _0x27397a[_0x4ba1f5(0x18d)];
-    _0x9c73f9++
+    let _0x20c07e = 0x0;
+    _0x20c07e < _0x2072dd[_0x4ec417(0xae)];
+    _0x20c07e++
   ) {
-    const _0x483262 =
-      _0x27397a[_0x9c73f9][_0x4ba1f5(0x111)]("td")[0x2][_0x4ba1f5(0x174)][
-        _0x4ba1f5(0x222)
-      ]();
-    _0x483262 !== "" && _0x55feae["add"](_0x483262);
+    const _0x172685 =
+      _0x2072dd[_0x20c07e][_0x4ec417(0xe2)]("td")[0x2]["textContent"]["trim"]();
+    _0x172685 !== "" && _0x207eb8[_0x4ec417(0x13c)](_0x172685);
   }
-  const _0x27e640 = document[_0x4ba1f5(0x1b2)](_0x4ba1f5(0x197));
-  (_0x27e640[_0x4ba1f5(0x217)] = _0x4ba1f5(0x123)),
-    Array[_0x4ba1f5(0x13b)](_0x55feae)
-      [_0x4ba1f5(0x215)]()
-      [_0x4ba1f5(0x221)]((_0x4ca014) => {
-        const _0x9d8fae = _0x4ba1f5,
-          _0x2d2fa4 = document[_0x9d8fae(0x10d)](_0x9d8fae(0x193));
-        (_0x2d2fa4[_0x9d8fae(0x18e)] = _0x4ca014),
-          (_0x2d2fa4["textContent"] = _0x4ca014),
-          _0x27e640["appendChild"](_0x2d2fa4);
+  const _0xf7afca = document[_0x4ec417(0x103)](_0x4ec417(0xf3));
+  (_0xf7afca[_0x4ec417(0xb7)] = _0x4ec417(0xb5)),
+    Array["from"](_0x207eb8)
+      [_0x4ec417(0x177)]()
+      ["forEach"]((_0xd7032f) => {
+        const _0x28a7da = _0x4ec417,
+          _0x1fef2b = document[_0x28a7da(0xc1)](_0x28a7da(0x105));
+        (_0x1fef2b["value"] = _0xd7032f),
+          (_0x1fef2b[_0x28a7da(0x87)] = _0xd7032f),
+          _0xf7afca[_0x28a7da(0x172)](_0x1fef2b);
       });
 }
-document[_0x41d644(0x1b2)](_0x41d644(0x1e0))[_0x41d644(0x1cc)](
-  _0x41d644(0x142),
+document[_0x36280d(0x103)](_0x36280d(0x114))[_0x36280d(0x1a8)](
+  _0x36280d(0xf8),
   filterArchives
 ),
-  document[_0x41d644(0x1b2)](_0x41d644(0x197))[_0x41d644(0x1cc)](
-    _0x41d644(0x198),
+  document[_0x36280d(0x103)](_0x36280d(0xf3))[_0x36280d(0x1a8)](
+    _0x36280d(0x1ae),
     filterArchives
   );
-function _0x30bf(_0x4f32dc, _0x3f1928) {
-  const _0x41bc29 = _0x41bc();
-  return (
-    (_0x30bf = function (_0x30bf5a, _0x42a14e) {
-      _0x30bf5a = _0x30bf5a - 0xeb;
-      let _0x5bec78 = _0x41bc29[_0x30bf5a];
-      return _0x5bec78;
-    }),
-    _0x30bf(_0x4f32dc, _0x3f1928)
-  );
-}
 async function fetchArchives() {
-  const _0x42ea1f = _0x41d644;
+  const _0x45594e = _0x36280d;
   try {
-    const _0xa6fd27 = await fetch(SCRIPT_URL + _0x42ea1f(0x229)),
-      _0x2f47f0 = await _0xa6fd27["json"](),
-      _0x271361 = document[_0x42ea1f(0x1b2)](_0x42ea1f(0xec))[_0x42ea1f(0x1f0)](
-        _0x42ea1f(0x134)
+    const _0x4c9826 = await fetch(SCRIPT_URL + "?action=readArchives"),
+      _0x2b0124 = await _0x4c9826[_0x45594e(0xfd)](),
+      _0x237a44 = document["getElementById"](_0x45594e(0xf0))["querySelector"](
+        _0x45594e(0x11a)
       );
     if (
-      !_0x2f47f0 ||
-      !_0x2f47f0[_0x42ea1f(0x17b)] ||
-      _0x2f47f0[_0x42ea1f(0x17b)][_0x42ea1f(0x18d)] === 0x0
+      !_0x2b0124 ||
+      !_0x2b0124[_0x45594e(0x178)] ||
+      _0x2b0124["values"]["length"] === 0x0
     ) {
-      _0x271361["innerHTML"] = _0x42ea1f(0x1fb);
+      _0x237a44[_0x45594e(0xb7)] =
+        "<tr><td\x20colspan=\x274\x27>Aucun\x20historique\x20disponible</td></tr>";
       return;
     }
-    (_0x271361["innerHTML"] = ""),
-      _0x2f47f0["values"][_0x42ea1f(0x221)]((_0x4248dd) => {
-        const _0x1c77a8 = _0x42ea1f,
-          _0x5718b8 = formatDateClient(_0x4248dd[_0x1c77a8(0x1ea)]);
-        let _0x19e124 = "";
-        const _0x473984 = _0x4248dd[_0x1c77a8(0x118)]["split"](
-          _0x1c77a8(0x127)
-        );
-        _0x473984[_0x1c77a8(0x221)]((_0x18a5b1) => {
-          const _0x10857c = _0x1c77a8;
-          _0x18a5b1 = _0x18a5b1[_0x10857c(0x222)]();
-          if (_0x18a5b1)
+    (_0x237a44[_0x45594e(0xb7)] = ""),
+      _0x2b0124[_0x45594e(0x178)][_0x45594e(0x97)]((_0x29758a) => {
+        const _0x597fba = _0x45594e,
+          _0x5a34f9 = formatDateClient(_0x29758a[_0x597fba(0x94)]);
+        let _0x43ee96 = "";
+        const _0x343daa = _0x29758a[_0x597fba(0xe0)][_0x597fba(0x1a0)]("|||");
+        _0x343daa[_0x597fba(0x97)]((_0x5b6927) => {
+          const _0x41e8ec = _0x597fba;
+          _0x5b6927 = _0x5b6927[_0x41e8ec(0x15a)]();
+          if (_0x5b6927)
             try {
-              const _0x368791 = JSON[_0x10857c(0x137)](_0x18a5b1);
+              const _0x8c659b = JSON[_0x41e8ec(0x126)](_0x5b6927);
               if (
-                Array[_0x10857c(0x1a9)](_0x368791) &&
-                _0x368791[_0x10857c(0x18d)] > 0x0
+                Array[_0x41e8ec(0xd5)](_0x8c659b) &&
+                _0x8c659b[_0x41e8ec(0xae)] > 0x0
               ) {
-                const _0x3c537f = _0x368791[0x0];
-                _0x19e124 +=
-                  _0x10857c(0x1da) +
-                  _0x3c537f[_0x10857c(0x13d)] +
-                  _0x10857c(0x104) +
-                  _0x3c537f[_0x10857c(0x1f8)] +
-                  "\x20-\x20" +
-                  _0x3c537f[_0x10857c(0x1bd)] +
-                  _0x10857c(0xf7);
+                const _0x4a7ce2 = _0x8c659b[0x0];
+                _0x43ee96 +=
+                  "<div>" +
+                  _0x4a7ce2[_0x41e8ec(0xaa)] +
+                  _0x41e8ec(0x1b3) +
+                  _0x4a7ce2[_0x41e8ec(0x195)] +
+                  _0x41e8ec(0x1b3) +
+                  _0x4a7ce2[_0x41e8ec(0x8d)] +
+                  _0x41e8ec(0xb6);
               }
-            } catch (_0x248d96) {
-              console[_0x10857c(0x20b)](_0x10857c(0x1af), _0x248d96);
+            } catch (_0x59037c) {
+              console["error"](_0x41e8ec(0x14d), _0x59037c);
             }
         });
-        const _0x2de900 = document[_0x1c77a8(0x10d)]("tr");
-        (_0x2de900[_0x1c77a8(0x217)] =
-          _0x1c77a8(0x1f5) +
-          _0x4248dd["id"] +
-          _0x1c77a8(0x109) +
-          _0x4248dd[_0x1c77a8(0x158)] +
-          _0x1c77a8(0x109) +
-          _0x5718b8 +
-          _0x1c77a8(0x109) +
-          _0x19e124 +
+        const _0x38774a = document["createElement"]("tr");
+        (_0x38774a["innerHTML"] =
+          _0x597fba(0x129) +
+          _0x29758a["id"] +
+          _0x597fba(0x127) +
+          _0x29758a[_0x597fba(0x115)] +
+          _0x597fba(0x127) +
+          _0x5a34f9 +
+          _0x597fba(0x127) +
+          _0x43ee96 +
           "</td>\x0a\x20\x20\x20\x20\x20\x20"),
-          _0x271361[_0x1c77a8(0x169)](_0x2de900);
+          _0x237a44[_0x597fba(0x172)](_0x38774a);
       }),
       populateArchiveDateFilter();
-  } catch (_0x32bb93) {
-    console[_0x42ea1f(0x20b)](
-      "Erreur\x20lors\x20de\x20la\x20récupération\x20de\x20l\x27historique:",
-      _0x32bb93
-    );
+  } catch (_0xdadd69) {
+    console[_0x45594e(0x123)](_0x45594e(0x98), _0xdadd69);
   }
 }
-function convertDMYToISO(_0x589880) {
-  const _0x1069c8 = _0x41d644,
-    _0xc2144e = _0x589880[_0x1069c8(0x1bc)]("/");
-  if (_0xc2144e[_0x1069c8(0x18d)] === 0x3) {
-    const _0x23b446 = _0xc2144e[0x0]["padStart"](0x2, "0"),
-      _0x28c5c5 = _0xc2144e[0x1][_0x1069c8(0x165)](0x2, "0"),
-      _0x263138 = _0xc2144e[0x2];
-    return _0x263138 + "-" + _0x28c5c5 + "-" + _0x23b446;
+function convertDMYToISO(_0xe71427) {
+  const _0x522ded = _0x36280d,
+    _0x4e7247 = _0xe71427[_0x522ded(0x1a0)]("/");
+  if (_0x4e7247[_0x522ded(0xae)] === 0x3) {
+    const _0x216b36 = _0x4e7247[0x0][_0x522ded(0x191)](0x2, "0"),
+      _0xe5dbde = _0x4e7247[0x1]["padStart"](0x2, "0"),
+      _0x419cee = _0x4e7247[0x2];
+    return _0x419cee + "-" + _0xe5dbde + "-" + _0x216b36;
   }
-  return _0x589880;
+  return _0xe71427;
 }
 function getEventsFromFormations() {
-  const _0x793b5b = _0x41d644,
-    _0x7f25ad = document[_0x793b5b(0x170)](_0x793b5b(0xfa)),
-    _0x3e697d = new Map();
+  const _0xaf54d7 = _0x36280d,
+    _0x3b0994 = document[_0xaf54d7(0x119)](_0xaf54d7(0x160)),
+    _0x4f1189 = new Map();
   return (
-    _0x7f25ad["forEach"]((_0x488ee7) => {
-      const _0x397ae1 = _0x793b5b,
-        _0x25b4ab = _0x488ee7["querySelector"]("td");
-      if (!_0x25b4ab) return;
-      const _0x489363 = _0x25b4ab["textContent"]["trim"](),
-        _0x5e3fa5 = _0x488ee7[_0x397ae1(0x1f0)](".data-formation");
-      if (!_0x5e3fa5) return;
-      const _0x86bf3 = _0x5e3fa5["textContent"][_0x397ae1(0x222)](),
-        _0x4771a3 = window[_0x397ae1(0x14e)]
-          ? window[_0x397ae1(0x14e)][_0x397ae1(0x133)](
-              (_0x44f0d7) => _0x44f0d7["id"]["toString"]() === _0x489363
+    _0x3b0994[_0xaf54d7(0x97)]((_0x5a73f1) => {
+      const _0x55dbd1 = _0xaf54d7,
+        _0xcd56b2 = _0x5a73f1[_0x55dbd1(0x9f)]("td");
+      if (!_0xcd56b2) return;
+      const _0x435de0 = _0xcd56b2[_0x55dbd1(0x87)][_0x55dbd1(0x15a)](),
+        _0x1ed25a = _0x5a73f1[_0x55dbd1(0x9f)](_0x55dbd1(0x109));
+      if (!_0x1ed25a) return;
+      const _0x15d2aa = _0x1ed25a[_0x55dbd1(0x87)][_0x55dbd1(0x15a)](),
+        _0x5e849c = window[_0x55dbd1(0x188)]
+          ? window[_0x55dbd1(0x188)]["find"](
+              (_0x40af31) => _0x40af31["id"][_0x55dbd1(0x174)]() === _0x435de0
             )
           : null,
-        _0x3c7064 = _0x488ee7["querySelectorAll"](_0x397ae1(0x17c));
-      _0x3c7064[_0x397ae1(0x221)]((_0x83774f) => {
-        const _0x5c0462 = _0x397ae1,
-          _0x280b91 = _0x83774f[_0x5c0462(0x13f)](_0x5c0462(0x14a));
-        if (!_0x280b91) return;
-        const _0x292540 = convertDMYToISO(_0x280b91);
-        let _0x29dea9 = 0x0;
-        if (_0x4771a3) _0x29dea9 = getParticipantsCount(_0x4771a3, _0x280b91);
+        _0x474d93 = _0x5a73f1[_0x55dbd1(0x119)](_0x55dbd1(0x16b));
+      _0x474d93[_0x55dbd1(0x97)]((_0xb52c1) => {
+        const _0x2c8246 = _0x55dbd1,
+          _0x3deaef = _0xb52c1[_0x2c8246(0x12d)](_0x2c8246(0x125));
+        if (!_0x3deaef) return;
+        const _0x3ef7d9 = convertDMYToISO(_0x3deaef);
+        let _0x8d4704 = 0x0;
+        if (_0x5e849c) _0x8d4704 = getParticipantsCount(_0x5e849c, _0x3deaef);
         else {
-          let _0x26c3e4 =
-            _0x83774f[_0x5c0462(0x174)][_0x5c0462(0x209)](/\((\d+)\/12\)/);
-          _0x26c3e4 &&
-            _0x26c3e4[0x1] &&
-            (_0x29dea9 = parseInt(_0x26c3e4[0x1], 0xa));
+          let _0x5bef8a =
+            _0xb52c1["textContent"][_0x2c8246(0x161)](/\((\d+)\/12\)/);
+          _0x5bef8a &&
+            _0x5bef8a[0x1] &&
+            (_0x8d4704 = parseInt(_0x5bef8a[0x1], 0xa));
         }
-        let _0x152470 = _0x5c0462(0x1c3);
-        if (_0x29dea9 >= 0x1 && _0x29dea9 <= 0x5) _0x152470 = _0x5c0462(0x18f);
-        else _0x29dea9 >= 0x6 && (_0x152470 = _0x5c0462(0x220));
-        const _0x545e9e = _0x86bf3 + "\x20(" + _0x29dea9 + _0x5c0462(0x1bb),
-          _0x2ae81b = _0x292540 + "|" + _0x86bf3;
-        !_0x3e697d[_0x5c0462(0x192)](_0x2ae81b) &&
-          _0x3e697d[_0x5c0462(0x12e)](_0x2ae81b, {
-            title: _0x545e9e,
-            start: _0x292540,
-            backgroundColor: _0x152470,
-            borderColor: _0x152470,
-            extendedProps: { formationId: _0x489363, count: _0x29dea9 },
+        let _0x3005f1 = "grey";
+        if (_0x8d4704 >= 0x1 && _0x8d4704 <= 0x5) _0x3005f1 = _0x2c8246(0xd7);
+        else _0x8d4704 >= 0x6 && (_0x3005f1 = "#37ec5f");
+        const _0x15ab4b = _0x15d2aa + "\x20(" + _0x8d4704 + _0x2c8246(0x18b),
+          _0x52edd4 = _0x3ef7d9 + "|" + _0x15d2aa;
+        !_0x4f1189[_0x2c8246(0x19f)](_0x52edd4) &&
+          _0x4f1189[_0x2c8246(0x14e)](_0x52edd4, {
+            title: _0x15ab4b,
+            start: _0x3ef7d9,
+            backgroundColor: _0x3005f1,
+            borderColor: _0x3005f1,
+            extendedProps: { formationId: _0x435de0, count: _0x8d4704 },
           });
       });
     }),
-    Array["from"](_0x3e697d[_0x793b5b(0x17b)]())
+    Array["from"](_0x4f1189[_0xaf54d7(0x178)]())
   );
 }
+function _0x3a9c() {
+  const _0x59ffac = [
+    "426147Tmtjng",
+    "#homePage",
+    "has",
+    "split",
+    "name",
+    "btn-add",
+    "Erreur\x20lors\x20de\x20la\x20suppression\x20de\x20la\x20tâche:\x20",
+    "413RipcRF",
+    "\x22>Retirer</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20",
+    "value",
+    "Demande\x20acceptée\x20avec\x20succès\x20!",
+    "addEventListener",
+    "Erreur\x20lors\x20de\x20l\x27effacement\x20de\x20l\x27historique:\x20",
+    "&message=",
+    "Participants\x20mis\x20à\x20jour\x20:",
+    "top",
+    "confirmNo2",
+    "change",
+    "find",
+    "disabled",
+    "Adresse\x20mail\x20copiée\x20(",
+    "data-target",
+    "\x20-\x20",
+    "Participants\x20pour\x20la\x20formation\x20:",
+    "formation-name-modal",
+    "adminAuth",
+    "none",
+    "replace",
+    "calendar",
+    "?action=read",
+    "?action=addTask&concerne=",
+    "textContent",
+    "\x22>Accepter</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn-refuse\x22\x20data-id=\x22",
+    "Erreur\x20lors\x20de\x20la\x20récupération\x20des\x20demandes\x20en\x20attente\x20:",
+    "join",
+    "exec",
+    "activeTasksContainer",
+    "entity",
+    "filter",
+    "taskImportance",
+    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td><button\x20class=\x22btn-delete-task\x22\x20data-id=\x22",
+    "1454712wYDeEZ",
+    "Tâche\x20supprimée\x20avec\x20succès\x20!",
+    "22396xGSwaj",
+    "date",
+    "preventDefault",
+    "Voulez-vous\x20vraiment\x20effacer\x20l\x27historique\x20des\x20tâches\x20accomplies\x20?",
+    "forEach",
+    "Erreur\x20lors\x20de\x20la\x20récupération\x20de\x20l\x27historique:",
+    "confirmModal2",
+    "?action=deletePending&id=",
+    "#37ec5f",
+    "modalDate",
+    "map",
+    "menuAdmin",
+    "querySelector",
+    "\x22>Accompli</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn-delete-task\x22\x20data-id=\x22",
+    "&email=",
+    "target",
+    "Demande\x20refusée\x20avec\x20succès\x20!",
+    "style",
+    "Erreur\x20lors\x20de\x20l\x27ajout\x20de\x20la\x20tâche:\x20",
+    "extendedProps",
+    "taskDescription",
+    "\x22\x20style=\x22cursor:pointer;\x20margin-right:5px;\x20background-color:",
+    "Ajout\x20en\x20cours,\x20veuillez\x20patienter..",
+    "matricule",
+    "4sYz-WzrDCXInmUCl",
+    "prev,next\x20today",
+    "flex",
+    "length",
+    "fetchFormations",
+    "Suppression\x20:",
+    "formationSelect",
+    "\x22\x20data-date=\x22",
+    "addFormationButton",
+    "calendarModal",
+    "<option\x20value=\x22\x22>Toutes\x20les\x20dates</option>",
+    "</div>",
+    "innerHTML",
+    "availableDates",
+    "Demande\x20ajoutée\x20:",
+    "&formation=",
+    "reset",
+    ".formation-container",
+    "https://script.google.com/macros/s/AKfycbyTxVIekVUyRSUafBPEzQGaK2goS1zqMi8qLoeESNhvk3XXbPSFyyjyJkuBWjWG5btvAA/exec",
+    "\x22>Supprimer</button></td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>",
+    "Erreur\x20lors\x20de\x20la\x20copie\x20de\x20l\x27email\x20:\x20",
+    "getMonth",
+    "createElement",
+    "formationsTable",
+    "toLowerCase",
+    "&telephone=",
+    "event",
+    "item-",
+    "\x0a\x20\x20\x20\x20<div\x20id=\x22addParticipantSection\x22\x20style=\x22margin-top:15px;\x22>\x0a\x20\x20\x20\x20\x20\x20<h4>Ajouter\x20un\x20participant</h4>\x0a\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22newMatricule\x22\x20placeholder=\x22Matricule\x22\x20style=\x22margin-right:5px;\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22newName\x22\x20placeholder=\x22Nom/Prénom\x22\x20style=\x22margin-right:5px;\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22newEntity\x22\x20placeholder=\x22Entité\x22\x20style=\x22margin-right:5px;\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20<button\x20id=\x22btnAddParticipant\x22>Ajouter\x20participant(e)</button>\x0a\x20\x20\x20\x20</div>\x0a\x20\x20",
+    "cookie",
+    "innerHeight",
+    "\x22>Modifier</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22delete-formation\x22\x20data-id=\x22",
+    "Une\x20erreur\x20s\x27est\x20produite,\x20veuillez\x20réessayer.",
+    "Effacement\x20en\x20cours,\x20veuillez\x20patienter..",
+    "endsWith",
+    "display",
+    "confirmMessage2",
+    "modalTitle",
+    "closest",
+    "#tasksHistoryContainer\x20.btn-delete-task",
+    "\x22>Supprimer</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</td>\x0a\x20\x20\x20\x20\x20\x20",
+    "hidden",
+    "isArray",
+    "&name=",
+    "#f49f42",
+    "\x0a\x20\x20\x20\x20\x20\x20<table\x20style=\x22width:100%;\x20border-collapse:collapse;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr\x20style=\x22background-color:#f9f9f9;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>N°</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>Matricule</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>Nom/Prenom</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>Entité</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>Action</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<tbody>\x0a\x20\x20\x20\x20",
+    "etat",
+    "<p>Aucun\x20participant\x20pour\x20cette\x20date.</p>",
+    "Erreur\x20lors\x20de\x20l\x27affichage\x20d\x27un\x20bloc\x20:",
+    "participantsModal",
+    "getDate",
+    "start",
+    "substring",
+    "participants",
+    "Formation\x20not\x20found\x20for\x20ID:\x20",
+    "getElementsByTagName",
+    "clipboard",
+    "log",
+    "/12)</span>",
+    "stringify",
+    "data-id",
+    "\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>",
+    "Participant\x20ajouté\x20avec\x20succès\x20!",
+    "init",
+    "newName",
+    "fullBlock",
+    "2387334ZHhLiP",
+    "Erreur\x20lors\x20de\x20l\x27ajout\x20de\x20la\x20demande\x20:",
+    "catch",
+    "archivesTable",
+    "Archiving\x20completed\x20successfully.",
+    "<p>Aucune\x20tâche\x20active.</p>",
+    "archiveDateFilter",
+    "?action=add&id=",
+    "employees",
+    "\x0a\x20\x20\x20\x20\x20\x20<table\x20class=\x22tasks-table\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>ID</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Concerne</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Tâche</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Importance</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>État</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Actions</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<tbody>\x0a\x20\x20\x20\x20",
+    "#employeeTable\x20tbody\x20tr",
+    "input",
+    "message",
+    "tache",
+    "setTime",
+    "Erreur\x20lors\x20du\x20refus\x20de\x20la\x20demande\x20:",
+    "json",
+    "Modifier\x20une\x20Formation",
+    "btnAddParticipant",
+    "indexOf",
+    "?action=readPending",
+    "&participants=",
+    "getElementById",
+    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn-accept\x22\x20data-id=\x22",
+    "option",
+    "telephone",
+    "&etat=Accomplie",
+    "Merci,\x20votre\x20demande\x20a\x20été\x20envoyée\x20avec\x20succès\x20!",
+    ".data-formation",
+    "formationDates",
+    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>",
+    "Aucun\x20message",
+    "Mise\x20à\x20jour\x20:",
+    "<span\x20class=\x22clickable-date\x22\x20data-formation-id=\x22",
+    "input[name=\x22entity[]\x22]",
+    "send",
+    "?action=readTasks",
+    "755YXGnPq",
+    "dateSelect",
+    "archiveSearch",
+    "formation",
+    "servicesSection",
+    "concat",
+    "removeEventListener",
+    "querySelectorAll",
+    "tbody",
+    "currentFormationsData",
+    "<h3>Demandes\x20en\x20attente</h3><p>Aucune\x20demande\x20de\x20formation\x20en\x20attente..\x20:(</p>",
+    ".btn-complete-task",
+    "push",
+    "smooth",
+    "template_mhmywm3",
+    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn-complete-task\x22\x20data-id=\x22",
+    "input[name=\x22nameEmployee[]\x22]",
+    "error",
+    "handleFormationsData",
+    "data-date",
+    "parse",
+    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<td>",
+    "email",
+    "\x0a\x20\x20\x20\x20\x20\x20\x20\x20<td>",
+    "src",
+    "Erreur\x20lors\x20de\x20la\x20récupération\x20de\x20l\x27historique\x20des\x20tâches\x20:",
+    "Erreur\x20lors\x20du\x20parsing\x20des\x20participants:",
+    "getAttribute",
+    "cloneNode",
+    "scrollTo",
+    "formationModal",
+    "Erreur\x20lors\x20de\x20la\x20suppression\x20de\x20la\x20formation\x20:",
+    "formationId",
+    "Aucune\x20date\x20disponible",
+    "test",
+    "includes",
+    "slice",
+    "pendingRequestsTable",
+    "Ajouter\x20une\x20Formation",
+    "?action=update&id=",
+    "</tbody></table>",
+    "<p>Aucune\x20tâche\x20accomplie.</p>",
+    "add",
+    "clearHistoryBtn",
+    "&employees=",
+    "contains",
+    "then",
+    "23757237SWQRGv",
+    "max",
+    "function",
+    "Participant\x20retiré\x20avec\x20succès\x20!",
+    "&date=",
+    "&dates=",
+    "show",
+    "Veuillez\x20remplir\x20tous\x20les\x20champs.",
+    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn-remove-participant\x22\x20data-index=\x22",
+    "adminPanel",
+    ".btn-remove",
+    "Calendar",
+    "Erreur\x20de\x20parsing\x20du\x20participant:",
+    "set",
+    "closeParticipantsModal",
+    ".goToForm",
+    ".service-item",
+    "script",
+    "Demande\x20refusée\x20:",
+    "Demande\x20acceptée\x20:",
+    "submitForm",
+    "Error\x20calling\x20archive\x20action:",
+    "scrollY",
+    ".menu-item",
+    "remove",
+    "trim",
+    "Erreur\x20lors\x20de\x20la\x20mise\x20à\x20jour\x20de\x20l\x27état\x20de\x20la\x20tâche:\x20",
+    "text",
+    "notificationPopup",
+    "Erreur\x20updateTaskState:",
+    "205464fcLePD",
+    "#formationsTable\x20tbody\x20tr",
+    "match",
+    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<td\x20class=\x22data-formation\x22>",
+    "CC1234!",
+    "adminLogin",
+    "?action=deleteTask&id=",
+    "?action=clearTasksHistory",
+    "importance",
+    "classList",
+    "\x22>Supprimer</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>",
+    "?action=updateParticipants&id=",
+    ".clickable-date",
+    "click",
+    "service_x5g594z",
+    ".btn-remove-participant",
+    "input[name=\x22matricule[]\x22]",
+    "options",
+    "formationName",
+    "appendChild",
+    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:8px;\x20border:1px\x20solid\x20#ddd;\x22>",
+    "toString",
+    "data-formation-id",
+    "logoutButton",
+    "sort",
+    "values",
+    ";\x22>",
+    "getFullYear",
+    "manager",
+    "Tâche\x20ajoutée\x20avec\x20succès\x20!",
+    "\x0a\x20\x20\x20\x20\x20\x20\x20\x20<h3>Demandes\x20en\x20attente</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<table\x20id=\x22pendingRequestsTable\x22\x20border=\x221\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>ID</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Manager</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Email</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Téléphone</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Formation</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Date</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Message</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Employees</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Actions</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tbody>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tbody>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</table>\x0a\x20\x20\x20\x20\x20\x20",
+    "participantsList",
+    "Veuillez\x20patienter..\x20Suppression\x20de\x20tâche\x20en\x20cours.",
+    "DOMContentLoaded",
+    "btn-accept",
+    "true",
+    "?action=read&callback=handleFormationsData",
+    "appointment-section",
+    "Êtes-vous\x20sûr\x20de\x20vouloir\x20supprimer\x20cette\x20formation\x20?",
+    "\x0a\x20\x20\x20\x20\x20\x20\x20\x20</tbody>\x0a\x20\x20\x20\x20\x20\x20</table>\x0a\x20\x20\x20\x20",
+    "delete-formation",
+    "formationsData",
+    "Formation\x20supprimée\x20avec\x20succès\x20!",
+    "<br>",
+    "/12)",
+    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>",
+    "data-email",
+    "Erreur\x20lors\x20de\x20l\x27envoi\x20:",
+    "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20class=\x22importance-cell\x20importance-",
+    "6199872tPhMqT",
+    "padStart",
+    "pendingRequests",
+    "success",
+    "data-index",
+    "nameEmployee",
+    "string",
+    ".contact-item",
+    "<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>",
+    "submit",
+    "btn-refuse",
+    "Erreur\x20lors\x20de\x20la\x20mise\x20à\x20jour\x20des\x20participants\x20:",
+    "concerne",
+  ];
+  _0x3a9c = function () {
+    return _0x59ffac;
+  };
+  return _0x3a9c();
+}
 function initCalendarFromFormations() {
-  const _0x2093dc = _0x41d644,
-    _0x2a4706 = getEventsFromFormations(),
-    _0x28025b = document[_0x2093dc(0x1b2)](_0x2093dc(0x1d4)),
-    _0x22483a = new FullCalendar[_0x2093dc(0x1cb)](_0x28025b, {
+  const _0x1f8f80 = _0x36280d,
+    _0x419690 = getEventsFromFormations(),
+    _0x31db7e = document[_0x1f8f80(0x103)](_0x1f8f80(0x1b9)),
+    _0x1af48c = new FullCalendar[_0x1f8f80(0x14c)](_0x31db7e, {
       locale: "fr",
       initialView: "dayGridMonth",
-      headerToolbar: { left: _0x2093dc(0xf6), center: "title", right: "" },
-      events: _0x2a4706,
-      eventClick: function (_0x1e2c4f) {
-        const _0x5ba650 = _0x2093dc,
-          _0x345646 = _0x1e2c4f["event"][_0x5ba650(0x183)],
-          _0x39bb30 = ("0" + _0x345646["getDate"]())[_0x5ba650(0x1a1)](-0x2),
-          _0x1cb035 = ("0" + (_0x345646["getMonth"]() + 0x1))[_0x5ba650(0x1a1)](
+      headerToolbar: { left: _0x1f8f80(0xac), center: "title", right: "" },
+      events: _0x419690,
+      eventClick: function (_0x12a17b) {
+        const _0x220224 = _0x1f8f80,
+          _0x3691a8 = _0x12a17b[_0x220224(0xc5)][_0x220224(0xde)],
+          _0x3b5aed = ("0" + _0x3691a8[_0x220224(0xdd)]())[_0x220224(0x136)](
             -0x2
           ),
-          _0x53eb14 = _0x345646[_0x5ba650(0x1b4)](),
-          _0x41209c = _0x39bb30 + "/" + _0x1cb035 + "/" + _0x53eb14,
-          _0x132b5a = _0x1e2c4f["event"][_0x5ba650(0x151)][_0x5ba650(0x176)],
-          _0x49e8be = window["formationsData"]["find"](
-            (_0x26a3ac) => _0x26a3ac["id"][_0x5ba650(0x13a)]() === _0x132b5a
+          _0x2d2958 = ("0" + (_0x3691a8[_0x220224(0xc0)]() + 0x1))["slice"](
+            -0x2
+          ),
+          _0x31d1d9 = _0x3691a8[_0x220224(0x17a)](),
+          _0x58223c = _0x3b5aed + "/" + _0x2d2958 + "/" + _0x31d1d9,
+          _0x98072b =
+            _0x12a17b[_0x220224(0xc5)][_0x220224(0xa6)][_0x220224(0x132)],
+          _0x2e7968 = window[_0x220224(0x188)][_0x220224(0x1af)](
+            (_0xf43f98) => _0xf43f98["id"][_0x220224(0x174)]() === _0x98072b
           );
-        _0x49e8be
-          ? showParticipantsModal(_0x49e8be, _0x41209c)
-          : alert(_0x5ba650(0x1b5) + _0x132b5a);
+        _0x2e7968
+          ? showParticipantsModal(_0x2e7968, _0x58223c)
+          : alert(_0x220224(0xe1) + _0x98072b);
       },
     });
-  _0x22483a[_0x2093dc(0x10e)]();
+  _0x1af48c["render"]();
 }
-const openCalendarBtn = document["getElementById"]("openCalendarBtn"),
-  calendarModal = document[_0x41d644(0x1b2)](_0x41d644(0x194)),
-  closeCalendar = document[_0x41d644(0x1b2)](_0x41d644(0x1e8));
-openCalendarBtn[_0x41d644(0x1cc)](_0x41d644(0x130), () => {
-  const _0xe9955d = _0x41d644;
-  (calendarModal[_0xe9955d(0x144)]["display"] = "block"),
+const openCalendarBtn = document[_0x36280d(0x103)]("openCalendarBtn"),
+  calendarModal = document[_0x36280d(0x103)](_0x36280d(0xb4)),
+  closeCalendar = document[_0x36280d(0x103)]("closeCalendar");
+openCalendarBtn[_0x36280d(0x1a8)]("click", () => {
+  const _0x237d0d = _0x36280d;
+  (calendarModal["style"][_0x237d0d(0xce)] = "block"),
     initCalendarFromFormations();
 }),
-  closeCalendar[_0x41d644(0x1cc)](_0x41d644(0x130), () => {
-    const _0x57f59d = _0x41d644;
-    calendarModal["style"]["display"] = _0x57f59d(0x139);
+  closeCalendar[_0x36280d(0x1a8)](_0x36280d(0x16c), () => {
+    const _0x5b1682 = _0x36280d;
+    calendarModal[_0x5b1682(0xa4)][_0x5b1682(0xce)] = _0x5b1682(0x1b7);
   }),
-  window["addEventListener"](_0x41d644(0x130), (_0x352505) => {
-    _0x352505["target"] === calendarModal &&
-      (calendarModal["style"]["display"] = "none");
+  window["addEventListener"](_0x36280d(0x16c), (_0x397d06) => {
+    const _0x5bf2a5 = _0x36280d;
+    _0x397d06[_0x5bf2a5(0xa2)] === calendarModal &&
+      (calendarModal[_0x5bf2a5(0xa4)]["display"] = _0x5bf2a5(0x1b7));
   }),
-  document["getElementById"](_0x41d644(0x14f))[_0x41d644(0x1cc)](
-    _0x41d644(0x21b),
-    async (_0x5fd196) => {
-      const _0x25d873 = _0x41d644;
-      showNotification(_0x25d873(0x132)), _0x5fd196["preventDefault"]();
-      const _0x2e7ec8 = document[_0x25d873(0x1b2)](_0x25d873(0x122))[
-          _0x25d873(0x18e)
-        ][_0x25d873(0x222)](),
-        _0x198168 = document["getElementById"](_0x25d873(0x1b8))[
-          _0x25d873(0x18e)
+  document["getElementById"]("taskForm")[_0x36280d(0x1a8)](
+    _0x36280d(0x199),
+    async (_0x4b4f66) => {
+      const _0x25c63f = _0x36280d;
+      showNotification(
+        "Veuillez\x20patienter..\x20Ajout\x20de\x20tâche\x20en\x20cours."
+      ),
+        _0x4b4f66[_0x25c63f(0x95)]();
+      const _0x153b84 =
+          document[_0x25c63f(0x103)]("taskConcerne")["value"][
+            _0x25c63f(0x15a)
+          ](),
+        _0x1d1b26 = document[_0x25c63f(0x103)](_0x25c63f(0xa7))[
+          _0x25c63f(0x1a6)
         ]["trim"](),
-        _0x3fca90 =
-          document[_0x25d873(0x1b2)]("taskImportance")[_0x25d873(0x18e)],
-        _0x12415c = "Due",
-        _0x438ca2 =
+        _0x23a9a2 = document[_0x25c63f(0x103)](_0x25c63f(0x8f))[
+          _0x25c63f(0x1a6)
+        ],
+        _0x27c752 = "Due",
+        _0x34f569 =
           SCRIPT_URL +
-          _0x25d873(0x180) +
-          encodeURIComponent(_0x2e7ec8) +
-          _0x25d873(0x161) +
-          encodeURIComponent(_0x198168) +
-          _0x25d873(0x196) +
-          encodeURIComponent(_0x3fca90) +
-          _0x25d873(0x1c8) +
-          encodeURIComponent(_0x12415c);
+          _0x25c63f(0x1bb) +
+          encodeURIComponent(_0x153b84) +
+          "&tache=" +
+          encodeURIComponent(_0x1d1b26) +
+          "&importance=" +
+          encodeURIComponent(_0x23a9a2) +
+          "&etat=" +
+          encodeURIComponent(_0x27c752);
       try {
-        const _0x3e112b = await fetch(_0x438ca2),
-          _0x3cb02d = await _0x3e112b[_0x25d873(0x11b)]();
-        _0x3cb02d[_0x25d873(0x182)]
+        const _0x3f861d = await fetch(_0x34f569),
+          _0x27136e = await _0x3f861d[_0x25c63f(0xfd)]();
+        _0x27136e[_0x25c63f(0x193)]
           ? (await fetchTasks(),
             await fetchTasksHistory(),
-            document[_0x25d873(0x1b2)](_0x25d873(0x14f))[_0x25d873(0x162)](),
-            showNotification(_0x25d873(0x179)))
-          : showNotification(
-              "Erreur\x20lors\x20de\x20l\x27ajout\x20de\x20la\x20tâche:\x20" +
-                _0x3cb02d[_0x25d873(0x20b)]
-            );
-      } catch (_0x3a10a3) {
-        console[_0x25d873(0x20b)](_0x3a10a3);
+            document[_0x25c63f(0x103)]("taskForm")["reset"](),
+            showNotification(_0x25c63f(0x17c)))
+          : showNotification(_0x25c63f(0xa5) + _0x27136e["error"]);
+      } catch (_0x443684) {
+        console[_0x25c63f(0x123)](_0x443684);
       }
     }
   );
 async function fetchTasks() {
-  const _0x4eb0e3 = _0x41d644;
+  const _0x2bd677 = _0x36280d;
   try {
-    const _0x21b69d = await fetch(SCRIPT_URL + _0x4eb0e3(0x1c1)),
-      _0x5d6134 = await _0x21b69d[_0x4eb0e3(0x11b)](),
-      _0x7398f9 = document[_0x4eb0e3(0x1b2)](_0x4eb0e3(0x22a));
+    const _0x2772b8 = await fetch(SCRIPT_URL + _0x2bd677(0x111)),
+      _0x583201 = await _0x2772b8[_0x2bd677(0xfd)](),
+      _0xe53625 = document[_0x2bd677(0x103)](_0x2bd677(0x8c));
     if (
-      !_0x5d6134 ||
-      !_0x5d6134[_0x4eb0e3(0x17b)] ||
-      _0x5d6134[_0x4eb0e3(0x17b)][_0x4eb0e3(0x18d)] === 0x0
+      !_0x583201 ||
+      !_0x583201["values"] ||
+      _0x583201["values"][_0x2bd677(0xae)] === 0x0
     ) {
-      _0x7398f9["innerHTML"] = "<p>Aucune\x20tâche\x20active.</p>";
+      _0xe53625["innerHTML"] = _0x2bd677(0xf2);
       return;
     }
-    let _0x29a453 = _0x4eb0e3(0x231);
-    _0x5d6134[_0x4eb0e3(0x17b)]["forEach"]((_0x32d32f) => {
-      const _0x40e848 = _0x4eb0e3;
-      _0x29a453 +=
-        _0x40e848(0x100) +
-        _0x32d32f["id"] +
-        _0x40e848(0x106) +
-        _0x32d32f[_0x40e848(0xed)] +
-        _0x40e848(0x106) +
-        _0x32d32f[_0x40e848(0x1a5)] +
-        _0x40e848(0x106) +
-        _0x32d32f[_0x40e848(0xf0)] +
-        _0x40e848(0x106) +
-        _0x32d32f[_0x40e848(0x20a)] +
-        _0x40e848(0x22c) +
-        _0x32d32f["id"] +
-        _0x40e848(0x13e) +
-        _0x32d32f["id"] +
-        _0x40e848(0x1d0);
+    let _0x2fe18a = _0x2bd677(0xf6);
+    _0x583201[_0x2bd677(0x178)][_0x2bd677(0x97)]((_0x5a3097) => {
+      const _0x1ee15c = _0x2bd677;
+      _0x2fe18a +=
+        _0x1ee15c(0x198) +
+        _0x5a3097["id"] +
+        _0x1ee15c(0x18c) +
+        _0x5a3097[_0x1ee15c(0x19c)] +
+        _0x1ee15c(0x18c) +
+        _0x5a3097[_0x1ee15c(0xfa)] +
+        _0x1ee15c(0x18f) +
+        _0x5a3097[_0x1ee15c(0x167)][_0x1ee15c(0xc3)]() +
+        "\x22>" +
+        _0x5a3097[_0x1ee15c(0x167)] +
+        _0x1ee15c(0x18c) +
+        _0x5a3097[_0x1ee15c(0xd9)] +
+        _0x1ee15c(0x121) +
+        _0x5a3097["id"] +
+        _0x1ee15c(0xa0) +
+        _0x5a3097["id"] +
+        _0x1ee15c(0x169);
     }),
-      (_0x29a453 += _0x4eb0e3(0x1e6)),
-      (_0x7398f9[_0x4eb0e3(0x217)] = _0x29a453),
-      document[_0x4eb0e3(0x170)](_0x4eb0e3(0x1ee))[_0x4eb0e3(0x221)](
-        (_0x2b6254) => {
-          const _0x5e2e98 = _0x4eb0e3;
-          _0x2b6254[_0x5e2e98(0x1cc)](_0x5e2e98(0x130), async (_0x1219c4) => {
-            const _0x544d53 = _0x5e2e98,
-              _0x479a23 = _0x1219c4[_0x544d53(0x11c)][_0x544d53(0x13f)](
-                _0x544d53(0x1db)
-              );
-            try {
-              const _0xc42d1b = await fetch(
-                  SCRIPT_URL + _0x544d53(0x19e) + _0x479a23 + "&etat=Accomplie"
-                ),
-                _0x53979f = await _0xc42d1b[_0x544d53(0x11b)]();
-              !_0x53979f[_0x544d53(0x182)] &&
-                alert(_0x544d53(0x188) + _0x53979f["error"]),
-                await fetchTasks(),
-                await fetchTasksHistory();
-            } catch (_0x1683b3) {
-              console[_0x544d53(0x20b)](_0x544d53(0x1c2), _0x1683b3);
-            }
-          });
-        }
-      ),
-      document[_0x4eb0e3(0x170)](".btn-delete-task")[_0x4eb0e3(0x221)](
-        (_0x409973) => {
-          const _0x457110 = _0x4eb0e3;
-          _0x409973[_0x457110(0x1cc)]("click", async (_0x3f5f9f) => {
-            const _0x34d81f = _0x457110;
-            showNotification(_0x34d81f(0x1c7));
-            const _0x2746e8 = _0x3f5f9f[_0x34d81f(0x11c)][_0x34d81f(0x13f)](
-              _0x34d81f(0x1db)
+      (_0x2fe18a += _0x2bd677(0x13a)),
+      (_0xe53625[_0x2bd677(0xb7)] = _0x2fe18a),
+      document[_0x2bd677(0x119)](_0x2bd677(0x11d))["forEach"]((_0x33a4aa) => {
+        const _0x2866c2 = _0x2bd677;
+        _0x33a4aa[_0x2866c2(0x1a8)]("click", async (_0x720409) => {
+          const _0x59363d = _0x2866c2,
+            _0x26fd60 = _0x720409[_0x59363d(0xa2)][_0x59363d(0x12d)](
+              _0x59363d(0xe7)
             );
-            await deleteTask(_0x2746e8),
+          try {
+            const _0x1cc0cc = await fetch(
+                SCRIPT_URL +
+                  "?action=updateTaskState&id=" +
+                  _0x26fd60 +
+                  _0x59363d(0x107)
+              ),
+              _0x2fd278 = await _0x1cc0cc[_0x59363d(0xfd)]();
+            !_0x2fd278["success"] &&
+              alert(_0x59363d(0x15b) + _0x2fd278[_0x59363d(0x123)]),
               await fetchTasks(),
-              setTimeout(() => {
-                const _0x13d88a = _0x34d81f;
-                showNotification(_0x13d88a(0x18a));
-              }, 0x3e8);
-          });
-        }
-      );
-  } catch (_0x255e28) {
-    showNotification(_0x4eb0e3(0x1d5));
+              await fetchTasksHistory();
+          } catch (_0xac5da8) {
+            console[_0x59363d(0x123)](_0x59363d(0x15e), _0xac5da8);
+          }
+        });
+      }),
+      document[_0x2bd677(0x119)](".btn-delete-task")["forEach"]((_0x38a899) => {
+        const _0x7ac12 = _0x2bd677;
+        _0x38a899[_0x7ac12(0x1a8)](_0x7ac12(0x16c), async (_0x3bf16b) => {
+          const _0x21a6b0 = _0x7ac12;
+          showNotification(_0x21a6b0(0x17f));
+          const _0x3f9cb0 = _0x3bf16b[_0x21a6b0(0xa2)][_0x21a6b0(0x12d)](
+            _0x21a6b0(0xe7)
+          );
+          await deleteTask(_0x3f9cb0),
+            await fetchTasks(),
+            setTimeout(() => {
+              const _0x5cb5f1 = _0x21a6b0;
+              showNotification(_0x5cb5f1(0x92));
+            }, 0x3e8);
+        });
+      });
+  } catch (_0x236958) {
+    showNotification(
+      "Erreur\x20lors\x20de\x20la\x20récupération\x20des\x20tâches\x20actives."
+    );
   }
 }
 async function fetchTasksHistory() {
-  const _0x154097 = _0x41d644;
+  const _0x1e1fda = _0x36280d;
   try {
-    const _0x3e4d0f = await fetch(SCRIPT_URL + _0x154097(0x223)),
-      _0x87e63b = await _0x3e4d0f[_0x154097(0x11b)](),
-      _0x272016 = document["getElementById"](_0x154097(0x1ce));
+    const _0x948aea = await fetch(SCRIPT_URL + "?action=readTasksHistory"),
+      _0x746a9e = await _0x948aea[_0x1e1fda(0xfd)](),
+      _0xe801dc = document[_0x1e1fda(0x103)]("tasksHistoryContainer");
     if (
-      !_0x87e63b ||
-      !_0x87e63b[_0x154097(0x17b)] ||
-      _0x87e63b[_0x154097(0x17b)][_0x154097(0x18d)] === 0x0
+      !_0x746a9e ||
+      !_0x746a9e[_0x1e1fda(0x178)] ||
+      _0x746a9e[_0x1e1fda(0x178)][_0x1e1fda(0xae)] === 0x0
     ) {
-      _0x272016["innerHTML"] = _0x154097(0x129);
+      _0xe801dc[_0x1e1fda(0xb7)] = _0x1e1fda(0x13b);
       return;
     }
-    let _0x123ed5 =
+    let _0xe047a4 =
       "\x0a\x20\x20\x20\x20\x20\x20<table\x20class=\x22tasks-table\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>ID</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Concerne</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Tâche</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20class=\x22colorTask\x22>Importance</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>État</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th>Actions</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<tbody>\x0a\x20\x20\x20\x20";
-    _0x87e63b[_0x154097(0x17b)][_0x154097(0x221)]((_0x299dcb) => {
-      const _0x6c2a58 = _0x154097;
-      _0x123ed5 +=
-        _0x6c2a58(0x19a) +
-        _0x299dcb["id"] +
+    _0x746a9e[_0x1e1fda(0x178)][_0x1e1fda(0x97)]((_0x45a1ef) => {
+      const _0x5098a1 = _0x1e1fda;
+      _0xe047a4 +=
+        "<tr\x20class=\x22task-history-row\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>" +
+        _0x45a1ef["id"] +
         "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>" +
-        _0x299dcb[_0x6c2a58(0xed)] +
+        _0x45a1ef[_0x5098a1(0x19c)] +
+        _0x5098a1(0x18c) +
+        _0x45a1ef[_0x5098a1(0xfa)] +
+        _0x5098a1(0x18f) +
+        _0x45a1ef[_0x5098a1(0x167)][_0x5098a1(0xc3)]() +
+        "\x22>" +
+        _0x45a1ef[_0x5098a1(0x167)] +
         "</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td>" +
-        _0x299dcb[_0x6c2a58(0x1a5)] +
-        _0x6c2a58(0x106) +
-        _0x299dcb[_0x6c2a58(0xf0)] +
-        _0x6c2a58(0x106) +
-        _0x299dcb[_0x6c2a58(0x20a)] +
-        _0x6c2a58(0x110) +
-        _0x299dcb["id"] +
-        _0x6c2a58(0x119);
+        _0x45a1ef[_0x5098a1(0xd9)] +
+        _0x5098a1(0x90) +
+        _0x45a1ef["id"] +
+        _0x5098a1(0xbe);
     }),
-      (_0x123ed5 += _0x154097(0x1e6)),
-      (_0x272016[_0x154097(0x217)] = _0x123ed5),
-      document[_0x154097(0x170)]("#tasksHistoryContainer\x20.btn-delete-task")[
-        "forEach"
-      ]((_0x5cdec7) => {
-        _0x5cdec7["addEventListener"]("click", async (_0x43ad6d) => {
-          const _0x505ca4 = _0x30bf,
-            _0x172423 = _0x43ad6d[_0x505ca4(0x11c)][_0x505ca4(0x13f)](
-              _0x505ca4(0x1db)
-            );
-          await deleteTask(_0x172423), await fetchTasksHistory();
-        });
-      });
-  } catch (_0x58804d) {
-    console[_0x154097(0x20b)](
-      "Erreur\x20lors\x20de\x20la\x20récupération\x20de\x20l\x27historique\x20des\x20tâches\x20:",
-      _0x58804d
-    );
+      (_0xe047a4 += _0x1e1fda(0x13a)),
+      (_0xe801dc[_0x1e1fda(0xb7)] = _0xe047a4),
+      document[_0x1e1fda(0x119)](_0x1e1fda(0xd2))[_0x1e1fda(0x97)](
+        (_0x613b13) => {
+          const _0x319e2b = _0x1e1fda;
+          _0x613b13[_0x319e2b(0x1a8)](_0x319e2b(0x16c), async (_0x24d1a1) => {
+            const _0x4548ff = _0x319e2b,
+              _0x5e888b = _0x24d1a1["target"][_0x4548ff(0x12d)]("data-id");
+            await deleteTask(_0x5e888b), await fetchTasksHistory();
+          });
+        }
+      );
+  } catch (_0x558ac2) {
+    console[_0x1e1fda(0x123)](_0x1e1fda(0x12b), _0x558ac2);
   }
 }
-async function deleteTask(_0x412324) {
-  const _0x105a01 = _0x41d644;
+async function deleteTask(_0x4cde4c) {
+  const _0x583756 = _0x36280d;
   try {
-    const _0x5a9191 = await fetch(SCRIPT_URL + _0x105a01(0x191) + _0x412324),
-      _0x1deb44 = await _0x5a9191["json"]();
-    !_0x1deb44[_0x105a01(0x182)] &&
-      console[_0x105a01(0x1d6)](_0x105a01(0x11d) + _0x1deb44["error"]);
-  } catch (_0x263e26) {
-    console[_0x105a01(0x20b)](
+    const _0x16687b = await fetch(SCRIPT_URL + _0x583756(0x165) + _0x4cde4c),
+      _0x74c66b = await _0x16687b[_0x583756(0xfd)]();
+    !_0x74c66b[_0x583756(0x193)] &&
+      console[_0x583756(0xe4)](_0x583756(0x1a3) + _0x74c66b["error"]);
+  } catch (_0x2d5e7f) {
+    console[_0x583756(0x123)](
       "Erreur\x20lors\x20de\x20la\x20suppression\x20de\x20la\x20tâche:",
-      _0x263e26
+      _0x2d5e7f
     );
   }
 }
-document[_0x41d644(0x1b2)]("clearHistoryBtn")[_0x41d644(0x1cc)](
-  _0x41d644(0x130),
+document[_0x36280d(0x103)](_0x36280d(0x13d))["addEventListener"](
+  "click",
   async () => {
-    const _0x50818c = _0x41d644;
-    if (confirm(_0x50818c(0x16c)))
+    const _0x2e93d7 = _0x36280d;
+    if (confirm(_0x2e93d7(0x96)))
       try {
-        const _0x5c849d = await fetch(SCRIPT_URL + _0x50818c(0x184)),
-          _0x8023a1 = await _0x5c849d[_0x50818c(0x11b)]();
-        _0x8023a1[_0x50818c(0x182)]
+        const _0x42e55f = await fetch(SCRIPT_URL + _0x2e93d7(0x166)),
+          _0x2759b7 = await _0x42e55f[_0x2e93d7(0xfd)]();
+        _0x2759b7["success"]
           ? await fetchTasksHistory()
-          : alert(_0x50818c(0x19c) + _0x8023a1["error"]);
-      } catch (_0x42df0d) {
-        console[_0x50818c(0x20b)](
+          : alert(_0x2e93d7(0x1a9) + _0x2759b7[_0x2e93d7(0x123)]);
+      } catch (_0x453805) {
+        console[_0x2e93d7(0x123)](
           "Erreur\x20lors\x20de\x20l\x27effacement\x20de\x20l\x27historique:",
-          _0x42df0d
+          _0x453805
         );
       }
   }
