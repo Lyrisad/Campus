@@ -1573,7 +1573,7 @@ async function fetchTasks() {
                 <td>
                   <button class="btn-complete-task" data-id="${
                     task.id
-                  }">Accompli</button>
+                  }">Accomplir</button>
                   <button class="btn-delete-task" data-id="${
                     task.id
                   }">Supprimer</button>
