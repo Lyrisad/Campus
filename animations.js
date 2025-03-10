@@ -1,3 +1,12 @@
+import {
+  Document,
+  Packer,
+  Paragraph,
+  Table,
+  TableRow,
+  TableCell,
+} from "https://cdn.jsdelivr.net/npm/docx@9.2.0/+esm";
+
 // URL de votre Web App Google Apps Script
 const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbyTxVIekVUyRSUafBPEzQGaK2goS1zqMi8qLoeESNhvk3XXbPSFyyjyJkuBWjWG5btvAA/exec";
@@ -47,14 +56,6 @@ function formatDateToDDMMYYYY(dateStr) {
   const mm = (d.getMonth() + 1).toString().padStart(2, "0");
   const yyyy = d.getFullYear();
   return `${dd}/${mm}/${yyyy}`;
-}
-
-// Helper: Convert a dd/mm/yyyy string back to a full date string (via Date.toString())
-function convertDDMMYYYYToFull(dateStr) {
-  const parts = dateStr.split("/");
-  if (parts.length !== 3) return dateStr; // if not in dd/mm/yyyy, return as is
-  const d = new Date(parts[2], parts[1] - 1, parts[0]);
-  return d.toString();
 }
 
 // Retourne un tableau d'objets représentant chaque bloc de participants
@@ -851,6 +852,273 @@ function showParticipantsModal(formation, date) {
       }, 4000);
     });
   });
+
+  document.getElementById("validerFormation").addEventListener("click", () => {
+    document.getElementById("trainerModal").style.display = "flex";
+  });
+
+  document.getElementById("closeTrainerModal").addEventListener("click", () => {
+    document.getElementById("trainerModal").style.display = "none";
+  });
+
+  // Mettre à jour automatiquement l'heure de fin du matin en ajoutant 3h30 au début
+document.getElementById("morningStart").addEventListener("change", function() {
+  const start = this.value; // Exemple : "09:00"
+  if (start) {
+    const [hour, minute] = start.split(":").map(Number);
+    let endHour = hour;
+    let endMinute = minute + 30; // ajout de 30 minutes
+    if (endMinute >= 60) {
+      endMinute -= 60;
+      endHour += 1;
+    }
+    endHour += 3; // ajout de 3 heures supplémentaires
+    // Formater l'heure en HH:MM
+    const formattedEnd = `${endHour.toString().padStart(2, "0")}:${endMinute.toString().padStart(2, "0")}`;
+    document.getElementById("morningEnd").value = formattedEnd;
+  }
+});
+
+document.getElementById("afternoonStart").addEventListener("change", function() {
+  const start = this.value; // Exemple : "14:00"
+  if (start) {
+    const [hour, minute] = start.split(":").map(Number);
+    let endHour = hour;
+    let endMinute = minute + 30; // ajout de 30 minutes
+    if (endMinute >= 60) {
+      endMinute -= 60;
+      endHour += 1;
+    }
+    endHour += 3; // ajout de 3 heures supplémentaires
+    // Formater l'heure en HH:MM
+    const formattedEnd = `${endHour.toString().padStart(2, "0")}:${endMinute.toString().padStart(2, "0")}`;
+    document.getElementById("afternoonEnd").value = formattedEnd;
+  }
+});
+
+// Bouton pour effacer la plage horaire du matin
+document.getElementById("clearMorning").addEventListener("click", function() {
+  document.getElementById("morningStart").value = "";
+  document.getElementById("morningEnd").value = "";
+});
+
+// Bouton pour effacer la plage horaire de l'après-midi
+document.getElementById("clearAfternoon").addEventListener("click", function() {
+  document.getElementById("afternoonStart").value = "";
+  document.getElementById("afternoonEnd").value = "";
+});
+
+
+  document
+    .getElementById("downloadGENEMARBtn")
+    .addEventListener("click", () => {
+      let trainerType = document.getElementById("trainerType").value;
+      let trainerName = document.getElementById("trainerName").value;
+      let trainerAdress = document.getElementById("trainerAdress").value;
+      let morningStart =  document.getElementById("morningStart").value;
+      let morningEnd = document.getElementById("morningEnd").value;
+      let afternoonStart = document.getElementById("afternoonStart").value;
+      let afternoonEnd = document.getElementById("afternoonEnd").value;
+      if (!trainerType || !trainerName || !trainerAdress) {
+        showNotification("Veuillez remplir tous les champs.");
+        return;
+      }
+      downloadGENEMARDoc(formation, { type: trainerType, name: trainerName, adress: trainerAdress , morningStart, morningEnd, afternoonStart, afternoonEnd }, date);
+      showNotification("Document GEN-EMAR généré avec succès !");
+      downloadAttendanceListWord(formation, date);
+    });
+}
+function downloadAttendanceListWord(formation, date) {
+  // Convert the date (format DD/MM/YYYY) to a Date object
+  const targetDate = parseDDMMYYYY(date);
+
+  // Filter the participant blocks for the target date
+  const blocks = getBlocks(formation.participants).filter((b) => {
+    const d = new Date(b.date);
+    return isSameDate(d, targetDate);
+  });
+
+  // Build table header row
+  const headerRow = new TableRow({
+    children: [
+      new TableCell({ children: [new Paragraph({ text: "N°", bold: true })] }),
+      new TableCell({
+        children: [new Paragraph({ text: "Matricule", bold: true })],
+      }),
+      new TableCell({
+        children: [new Paragraph({ text: "Nom / Prénom", bold: true })],
+      }),
+      new TableCell({
+        children: [new Paragraph({ text: "Entité", bold: true })],
+      }),
+    ],
+  });
+
+  // Build table rows for each participant
+  const rows = blocks
+    .map((block, index) => {
+      try {
+        const empData = JSON.parse(block.json);
+        const emp = Array.isArray(empData) ? empData[0] : empData;
+        return new TableRow({
+          children: [
+            new TableCell({ children: [new Paragraph(String(index + 1))] }),
+            new TableCell({ children: [new Paragraph(emp.matricule)] }),
+            new TableCell({ children: [new Paragraph(emp.nameEmployee)] }),
+            new TableCell({ children: [new Paragraph(emp.entity)] }),
+          ],
+        });
+      } catch (e) {
+        console.error("Erreur lors du parsing d'un bloc :", e);
+        return null;
+      }
+    })
+    .filter((row) => row !== null);
+
+  const table = new Table({
+    rows: [headerRow, ...rows],
+    width: { size: 100, type: "pct" },
+  });
+
+  // Create the document with a header, date, table and signature
+  const doc = new Document({
+    sections: [
+      {
+        properties: {},
+        children: [
+          new Paragraph({
+            text: formation.name,
+            heading: "Heading1",
+            spacing: { after: 300 },
+          }),
+          new Paragraph({ text: `Date : ${date}`, spacing: { after: 300 } }),
+          new Paragraph({
+            text: "Liste d'appel :",
+            heading: "Heading2",
+            spacing: { after: 200 },
+          }),
+          table,
+        ],
+      },
+    ],
+  });
+
+  // Generate the document and trigger download
+  Packer.toBlob(doc).then((blob) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${formation.name}_${date}_liste_appel.docx`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+}
+
+// Fonction pour déterminer la durée en fonction du nom de la formation
+function getHeures(formationName) {
+  const nameLower = formationName.toLowerCase();
+  if (
+    nameLower.includes("for06") ||
+    nameLower.includes("for07") ||
+    nameLower.includes("for09") ||
+    nameLower.includes("for010") ||
+    nameLower.includes("for10")
+  ) {
+    return "7";
+  } else if (
+    nameLower.includes("for01") ||
+    nameLower.includes("for02") ||
+    nameLower.includes("for04") ||
+    nameLower.includes("for011") ||
+    nameLower.includes("for11") ||
+    nameLower.includes("for012") ||
+    nameLower.includes("for12")
+  ) {
+    return "3.5";
+  }
+  return "";
+}
+
+// Fonction pour parcourir les blocs de participants et déterminer s'il y a un seul type d'entité
+function computeIntraInter(formation) {
+  const blocks = getBlocks(formation.participants); // Fonction existante qui renvoie un tableau de blocs
+  const entities = blocks.map(block => {
+    try {
+      const empData = JSON.parse(block.json);
+      const emp = Array.isArray(empData) ? empData[0] : empData;
+      return emp.entity.toLowerCase();
+    } catch(e) {
+      console.error("Erreur de parsing dans computeIntraInter :", e);
+      return null;
+    }
+  }).filter(ent => ent !== null);
+  
+  if (entities.length === 0) return "";
+  const first = entities[0];
+  // Si tous les participants ont la même entité, c'est INTRA, sinon INTER.
+  const allSame = entities.every(ent => ent === first);
+  return allSame ? "INTRA" : "INTER";
+}
+
+// Exemple de fonction pour générer et télécharger le document Word basé sur le template GEN-EMAR.docx
+async function downloadGENEMARDoc(formation, trainer, date) {
+  // Charger le template depuis le dossier Model
+  const response = await fetch("Model/GEN-EMAR.docx");
+  if (!response.ok) {
+    alert("Erreur lors du chargement du template");
+    return;
+  }
+  const arrayBuffer = await response.arrayBuffer();
+
+  // Utiliser PizZip pour décompresser le document
+  const zip = new PizZip(arrayBuffer);
+
+  // Créer une instance de docxtemplater en précisant les délimiteurs pour vos balises
+  const doc = new window.docxtemplater(zip, {
+    paragraphLoop: true,
+    linebreaks: true,
+    delimiters: { start: "[", end: "]" }
+  });
+
+  // Déterminer les heures en fonction du nom de la formation
+  const heures = getHeures(formation.name);
+  console.log("Heures de formation :", heures);
+
+  // Calculer le mode INTRA / INTER en parcourant les entités des participants
+  const intraInter = computeIntraInter(formation);
+
+  const morningSchedule = (trainer.morningStart && trainer.morningEnd)
+  ? `${trainer.morningStart} à ${trainer.morningEnd}`
+  : "Ø";
+const afternoonSchedule = (trainer.afternoonStart && trainer.afternoonEnd)
+  ? `${trainer.afternoonStart} à ${trainer.afternoonEnd}`
+  : "Ø";
+
+  // Remplacer les variables dans le template
+  doc.render({
+    "NOM FORMATION": formation.name,
+    "TYPE DE FORMATION": trainer.type,
+    "NOM DU FORMATEUR": trainer.name,
+    "ADRESSE": trainer.adress,  // Assurez-vous que trainer.adress existe
+    "HEURES": heures,
+    "INTRA / INTER": intraInter,
+    "HORAIRES MATIN": morningSchedule,
+    "HORAIRES APRES-MIDI": afternoonSchedule,
+    "DATE" : date
+  });
+
+  // Générer le document final en Blob et déclencher le téléchargement
+  const out = doc.getZip().generate({ type: "blob" });
+  const url = URL.createObjectURL(out);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${formation.name}_GEN-EMAR.docx`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 document

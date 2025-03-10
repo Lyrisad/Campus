@@ -828,7 +828,7 @@ textarea {
 
 .modal-content input {
   width: 100%;
-  padding: 10px;
+  padding: 7px;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
   font-size: 1rem;
@@ -1331,13 +1331,19 @@ modal2-title{
 }
 #participantsModal h3 {
   display: flex;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin-top: 0;
   color: #333;
 }
+
+#participantsModal h2{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 #participantsModal #participantsList {
-  margin-top: 15px;
-  font-size: 0.95rem;
+  margin-top: 0px;
+  font-size: 0.8rem;
   color: #555;
 }
 
@@ -1375,6 +1381,23 @@ modal2-title{
 
 #btnAddParticipant:hover{
   background-color: #005fa3;
+}
+
+#validerFormation{
+  width: 100%;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 8px; 
+}
+
+.validerFormation:hover{
+  background-color: #218838;
 }
 
 /* Historique Panel Styles */
@@ -1688,6 +1711,127 @@ modal2-title{
 
 .historyTask{
   text-decoration: line-through;
+}
+
+
+.modal {
+  display: none; /* Masqué par défaut */
+  position: fixed;
+  z-index: 5000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+
+/* Bouton de fermeture (croix) */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #444;
+}
+
+/* Formulaire */
+.trainer-form .form-group {
+  margin-bottom: 15px;
+}
+
+.trainer-form .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #444;
+}
+
+.trainer-form .form-group input,
+.trainer-form .form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+/* Bouton d'ouverture */
+.module-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1em;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.module-btn:hover {
+  background-color: #218838;
+}
+
+#morningStart, #morningEnd, #afternoonStart, #afternoonEnd{
+  width: 150px;
+  margin-left: 10px;
+  margin-bottom: 0px;
+}
+
+
+.time-input-group{
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-evenly !important;
+}
+
+
+.clear-btn{
+  width: 10%;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-btn:hover{
+  background-color: #d32f2f;
+}
+
+#downloadGENEMARBtn{
+  width: 100%;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#downloadGENEMARBtn:hover{
+  background-color: #218838;
 }
 
 footer {
