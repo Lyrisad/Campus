@@ -919,6 +919,9 @@ document.getElementById("clearAfternoon").addEventListener("click", function() {
       let morningEnd = document.getElementById("morningEnd").value;
       let afternoonStart = document.getElementById("afternoonStart").value;
       let afternoonEnd = document.getElementById("afternoonEnd").value;
+      let distanceInput = document.getElementById("distanceInput").value;
+      let tarifSalle = document.getElementById("tarifSalle").value;
+      let tarifRepas = document.querySelector('input[name="repas"]:checked').value;
       if (!trainerType || !trainerName || !trainerAdress) {
         showNotification("Veuillez remplir tous les champs.");
         return;
@@ -926,6 +929,10 @@ document.getElementById("clearAfternoon").addEventListener("click", function() {
       downloadGENEMARDoc(formation, { type: trainerType, name: trainerName, adress: trainerAdress , morningStart, morningEnd, afternoonStart, afternoonEnd }, date);
       showNotification("Document GEN-EMAR généré avec succès !");
       downloadAttendanceListWord(formation, date);
+      const uniqueEntities = getUniqueEntitiesForDate(formation, date);
+      for (const entity of uniqueEntities) {
+         downloadConventionDocForEntity(formation, { type: trainerType, name: trainerName, adress: trainerAdress , morningStart, morningEnd, afternoonStart, afternoonEnd, distanceInput, tarifSalle, tarifRepas }, date, entity);
+      }
     });
 }
 function downloadAttendanceListWord(formation, date) {
@@ -1016,21 +1023,67 @@ function downloadAttendanceListWord(formation, date) {
   });
 }
 
+function prepareTableauData(formation, date) {
+  const targetDate = parseDDMMYYYY(date);
+  const blocks = getBlocks(formation.participants).filter(b => {
+    const d = new Date(b.date);
+    return isSameDate(d, targetDate);
+  });
+
+  // Construire la liste des participants
+  let tableauData = blocks.map((b, index) => {
+    try {
+      const empData = JSON.parse(b.json);
+      const emp = Array.isArray(empData) ? empData[0] : empData;
+      return {
+        NOM_PRENOM: emp.nameEmployee,
+        MATRICULE: emp.matricule,
+        ENTITE: emp.entity,
+        MATIN: "",       // champ vide pour l'instant
+        APRES_MIDI: ""   // idem
+      };
+    } catch (e) {
+      console.error("Erreur lors du parsing d'un bloc :", e);
+      return null;
+    }
+  }).filter(item => item !== null);
+
+  // Si on a moins de 12 participants, on complète avec des lignes vides
+  while (tableauData.length < 12) {
+    tableauData.push({
+      NOM_PRENOM: "",
+      MATRICULE: "",
+      ENTITE: "",
+      MATIN: "",
+      APRES_MIDI: ""
+    });
+  }
+
+  return tableauData;
+}
+
+
 // Fonction pour déterminer la durée en fonction du nom de la formation
 function getHeures(formationName) {
   const nameLower = formationName.toLowerCase();
   if (
     nameLower.includes("for06") ||
+    nameLower.includes("for006") ||
     nameLower.includes("for07") ||
+    nameLower.includes("for007") ||
     nameLower.includes("for09") ||
+    nameLower.includes("for009") ||
     nameLower.includes("for010") ||
     nameLower.includes("for10")
   ) {
     return "7";
   } else if (
     nameLower.includes("for01") ||
+    nameLower.includes("for001") ||
     nameLower.includes("for02") ||
+    nameLower.includes("for002") ||
     nameLower.includes("for04") ||
+    nameLower.includes("for004") ||
     nameLower.includes("for011") ||
     nameLower.includes("for11") ||
     nameLower.includes("for012") ||
@@ -1041,26 +1094,110 @@ function getHeures(formationName) {
   return "";
 }
 
-// Fonction pour parcourir les blocs de participants et déterminer s'il y a un seul type d'entité
-function computeIntraInter(formation) {
-  const blocks = getBlocks(formation.participants); // Fonction existante qui renvoie un tableau de blocs
+/**
+ * Retourne le titre complet de la formation (FOR001 - Les bases, etc.)
+ * en fonction du nom de la formation (for01, for001, etc.)
+ */
+function getTitreFormation(formationName) {
+  // Normaliser en minuscule pour ignorer la casse
+  const nameLower = formationName.toLowerCase();
+
+  if (nameLower.includes("for01") || nameLower.includes("for001")) {
+    return "FOR001 - Les bases de l'agent de service";
+  } else if (nameLower.includes("for02") || nameLower.includes("for002")) {
+    return "FOR002 - Les règles d'hygiène et de sécurité";
+  } else if (nameLower.includes("for03") || nameLower.includes("for003")) {
+    return "FOR003 - Adopter les bonnes attitudes de services";
+  } else if (nameLower.includes("for04") || nameLower.includes("for004")) {
+    return "FOR004 - Réaliser l'entretien d'un bureau et d'un sanitaire";
+  } else if (nameLower.includes("for06") || nameLower.includes("for006")) {
+    return "FOR006 - Réaliser un lustrage et un spray méthode";
+  } else if (nameLower.includes("for07") || nameLower.includes("for007")) {
+    return "FOR007 - Réaliser un décapage suivi d'une pose d'émulsion";
+  } else if (nameLower.includes("for09") || nameLower.includes("for009")) {
+    return "FOR009 - Réaliser un récurage à la monobrosse";
+  } else if (nameLower.includes("for010") || nameLower.includes("for10")) {
+    return "FOR010 - Réaliser un shampooing moquette suivi d'une injection-extraction";
+  } else if (nameLower.includes("for011") || nameLower.includes("for11")) {
+    return "FOR011 - Habilitation à la monobrosse";
+  } else if (nameLower.includes("for012") || nameLower.includes("for12")) {
+    return "FOR012 - Habilitation à l'autolaveuse";
+  } else if (nameLower.includes("for016") || nameLower.includes("for016")) {
+    return "FOR016 - Le bionettoyage en secteur hospitalier";
+  } else if (nameLower.includes("for018") || nameLower.includes("for018")) {
+    return "FOR018 - Intervention en salle propre";
+  } else if (nameLower.includes("jtf")) {
+    return "JTF - Journée thématique de formation (001 + 002)";
+  }
+
+  // Si aucun cas ne correspond, on renvoie le nom de formation original
+  return formationName;
+}
+
+function getObjectifFormation(formationName) {
+   // Normaliser en minuscule pour ignorer la casse
+   const nameLower = formationName.toLowerCase();
+
+   if (nameLower.includes("for01") || nameLower.includes("for001")) {
+     return "- Organiser son travail en fonction de la prestation à réaliser\n- Réaliser les techniques d’entretien en respectant les règles d’hygiène et de sécurité\n- De savoir identifier les différents matériels\n- Savoir communiquer en utilisant les termes professionnelle";
+   } else if (nameLower.includes("for02") || nameLower.includes("for002")) {
+     return "- Comprendre les risques liés à son activité professionnelle\n- Adopter les bonnes protections\n- Connaitre les différentes signalisations de sécurité et de santé\n- Mettre en pratique les écogestes.";
+   } else if (nameLower.includes("for03") || nameLower.includes("for003")) {
+     return "- Garantir une tenue de travail et une présentation soignée\n- Réaliser ses prestations en respectant le confort du client\n- Communiquer de manière professionnelle avec le client, le responsable et l’équipe\n- Transmettre et traiter efficacement les plaintes et les réclamations";
+   } else if (nameLower.includes("for04") || nameLower.includes("for004")) {
+     return "- Organiser son travail en fonction de la prestation à réaliser\n- Appliquer les protocoles de nettoyage d’un bureau et d’un bloc sanitaire\n- Appliquer les règles d’hygiène et de sécurité vis-à-vis des usagers\n- Contrôler sa prestation";
+   } else if (nameLower.includes("for06") || nameLower.includes("for006")) {
+     return "- Connaître les différents revêtements de sols souples\n- Utiliser une monobrosse haute-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques de spray Méthode et de lustrage";
+   } else if (nameLower.includes("for07") || nameLower.includes("for007")) {
+     return "- Connaître les différents revêtements de sols souples\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques de décapage au mouillé";
+   } else if (nameLower.includes("for09") || nameLower.includes("for009")) {
+     return "- Connaître les différents revêtements céramiques\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques du récurage sur un sol carrelé";
+   } else if (nameLower.includes("for010") || nameLower.includes("for10")) {
+     return "- Connaître les différents revêtements textiles\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques du shampoing moquette";
+   } else if (nameLower.includes("for011") || nameLower.includes("for11")) {
+     return "- Comprendre le fonctionnement de la monobrosse\n- Utiliser les différents types de brosses/disques et de produits de nettoyage\n- Appliquer les techniques de nettoyage adaptées à chaque type de sol\n- Entretenir et assurer la maintenance de la monobrosse";
+   } else if (nameLower.includes("for012") || nameLower.includes("for12")) {
+     return "- Comprendre le fonctionnement de l’autolaveuse\n- Utiliser les différents types de brosses/disques et de produits de nettoyage\n- Appliquer les techniques de nettoyage adaptées à chaque type de sol\n- Entretenir et assurer la maintenance de l’autolaveuse";
+   } else if (nameLower.includes("for016") || nameLower.includes("for016")) {
+     return "- Comprendre les objectifs du bionettoyage et identifier les biocontaminations et les micro-organismes\n- Identifier les différentes zones d’intervention en secteur hospitalier\n- D’utiliser les produits adaptés et d’entretenir le matériel après chaque prestation\n- Mettre en pratique les protocoles de bionettoyage des blocs opératoires";
+   } else if (nameLower.includes("for018") || nameLower.includes("for018")) {
+     return "- Identifier les caractéristiques des salles propres et les différents contaminants\n- Adopter les bons comportements et attitudes en salle propre\n- Appliquer les protocoles de nettoyage en salle propre\n- Connaitre et renseigner les éléments de traçabilité";
+   } else if (nameLower.includes("jtf")) {
+     return "-D’organiser son travail en fonction de la prestation à réaliser en adoptant les bonnes protections\n- De réaliser les techniques d’entretien en respectant les règles d’hygiène et de sécurité tout en identifiant les risques liés à son activité professionnelle\n- De savoir identifier les différents matériels de savoir communiquer en utilisant les termes professionnels\n Connaitre les différentes signalisations de sécurité et de santé et mettre en pratique les écogestes";
+   }
+ 
+   // Si aucun cas ne correspond, on renvoie le nom de formation original
+   return "Objectifs non définis";
+  }
+
+
+function computeIntraInter(formation, date) {
+  const targetDate = parseDDMMYYYY(date);
+  // Récupérer et filtrer les blocs correspondant à la date
+  const blocks = getBlocks(formation.participants).filter(b => {
+    const d = new Date(b.date);
+    return isSameDate(d, targetDate);
+  });
+
+  // Extraire les entités
   const entities = blocks.map(block => {
     try {
       const empData = JSON.parse(block.json);
       const emp = Array.isArray(empData) ? empData[0] : empData;
-      return emp.entity.toLowerCase();
+      return emp.entity.trim().toLowerCase();
     } catch(e) {
       console.error("Erreur de parsing dans computeIntraInter :", e);
       return null;
     }
   }).filter(ent => ent !== null);
-  
+
   if (entities.length === 0) return "";
   const first = entities[0];
-  // Si tous les participants ont la même entité, c'est INTRA, sinon INTER.
+  // Si tous les participants ont la même entité, c'est INTRA, sinon INTER
   const allSame = entities.every(ent => ent === first);
   return allSame ? "INTRA" : "INTER";
 }
+
 
 // Exemple de fonction pour générer et télécharger le document Word basé sur le template GEN-EMAR.docx
 async function downloadGENEMARDoc(formation, trainer, date) {
@@ -1087,7 +1224,8 @@ async function downloadGENEMARDoc(formation, trainer, date) {
   console.log("Heures de formation :", heures);
 
   // Calculer le mode INTRA / INTER en parcourant les entités des participants
-  const intraInter = computeIntraInter(formation);
+  const intraInter = computeIntraInter(formation, date);
+
 
   const morningSchedule = (trainer.morningStart && trainer.morningEnd)
   ? `${trainer.morningStart} à ${trainer.morningEnd}`
@@ -1095,6 +1233,8 @@ async function downloadGENEMARDoc(formation, trainer, date) {
 const afternoonSchedule = (trainer.afternoonStart && trainer.afternoonEnd)
   ? `${trainer.afternoonStart} à ${trainer.afternoonEnd}`
   : "Ø";
+
+  const tableauData = prepareTableauData(formation, date);
 
   // Remplacer les variables dans le template
   doc.render({
@@ -1106,7 +1246,8 @@ const afternoonSchedule = (trainer.afternoonStart && trainer.afternoonEnd)
     "INTRA / INTER": intraInter,
     "HORAIRES MATIN": morningSchedule,
     "HORAIRES APRES-MIDI": afternoonSchedule,
-    "DATE" : date
+    "DATE" : date,
+    "TABLEAU": tableauData
   });
 
   // Générer le document final en Blob et déclencher le téléchargement
@@ -1114,12 +1255,214 @@ const afternoonSchedule = (trainer.afternoonStart && trainer.afternoonEnd)
   const url = URL.createObjectURL(out);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `${formation.name}_GEN-EMAR.docx`;
+  a.download = `${formation.name}_EMARGEMENT_DU_${date}.docx`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+function getUniqueEntitiesForDate(formation, date) {
+  const targetDate = parseDDMMYYYY(date);
+  // Récupérer tous les blocs participants de la formation
+  const blocks = getBlocks(formation.participants).filter(b => {
+    const d = new Date(b.date);
+    return isSameDate(d, targetDate);
+  });
+
+  // Extraire l'entité de chaque participant
+  const entities = blocks.map(block => {
+    try {
+      const empData = JSON.parse(block.json);
+      const emp = Array.isArray(empData) ? empData[0] : empData;
+      return emp.entity.trim(); // ou .toLowerCase() si vous voulez uniformiser
+    } catch (e) {
+      console.error("Erreur de parsing d'un bloc :", e);
+      return null;
+    }
+  }).filter(ent => ent !== null);
+
+  // Renvoyer un tableau sans doublons
+  const uniqueEntities = [...new Set(entities)];
+  return uniqueEntities;
+}
+async function downloadConventionDocForEntity(formation, trainer, date, entity) {
+  // Charger le template depuis le dossier Model
+  const response = await fetch("Model/CONVENTION.docx");
+  if (!response.ok) {
+    alert("Erreur lors du chargement du template CONVENTION.docx");
+    return;
+  }
+  const arrayBuffer = await response.arrayBuffer();
+
+  // Décompresser avec PizZip
+  const zip = new PizZip(arrayBuffer);
+
+  // Créer docxtemplater (en utilisant les crochets [ ... ])
+  const doc = new window.docxtemplater(zip, {
+    paragraphLoop: true,
+    linebreaks: true,
+    delimiters: { start: "[", end: "]" }
+  });
+
+  // Calculer la durée en heures (ex : 3.5 ou 7)
+  const heures = getHeures(formation.name);
+
+  // Déterminer les horaires
+  const morningSchedule = (trainer.morningStart && trainer.morningEnd)
+    ? `${trainer.morningStart} à ${trainer.morningEnd}`
+    : "Ø";
+  const afternoonSchedule = (trainer.afternoonStart && trainer.afternoonEnd)
+    ? `${trainer.afternoonStart} à ${trainer.afternoonEnd}`
+    : "Ø";
+
+  // Calcul du "jour" (exemple ½ si 3.5h, sinon 1)
+  let jour;
+  if (heures === "3.5") {
+    jour = "½";
+  } else {
+    jour = "1";
+  }
+
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, "0");
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const yyyy = today.getFullYear();
+  const dateOfToday = dd + "/" + mm + "/" + yyyy;
+
+  //Créer une variable expirationDate qui prends la date de formation et enlève 10 jours
+// On suppose que "date" est une chaîne au format "dd/mm/yyyy"
+const [day, month, year] = date.split("/").map(Number);
+// Crée l'objet Date en JS (le mois commence à 0)
+const dateFormation = new Date(year, month - 1, day);
+
+// Soustrait 10 jours
+dateFormation.setDate(dateFormation.getDate() - 10);
+
+// Reformate la date en "dd/mm/yyyy"
+const ddExp = String(dateFormation.getDate()).padStart(2, "0");
+const mmExp = String(dateFormation.getMonth() + 1).padStart(2, "0");
+const yyyyExp = dateFormation.getFullYear();
+
+const expirationDateStr = `${ddExp}/${mmExp}/${yyyyExp}`;
+
+console.log("Date formation :", date);
+console.log("Date expiration (10 jours avant) :", expirationDateStr);
+
+
+  // Obtenir le Titre de formation
+  const titreFormation = getTitreFormation(formation.name);
+  let siretNb
+
+  if (entity.toLowerCase() == "ternett" || entity.toLowerCase() == "ternet") {
+    siretNb = "324 465 921 000 82"
+  } else if (entity.toLowerCase() == "ernett" || entity.toLowerCase() == "ernet") {
+    siretNb = "398 715 904 000 49"
+  } else if (entity.toLowerCase() == "eclanet" || entity.toLowerCase() == "eclanett") {
+    siretNb = "322 032 491 000 27"
+  } else if (entity.toLowerCase() == "rie") {
+    siretNb = "403 384 035 000 16"
+  } else if (entity.toLowerCase() == "pratis" || entity.toLowerCase() == "practis") {
+    siretNb = "88 004 978 800 024"
+  } else if (entity.toLowerCase() == "creabat") {
+    siretNb = "538 452 673 000 48"
+  } else if (entity.toLowerCase() == "groupe candor" || entity.toLowerCase() == "candor") {
+    siretNb = "538 441 833 000 26"
+  } else if (entity.toLowerCase() == "alpha" || entity.toLowerCase() == "candor alpha" || entity.toLowerCase() == "candor-alpha" || entity.toLowerCase() == "alpha candor") {
+    siretNb = "89 241 544 900 016"
+  } else if (entity.toLowerCase() == "dakin") {
+    siretNb = "34 771 182 200 085"
+  } else if (entity.toLowerCase() == "gamma" || entity.toLowerCase() == "candor gamma") {
+    siretNb = "352 00672 0000 36"
+  }
+
+  const tableau = prepareTableauData(formation, date);
+
+  const objectifs = getObjectifFormation(formation.name);
+
+  // 1) Nombre de stagiaires (lignes non vides)
+  const nbStagiaires = tableau.filter(item => item.NOM_PRENOM.trim() !== "").length;
+
+  // 2) Récupérer distance (en km) et tarif salle
+  //    Utilisez parseFloat ou parseInt selon vos besoins.
+  const distanceTrajet = parseFloat(trainer.distanceInput) || 0;
+  const tarifSalle = parseFloat(trainer.tarifSalle) || 0;
+
+  // 3) Définir les coûts unitaires
+  const costParParticipant = 105.0;   // 105€ par participant
+  const costParRepas = 20.0;         // 20€ par repas
+  const costParKm = 0.60;            // 0.60€ par km
+  const trainerMeal = 1;             // 1 repas pour le formateur
+
+  // 4) Calculs partiels
+  // totalNbs : coût de formation par participant (nombre de stagiaires * 105€)
+  const totalNbs = nbStagiaires * costParParticipant;
+
+  // totalTrajet : distance * 0.60
+  const totalTrajet = distanceTrajet * costParKm;
+
+  // totalRepas : nbStagiaires * 20€
+  const totalRepas = nbStagiaires * costParRepas;
+
+  // totalRepasFormateur : 1 * 20€
+  const totalRepasFormateur = trainerMeal * costParRepas;
+
+  // 5) totalHT : somme de tous les éléments
+  const totalHT = totalNbs + totalTrajet + totalRepas + totalRepasFormateur + tarifSalle;
+
+  // 6) Calcul de la TVA (20%)
+  const TVA = totalHT * 0.20;
+
+  // 7) totalTTC
+  const totalTTC = totalHT + TVA;
+
+
+
+  console.log("Nombre de stagiaires :", nbStagiaires);
+  // Remplacer les variables
+  doc.render({
+    "NOM DE FORMATION": titreFormation,
+    "TITRE DE FORMATION": titreFormation,
+    "ENTITE": entity,
+    "HORAIRES MATIN": morningSchedule,
+    "HORAIRES APRES-MIDI": afternoonSchedule,
+    "ADRESSE": trainer.adress,
+    "HEURES": heures,
+    "DATE": date,
+    "JOUR": jour,
+    "DATE DU JOUR": dateOfToday,
+    "EXPIRATION": expirationDateStr,
+    "SIREN" : siretNb,
+    "OBJECTIFS": objectifs,
+    "TABLEAU": tableau,
+    "NBS": nbStagiaires,
+    "NBT": distanceTrajet,
+    "NBRS": nbStagiaires,
+    "NBRF": trainerMeal,
+    "TARIF SALLE": tarifSalle + "€",
+    "TOTAL NBS": totalNbs + "€",
+    "TOTAL NBT": totalTrajet.toFixed(2) + "€",
+    "TOTAL NBRS": totalRepas + "€",
+    "TOTAL NBRF": totalRepasFormateur + "€",
+    "TOTAL HT": totalHT.toFixed(2) + "€",
+    "TVA": TVA.toFixed(2) + "€",
+    "TOTAL TTC": totalTTC.toFixed(2) + "€"
+  });
+
+  // Générer le document final en Blob
+  const out = doc.getZip().generate({ type: "blob" });
+  const url = URL.createObjectURL(out);
+  const a = document.createElement("a");
+  a.href = url;
+  // Nom du fichier : formation + entité + date
+  a.download = `${formation.name}_${entity}_${date}_CONVENTION.docx`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+
 
 document
   .getElementById("closeParticipantsModal")

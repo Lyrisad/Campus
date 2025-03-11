@@ -1834,6 +1834,21 @@ modal2-title{
   background-color: #218838;
 }
 
+#repasOui, #repasNon{
+ width: 10%;
+ margin: 0px;
+}
+
+
+
+#repasGroup{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  margin: 0px;
+}
+
 footer {
   font-size: 12px;
   padding: 15px;

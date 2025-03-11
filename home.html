@@ -930,10 +930,11 @@
         </div>
       </div>
             <!-- Modal Formateur -->
+
       <div id="trainerModal" class="modal">
         <div class="modal-content">
           <span class="close" id="closeTrainerModal">&times;</span>
-          <h3>Ajouter Formateur</h3>
+          <h3>Détails avant validation</h3>
           <form id="trainerForm" class="trainer-form">
             <div class="form-group">
               <label for="trainerType">Type de formateur :</label>
@@ -942,37 +943,96 @@
                 <option value="Externe">Externe</option>
               </select>
             </div>
+
             <div class="form-group">
               <label for="trainerName">Nom formateur :</label>
-              <input type="text" id="trainerName" class="trainer-name" placeholder="Nom du formateur" required>
+              <input
+                type="text"
+                id="trainerName"
+                class="trainer-name"
+                placeholder="Nom du formateur"
+                required
+              />
               <label for="trainerAdress">Lieu de formation :</label>
-              <input type="text" id="trainerAdress" class="trainerAdress" placeholder="Adresse" required>
+              <input
+                type="text"
+                id="trainerAdress"
+                class="trainerAdress"
+                placeholder="Adresse"
+                required
+              />
+              <label for="distanceInput">Distance (/km) :</label>
+              <input
+                type="number"
+                id="distanceInput"
+                name="distanceInput"
+                value="0"
+                min="0"
+                step="1"
+              />
+              <label for="tarifSalle">Tarif salle :</label>
+              <input
+                type="number"
+                id="tarifSalle"
+                name="tarifSalle"
+                value="0"
+                min="0"
+                step="1"
+              />
             </div>
+
             <!-- Horaires matin -->
             <div class="form-group">
               <label>Horaires matin :</label>
               <div class="time-input-group">
-                <input type="time" id="morningStart" step="900" value="09:00">
+                <input type="time" id="morningStart" step="900" value="09:00" />
                 <span>à</span>
-                <input type="time" id="morningEnd" step="900" value="12:30">
+                <input type="time" id="morningEnd" step="900" value="12:30" />
                 <button type="button" id="clearMorning" class="clear-btn">Ø</button>
               </div>
             </div>
+
             <!-- Horaires après-midi -->
             <div class="form-group">
               <label>Horaires après-midi :</label>
               <div class="time-input-group">
-                <input type="time" id="afternoonStart" step="900" value="13:30">
+                <input type="time" id="afternoonStart" step="900" value="13:30" />
                 <span>à</span>
-                <input type="time" id="afternoonEnd" step="900" value="17:00">
+                <input type="time" id="afternoonEnd" step="900" value="17:00" />
                 <button type="button" id="clearAfternoon" class="clear-btn">Ø</button>
               </div>
             </div>
-            <!-- Bouton pour générer le document -->
-            <button id="downloadGENEMARBtn" type="button" class="download-btn">Générer les documents</button>
+
+            <!-- Repas Oui / Non -->
+            <div class="form-group">
+              <label>Cette formation contiendra un repas ?</label>
+              <div id="repasGroup">
+                <input
+                  type="radio"
+                  id="repasOui"
+                  name="repas"
+                  value="oui"
+                  checked
+                />
+                <label for="repasOui">Oui</label>
+
+                <input
+                  type="radio"
+                  id="repasNon"
+                  name="repas"
+                  value="non"
+                />
+                <label for="repasNon">Non</label>
+              </div>
+            </div>
+            <!-- Bouton pour générer les documents -->
+            <button id="downloadGENEMARBtn" type="button" class="download-btn">
+              Générer les documents
+            </button>
           </form>
         </div>
       </div>
+
 
     </div>
     <script src=" https://cdn.jsdelivr.net/npm/pizzip@3.1.8/dist/pizzip.min.js "></script>
