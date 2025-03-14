@@ -9,7 +9,7 @@ import {
 
 // URL de votre Web App Google Apps Script
 const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyTxVIekVUyRSUafBPEzQGaK2goS1zqMi8qLoeESNhvk3XXbPSFyyjyJkuBWjWG5btvAA/exec";
+  "https://script.google.com/macros/s/AKfycbzNxlqRgjKItbQmAcbzZxhf9pQGv-AvHtuDhusTWh7xs-Fo3uafVBkHm90X6bt_DBcoGw/exec";
 
 // ---------------------- Fonctions Utilitaires Globales ----------------------
 
@@ -908,7 +908,6 @@ document.getElementById("clearAfternoon").addEventListener("click", function() {
   document.getElementById("afternoonEnd").value = "";
 });
 
-
   document
     .getElementById("downloadGENEMARBtn")
     .addEventListener("click", () => {
@@ -929,12 +928,14 @@ document.getElementById("clearAfternoon").addEventListener("click", function() {
       downloadGENEMARDoc(formation, { type: trainerType, name: trainerName, adress: trainerAdress , morningStart, morningEnd, afternoonStart, afternoonEnd }, date);
       showNotification("Document GEN-EMAR généré avec succès !");
       downloadAttendanceListWord(formation, date);
+      downloadAllConvocations(formation, { type: trainerType, name: trainerName, adress: trainerAdress , morningStart, morningEnd, afternoonStart, afternoonEnd, distanceInput, tarifSalle, tarifRepas }, date);
       const uniqueEntities = getUniqueEntitiesForDate(formation, date);
       for (const entity of uniqueEntities) {
          downloadConventionDocForEntity(formation, { type: trainerType, name: trainerName, adress: trainerAdress , morningStart, morningEnd, afternoonStart, afternoonEnd, distanceInput, tarifSalle, tarifRepas }, date, entity);
       }
     });
 }
+
 function downloadAttendanceListWord(formation, date) {
   // Convert the date (format DD/MM/YYYY) to a Date object
   const targetDate = parseDDMMYYYY(date);
@@ -1061,6 +1062,52 @@ function prepareTableauData(formation, date) {
 
   return tableauData;
 }
+
+function prepareTableauDataForEntity(formation, date, entity) {
+  const targetDate = parseDDMMYYYY(date);
+  // Filtrer par date
+  const blocks = getBlocks(formation.participants).filter(b => {
+    const d = new Date(b.date);
+    return isSameDate(d, targetDate);
+  });
+
+  // Construire la liste des participants de l'entité demandée
+  let tableauData = blocks.map((b) => {
+    try {
+      const empData = JSON.parse(b.json);
+      const emp = Array.isArray(empData) ? empData[0] : empData;
+      // Vérifier que l'entité du stagiaire correspond à `entity`
+      if (emp.entity.trim().toLowerCase() === entity.trim().toLowerCase()) {
+        return {
+          NOM_PRENOM: emp.nameEmployee,
+          MATRICULE: emp.matricule,
+          ENTITE: emp.entity,
+          MATIN: "",
+          APRES_MIDI: ""
+        };
+      } else {
+        return null;
+      }
+    } catch (e) {
+      console.error("Erreur lors du parsing d'un bloc :", e);
+      return null;
+    }
+  }).filter(item => item !== null);
+
+  // Compléter jusqu'à 12 lignes si vous le souhaitez
+  while (tableauData.length < 12) {
+    tableauData.push({
+      NOM_PRENOM: "",
+      MATRICULE: "",
+      ENTITE: "",
+      MATIN: "",
+      APRES_MIDI: ""
+    });
+  }
+
+  return tableauData;
+}
+
 
 
 // Fonction pour déterminer la durée en fonction du nom de la formation
@@ -1286,7 +1333,36 @@ function getUniqueEntitiesForDate(formation, date) {
   const uniqueEntities = [...new Set(entities)];
   return uniqueEntities;
 }
+
+async function generateConventionRef(formation, date, entity) {
+  // Suppose que formation.name, date et entity sont des chaînes
+  // SCRIPT_URL est l'URL de votre Apps Script
+  const url = SCRIPT_URL
+    + "?action=addRefConvention"
+    + "&entite=" + encodeURIComponent(entity)
+    + "&formation=" + encodeURIComponent(formation.name)
+    + "&date=" + encodeURIComponent(date);
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.success) {
+      return data.vref; // ex: "vcdt003_ternett"
+    } else {
+      console.error("Erreur addRefConvention:", data.error);
+      return "";
+    }
+  } catch (err) {
+    console.error("Erreur fetch addRefConvention:", err);
+    return "";
+  }
+}
+
+
 async function downloadConventionDocForEntity(formation, trainer, date, entity) {
+  console.log(entity);
+
+  const vref = await generateConventionRef(formation, date, entity);
   // Charger le template depuis le dossier Model
   const response = await fetch("Model/CONVENTION.docx");
   if (!response.ok) {
@@ -1376,7 +1452,7 @@ console.log("Date expiration (10 jours avant) :", expirationDateStr);
     siretNb = "352 00672 0000 36"
   }
 
-  const tableau = prepareTableauData(formation, date);
+  const tableau = prepareTableauDataForEntity(formation, date, entity);
 
   const objectifs = getObjectifFormation(formation.name);
 
@@ -1421,6 +1497,7 @@ console.log("Date expiration (10 jours avant) :", expirationDateStr);
   console.log("Nombre de stagiaires :", nbStagiaires);
   // Remplacer les variables
   doc.render({
+    "VREF": vref,
     "NOM DE FORMATION": titreFormation,
     "TITRE DE FORMATION": titreFormation,
     "ENTITE": entity,
@@ -1461,6 +1538,149 @@ console.log("Date expiration (10 jours avant) :", expirationDateStr);
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+function getParticipantsForDate(formation, date) {
+  const targetDate = parseDDMMYYYY(date);
+  const blocks = getBlocks(formation.participants).filter(b => {
+    const d = new Date(b.date);
+    return isSameDate(d, targetDate);
+  });
+
+  // On mappe chaque bloc vers un objet participant
+  const participants = blocks.map(block => {
+    try {
+      const empData = JSON.parse(block.json);
+      const emp = Array.isArray(empData) ? empData[0] : empData;
+      return {
+        nameEmployee: emp.nameEmployee,
+        matricule: emp.matricule,
+        entity: emp.entity
+      };
+    } catch (e) {
+      console.error("Erreur parsing bloc participant:", e);
+      return null;
+    }
+  }).filter(p => p !== null);
+
+  return participants;
+}
+
+async function generateConvocationRef(entite, formationName, date, stagiaire) {
+  // On construit l'URL vers votre Apps Script
+  const url = SCRIPT_URL
+    + "?action=addRefConvocation"
+    + "&entite=" + encodeURIComponent(entite)
+    + "&formation=" + encodeURIComponent(formationName)
+    + "&date=" + encodeURIComponent(date)
+    + "&stagiaire=" + encodeURIComponent(stagiaire);
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.success) {
+      return data.vref;  // ex. "vcvn001_ternett"
+    } else {
+      console.error("Erreur addRefConvocation:", data.error);
+      return "";
+    }
+  } catch (err) {
+    console.error("Erreur fetch addRefConvocation:", err);
+    return "";
+  }
+}
+
+
+async function generateConvocationDoc(formation, trainer, date, participant) {
+
+  const vref = await generateConvocationRef(
+    participant.entity,   // entite
+    formation.name,       // formationName
+    date,                 // date
+    participant.nameEmployee // stagiaire
+  );
+
+  // Charger le template "CONVOCATION.docx"
+  const response = await fetch("Model/CONVOCATION.docx");
+  if (!response.ok) {
+    throw new Error("Erreur chargement CONVOCATION.docx");
+  }
+  const arrayBuffer = await response.arrayBuffer();
+
+  // Décompresser via PizZip
+  const zip = new PizZip(arrayBuffer);
+
+  // Créer docxtemplater
+  const doc = new window.docxtemplater(zip, {
+    paragraphLoop: true,
+    linebreaks: true,
+    delimiters: { start: "[", end: "]" }
+  });
+
+  // Heures (3.5 ou 7, etc.)
+  const heures = getHeures(formation.name);
+
+  // Horaires matin / après-midi
+  const morningSchedule = (trainer.morningStart && trainer.morningEnd)
+    ? `${trainer.morningStart} à ${trainer.morningEnd}`
+    : "Ø";
+  const afternoonSchedule = (trainer.afternoonStart && trainer.afternoonEnd)
+    ? `${trainer.afternoonStart} à ${trainer.afternoonEnd}`
+    : "Ø";
+
+  // Objectifs
+  const objectifs = getObjectifFormation(formation.name);
+
+  // Titre de formation, si besoin
+  const titreFormation = getTitreFormation(formation.name);
+
+  // Renseigner les champs
+  doc.render({
+    "NOM/PRENOM": participant.nameEmployee,
+    "DATE": date,
+    "FORMATION": titreFormation,                 // ou formation.name
+    "ADRESSE DE FORMATION": trainer.adress,
+    "OBJECTIFS": objectifs,
+    "HORAIRES MATIN": morningSchedule,
+    "HORAIRES APRES-MIDI": afternoonSchedule,
+    "HEURE": heures,
+    "VREF" : vref
+  });
+
+  // Générer un Blob
+  const out = doc.getZip().generate({ type: "blob" });
+  return out;
+}
+
+async function downloadAllConvocations(formation, trainer, date) {
+  // Récupérer la liste des participants pour la date
+  const participants = getParticipantsForDate(formation, date);
+
+  if (participants.length === 0) {
+    alert("Aucun stagiaire pour cette date.");
+    return;
+  }
+
+  for (const participant of participants) {
+    try {
+      const blob = await generateConvocationDoc(formation, trainer, date, participant);
+      // Nom du fichier : "Convocation_NomPrenom_date.docx"
+      const fileName = `Convocation_${participant.nameEmployee}_${date}.docx`;
+
+      // Déclencher le téléchargement
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Erreur génération convocation:", err);
+    }
+  }
+}
+
 
 
 
