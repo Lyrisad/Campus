@@ -1300,11 +1300,10 @@ function getHeures(formationName) {
     nameLower.includes("for09") ||
     nameLower.includes("for009") ||
     nameLower.includes("for010") ||
-    nameLower.includes("for10")
+    nameLower.includes("for10")  
   ) {
     return "7";
   } else if (
-    nameLower.includes("for01") ||
     nameLower.includes("for001") ||
     nameLower.includes("for02") ||
     nameLower.includes("for002") ||
@@ -1313,7 +1312,11 @@ function getHeures(formationName) {
     nameLower.includes("for011") ||
     nameLower.includes("for11") ||
     nameLower.includes("for012") ||
-    nameLower.includes("for12")
+    nameLower.includes("for12") ||
+    nameLower.includes("for016") ||
+    nameLower.includes("for16") ||
+    nameLower.includes("for018") ||
+    nameLower.includes("for18")
   ) {
     return "3.5";
   }
@@ -1322,7 +1325,7 @@ function getHeures(formationName) {
 
 function getFormationCode(formationName) {
   const nameLower = formationName.toLowerCase();
-  if (nameLower.includes("for01") || nameLower.includes("for001")) {
+  if (nameLower.includes("for001")) {
     return "FOR001";
   } else if (nameLower.includes("for02") || nameLower.includes("for002")) {
     return "FOR002";
@@ -1342,9 +1345,9 @@ function getFormationCode(formationName) {
     return "FOR011";
   } else if (nameLower.includes("for012") || nameLower.includes("for12")) {
     return "FOR012";
-  } else if (nameLower.includes("for016") || nameLower.includes("for016")) {
+  } else if (nameLower.includes("for016") || nameLower.includes("for16")) {
     return "FOR016";
-  } else if (nameLower.includes("for018") || nameLower.includes("for018")) {
+  } else if (nameLower.includes("for018") || nameLower.includes("for18")) {
     return "FOR018";
   } else if (nameLower.includes("jtf")) {
     return "JTF";
@@ -1357,10 +1360,11 @@ function getFormationCode(formationName) {
  * en fonction du nom de la formation (for01, for001, etc.)
  */
 function getTitreFormation(formationName) {
+  console.log("getTitreFormation", formationName);
   // Normaliser en minuscule pour ignorer la casse
   const nameLower = formationName.toLowerCase();
 
-  if (nameLower.includes("for01") || nameLower.includes("for001")) {
+  if (nameLower.includes("for001")) {
     return "FOR001 - Les bases de l'agent de service";
   } else if (nameLower.includes("for02") || nameLower.includes("for002")) {
     return "FOR002 - Les règles d'hygiène et de sécurité";
@@ -1374,19 +1378,21 @@ function getTitreFormation(formationName) {
     return "FOR007 - Réaliser un décapage suivi d'une pose d'émulsion";
   } else if (nameLower.includes("for09") || nameLower.includes("for009")) {
     return "FOR009 - Réaliser un récurage à la monobrosse";
-  } else if (nameLower.includes("for010") || nameLower.includes("for10")) {
+  } else if (nameLower.includes("for010")) {
     return "FOR010 - Réaliser un shampooing moquette suivi d'une injection-extraction";
-  } else if (nameLower.includes("for011") || nameLower.includes("for11")) {
+  } else if (nameLower.includes("for011"))  {
     return "FOR011 - Habilitation à la monobrosse";
-  } else if (nameLower.includes("for012") || nameLower.includes("for12")) {
+  } else if (nameLower.includes("for012")) {
     return "FOR012 - Habilitation à l'autolaveuse";
-  } else if (nameLower.includes("for016") || nameLower.includes("for016")) {
+  } else if (nameLower.includes("for016")) {
     return "FOR016 - Le bionettoyage en secteur hospitalier";
-  } else if (nameLower.includes("for018") || nameLower.includes("for018")) {
+  } else if (nameLower.includes("for018")) {
     return "FOR018 - Intervention en salle propre";
   } else if (nameLower.includes("jtf")) {
     return "JTF - Journée thématique de formation (001 + 002)";
   }
+
+
 
   // Si aucun cas ne correspond, on renvoie le nom de formation original
   return formationName;
@@ -1396,7 +1402,7 @@ function getObjectifFormation(formationName) {
   // Normaliser en minuscule pour ignorer la casse
   const nameLower = formationName.toLowerCase();
 
-  if (nameLower.includes("for01") || nameLower.includes("for001")) {
+  if (nameLower.includes("for001")) {
     return "- Organiser son travail en fonction de la prestation à réaliser\n- Réaliser les techniques d’entretien en respectant les règles d’hygiène et de sécurité\n- De savoir identifier les différents matériels\n- Savoir communiquer en utilisant les termes professionnelle";
   } else if (nameLower.includes("for02") || nameLower.includes("for002")) {
     return "- Comprendre les risques liés à son activité professionnelle\n- Adopter les bonnes protections\n- Connaitre les différentes signalisations de sécurité et de santé\n- Mettre en pratique les écogestes.";
@@ -1410,15 +1416,15 @@ function getObjectifFormation(formationName) {
     return "- Connaître les différents revêtements de sols souples\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques de décapage au mouillé";
   } else if (nameLower.includes("for09") || nameLower.includes("for009")) {
     return "- Connaître les différents revêtements céramiques\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques du récurage sur un sol carrelé";
-  } else if (nameLower.includes("for010") || nameLower.includes("for10")) {
+  } else if (nameLower.includes("for010")) {
     return "- Connaître les différents revêtements textiles\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques du shampoing moquette";
-  } else if (nameLower.includes("for011") || nameLower.includes("for11")) {
+  } else if (nameLower.includes("for011")) {
     return "- Comprendre le fonctionnement de la monobrosse\n- Utiliser les différents types de brosses/disques et de produits de nettoyage\n- Appliquer les techniques de nettoyage adaptées à chaque type de sol\n- Entretenir et assurer la maintenance de la monobrosse";
-  } else if (nameLower.includes("for012") || nameLower.includes("for12")) {
+  } else if (nameLower.includes("for012")) {
     return "- Comprendre le fonctionnement de l’autolaveuse\n- Utiliser les différents types de brosses/disques et de produits de nettoyage\n- Appliquer les techniques de nettoyage adaptées à chaque type de sol\n- Entretenir et assurer la maintenance de l’autolaveuse";
-  } else if (nameLower.includes("for016") || nameLower.includes("for016")) {
+  } else if (nameLower.includes("for016")) {
     return "- Comprendre les objectifs du bionettoyage et identifier les biocontaminations et les micro-organismes\n- Identifier les différentes zones d’intervention en secteur hospitalier\n- D’utiliser les produits adaptés et d’entretenir le matériel après chaque prestation\n- Mettre en pratique les protocoles de bionettoyage des blocs opératoires";
-  } else if (nameLower.includes("for018") || nameLower.includes("for018")) {
+  } else if (nameLower.includes("for018")) {
     return "- Identifier les caractéristiques des salles propres et les différents contaminants\n- Adopter les bons comportements et attitudes en salle propre\n- Appliquer les protocoles de nettoyage en salle propre\n- Connaitre et renseigner les éléments de traçabilité";
   } else if (nameLower.includes("jtf")) {
     return "-D’organiser son travail en fonction de la prestation à réaliser en adoptant les bonnes protections\n- De réaliser les techniques d’entretien en respectant les règles d’hygiène et de sécurité tout en identifiant les risques liés à son activité professionnelle\n- De savoir identifier les différents matériels de savoir communiquer en utilisant les termes professionnels\n Connaitre les différentes signalisations de sécurité et de santé et mettre en pratique les écogestes";
@@ -1551,6 +1557,8 @@ function getUniqueEntitiesForDate(formation, date) {
 async function generateConventionRef(formation, date, entity) {
   // Suppose que formation.name, date et entity sont des chaînes
   // SCRIPT_URL est l'URL de votre Apps Script
+  console.log("Génération de la référence de convention pour", formation.name, date, entity);
+
   const url =
     SCRIPT_URL +
     "?action=addRefConvention" +
@@ -1651,6 +1659,7 @@ async function downloadConventionDocForEntity(
 
   // Obtenir le Titre de formation
   const titreFormation = getTitreFormation(formation.name);
+  console.log("Titre de formation :", titreFormation);
   let siretNb;
 
   if (entity.toLowerCase() == "ternett" || entity.toLowerCase() == "ternet") {
