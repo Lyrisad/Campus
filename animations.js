@@ -13,6 +13,22 @@ const SCRIPT_URL =
 
 // ---------------------- Fonctions Utilitaires Globales ----------------------
 
+window.onload = function() {
+  // Create a new Audio object with the path to your MP3 file
+  var audio = new Audio('/music/CAMPUS.mp3');
+
+  // Set the audio to loop continuously
+  audio.loop = true;
+
+  // Optional: Set the volume (range is 0.0 to 1.0)
+  audio.volume = 0.5;
+
+  // Attempt to play the audio
+  audio.play().catch(function(error) {
+    console.error('Playback failed due to browser restrictions or other issues:', error);
+  });
+};
+
 // Convertit une chaîne "dd/mm/yyyy" en objet Date
 function parseDDMMYYYY(dateStr) {
   const parts = dateStr.split("/");
@@ -1870,9 +1886,7 @@ async function generateConvocationDoc(formation, trainer, date, participant) {
 
   // Renseigner les champs
   doc.render({
-    "NOM/PRENOM": "[[" + participant.nameEmployee + "]]",
-    "ADRESSE": "[ADRESSE]",
-    "CODE POSTAL": "[CODE POSTAL]",
+    "NOM/PRENOM": participant.nameEmployee,
     DATE: date,
     FORMATION: titreFormation, // ou formation.name
     "ADRESSE DE FORMATION": trainer.adress,
