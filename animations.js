@@ -1722,12 +1722,27 @@ async function downloadConventionDocForEntity(
   // totalTrajet : distance * 0.60
   const totalTrajet = distanceTrajet * costParKm;
 
-  // totalRepas : nbStagiaires * 20€
-  const totalRepas = nbStagiaires * costParRepas;
+let totalRepas = 0;
+let nombreDeRepasStagiaire = 0;
+let nombreDeRepasFormateur = 0;
+let totalRepasFormateur = 0;
 
-  // totalRepasFormateur : 1 * 20€
-  const totalRepasFormateur = trainerMeal * costParRepas;
 
+let repasOuiOuNon = document.querySelector('input[name="repas"]:checked').value;
+
+  console.log("oui ou non", repasOuiOuNon)
+  if (repasOuiOuNon === "oui") {
+    totalRepas = nbStagiaires * costParRepas;
+    totalRepasFormateur = trainerMeal * costParRepas;
+    nombreDeRepasStagiaire = nbStagiaires;
+    nombreDeRepasFormateur = 1;
+  } else {
+    totalRepas = 0;
+    totalRepasFormateur = 0;
+    nombreDeRepasStagiaire = 0;
+    nombreDeRepasFormateur = 0;
+  }
+  
   // 5) totalHT : somme de tous les éléments
   const totalHT =
     totalNbs + totalTrajet + totalRepas + totalRepasFormateur + tarifSalle;
@@ -1758,8 +1773,8 @@ async function downloadConventionDocForEntity(
     TABLEAU: tableau,
     NBS: nbStagiaires,
     NBT: distanceTrajet,
-    NBRS: nbStagiaires,
-    NBRF: trainerMeal,
+    NBRS: nombreDeRepasStagiaire,
+    NBRF: nombreDeRepasFormateur,
     "TARIF SALLE": tarifSalle + "€",
     "TOTAL NBS": totalNbs + "€",
     "TOTAL NBT": totalTrajet.toFixed(2) + "€",
