@@ -927,6 +927,9 @@
           <h3>Participants pour la date (<span id="modalDate"></span>)</h3>
           <div id="participantsList"></div>
           <button id="validerFormation">Valider la Formation</button>
+          <button id="generateDocs" type="button" class="download-docs">
+            Télécharger les documents de formation
+          </button>
         </div>
       </div>
             <!-- Modal Formateur -->
@@ -1029,6 +1032,7 @@
             <button id="downloadGENEMARBtn" type="button" class="download-btn">
               Générer les documents
             </button>
+            <button id="addEvent" type="button" class="addEventClass">Bloquer l'agenda</button>
           </form>
         </div>
       </div>
@@ -1042,6 +1046,6 @@
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
     ></script>
     <script type="module"> import docx from 'https://cdn.jsdelivr.net/npm/docx@9.2.0/+esm' </script>
-    <script type="module" src="animations.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>

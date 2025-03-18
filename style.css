@@ -1331,7 +1331,7 @@ modal2-title{
 }
 #participantsModal h3 {
   display: flex;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-top: 0;
   color: #333;
 }
@@ -1345,6 +1345,11 @@ modal2-title{
   margin-top: 0px;
   font-size: 0.8rem;
   color: #555;
+}
+
+#participantsList tr{
+  font-size: 0.7rem;
+  color: #2f2f2f;
 }
 
 #modalDate{
@@ -1398,6 +1403,19 @@ modal2-title{
 
 .validerFormation:hover{
   background-color: #218838;
+}
+
+#generateDocs{
+  width: 100%;
+  background-color: #f49f42;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 8px; 
 }
 
 /* Historique Panel Styles */
@@ -1834,12 +1852,27 @@ modal2-title{
   background-color: #218838;
 }
 
+#addEvent{
+  width: 100%;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+#addEvent:hover{
+  background-color: #005fa3;
+}
+
 #repasOui, #repasNon{
  width: 10%;
  margin: 0px;
 }
-
-
 
 #repasGroup{
   display: flex;

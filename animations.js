@@ -862,51 +862,63 @@ function showParticipantsModal(formation, date) {
   });
 
   // Mettre à jour automatiquement l'heure de fin du matin en ajoutant 3h30 au début
-document.getElementById("morningStart").addEventListener("change", function() {
-  const start = this.value; // Exemple : "09:00"
-  if (start) {
-    const [hour, minute] = start.split(":").map(Number);
-    let endHour = hour;
-    let endMinute = minute + 30; // ajout de 30 minutes
-    if (endMinute >= 60) {
-      endMinute -= 60;
-      endHour += 1;
-    }
-    endHour += 3; // ajout de 3 heures supplémentaires
-    // Formater l'heure en HH:MM
-    const formattedEnd = `${endHour.toString().padStart(2, "0")}:${endMinute.toString().padStart(2, "0")}`;
-    document.getElementById("morningEnd").value = formattedEnd;
-  }
-});
+  document
+    .getElementById("morningStart")
+    .addEventListener("change", function () {
+      const start = this.value; // Exemple : "09:00"
+      if (start) {
+        const [hour, minute] = start.split(":").map(Number);
+        let endHour = hour;
+        let endMinute = minute + 30; // ajout de 30 minutes
+        if (endMinute >= 60) {
+          endMinute -= 60;
+          endHour += 1;
+        }
+        endHour += 3; // ajout de 3 heures supplémentaires
+        // Formater l'heure en HH:MM
+        const formattedEnd = `${endHour.toString().padStart(2, "0")}:${endMinute
+          .toString()
+          .padStart(2, "0")}`;
+        document.getElementById("morningEnd").value = formattedEnd;
+      }
+    });
 
-document.getElementById("afternoonStart").addEventListener("change", function() {
-  const start = this.value; // Exemple : "14:00"
-  if (start) {
-    const [hour, minute] = start.split(":").map(Number);
-    let endHour = hour;
-    let endMinute = minute + 30; // ajout de 30 minutes
-    if (endMinute >= 60) {
-      endMinute -= 60;
-      endHour += 1;
-    }
-    endHour += 3; // ajout de 3 heures supplémentaires
-    // Formater l'heure en HH:MM
-    const formattedEnd = `${endHour.toString().padStart(2, "0")}:${endMinute.toString().padStart(2, "0")}`;
-    document.getElementById("afternoonEnd").value = formattedEnd;
-  }
-});
+  document
+    .getElementById("afternoonStart")
+    .addEventListener("change", function () {
+      const start = this.value; // Exemple : "14:00"
+      if (start) {
+        const [hour, minute] = start.split(":").map(Number);
+        let endHour = hour;
+        let endMinute = minute + 30; // ajout de 30 minutes
+        if (endMinute >= 60) {
+          endMinute -= 60;
+          endHour += 1;
+        }
+        endHour += 3; // ajout de 3 heures supplémentaires
+        // Formater l'heure en HH:MM
+        const formattedEnd = `${endHour.toString().padStart(2, "0")}:${endMinute
+          .toString()
+          .padStart(2, "0")}`;
+        document.getElementById("afternoonEnd").value = formattedEnd;
+      }
+    });
 
-// Bouton pour effacer la plage horaire du matin
-document.getElementById("clearMorning").addEventListener("click", function() {
-  document.getElementById("morningStart").value = "";
-  document.getElementById("morningEnd").value = "";
-});
+  // Bouton pour effacer la plage horaire du matin
+  document
+    .getElementById("clearMorning")
+    .addEventListener("click", function () {
+      document.getElementById("morningStart").value = "";
+      document.getElementById("morningEnd").value = "";
+    });
 
-// Bouton pour effacer la plage horaire de l'après-midi
-document.getElementById("clearAfternoon").addEventListener("click", function() {
-  document.getElementById("afternoonStart").value = "";
-  document.getElementById("afternoonEnd").value = "";
-});
+  // Bouton pour effacer la plage horaire de l'après-midi
+  document
+    .getElementById("clearAfternoon")
+    .addEventListener("click", function () {
+      document.getElementById("afternoonStart").value = "";
+      document.getElementById("afternoonEnd").value = "";
+    });
 
   document
     .getElementById("downloadGENEMARBtn")
@@ -914,26 +926,175 @@ document.getElementById("clearAfternoon").addEventListener("click", function() {
       let trainerType = document.getElementById("trainerType").value;
       let trainerName = document.getElementById("trainerName").value;
       let trainerAdress = document.getElementById("trainerAdress").value;
-      let morningStart =  document.getElementById("morningStart").value;
+      let morningStart = document.getElementById("morningStart").value;
       let morningEnd = document.getElementById("morningEnd").value;
       let afternoonStart = document.getElementById("afternoonStart").value;
       let afternoonEnd = document.getElementById("afternoonEnd").value;
       let distanceInput = document.getElementById("distanceInput").value;
       let tarifSalle = document.getElementById("tarifSalle").value;
-      let tarifRepas = document.querySelector('input[name="repas"]:checked').value;
+      let tarifRepas = document.querySelector(
+        'input[name="repas"]:checked'
+      ).value;
       if (!trainerType || !trainerName || !trainerAdress) {
         showNotification("Veuillez remplir tous les champs.");
         return;
       }
-      downloadGENEMARDoc(formation, { type: trainerType, name: trainerName, adress: trainerAdress , morningStart, morningEnd, afternoonStart, afternoonEnd }, date);
+      downloadGENEMARDoc(
+        formation,
+        {
+          type: trainerType,
+          name: trainerName,
+          adress: trainerAdress,
+          morningStart,
+          morningEnd,
+          afternoonStart,
+          afternoonEnd,
+        },
+        date
+      );
       showNotification("Document GEN-EMAR généré avec succès !");
       downloadAttendanceListWord(formation, date);
-      downloadAllConvocations(formation, { type: trainerType, name: trainerName, adress: trainerAdress , morningStart, morningEnd, afternoonStart, afternoonEnd, distanceInput, tarifSalle, tarifRepas }, date);
+      downloadAllConvocations(
+        formation,
+        {
+          type: trainerType,
+          name: trainerName,
+          adress: trainerAdress,
+          morningStart,
+          morningEnd,
+          afternoonStart,
+          afternoonEnd,
+          distanceInput,
+          tarifSalle,
+          tarifRepas,
+        },
+        date
+      );
       const uniqueEntities = getUniqueEntitiesForDate(formation, date);
       for (const entity of uniqueEntities) {
-         downloadConventionDocForEntity(formation, { type: trainerType, name: trainerName, adress: trainerAdress , morningStart, morningEnd, afternoonStart, afternoonEnd, distanceInput, tarifSalle, tarifRepas }, date, entity);
+        downloadConventionDocForEntity(
+          formation,
+          {
+            type: trainerType,
+            name: trainerName,
+            adress: trainerAdress,
+            morningStart,
+            morningEnd,
+            afternoonStart,
+            afternoonEnd,
+            distanceInput,
+            tarifSalle,
+            tarifRepas,
+          },
+          date,
+          entity
+        );
       }
     });
+
+    document.getElementById("addEvent").addEventListener("click", () => {
+      let trainerName = document.getElementById("trainerName").value;
+      let trainerAdress = document.getElementById("trainerAdress").value;
+      let morningStart = document.getElementById("morningStart").value;
+      let morningEnd = document.getElementById("morningEnd").value;
+      let afternoonStart = document.getElementById("afternoonStart").value;
+      let afternoonEnd = document.getElementById("afternoonEnd").value;
+      generateOutlookEvent(
+      formation.name,
+      {
+        startTime: morningStart || afternoonStart,
+        endTime: afternoonEnd || morningEnd,
+        date: date, // format DD/MM/YYYY
+        trainerName,
+        address: trainerAdress
+      },
+      formation
+    );
+  });
+  document
+    .getElementById("generateDocs")
+    .addEventListener("click", async () => {
+      console.log("Téléchargement des QCMs..");
+      console.log("Formation :", formation);
+      console.log("Date :", date);
+      if (!formation || !date) {
+        showNotification("Veuillez sélectionner une formation et une date");
+        return;
+      }
+
+      await downloadAllQCMs(formation, date);
+    });
+
+}
+
+
+function generateOutlookEvent(formationName, { startTime, endTime, date, trainerName, address }, formation) {
+  const targetDate = parseDDMMYYYY(date);
+  // Filtrer par date
+  const participantsBlocks = getBlocks(formation.participants).filter((b) => {
+    const d = new Date(b.date);
+    return isSameDate(d, targetDate);
+  });
+
+  const participants = participantsBlocks.map((block) => {
+    try {
+      const empData = JSON.parse(block.json);
+      return Array.isArray(empData) ? empData[0] : empData;
+    } catch (e) {
+      console.error("Erreur lors du parsing d'un bloc :", e);
+      return null;
+    }
+  });
+
+  // Construire la liste des participants
+
+  let participantsList = participants
+    .map((emp, index) => `${index + 1}. ${emp.matricule} - ${emp.nameEmployee} - ${emp.entity}`)
+    .filter((emp) => emp !== null)
+    .join('\\n');
+
+  console.log('Participants list:', participantsList);
+    
+
+  // Convertir la date au format ISO (YYYY-MM-DD)
+  const [dd, mm, yyyy] = date.split('/');
+  const isoDate = `${yyyy}-${mm}-${dd}`;
+  
+  // Formater les heures
+  const formatTime = (time) => time ? time.replace(':', '') + '00' : '090000';
+  
+  // Créer le lien universel Outlook
+  const outlookLink = `https://outlook.live.com/calendar/0/deeplink/compose?` +
+    `allday=false&` +
+    `path=/calendar/action/compose&` +
+    `startdt=${isoDate}T${formatTime(startTime)}&` +
+    `enddt=${isoDate}T${formatTime(endTime)}&` +
+    `subject=${encodeURIComponent(`Formation ${formationName}`)}&` +
+    `body=${encodeURIComponent(`Formateur: ${trainerName}\nAdresse: ${address}\nParticipants:\n ${participantsList}\n`)}&` +
+    `location=${encodeURIComponent(address)}`;
+
+
+  // Générer un .ics de secours
+  const icsContent = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'BEGIN:VEVENT',
+    `DTSTART:${isoDate}T${formatTime(startTime)}`,
+    `DTEND:${isoDate}T${formatTime(endTime)}`,
+    `SUMMARY:Formation ${formationName}`,
+    `DESCRIPTION:Formateur: ${trainerName}\\nAdresse: ${address}\\nParticipants:\\n ${participantsList}\\n`,
+    `LOCATION:${address}`,
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+
+  // Téléchargement automatique du .ics
+  const blob = new Blob([icsContent], { type: 'text/calendar' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Evenement-${formationName}.ics`;
+  a.click();
 }
 
 function downloadAttendanceListWord(formation, date) {
@@ -1026,28 +1187,30 @@ function downloadAttendanceListWord(formation, date) {
 
 function prepareTableauData(formation, date) {
   const targetDate = parseDDMMYYYY(date);
-  const blocks = getBlocks(formation.participants).filter(b => {
+  const blocks = getBlocks(formation.participants).filter((b) => {
     const d = new Date(b.date);
     return isSameDate(d, targetDate);
   });
 
   // Construire la liste des participants
-  let tableauData = blocks.map((b, index) => {
-    try {
-      const empData = JSON.parse(b.json);
-      const emp = Array.isArray(empData) ? empData[0] : empData;
-      return {
-        NOM_PRENOM: emp.nameEmployee,
-        MATRICULE: emp.matricule,
-        ENTITE: emp.entity,
-        MATIN: "",       // champ vide pour l'instant
-        APRES_MIDI: ""   // idem
-      };
-    } catch (e) {
-      console.error("Erreur lors du parsing d'un bloc :", e);
-      return null;
-    }
-  }).filter(item => item !== null);
+  let tableauData = blocks
+    .map((b, index) => {
+      try {
+        const empData = JSON.parse(b.json);
+        const emp = Array.isArray(empData) ? empData[0] : empData;
+        return {
+          NOM_PRENOM: emp.nameEmployee,
+          MATRICULE: emp.matricule,
+          ENTITE: emp.entity,
+          MATIN: "", // champ vide pour l'instant
+          APRES_MIDI: "", // idem
+        };
+      } catch (e) {
+        console.error("Erreur lors du parsing d'un bloc :", e);
+        return null;
+      }
+    })
+    .filter((item) => item !== null);
 
   // Si on a moins de 12 participants, on complète avec des lignes vides
   while (tableauData.length < 12) {
@@ -1056,7 +1219,7 @@ function prepareTableauData(formation, date) {
       MATRICULE: "",
       ENTITE: "",
       MATIN: "",
-      APRES_MIDI: ""
+      APRES_MIDI: "",
     });
   }
 
@@ -1066,33 +1229,35 @@ function prepareTableauData(formation, date) {
 function prepareTableauDataForEntity(formation, date, entity) {
   const targetDate = parseDDMMYYYY(date);
   // Filtrer par date
-  const blocks = getBlocks(formation.participants).filter(b => {
+  const blocks = getBlocks(formation.participants).filter((b) => {
     const d = new Date(b.date);
     return isSameDate(d, targetDate);
   });
 
   // Construire la liste des participants de l'entité demandée
-  let tableauData = blocks.map((b) => {
-    try {
-      const empData = JSON.parse(b.json);
-      const emp = Array.isArray(empData) ? empData[0] : empData;
-      // Vérifier que l'entité du stagiaire correspond à `entity`
-      if (emp.entity.trim().toLowerCase() === entity.trim().toLowerCase()) {
-        return {
-          NOM_PRENOM: emp.nameEmployee,
-          MATRICULE: emp.matricule,
-          ENTITE: emp.entity,
-          MATIN: "",
-          APRES_MIDI: ""
-        };
-      } else {
+  let tableauData = blocks
+    .map((b) => {
+      try {
+        const empData = JSON.parse(b.json);
+        const emp = Array.isArray(empData) ? empData[0] : empData;
+        // Vérifier que l'entité du stagiaire correspond à `entity`
+        if (emp.entity.trim().toLowerCase() === entity.trim().toLowerCase()) {
+          return {
+            NOM_PRENOM: emp.nameEmployee,
+            MATRICULE: emp.matricule,
+            ENTITE: emp.entity,
+            MATIN: "",
+            APRES_MIDI: "",
+          };
+        } else {
+          return null;
+        }
+      } catch (e) {
+        console.error("Erreur lors du parsing d'un bloc :", e);
         return null;
       }
-    } catch (e) {
-      console.error("Erreur lors du parsing d'un bloc :", e);
-      return null;
-    }
-  }).filter(item => item !== null);
+    })
+    .filter((item) => item !== null);
 
   // Compléter jusqu'à 12 lignes si vous le souhaitez
   while (tableauData.length < 12) {
@@ -1101,14 +1266,12 @@ function prepareTableauDataForEntity(formation, date, entity) {
       MATRICULE: "",
       ENTITE: "",
       MATIN: "",
-      APRES_MIDI: ""
+      APRES_MIDI: "",
     });
   }
 
   return tableauData;
 }
-
-
 
 // Fonction pour déterminer la durée en fonction du nom de la formation
 function getHeures(formationName) {
@@ -1137,6 +1300,38 @@ function getHeures(formationName) {
     nameLower.includes("for12")
   ) {
     return "3.5";
+  }
+  return "";
+}
+
+function getFormationCode(formationName) {
+  const nameLower = formationName.toLowerCase();
+  if (nameLower.includes("for01") || nameLower.includes("for001")) {
+    return "FOR001";
+  } else if (nameLower.includes("for02") || nameLower.includes("for002")) {
+    return "FOR002";
+  } else if (nameLower.includes("for03") || nameLower.includes("for003")) {
+    return "FOR003";
+  } else if (nameLower.includes("for04") || nameLower.includes("for004")) {
+    return "FOR004";
+  } else if (nameLower.includes("for06") || nameLower.includes("for006")) {
+    return "FOR006";
+  } else if (nameLower.includes("for07") || nameLower.includes("for007")) {
+    return "FOR007";
+  } else if (nameLower.includes("for09") || nameLower.includes("for009")) {
+    return "FOR009";
+  } else if (nameLower.includes("for010") || nameLower.includes("for10")) {
+    return "FOR010";
+  } else if (nameLower.includes("for011") || nameLower.includes("for11")) {
+    return "FOR011";
+  } else if (nameLower.includes("for012") || nameLower.includes("for12")) {
+    return "FOR012";
+  } else if (nameLower.includes("for016") || nameLower.includes("for016")) {
+    return "FOR016";
+  } else if (nameLower.includes("for018") || nameLower.includes("for018")) {
+    return "FOR018";
+  } else if (nameLower.includes("jtf")) {
+    return "JTF";
   }
   return "";
 }
@@ -1182,69 +1377,69 @@ function getTitreFormation(formationName) {
 }
 
 function getObjectifFormation(formationName) {
-   // Normaliser en minuscule pour ignorer la casse
-   const nameLower = formationName.toLowerCase();
+  // Normaliser en minuscule pour ignorer la casse
+  const nameLower = formationName.toLowerCase();
 
-   if (nameLower.includes("for01") || nameLower.includes("for001")) {
-     return "- Organiser son travail en fonction de la prestation à réaliser\n- Réaliser les techniques d’entretien en respectant les règles d’hygiène et de sécurité\n- De savoir identifier les différents matériels\n- Savoir communiquer en utilisant les termes professionnelle";
-   } else if (nameLower.includes("for02") || nameLower.includes("for002")) {
-     return "- Comprendre les risques liés à son activité professionnelle\n- Adopter les bonnes protections\n- Connaitre les différentes signalisations de sécurité et de santé\n- Mettre en pratique les écogestes.";
-   } else if (nameLower.includes("for03") || nameLower.includes("for003")) {
-     return "- Garantir une tenue de travail et une présentation soignée\n- Réaliser ses prestations en respectant le confort du client\n- Communiquer de manière professionnelle avec le client, le responsable et l’équipe\n- Transmettre et traiter efficacement les plaintes et les réclamations";
-   } else if (nameLower.includes("for04") || nameLower.includes("for004")) {
-     return "- Organiser son travail en fonction de la prestation à réaliser\n- Appliquer les protocoles de nettoyage d’un bureau et d’un bloc sanitaire\n- Appliquer les règles d’hygiène et de sécurité vis-à-vis des usagers\n- Contrôler sa prestation";
-   } else if (nameLower.includes("for06") || nameLower.includes("for006")) {
-     return "- Connaître les différents revêtements de sols souples\n- Utiliser une monobrosse haute-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques de spray Méthode et de lustrage";
-   } else if (nameLower.includes("for07") || nameLower.includes("for007")) {
-     return "- Connaître les différents revêtements de sols souples\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques de décapage au mouillé";
-   } else if (nameLower.includes("for09") || nameLower.includes("for009")) {
-     return "- Connaître les différents revêtements céramiques\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques du récurage sur un sol carrelé";
-   } else if (nameLower.includes("for010") || nameLower.includes("for10")) {
-     return "- Connaître les différents revêtements textiles\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques du shampoing moquette";
-   } else if (nameLower.includes("for011") || nameLower.includes("for11")) {
-     return "- Comprendre le fonctionnement de la monobrosse\n- Utiliser les différents types de brosses/disques et de produits de nettoyage\n- Appliquer les techniques de nettoyage adaptées à chaque type de sol\n- Entretenir et assurer la maintenance de la monobrosse";
-   } else if (nameLower.includes("for012") || nameLower.includes("for12")) {
-     return "- Comprendre le fonctionnement de l’autolaveuse\n- Utiliser les différents types de brosses/disques et de produits de nettoyage\n- Appliquer les techniques de nettoyage adaptées à chaque type de sol\n- Entretenir et assurer la maintenance de l’autolaveuse";
-   } else if (nameLower.includes("for016") || nameLower.includes("for016")) {
-     return "- Comprendre les objectifs du bionettoyage et identifier les biocontaminations et les micro-organismes\n- Identifier les différentes zones d’intervention en secteur hospitalier\n- D’utiliser les produits adaptés et d’entretenir le matériel après chaque prestation\n- Mettre en pratique les protocoles de bionettoyage des blocs opératoires";
-   } else if (nameLower.includes("for018") || nameLower.includes("for018")) {
-     return "- Identifier les caractéristiques des salles propres et les différents contaminants\n- Adopter les bons comportements et attitudes en salle propre\n- Appliquer les protocoles de nettoyage en salle propre\n- Connaitre et renseigner les éléments de traçabilité";
-   } else if (nameLower.includes("jtf")) {
-     return "-D’organiser son travail en fonction de la prestation à réaliser en adoptant les bonnes protections\n- De réaliser les techniques d’entretien en respectant les règles d’hygiène et de sécurité tout en identifiant les risques liés à son activité professionnelle\n- De savoir identifier les différents matériels de savoir communiquer en utilisant les termes professionnels\n Connaitre les différentes signalisations de sécurité et de santé et mettre en pratique les écogestes";
-   }
- 
-   // Si aucun cas ne correspond, on renvoie le nom de formation original
-   return "Objectifs non définis";
+  if (nameLower.includes("for01") || nameLower.includes("for001")) {
+    return "- Organiser son travail en fonction de la prestation à réaliser\n- Réaliser les techniques d’entretien en respectant les règles d’hygiène et de sécurité\n- De savoir identifier les différents matériels\n- Savoir communiquer en utilisant les termes professionnelle";
+  } else if (nameLower.includes("for02") || nameLower.includes("for002")) {
+    return "- Comprendre les risques liés à son activité professionnelle\n- Adopter les bonnes protections\n- Connaitre les différentes signalisations de sécurité et de santé\n- Mettre en pratique les écogestes.";
+  } else if (nameLower.includes("for03") || nameLower.includes("for003")) {
+    return "- Garantir une tenue de travail et une présentation soignée\n- Réaliser ses prestations en respectant le confort du client\n- Communiquer de manière professionnelle avec le client, le responsable et l’équipe\n- Transmettre et traiter efficacement les plaintes et les réclamations";
+  } else if (nameLower.includes("for04") || nameLower.includes("for004")) {
+    return "- Organiser son travail en fonction de la prestation à réaliser\n- Appliquer les protocoles de nettoyage d’un bureau et d’un bloc sanitaire\n- Appliquer les règles d’hygiène et de sécurité vis-à-vis des usagers\n- Contrôler sa prestation";
+  } else if (nameLower.includes("for06") || nameLower.includes("for006")) {
+    return "- Connaître les différents revêtements de sols souples\n- Utiliser une monobrosse haute-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques de spray Méthode et de lustrage";
+  } else if (nameLower.includes("for07") || nameLower.includes("for007")) {
+    return "- Connaître les différents revêtements de sols souples\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques de décapage au mouillé";
+  } else if (nameLower.includes("for09") || nameLower.includes("for009")) {
+    return "- Connaître les différents revêtements céramiques\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques du récurage sur un sol carrelé";
+  } else if (nameLower.includes("for010") || nameLower.includes("for10")) {
+    return "- Connaître les différents revêtements textiles\n- Utiliser une monobrosse basse-vitesse en sécurité\n- Entretenir et vérifier la machine et connaitre ses accessoires / Appliquer les produits de nettoyage adéquats\n- Maitriser les techniques du shampoing moquette";
+  } else if (nameLower.includes("for011") || nameLower.includes("for11")) {
+    return "- Comprendre le fonctionnement de la monobrosse\n- Utiliser les différents types de brosses/disques et de produits de nettoyage\n- Appliquer les techniques de nettoyage adaptées à chaque type de sol\n- Entretenir et assurer la maintenance de la monobrosse";
+  } else if (nameLower.includes("for012") || nameLower.includes("for12")) {
+    return "- Comprendre le fonctionnement de l’autolaveuse\n- Utiliser les différents types de brosses/disques et de produits de nettoyage\n- Appliquer les techniques de nettoyage adaptées à chaque type de sol\n- Entretenir et assurer la maintenance de l’autolaveuse";
+  } else if (nameLower.includes("for016") || nameLower.includes("for016")) {
+    return "- Comprendre les objectifs du bionettoyage et identifier les biocontaminations et les micro-organismes\n- Identifier les différentes zones d’intervention en secteur hospitalier\n- D’utiliser les produits adaptés et d’entretenir le matériel après chaque prestation\n- Mettre en pratique les protocoles de bionettoyage des blocs opératoires";
+  } else if (nameLower.includes("for018") || nameLower.includes("for018")) {
+    return "- Identifier les caractéristiques des salles propres et les différents contaminants\n- Adopter les bons comportements et attitudes en salle propre\n- Appliquer les protocoles de nettoyage en salle propre\n- Connaitre et renseigner les éléments de traçabilité";
+  } else if (nameLower.includes("jtf")) {
+    return "-D’organiser son travail en fonction de la prestation à réaliser en adoptant les bonnes protections\n- De réaliser les techniques d’entretien en respectant les règles d’hygiène et de sécurité tout en identifiant les risques liés à son activité professionnelle\n- De savoir identifier les différents matériels de savoir communiquer en utilisant les termes professionnels\n Connaitre les différentes signalisations de sécurité et de santé et mettre en pratique les écogestes";
   }
 
+  // Si aucun cas ne correspond, on renvoie le nom de formation original
+  return "Objectifs non définis";
+}
 
 function computeIntraInter(formation, date) {
   const targetDate = parseDDMMYYYY(date);
   // Récupérer et filtrer les blocs correspondant à la date
-  const blocks = getBlocks(formation.participants).filter(b => {
+  const blocks = getBlocks(formation.participants).filter((b) => {
     const d = new Date(b.date);
     return isSameDate(d, targetDate);
   });
 
   // Extraire les entités
-  const entities = blocks.map(block => {
-    try {
-      const empData = JSON.parse(block.json);
-      const emp = Array.isArray(empData) ? empData[0] : empData;
-      return emp.entity.trim().toLowerCase();
-    } catch(e) {
-      console.error("Erreur de parsing dans computeIntraInter :", e);
-      return null;
-    }
-  }).filter(ent => ent !== null);
+  const entities = blocks
+    .map((block) => {
+      try {
+        const empData = JSON.parse(block.json);
+        const emp = Array.isArray(empData) ? empData[0] : empData;
+        return emp.entity.trim().toLowerCase();
+      } catch (e) {
+        console.error("Erreur de parsing dans computeIntraInter :", e);
+        return null;
+      }
+    })
+    .filter((ent) => ent !== null);
 
   if (entities.length === 0) return "";
   const first = entities[0];
   // Si tous les participants ont la même entité, c'est INTRA, sinon INTER
-  const allSame = entities.every(ent => ent === first);
+  const allSame = entities.every((ent) => ent === first);
   return allSame ? "INTRA" : "INTER";
 }
-
 
 // Exemple de fonction pour générer et télécharger le document Word basé sur le template GEN-EMAR.docx
 async function downloadGENEMARDoc(formation, trainer, date) {
@@ -1263,7 +1458,7 @@ async function downloadGENEMARDoc(formation, trainer, date) {
   const doc = new window.docxtemplater(zip, {
     paragraphLoop: true,
     linebreaks: true,
-    delimiters: { start: "[", end: "]" }
+    delimiters: { start: "[", end: "]" },
   });
 
   // Déterminer les heures en fonction du nom de la formation
@@ -1273,13 +1468,14 @@ async function downloadGENEMARDoc(formation, trainer, date) {
   // Calculer le mode INTRA / INTER en parcourant les entités des participants
   const intraInter = computeIntraInter(formation, date);
 
-
-  const morningSchedule = (trainer.morningStart && trainer.morningEnd)
-  ? `${trainer.morningStart} à ${trainer.morningEnd}`
-  : "Ø";
-const afternoonSchedule = (trainer.afternoonStart && trainer.afternoonEnd)
-  ? `${trainer.afternoonStart} à ${trainer.afternoonEnd}`
-  : "Ø";
+  const morningSchedule =
+    trainer.morningStart && trainer.morningEnd
+      ? `${trainer.morningStart} à ${trainer.morningEnd}`
+      : "Ø";
+  const afternoonSchedule =
+    trainer.afternoonStart && trainer.afternoonEnd
+      ? `${trainer.afternoonStart} à ${trainer.afternoonEnd}`
+      : "Ø";
 
   const tableauData = prepareTableauData(formation, date);
 
@@ -1288,13 +1484,13 @@ const afternoonSchedule = (trainer.afternoonStart && trainer.afternoonEnd)
     "NOM FORMATION": formation.name,
     "TYPE DE FORMATION": trainer.type,
     "NOM DU FORMATEUR": trainer.name,
-    "ADRESSE": trainer.adress,  // Assurez-vous que trainer.adress existe
-    "HEURES": heures,
+    ADRESSE: trainer.adress, // Assurez-vous que trainer.adress existe
+    HEURES: heures,
     "INTRA / INTER": intraInter,
     "HORAIRES MATIN": morningSchedule,
     "HORAIRES APRES-MIDI": afternoonSchedule,
-    "DATE" : date,
-    "TABLEAU": tableauData
+    DATE: date,
+    TABLEAU: tableauData,
   });
 
   // Générer le document final en Blob et déclencher le téléchargement
@@ -1312,22 +1508,24 @@ const afternoonSchedule = (trainer.afternoonStart && trainer.afternoonEnd)
 function getUniqueEntitiesForDate(formation, date) {
   const targetDate = parseDDMMYYYY(date);
   // Récupérer tous les blocs participants de la formation
-  const blocks = getBlocks(formation.participants).filter(b => {
+  const blocks = getBlocks(formation.participants).filter((b) => {
     const d = new Date(b.date);
     return isSameDate(d, targetDate);
   });
 
   // Extraire l'entité de chaque participant
-  const entities = blocks.map(block => {
-    try {
-      const empData = JSON.parse(block.json);
-      const emp = Array.isArray(empData) ? empData[0] : empData;
-      return emp.entity.trim(); // ou .toLowerCase() si vous voulez uniformiser
-    } catch (e) {
-      console.error("Erreur de parsing d'un bloc :", e);
-      return null;
-    }
-  }).filter(ent => ent !== null);
+  const entities = blocks
+    .map((block) => {
+      try {
+        const empData = JSON.parse(block.json);
+        const emp = Array.isArray(empData) ? empData[0] : empData;
+        return emp.entity.trim(); // ou .toLowerCase() si vous voulez uniformiser
+      } catch (e) {
+        console.error("Erreur de parsing d'un bloc :", e);
+        return null;
+      }
+    })
+    .filter((ent) => ent !== null);
 
   // Renvoyer un tableau sans doublons
   const uniqueEntities = [...new Set(entities)];
@@ -1337,11 +1535,15 @@ function getUniqueEntitiesForDate(formation, date) {
 async function generateConventionRef(formation, date, entity) {
   // Suppose que formation.name, date et entity sont des chaînes
   // SCRIPT_URL est l'URL de votre Apps Script
-  const url = SCRIPT_URL
-    + "?action=addRefConvention"
-    + "&entite=" + encodeURIComponent(entity)
-    + "&formation=" + encodeURIComponent(formation.name)
-    + "&date=" + encodeURIComponent(date);
+  const url =
+    SCRIPT_URL +
+    "?action=addRefConvention" +
+    "&entite=" +
+    encodeURIComponent(entity) +
+    "&formation=" +
+    encodeURIComponent(formation.name) +
+    "&date=" +
+    encodeURIComponent(date);
 
   try {
     const response = await fetch(url);
@@ -1358,8 +1560,12 @@ async function generateConventionRef(formation, date, entity) {
   }
 }
 
-
-async function downloadConventionDocForEntity(formation, trainer, date, entity) {
+async function downloadConventionDocForEntity(
+  formation,
+  trainer,
+  date,
+  entity
+) {
   console.log(entity);
 
   const vref = await generateConventionRef(formation, date, entity);
@@ -1378,19 +1584,21 @@ async function downloadConventionDocForEntity(formation, trainer, date, entity) 
   const doc = new window.docxtemplater(zip, {
     paragraphLoop: true,
     linebreaks: true,
-    delimiters: { start: "[", end: "]" }
+    delimiters: { start: "[", end: "]" },
   });
 
   // Calculer la durée en heures (ex : 3.5 ou 7)
   const heures = getHeures(formation.name);
 
   // Déterminer les horaires
-  const morningSchedule = (trainer.morningStart && trainer.morningEnd)
-    ? `${trainer.morningStart} à ${trainer.morningEnd}`
-    : "Ø";
-  const afternoonSchedule = (trainer.afternoonStart && trainer.afternoonEnd)
-    ? `${trainer.afternoonStart} à ${trainer.afternoonEnd}`
-    : "Ø";
+  const morningSchedule =
+    trainer.morningStart && trainer.morningEnd
+      ? `${trainer.morningStart} à ${trainer.morningEnd}`
+      : "Ø";
+  const afternoonSchedule =
+    trainer.afternoonStart && trainer.afternoonEnd
+      ? `${trainer.afternoonStart} à ${trainer.afternoonEnd}`
+      : "Ø";
 
   // Calcul du "jour" (exemple ½ si 3.5h, sinon 1)
   let jour;
@@ -1407,49 +1615,68 @@ async function downloadConventionDocForEntity(formation, trainer, date, entity) 
   const dateOfToday = dd + "/" + mm + "/" + yyyy;
 
   //Créer une variable expirationDate qui prends la date de formation et enlève 10 jours
-// On suppose que "date" est une chaîne au format "dd/mm/yyyy"
-const [day, month, year] = date.split("/").map(Number);
-// Crée l'objet Date en JS (le mois commence à 0)
-const dateFormation = new Date(year, month - 1, day);
+  // On suppose que "date" est une chaîne au format "dd/mm/yyyy"
+  const [day, month, year] = date.split("/").map(Number);
+  // Crée l'objet Date en JS (le mois commence à 0)
+  const dateFormation = new Date(year, month - 1, day);
 
-// Soustrait 10 jours
-dateFormation.setDate(dateFormation.getDate() - 10);
+  // Soustrait 10 jours
+  dateFormation.setDate(dateFormation.getDate() - 10);
 
-// Reformate la date en "dd/mm/yyyy"
-const ddExp = String(dateFormation.getDate()).padStart(2, "0");
-const mmExp = String(dateFormation.getMonth() + 1).padStart(2, "0");
-const yyyyExp = dateFormation.getFullYear();
+  // Reformate la date en "dd/mm/yyyy"
+  const ddExp = String(dateFormation.getDate()).padStart(2, "0");
+  const mmExp = String(dateFormation.getMonth() + 1).padStart(2, "0");
+  const yyyyExp = dateFormation.getFullYear();
 
-const expirationDateStr = `${ddExp}/${mmExp}/${yyyyExp}`;
+  const expirationDateStr = `${ddExp}/${mmExp}/${yyyyExp}`;
 
-console.log("Date formation :", date);
-console.log("Date expiration (10 jours avant) :", expirationDateStr);
-
+  console.log("Date formation :", date);
+  console.log("Date expiration (10 jours avant) :", expirationDateStr);
 
   // Obtenir le Titre de formation
   const titreFormation = getTitreFormation(formation.name);
-  let siretNb
+  let siretNb;
 
   if (entity.toLowerCase() == "ternett" || entity.toLowerCase() == "ternet") {
-    siretNb = "324 465 921 000 82"
-  } else if (entity.toLowerCase() == "ernett" || entity.toLowerCase() == "ernet") {
-    siretNb = "398 715 904 000 49"
-  } else if (entity.toLowerCase() == "eclanet" || entity.toLowerCase() == "eclanett") {
-    siretNb = "322 032 491 000 27"
+    siretNb = "324 465 921 000 82";
+  } else if (
+    entity.toLowerCase() == "ernett" ||
+    entity.toLowerCase() == "ernet"
+  ) {
+    siretNb = "398 715 904 000 49";
+  } else if (
+    entity.toLowerCase() == "eclanet" ||
+    entity.toLowerCase() == "eclanett"
+  ) {
+    siretNb = "322 032 491 000 27";
   } else if (entity.toLowerCase() == "rie") {
-    siretNb = "403 384 035 000 16"
-  } else if (entity.toLowerCase() == "pratis" || entity.toLowerCase() == "practis") {
-    siretNb = "88 004 978 800 024"
+    siretNb = "403 384 035 000 16";
+  } else if (
+    entity.toLowerCase() == "pratis" ||
+    entity.toLowerCase() == "practis"
+  ) {
+    siretNb = "88 004 978 800 024";
   } else if (entity.toLowerCase() == "creabat") {
-    siretNb = "538 452 673 000 48"
-  } else if (entity.toLowerCase() == "groupe candor" || entity.toLowerCase() == "candor") {
-    siretNb = "538 441 833 000 26"
-  } else if (entity.toLowerCase() == "alpha" || entity.toLowerCase() == "candor alpha" || entity.toLowerCase() == "candor-alpha" || entity.toLowerCase() == "alpha candor") {
-    siretNb = "89 241 544 900 016"
+    siretNb = "538 452 673 000 48";
+  } else if (
+    entity.toLowerCase() == "groupe candor" ||
+    entity.toLowerCase() == "candor"
+  ) {
+    siretNb = "538 441 833 000 26";
+  } else if (
+    entity.toLowerCase() == "alpha" ||
+    entity.toLowerCase() == "candor alpha" ||
+    entity.toLowerCase() == "candor-alpha" ||
+    entity.toLowerCase() == "alpha candor"
+  ) {
+    siretNb = "89 241 544 900 016";
   } else if (entity.toLowerCase() == "dakin") {
-    siretNb = "34 771 182 200 085"
-  } else if (entity.toLowerCase() == "gamma" || entity.toLowerCase() == "candor gamma") {
-    siretNb = "352 00672 0000 36"
+    siretNb = "34 771 182 200 085";
+  } else if (
+    entity.toLowerCase() == "gamma" ||
+    entity.toLowerCase() == "candor gamma"
+  ) {
+    siretNb = "352 00672 0000 36";
   }
 
   const tableau = prepareTableauDataForEntity(formation, date, entity);
@@ -1457,7 +1684,9 @@ console.log("Date expiration (10 jours avant) :", expirationDateStr);
   const objectifs = getObjectifFormation(formation.name);
 
   // 1) Nombre de stagiaires (lignes non vides)
-  const nbStagiaires = tableau.filter(item => item.NOM_PRENOM.trim() !== "").length;
+  const nbStagiaires = tableau.filter(
+    (item) => item.NOM_PRENOM.trim() !== ""
+  ).length;
 
   // 2) Récupérer distance (en km) et tarif salle
   //    Utilisez parseFloat ou parseInt selon vos besoins.
@@ -1465,10 +1694,10 @@ console.log("Date expiration (10 jours avant) :", expirationDateStr);
   const tarifSalle = parseFloat(trainer.tarifSalle) || 0;
 
   // 3) Définir les coûts unitaires
-  const costParParticipant = 105.0;   // 105€ par participant
-  const costParRepas = 20.0;         // 20€ par repas
-  const costParKm = 0.60;            // 0.60€ par km
-  const trainerMeal = 1;             // 1 repas pour le formateur
+  const costParParticipant = 105.0; // 105€ par participant
+  const costParRepas = 20.0; // 20€ par repas
+  const costParKm = 0.6; // 0.60€ par km
+  const trainerMeal = 1; // 1 repas pour le formateur
 
   // 4) Calculs partiels
   // totalNbs : coût de formation par participant (nombre de stagiaires * 105€)
@@ -1484,46 +1713,45 @@ console.log("Date expiration (10 jours avant) :", expirationDateStr);
   const totalRepasFormateur = trainerMeal * costParRepas;
 
   // 5) totalHT : somme de tous les éléments
-  const totalHT = totalNbs + totalTrajet + totalRepas + totalRepasFormateur + tarifSalle;
+  const totalHT =
+    totalNbs + totalTrajet + totalRepas + totalRepasFormateur + tarifSalle;
 
   // 6) Calcul de la TVA (20%)
-  const TVA = totalHT * 0.20;
+  const TVA = totalHT * 0.2;
 
   // 7) totalTTC
   const totalTTC = totalHT + TVA;
 
-
-
   console.log("Nombre de stagiaires :", nbStagiaires);
   // Remplacer les variables
   doc.render({
-    "VREF": vref,
+    VREF: vref,
     "NOM DE FORMATION": titreFormation,
     "TITRE DE FORMATION": titreFormation,
-    "ENTITE": entity,
+    ENTITE: entity,
     "HORAIRES MATIN": morningSchedule,
     "HORAIRES APRES-MIDI": afternoonSchedule,
-    "ADRESSE": trainer.adress,
-    "HEURES": heures,
-    "DATE": date,
-    "JOUR": jour,
+    ADRESSE: trainer.adress,
+    HEURES: heures,
+    DATE: date,
+    JOUR: jour,
     "DATE DU JOUR": dateOfToday,
-    "EXPIRATION": expirationDateStr,
-    "SIREN" : siretNb,
-    "OBJECTIFS": objectifs,
-    "TABLEAU": tableau,
-    "NBS": nbStagiaires,
-    "NBT": distanceTrajet,
-    "NBRS": nbStagiaires,
-    "NBRF": trainerMeal,
+    EXPIRATION: expirationDateStr,
+    SIREN: siretNb,
+    OBJECTIFS: objectifs,
+    TABLEAU: tableau,
+    NBS: nbStagiaires,
+    NBT: distanceTrajet,
+    NBRS: nbStagiaires,
+    NBRF: trainerMeal,
     "TARIF SALLE": tarifSalle + "€",
     "TOTAL NBS": totalNbs + "€",
     "TOTAL NBT": totalTrajet.toFixed(2) + "€",
     "TOTAL NBRS": totalRepas + "€",
     "TOTAL NBRF": totalRepasFormateur + "€",
     "TOTAL HT": totalHT.toFixed(2) + "€",
-    "TVA": TVA.toFixed(2) + "€",
-    "TOTAL TTC": totalTTC.toFixed(2) + "€"
+    TVA: TVA.toFixed(2) + "€",
+    "TOTAL TTC": totalTTC.toFixed(2) + "€",
   });
 
   // Générer le document final en Blob
@@ -1541,44 +1769,51 @@ console.log("Date expiration (10 jours avant) :", expirationDateStr);
 
 function getParticipantsForDate(formation, date) {
   const targetDate = parseDDMMYYYY(date);
-  const blocks = getBlocks(formation.participants).filter(b => {
+  const blocks = getBlocks(formation.participants).filter((b) => {
     const d = new Date(b.date);
     return isSameDate(d, targetDate);
   });
 
   // On mappe chaque bloc vers un objet participant
-  const participants = blocks.map(block => {
-    try {
-      const empData = JSON.parse(block.json);
-      const emp = Array.isArray(empData) ? empData[0] : empData;
-      return {
-        nameEmployee: emp.nameEmployee,
-        matricule: emp.matricule,
-        entity: emp.entity
-      };
-    } catch (e) {
-      console.error("Erreur parsing bloc participant:", e);
-      return null;
-    }
-  }).filter(p => p !== null);
+  const participants = blocks
+    .map((block) => {
+      try {
+        const empData = JSON.parse(block.json);
+        const emp = Array.isArray(empData) ? empData[0] : empData;
+        return {
+          nameEmployee: emp.nameEmployee,
+          matricule: emp.matricule,
+          entity: emp.entity,
+        };
+      } catch (e) {
+        console.error("Erreur parsing bloc participant:", e);
+        return null;
+      }
+    })
+    .filter((p) => p !== null);
 
   return participants;
 }
 
 async function generateConvocationRef(entite, formationName, date, stagiaire) {
   // On construit l'URL vers votre Apps Script
-  const url = SCRIPT_URL
-    + "?action=addRefConvocation"
-    + "&entite=" + encodeURIComponent(entite)
-    + "&formation=" + encodeURIComponent(formationName)
-    + "&date=" + encodeURIComponent(date)
-    + "&stagiaire=" + encodeURIComponent(stagiaire);
+  const url =
+    SCRIPT_URL +
+    "?action=addRefConvocation" +
+    "&entite=" +
+    encodeURIComponent(entite) +
+    "&formation=" +
+    encodeURIComponent(formationName) +
+    "&date=" +
+    encodeURIComponent(date) +
+    "&stagiaire=" +
+    encodeURIComponent(stagiaire);
 
   try {
     const response = await fetch(url);
     const data = await response.json();
     if (data.success) {
-      return data.vref;  // ex. "vcvn001_ternett"
+      return data.vref; // ex. "vcvn001_ternett"
     } else {
       console.error("Erreur addRefConvocation:", data.error);
       return "";
@@ -1589,13 +1824,11 @@ async function generateConvocationRef(entite, formationName, date, stagiaire) {
   }
 }
 
-
 async function generateConvocationDoc(formation, trainer, date, participant) {
-
   const vref = await generateConvocationRef(
-    participant.entity,   // entite
-    formation.name,       // formationName
-    date,                 // date
+    participant.entity, // entite
+    formation.name, // formationName
+    date, // date
     participant.nameEmployee // stagiaire
   );
 
@@ -1613,19 +1846,21 @@ async function generateConvocationDoc(formation, trainer, date, participant) {
   const doc = new window.docxtemplater(zip, {
     paragraphLoop: true,
     linebreaks: true,
-    delimiters: { start: "[", end: "]" }
+    delimiters: { start: "[", end: "]" },
   });
 
   // Heures (3.5 ou 7, etc.)
   const heures = getHeures(formation.name);
 
   // Horaires matin / après-midi
-  const morningSchedule = (trainer.morningStart && trainer.morningEnd)
-    ? `${trainer.morningStart} à ${trainer.morningEnd}`
-    : "Ø";
-  const afternoonSchedule = (trainer.afternoonStart && trainer.afternoonEnd)
-    ? `${trainer.afternoonStart} à ${trainer.afternoonEnd}`
-    : "Ø";
+  const morningSchedule =
+    trainer.morningStart && trainer.morningEnd
+      ? `${trainer.morningStart} à ${trainer.morningEnd}`
+      : "Ø";
+  const afternoonSchedule =
+    trainer.afternoonStart && trainer.afternoonEnd
+      ? `${trainer.afternoonStart} à ${trainer.afternoonEnd}`
+      : "Ø";
 
   // Objectifs
   const objectifs = getObjectifFormation(formation.name);
@@ -1635,15 +1870,17 @@ async function generateConvocationDoc(formation, trainer, date, participant) {
 
   // Renseigner les champs
   doc.render({
-    "NOM/PRENOM": participant.nameEmployee,
-    "DATE": date,
-    "FORMATION": titreFormation,                 // ou formation.name
+    "NOM/PRENOM": "[[" + participant.nameEmployee + "]]",
+    "ADRESSE": "[ADRESSE]",
+    "CODE POSTAL": "[CODE POSTAL]",
+    DATE: date,
+    FORMATION: titreFormation, // ou formation.name
     "ADRESSE DE FORMATION": trainer.adress,
-    "OBJECTIFS": objectifs,
+    OBJECTIFS: objectifs,
     "HORAIRES MATIN": morningSchedule,
     "HORAIRES APRES-MIDI": afternoonSchedule,
-    "HEURE": heures,
-    "VREF" : vref
+    HEURE: heures,
+    VREF: vref,
   });
 
   // Générer un Blob
@@ -1662,7 +1899,12 @@ async function downloadAllConvocations(formation, trainer, date) {
 
   for (const participant of participants) {
     try {
-      const blob = await generateConvocationDoc(formation, trainer, date, participant);
+      const blob = await generateConvocationDoc(
+        formation,
+        trainer,
+        date,
+        participant
+      );
       // Nom du fichier : "Convocation_NomPrenom_date.docx"
       const fileName = `Convocation_${participant.nameEmployee}_${date}.docx`;
 
@@ -1681,8 +1923,66 @@ async function downloadAllConvocations(formation, trainer, date) {
   }
 }
 
+// Fonction principale pour télécharger les QCM
+async function downloadAllQCMs(formation, date) {
+  const participants = getParticipantsForDate(formation, date);
 
+  if (participants.length === 0) {
+    showNotification("Aucun participant trouvé pour cette date.");
+    return;
+  }
 
+  // Déterminer le code de formation (ex: FOR001)
+  const formationCode = getFormationCode(formation.name);
+  if (!formationCode) {
+    showNotification("Aucun questionnaire disponible pour cette formation.");
+    return;
+  }
+
+  // Chemin du template QCM
+  const qcmTemplatePath = `Model/Questionnaires/${formationCode}-QCM.docx`;
+
+  for (const participant of participants) {
+    try {
+      // Charger le template
+      const response = await fetch(qcmTemplatePath);
+      if (!response.ok) throw new Error("Fichier QCM introuvable");
+
+      const arrayBuffer = await response.arrayBuffer();
+      const zip = new PizZip(arrayBuffer);
+
+      // Configurer docxtemplater
+      const doc = new window.docxtemplater(zip, {
+        paragraphLoop: true,
+        linebreaks: true,
+        delimiters: { start: "[", end: "]" },
+      });
+
+      // Remplacer les variables dans le template
+      doc.render({
+        "NOM/PRENOM": participant.nameEmployee,
+        ENTITE: participant.entity,
+        DATE: date,
+      });
+
+      // Générer et télécharger
+      const blob = doc.getZip().generate({ type: "blob" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${formationCode}-QCM_${participant.nameEmployee}.docx`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(`Erreur pour ${participant.nameEmployee}:`, error);
+      showNotification(
+        `Erreur avec ${participant.nameEmployee} : ${error.message}`
+      );
+    }
+  }
+}
 
 document
   .getElementById("closeParticipantsModal")
