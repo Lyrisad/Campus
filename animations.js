@@ -14,20 +14,33 @@ const SCRIPT_URL =
 // ---------------------- Fonctions Utilitaires Globales ----------------------
 
 window.onload = function() {
-  // Create a new Audio object with the path to your MP3 file
-  var audio = new Audio('/music/CAMPUS.mp3');
-
+  // Define an array with all your music file paths
+  var tracks = [
+    '/music/REGGAE.mp3',
+    '/music/POPUNK.mp3',
+    '/music/POPUNK2.mp3',
+    '/music/COUNTRY.mp3'
+  ];
+  
+  // Choose a random track from the array
+  var randomIndex = Math.floor(Math.random() * tracks.length);
+  var randomTrack = tracks[randomIndex];
+  
+  // Create a new Audio object using the randomly selected track
+  var audio = new Audio(randomTrack);
+  
   // Set the audio to loop continuously
   audio.loop = true;
-
+  
   // Optional: Set the volume (range is 0.0 to 1.0)
   audio.volume = 0.5;
-
+  
   // Attempt to play the audio
   audio.play().catch(function(error) {
     console.error('Playback failed due to browser restrictions or other issues:', error);
   });
 };
+
 
 // Convertit une chaîne "dd/mm/yyyy" en objet Date
 function parseDDMMYYYY(dateStr) {
