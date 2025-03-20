@@ -149,15 +149,15 @@ strong {
 
 .CCbody-title {
   font-size: 2.5rem;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   color: #0077cc;
   text-align: left;
 }
 
 .CCbody-text {
-  font-size: 1.2rem;
+  font-size: 1.19rem;
   line-height: 1.6;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   color: #555;
 }
 
@@ -394,7 +394,10 @@ strong {
 #for009,
 #for010,
 #for011,
-#for012 {
+#for012,
+#for016,
+#for018,
+#JTF {
   display: none;
 }
 
