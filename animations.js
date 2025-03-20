@@ -349,7 +349,6 @@ function initAdminPanel() {
       )}&dates=${encodeURIComponent(dates.join(","))}`;
       const response = await fetch(url);
       const result = await response.json();
-      console.log("Ajout :", result);
       await fetchFormations();
     } catch (error) {
       console.error("Erreur lors de l'ajout de la formation :", error.message);
@@ -363,7 +362,6 @@ function initAdminPanel() {
       )}&dates=${encodeURIComponent(dates.join(","))}`;
       const response = await fetch(url);
       const result = await response.json();
-      console.log("Mise à jour :", result);
       await fetchFormations();
     } catch (error) {
       console.error(
@@ -378,7 +376,6 @@ function initAdminPanel() {
       const url = `${SCRIPT_URL}?action=delete&id=${id}`;
       const response = await fetch(url);
       const result = await response.json();
-      console.log("Suppression :", result);
       await fetchFormations();
     } catch (error) {
       console.error(
@@ -561,7 +558,6 @@ function initAdminPanel() {
       const url = `${SCRIPT_URL}?action=accept&id=${id}`;
       const response = await fetch(url);
       const result = await response.json();
-      console.log("Demande acceptée :", result);
       await fetchPendingRequests();
       await fetchFormations();
       showNotification("Demande acceptée avec succès !");
@@ -578,7 +574,6 @@ function initAdminPanel() {
       const url = `${SCRIPT_URL}?action=deletePending&id=${id}`;
       const response = await fetch(url);
       const result = await response.json();
-      console.log("Demande refusée :", result);
       await fetchPendingRequests();
       showNotification("Demande refusée avec succès !");
     } catch (error) {
@@ -731,7 +726,6 @@ function customConfirm(message) {
 
 /* =================== Modal Participants =================== */
 function showParticipantsModal(formation, date) {
-  console.log("Participants pour la formation :", formation, date);
   const modal = document.getElementById("participantsModal");
   const modalDate = document.getElementById("modalDate");
   const modalTitle = document.getElementById("formation-name-modal");
@@ -1031,15 +1025,14 @@ function showParticipantsModal(formation, date) {
   document
     .getElementById("generateDocs")
     .addEventListener("click", async () => {
-      console.log("Téléchargement des QCMs..");
-      console.log("Formation :", formation);
-      console.log("Date :", date);
       if (!formation || !date) {
         showNotification("Veuillez sélectionner une formation et une date");
         return;
       }
 
       await downloadAllQCMs(formation, date);
+      await downloadAllEval(formation, date);
+      showNotification("Documents genérés avec succès !");
     });
 
 }
@@ -1049,7 +1042,7 @@ async function markAllValidatedDates() {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log("Ref_conventions data:", data);
+
     
     if (!data || !data.values || data.values.length === 0) {
       console.warn("No validated conventions records found.");
@@ -1061,7 +1054,6 @@ async function markAllValidatedDates() {
       // Normalize formation name and date from the sheet
       const recordFormation = (record.FORMATION || "").trim().toLowerCase();
       const recordDate = formatDateToDDMMYYYY(record.DATE || "");
-      console.log("Checking record:", recordFormation, recordDate);
       
       // Ensure that window.formationsData is loaded
       if (window.formationsData && Array.isArray(window.formationsData)) {
@@ -1070,18 +1062,15 @@ async function markAllValidatedDates() {
           let normalizedFormationName = formation.name
             ? formation.name.trim().toLowerCase().replace(/\s*\(validée\)$/i, '')
             : "";
-          console.log("Comparing with formation:", normalizedFormationName, formation.id);
           
           if (normalizedFormationName === recordFormation) {
             // Build the selector based on formation id and the validated date
             const selector = `.clickable-date[data-formation-id="${formation.id}"][data-date="${recordDate}"]`;
             const dateElements = document.querySelectorAll(selector);
-            console.log("Selector:", selector, "Found elements:", dateElements);
             
             // Add the CSS class if matching elements are found
             dateElements.forEach(elem => {
               elem.classList.add("validated-date");
-              console.log("Marked element:", elem);
             });
           }
         });
@@ -1867,8 +1856,6 @@ const TVA = totalHT * 0.2;
 // 7) Calcul du total TTC
 const totalTTC = totalHT + TVA;
 
-console.log("Nombre de stagiaires :", nbStagiaires);
-
 // Remplacer les variables dans le document (les libellés peuvent être ajustés)
 doc.render({
   VREF: vref,
@@ -2072,6 +2059,64 @@ async function downloadAllConvocations(formation, trainer, date) {
   }
 }
 
+async function downloadAllEval(formation, date) {
+  // Récupérer tous les participants pour la formation et la date donnée
+  const participants = getParticipantsForDate(formation, date);
+
+  if (participants.length === 0) {
+    showNotification("Aucun participant trouvé pour cette date.");
+    return;
+  }
+
+  // Chemin du template d'évaluation (ajustez ce chemin si besoin)
+  const evalTemplatePath = "Model/Evaluations/EVALC.docx";
+
+  // Obtenir le titre long de la formation via la fonction existante
+  const titreFormationLong = getTitreFormation(formation.name);
+
+  // Pour chaque participant, générer le document d'évaluation
+  for (const participant of participants) {
+    try {
+      // Charger le template
+      const response = await fetch(evalTemplatePath);
+      if (!response.ok) throw new Error("Fichier d'évaluation introuvable");
+
+      const arrayBuffer = await response.arrayBuffer();
+      const zip = new PizZip(arrayBuffer);
+
+      // Configurer docxtemplater
+      const doc = new window.docxtemplater(zip, {
+        paragraphLoop: true,
+        linebreaks: true,
+        delimiters: { start: "[", end: "]" },
+      });
+
+      // Remplacer les champs dans le template
+      doc.render({
+        "FORMATION": titreFormationLong,
+        "DATE": date,
+        "NOM/PRENOM": participant.nameEmployee,
+        "ENTITE": participant.entity,
+      });
+
+      // Générer le document final et déclencher le téléchargement
+      const blob = doc.getZip().generate({ type: "blob" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `EVAL_${participant.nameEmployee}_${date}.docx`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(`Erreur pour ${participant.nameEmployee} dans l'évaluation:`, error);
+      showNotification(`Erreur avec ${participant.nameEmployee} : ${error.message}`);
+    }
+  }
+}
+
+
 // Fonction principale pour télécharger les QCM
 async function downloadAllQCMs(formation, date) {
   const participants = getParticipantsForDate(formation, date);
@@ -2224,7 +2269,6 @@ async function updateFormationParticipantsInSheet(id, participantsStr) {
     )}`;
     const response = await fetch(url);
     const result = await response.json();
-    console.log("Participants mis à jour :", result);
     if (typeof window.fetchFormations === "function") {
       await window.fetchFormations();
     }
