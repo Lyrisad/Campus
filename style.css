@@ -148,7 +148,7 @@ strong {
 }
 
 .CCbody-title {
-  font-size: 2.5rem;
+  font-size: 2.4rem;
   margin-bottom: 0px;
   color: #0077cc;
   text-align: left;
@@ -157,7 +157,7 @@ strong {
 .CCbody-text {
   font-size: 1.19rem;
   line-height: 1.6;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
   color: #555;
 }
 
@@ -173,6 +173,7 @@ strong {
   transition: background-color 0.3s ease;
   cursor: pointer;
   margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .goToForm:hover {
