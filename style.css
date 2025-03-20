@@ -1882,6 +1882,12 @@ modal2-title{
   margin: 0px;
 }
 
+.validated-date {
+  background-color: #e0ffe0 !important;  /* Light green background */
+  box-shadow: 0 0 8px 2px #32cd32; /* Glowing effect */
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
 footer {
   font-size: 12px;
   padding: 15px;

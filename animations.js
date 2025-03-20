@@ -9,7 +9,7 @@ import {
 
 // URL de votre Web App Google Apps Script
 const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzNxlqRgjKItbQmAcbzZxhf9pQGv-AvHtuDhusTWh7xs-Fo3uafVBkHm90X6bt_DBcoGw/exec";
+  "https://script.google.com/macros/s/AKfycbyuGBYFP3zLKsD59xHtAchOwpx_A82Lb3dlx5yRaL1FLGXB8WtgR-uaZu_aAX1HtkHBvg/exec";
 
 // ---------------------- Fonctions Utilitaires Globales ----------------------
 
@@ -334,6 +334,7 @@ function initAdminPanel() {
         error.message
       );
     }
+    markAllValidatedDates();
   };
   window.fetchFormations = fetchFormations;
 
@@ -1042,6 +1043,56 @@ function showParticipantsModal(formation, date) {
     });
 
 }
+async function markAllValidatedDates() {
+  const url = `${SCRIPT_URL}?action=readRefConventions`;
+  
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log("Ref_conventions data:", data);
+    
+    if (!data || !data.values || data.values.length === 0) {
+      console.warn("No validated conventions records found.");
+      return;
+    }
+    
+    // Iterate over each record from the Ref_conventions sheet
+    data.values.forEach(record => {
+      // Normalize formation name and date from the sheet
+      const recordFormation = (record.FORMATION || "").trim().toLowerCase();
+      const recordDate = formatDateToDDMMYYYY(record.DATE || "");
+      console.log("Checking record:", recordFormation, recordDate);
+      
+      // Ensure that window.formationsData is loaded
+      if (window.formationsData && Array.isArray(window.formationsData)) {
+        window.formationsData.forEach(formation => {
+          // Normalize the formation name by removing any trailing " (Validée)" (case-insensitive)
+          let normalizedFormationName = formation.name
+            ? formation.name.trim().toLowerCase().replace(/\s*\(validée\)$/i, '')
+            : "";
+          console.log("Comparing with formation:", normalizedFormationName, formation.id);
+          
+          if (normalizedFormationName === recordFormation) {
+            // Build the selector based on formation id and the validated date
+            const selector = `.clickable-date[data-formation-id="${formation.id}"][data-date="${recordDate}"]`;
+            const dateElements = document.querySelectorAll(selector);
+            console.log("Selector:", selector, "Found elements:", dateElements);
+            
+            // Add the CSS class if matching elements are found
+            dateElements.forEach(elem => {
+              elem.classList.add("validated-date");
+              console.log("Marked element:", elem);
+            });
+          }
+        });
+      } else {
+        console.warn("window.formationsData is not available or not an array.");
+      }
+    });
+  } catch (error) {
+    console.error("Error marking validated dates globally:", error);
+  }
+}
 
 
 function generateOutlookEvent(formationName, { startTime, endTime, date, trainerName, address }, formation) {
@@ -1293,6 +1344,7 @@ function prepareTableauDataForEntity(formation, date, entity) {
 function getHeures(formationName) {
   const nameLower = formationName.toLowerCase();
   if (
+    nameLower.includes("jtf") ||
     nameLower.includes("for06") ||
     nameLower.includes("for006") ||
     nameLower.includes("for07") ||
@@ -1300,7 +1352,7 @@ function getHeures(formationName) {
     nameLower.includes("for09") ||
     nameLower.includes("for009") ||
     nameLower.includes("for010") ||
-    nameLower.includes("for10")  
+    nameLower.includes("for10")
   ) {
     return "7";
   } else if (
@@ -1573,7 +1625,7 @@ async function generateConventionRef(formation, date, entity) {
     const response = await fetch(url);
     const data = await response.json();
     if (data.success) {
-      return data.vref; // ex: "vcdt003_ternett"
+      return data.vref; // ex: vcvt003_ternett"
     } else {
       console.error("Erreur addRefConvention:", data.error);
       return "";
@@ -1713,86 +1765,145 @@ async function downloadConventionDocForEntity(
     (item) => item.NOM_PRENOM.trim() !== ""
   ).length;
 
-  // 2) Récupérer distance (en km) et tarif salle
-  //    Utilisez parseFloat ou parseInt selon vos besoins.
-  const distanceTrajet = parseFloat(trainer.distanceInput) || 0;
-  const tarifSalle = parseFloat(trainer.tarifSalle) || 0;
+// 2) Récupérer distance (en km) et tarif salle
+const distanceTrajet = parseFloat(trainer.distanceInput) || 0;
+const tarifSalleInitial = parseFloat(trainer.tarifSalle) || 0;
 
-  // 3) Définir les coûts unitaires
-  const costParParticipant = 105.0; // 105€ par participant
-  const costParRepas = 20.0; // 20€ par repas
-  const costParKm = 0.6; // 0.60€ par km
-  const trainerMeal = 1; // 1 repas pour le formateur
+// 3) Définir les coûts unitaires
+const formationHeures = getHeures(formation.name);
+const costParParticipant = formationHeures === "7" ? 210.0 : 105.0;
+const costParRepas = 20.0;          // 20€ par repas
+const costParKm = 0.6;              // 0.60€ par km
+const trainerMeal = 1;              // 1 repas pour le formateur
 
-  // 4) Calculs partiels
-  // totalNbs : coût de formation par participant (nombre de stagiaires * 105€)
-  const totalNbs = nbStagiaires * costParParticipant;
+// 4) Calculs partiels
+// Coût de formation par participant
+const totalNbs = nbStagiaires * costParParticipant;
 
-  // totalTrajet : distance * 0.60
-  const totalTrajet = distanceTrajet * costParKm;
+// Coût total de trajet (distance * coût/km)
+const totalTrajet = distanceTrajet * costParKm;
 
 let totalRepas = 0;
 let nombreDeRepasStagiaire = 0;
-let nombreDeRepasFormateur = 0;
 let totalRepasFormateur = 0;
 
-
 let repasOuiOuNon = document.querySelector('input[name="repas"]:checked').value;
+console.log("Repas oui/non :", repasOuiOuNon);
+if (repasOuiOuNon === "oui") {
+  totalRepas = nbStagiaires * costParRepas;
+  totalRepasFormateur = trainerMeal * costParRepas;
+  nombreDeRepasStagiaire = nbStagiaires;
+} else {
+  totalRepas = 0;
+  totalRepasFormateur = 0;
+  nombreDeRepasStagiaire = 0;
+}
 
-  console.log("oui ou non", repasOuiOuNon)
-  if (repasOuiOuNon === "oui") {
-    totalRepas = nbStagiaires * costParRepas;
-    totalRepasFormateur = trainerMeal * costParRepas;
-    nombreDeRepasStagiaire = nbStagiaires;
-    nombreDeRepasFormateur = 1;
-  } else {
-    totalRepas = 0;
-    totalRepasFormateur = 0;
-    nombreDeRepasStagiaire = 0;
-    nombreDeRepasFormateur = 0;
-  }
-  
-  // 5) totalHT : somme de tous les éléments
-  const totalHT =
-    totalNbs + totalTrajet + totalRepas + totalRepasFormateur + tarifSalle;
+// --- Répartition du tarif de salle par entité (déjà en place) ---
+let tarifSalleConvention = tarifSalleInitial;
+// Récupérer tous les participants pour la formation et la date
+const allParticipants = getParticipantsForDate(formation, date);
+const totalParticipants = allParticipants.length;
+// Liste des entités uniques pour cette formation/date
+const uniqueEntities = getUniqueEntitiesForDate(formation, date);
 
-  // 6) Calcul de la TVA (20%)
-  const TVA = totalHT * 0.2;
-
-  // 7) totalTTC
-  const totalTTC = totalHT + TVA;
-
-  console.log("Nombre de stagiaires :", nbStagiaires);
-  // Remplacer les variables
-  doc.render({
-    VREF: vref,
-    "NOM DE FORMATION": titreFormation,
-    "TITRE DE FORMATION": titreFormation,
-    ENTITE: entity,
-    "HORAIRES MATIN": morningSchedule,
-    "HORAIRES APRES-MIDI": afternoonSchedule,
-    ADRESSE: trainer.adress,
-    HEURES: heures,
-    DATE: date,
-    JOUR: jour,
-    "DATE DU JOUR": dateOfToday,
-    EXPIRATION: expirationDateStr,
-    SIREN: siretNb,
-    OBJECTIFS: objectifs,
-    TABLEAU: tableau,
-    NBS: nbStagiaires,
-    NBT: distanceTrajet,
-    NBRS: nombreDeRepasStagiaire,
-    NBRF: nombreDeRepasFormateur,
-    "TARIF SALLE": tarifSalle + "€",
-    "TOTAL NBS": totalNbs + "€",
-    "TOTAL NBT": totalTrajet.toFixed(2) + "€",
-    "TOTAL NBRS": totalRepas + "€",
-    "TOTAL NBRF": totalRepasFormateur + "€",
-    "TOTAL HT": totalHT.toFixed(2) + "€",
-    TVA: TVA.toFixed(2) + "€",
-    "TOTAL TTC": totalTTC.toFixed(2) + "€",
+if (uniqueEntities.length > 1 && totalParticipants > 0) {
+  // Nombre de participants dans l'entité courante (en normalisant)
+  const entityParticipants = allParticipants.filter(p =>
+    p.entity.trim().toLowerCase() === entity.trim().toLowerCase()
+  );
+  const countEntity = entityParticipants.length;
+  tarifSalleConvention = (tarifSalleInitial * countEntity) / totalParticipants;
+  console.log("Répartition tarifSalle :", {
+    tarifSalleInitial,
+    totalParticipants,
+    countEntity,
+    tarifSalleConvention
   });
+} else {
+  console.log("Une seule entité, tarifSalle complet utilisé :", tarifSalleInitial);
+}
+
+// --- Répartition du coût de trajet par entité ---
+// Par défaut, si une seule entité, on prend le coût total
+let tarifTrajetConvention = totalTrajet;
+if (uniqueEntities.length > 1 && totalParticipants > 0) {
+  const entityParticipants = allParticipants.filter(p =>
+    p.entity.trim().toLowerCase() === entity.trim().toLowerCase()
+  );
+  const countEntity = entityParticipants.length;
+  tarifTrajetConvention = (totalTrajet * countEntity) / totalParticipants;
+  console.log("Répartition tarifTrajet :", {
+    totalTrajet,
+    totalParticipants,
+    countEntity,
+    tarifTrajetConvention
+  });
+} else {
+  console.log("Une seule entité, coût de trajet complet utilisé :", totalTrajet);
+}
+
+// --- Répartition du repas du formateur par entité ---
+// Par défaut, le coût complet
+let tarifRepasFormateurConvention = totalRepasFormateur;
+if (uniqueEntities.length > 1) {
+  tarifRepasFormateurConvention = totalRepasFormateur / uniqueEntities.length;
+  console.log("Répartition repas formateur :", {
+    totalRepasFormateur,
+    uniqueEntitiesCount: uniqueEntities.length,
+    tarifRepasFormateurConvention
+  });
+} else {
+  console.log("Une seule entité, repas formateur complet utilisé :", totalRepasFormateur);
+}
+
+// 5) Calcul du total HT : somme de tous les éléments
+// On utilise la part répartie pour le trajet et le repas du formateur
+const totalHT = totalNbs + tarifTrajetConvention + totalRepas + tarifRepasFormateurConvention + tarifSalleConvention;
+
+// 6) Calcul de la TVA (20%)
+const TVA = totalHT * 0.2;
+
+// 7) Calcul du total TTC
+const totalTTC = totalHT + TVA;
+
+console.log("Nombre de stagiaires :", nbStagiaires);
+
+// Remplacer les variables dans le document (les libellés peuvent être ajustés)
+doc.render({
+  VREF: vref,
+  "NOM DE FORMATION": titreFormation,
+  "TITRE DE FORMATION": titreFormation,
+  ENTITE: entity,
+  "HORAIRES MATIN": morningSchedule,
+  "HORAIRES APRES-MIDI": afternoonSchedule,
+  ADRESSE: trainer.adress,
+  HEURES: heures,
+  DATE: date,
+  JOUR: jour,
+  "DATE DU JOUR": dateOfToday,
+  "CPP": costParParticipant.toFixed(2) + "€",
+  EXPIRATION: expirationDateStr,
+  SIREN: siretNb,
+  OBJECTIFS: objectifs,
+  TABLEAU: tableau,
+  NBS: nbStagiaires,
+  NBT: distanceTrajet,
+  NBRS: nombreDeRepasStagiaire,
+  NBRF: trainerMeal,
+  // Afficher les parts réparties
+  "TARIF SALLE": tarifSalleConvention.toFixed(2) + "€",
+  "TARIF TRAJET": tarifTrajetConvention.toFixed(2) + "€",
+  "REPAIS STAGIAIRES": totalRepas + "€",
+  "REPAIS FORMATEUR": tarifRepasFormateurConvention.toFixed(2) + "€",
+  "TOTAL NBS": totalNbs + "€",
+  "TOTAL NBRS": totalRepas + "€",
+  "TOTAL NBT": tarifTrajetConvention.toFixed(2) + "€",
+  "TOTAL NBRF": tarifRepasFormateurConvention.toFixed(2) + "€",
+  "TOTAL HT": totalHT.toFixed(2) + "€",
+  TVA: TVA.toFixed(2) + "€",
+  "TOTAL TTC": totalTTC.toFixed(2) + "€",
+});
 
   // Générer le document final en Blob
   const out = doc.getZip().generate({ type: "blob" });
