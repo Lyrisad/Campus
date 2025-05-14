@@ -20,6 +20,7 @@
       <div class="menu">
         <a href="#" class="menu-item" data-target="homePage">Accueil</a>
         <a href="#" class="menu-item" data-target="aboutSection">À propos</a>
+        <a href="#" class="menu-item" data-target="statsSection">Statistiques</a>
         <a href="#" class="menu-item" data-target="servicesSection"
           >Formations</a
         >
@@ -77,6 +78,61 @@
               <strong>qualité</strong> et notre rôle essentiel dans le
               développement des <strong>compétences professionnelles</strong>.
             </p>
+          </div>
+        </div>
+
+        <!-- Section Statistiques -->
+        <div class="stats-section" id="statsSection">
+          <div class="stats-container">
+            <div class="stats-titles">
+            <h2 class="stats-title">Nos Statistiques</h2>
+            <p class="stats-intro">Découvrez Campus Candor à travers nos chiffres depuis le 26 Mars 2025</p>
+            </div>
+            <div class="stats-grid">
+              <!-- Nombre total de stagiaires -->
+              <div class="stats-card">
+                <div class="stats-icon">👨‍🎓</div>
+                <div class="stats-number" id="totalTrainees">
+                  <div class="stats-loader"></div>
+                </div>
+                <div class="stats-label">Stagiaires formés</div>
+                <div class="stats-subtext" id="traineesPerMonth">
+                  <div class="stats-loader"></div>
+                </div>
+              </div>
+              
+              <!-- Nombre total d'heures de formation -->
+              <div class="stats-card">
+                <div class="stats-icon">⏱️</div>
+                <div class="stats-number" id="totalHours">
+                  <div class="stats-loader"></div>
+                </div>
+                <div class="stats-label">Heures de formation</div>
+                <div class="stats-subtext" id="hoursPerMonth">
+                  <div class="stats-loader"></div>
+                </div>
+              </div>
+              
+              <!-- Nombre total de formations -->
+              <div class="stats-card">
+                <div class="stats-icon">📚</div>
+                <div class="stats-number" id="totalSessions">
+                  <div class="stats-loader"></div>
+                </div>
+                <div class="stats-label">Sessions de formation</div>
+                <div class="stats-subtext" id="sessionsPerMonth">
+                  <div class="stats-loader"></div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Podium des formations les plus populaires -->
+            <div class="stats-podium-container">
+              <h3 class="podium-title">Formations les plus populaires</h3>
+              <div class="stats-podium" id="formationsPodium">
+                <div class="stats-loader podium-loader"></div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -881,32 +937,35 @@
 
 
       <div class="admin-container">
-        <h2>Gestion des Formations</h2>
-        <div class="formation-actions">
-          <button id="addFormationButton" class="submit-button">Ajouter une Formation</button>
-                <!-- Bouton pour ouvrir le calendrier -->
-          <button id="openCalendarBtn" class="calendar-btn">Accéder au calendrier</button>
-
-          <button id="logoutButton" class="submit-button">Déconnexion</button>
+        <h2 class="section-title title-formations"><span class="emoji">📊</span>Gestion des Formations</h2>
+        <div class="admin-buttons-container">
+          <button id="addFormationButton" class="admin-button">➕ Ajouter une Formation</button>
+          <!-- Bouton pour ouvrir le calendrier -->
+          <button id="openCalendarBtn" class="admin-button calendar-btn">📅 Accéder au calendrier</button>
+          <button id="logoutButton" class="admin-button">🚪 Déconnexion</button>
+          <!-- Bouton pour ouvrir/fermer le tableau des formations -->
+          <button id="toggleFormationsTableBtn" class="admin-button toggle-btn">🔽 Masquer le tableau</button>
         </div>
-        <table id="formationsTable" border="1">
-          <thead>
-            <tr>
-              <th class="ID-FOR">ID</th>
-              <th>Nom</th>
-              <th>Dates Disponibles</th>
-              <th class="Actions-FOR">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Dynamic rows will be added here -->
-          </tbody>
-        </table>
+        <div id="formationsTableContainer">
+          <table id="formationsTable" border="1">
+            <thead>
+              <tr>
+                <th class="ID-FOR">ID</th>
+                <th>Nom</th>
+                <th>Dates Disponibles</th>
+                <th class="Actions-FOR">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Dynamic rows will be added here -->
+            </tbody>
+          </table>
+        </div>
         
       </div>
       <!-- Nouveau bloc pour les demandes en attente -->
       <div id="pendingRequests" style="margin-top: 20px;">
-        <h3>Demandes en attente</h3>
+        <h3 class="section-title title-requests"><span class="emoji">🔔</span>Demandes en attente</h3>
         <table id="pendingRequestsTable" border="1">
           <thead>
             <tr>
@@ -926,9 +985,29 @@
           </tbody>
         </table>
       </div>
+      
+      <!-- Nouveau bloc pour les formations à clôturer -->
+      <div id="pendingClosurePanel" style="margin-top: 20px;">
+        <h3 class="section-title title-closure"><span class="emoji">✅</span>Formations à clôturer</h3>
+        <table id="pendingClosureTable" border="1">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Formation</th>
+              <th>Date</th>
+              <th>Participants</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Les lignes seront générées dynamiquement -->
+          </tbody>
+        </table>
+      </div>
+      
       <!-- Historique Panel -->
       <div id="historiquePanel">
-        <h3>Historique des formations passées</h3>
+        <h3 class="section-title title-history"><span class="emoji">📚</span>Historique des formations passées</h3>
         <div class="filter-container">
           <input type="text" id="archiveSearch" placeholder="Recherche par formation ou participant" />
           <select id="archiveDateFilter">
@@ -951,7 +1030,7 @@
       </div>
 
       <div class="tasks-module">
-        <h3>Ajouter une nouvelle tâche</h3>
+        <h3 class="section-title title-tasks"><span class="emoji">✏️</span>Ajouter une nouvelle tâche</h3>
         <form class="task-form" id="taskForm">
           <div class="form-group">
             <label for="taskConcerne">Concerne :</label>
@@ -969,22 +1048,22 @@
               <option value="rouge">Rouge</option>
             </select>
           </div>
-          <button type="submit" class="submit-btn">Enregistrer la tâche</button>
+          <button type="submit" class="submit-btn">💾 Enregistrer la tâche</button>
         </form>
       
         <div class="tasks-active">
-          <h3>Tâches en cours</h3>
+          <h3 class="section-title title-tasks"><span class="emoji">⏳</span>Tâches en cours</h3>
           <div class="tasks-active-container" id="activeTasksContainer">
             <!-- Active tasks will be injected here -->
           </div>
         </div>
       
         <div class="tasks-history">
-          <h3>Historique des tâches accomplies</h3>
+          <h3 class="section-title title-tasks"><span class="emoji">🏁</span>Historique des tâches accomplies</h3>
           <div class="tasks-history-container" id="tasksHistoryContainer">
             <!-- Tasks history will be injected here -->
           </div>
-          <button class="clear-history-btn" id="clearHistoryBtn">Effacer l'historique</button>
+          <button class="clear-history-btn" id="clearHistoryBtn">🧹 Effacer l'historique</button>
         </div>
       </div>
       
@@ -1025,10 +1104,10 @@
       </div>
       <div id="confirmModal2" class="modal">
         <div class="modal-content">
-          <h3 class="modal2-title">Supprimer une formation</h3>
-          <p id="confirmMessage2">Voulez-vous vraiment supprimer cette formation ?</p>
+          <h3 class="modal2-title">Confirmation</h3>
+          <p id="confirmMessage2"></p>
           <div class="modal-actions">
-            <button id="confirmYes2" class="btn-yes">Oui</button>
+            <button id="confirmYes2" class="btn-yes">Supprimer</button>
             <button id="confirmNo2" class="btn-no">Annuler</button>
           </div>
         </div>
@@ -1150,6 +1229,44 @@
         </div>
       </div>
 
+      <!-- Modal de clôture de formation -->
+      <div id="closureModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closeClosureModal">&times;</span>
+          <h3>Clôture de la formation</h3>
+          <div id="closureFormationDetails">
+            <p><strong>Formation :</strong> <span id="closureFormationName"></span></p>
+            <p><strong>Date :</strong> <span id="closureFormationDate"></span></p>
+          </div>
+          <div class="formation-times">
+            <div class="time-input-group">
+              <label for="closureStartTime">Heure de début :</label>
+              <input type="time" id="closureStartTime" step="300" value="09:00" required />
+            </div>
+            <div class="time-input-group">
+              <label for="closureEndTime">Heure de fin :</label>
+              <input type="time" id="closureEndTime" step="300" value="17:00" required />
+            </div>
+          </div>
+          <div class="participants-table-container">
+            <h4>Liste des participants</h4>
+            <table id="closureParticipantsTable">
+              <thead>
+                <tr>
+                  <th>Matricule</th>
+                  <th>Nom / Prénom</th>
+                  <th>Entité</th>
+                  <th>Présence</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Les participants seront ajoutés dynamiquement ici -->
+              </tbody>
+            </table>
+          </div>
+          <button id="finalizeClosureBtn" class="submit-button">Clôturer cette formation</button>
+        </div>
+      </div>
 
     </div>
     <script src=" https://cdn.jsdelivr.net/npm/pizzip@3.1.8/dist/pizzip.min.js "></script>
@@ -1159,6 +1276,6 @@
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
     ></script>
     <script type="module"> import docx from 'https://cdn.jsdelivr.net/npm/docx@9.2.0/+esm' </script>
-    <script type="module" src="script.js"></script>
+    <script type="module" src="animations.js"></script>
   </body>
 </html>

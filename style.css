@@ -197,6 +197,7 @@ strong {
   justify-content: center;
   align-items: center;
   padding: 60px 20px;
+  border-bottom: #f49f42 2px solid;
   background-color: #f9f9f9;
 }
 
@@ -657,16 +658,87 @@ textarea {
   margin-bottom: 10px;
 }
 
-#addFormationButton{
+/* Style moderne pour les boutons d'administration */
+.admin-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
   width: 300px;
-  background-color: #0077cc;
-  color: #ffffff;
   border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: 12px !important;
   font-size: 1rem;
+  font-weight: 500;
+  color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin: 10px;
+  background-size: 200% auto;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: transform 0.5s ease;
+}
+
+.admin-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15), 0 5px 5px rgba(0, 0, 0, 0.12);
+  background-position: right center;
+}
+
+.admin-button:hover::before {
+  transform: translateX(100%);
+}
+
+.admin-button:active {
+  transform: translateY(1px);
+}
+
+/* Bouton Ajouter une formation */
+#addFormationButton {
+  background: linear-gradient(45deg, #0077cc, #00a8ff);
+  color: white;
+}
+
+/* Bouton Accéder au calendrier */
+.calendar-btn {
+  background: linear-gradient(45deg, #f49f42, #f7b267) !important;
+  color: white;
+}
+
+.calendar-btn:hover {
+  background-position: right center !important;
+}
+
+/* Bouton Déconnexion */
+#logoutButton {
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  color: white;
+}
+
+#logoutButton:hover {
+  background-position: right center;
+}
+
+/* Conteneur pour les boutons d'administration */
+.admin-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 20px 0;
 }
 
 .formation-actions {
@@ -696,74 +768,208 @@ textarea {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  border: none;
+}
+
+#formationsTable thead th {
+  background-color: #4a4a4a;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 0.5px;
+  border: none;
 }
 
 #formationsTable th,
 #formationsTable td {
+  padding: 12px 15px;
   text-align: left;
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-}
-
-#formationsTable thead th {
-  background-color: #f2f2f2;
-  color: #0077cc;
-  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  border-right: none;
+  border-left: none;
 }
 
 #formationsTable tbody td {
-  background-color: #ffffff;
-  color: #333333;
+  background-color: #fff;
+  transition: background-color 0.3s;
 }
 
 #formationsTable tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #f8f8f8;
 }
 
 #formationsTable tbody tr:hover {
-  background-color: #f4f4f4;
+  background-color: #f1f1f1;
 }
 
-/* Boutons d'action dans le tableau */
+/* Styles pour les boutons d'action */
 #formationsTable .edit-formation,
 #formationsTable .delete-formation {
-  padding: 8px 12px;
-  font-size: 0.9rem;
+  margin: 2px;
+  min-width: 70px;
+  width: 100%;
+  display: block;
+  padding: 8px 14px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  color: #fff;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#formationsTable .edit-formation::before,
+#formationsTable .delete-formation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+#formationsTable .edit-formation:hover::before,
+#formationsTable .delete-formation:hover::before {
+  width: 100%;
+}
+
+#formationsTable .edit-formation:active,
+#formationsTable .delete-formation:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 #formationsTable .edit-formation {
   background-color: #0077cc;
+  color: white;
 }
 
 #formationsTable .delete-formation {
-  background-color: #d9534f;
+  background-color: #f44336;
+  color: white;
+  margin-top: 10px;
+}
+
+#formationsTable .edit-formation:hover,
+#formationsTable .delete-formation:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 #formationsTable .edit-formation:hover {
-  background-color: #005fa3;
+  background-color: #0066b3;
 }
 
 #formationsTable .delete-formation:hover {
-  background-color: #c9302c;
+  background-color: #e53935;
 }
 
-.clickable-date{
-  padding: 5px;
+.clickable-date {
+  padding: 8px 12px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: all 0.3s;
-  color: black;
+  border-radius: 20px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  color: #333;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px;
+  white-space: nowrap;
+  font-size: 0.9em;
+  font-weight: 500;
+  background: linear-gradient(to right, #f7f7f7, #efefef);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+  position: relative;
+  overflow: visible; /* Change from hidden to visible to show the tick */
 }
 
-.clickable-date:hover{
-  opacity: 0.8;
+.clickable-date::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(0, 119, 204, 0.1);
+  transition: width 0.3s ease;
+  z-index: 0;
+  border-radius: 20px;
+}
+
+.clickable-date:hover {
+  border-radius: 20px;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-color: #2f2f2f;
+  color: #2f2f2f;
+}
+
+.clickable-date:hover::before {
+  width: 100%;
+  border-radius: 20px;
+}
+
+/* Conteneur pour les dates cliquables */
+.dates-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 100%;
+  padding: 5px 0;
+}
+
+/* Style pour les dates validées */
+.validated-date {
+  background: linear-gradient(to right, #c8e6c9, #81c784) !important;
+  border: 1px solid #4CAF50 !important;
+  color: #2e7d32 !important;
+  position: relative;
+  box-shadow: 0 0 8px 2px rgba(50, 205, 50, 0.5) !important;
+  transition: all 0.3s ease;
+}
+
+.validated-date::after {
+  content: "✓";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid white;
+  animation: pulse 1.5s infinite;
+  z-index: 10; /* Ensure the tick appears above other elements */
+  transform: translate(0, 0); /* Fix for some browsers */
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(76, 175, 80, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
 }
 
 .ID-FOR{
@@ -793,26 +999,28 @@ textarea {
 
 /* Modal Background */
 .modal {
+  display: none; /* Masqué par défaut */
   position: fixed;
-  top: 0;
+  z-index: 5000;
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
+  overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
 }
 
 /* Modal Content */
 .modal-content {
-  background-color: #ffffff;
+  background-color: #fff;
+  margin: 10% auto;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
   width: 90%;
   max-width: 500px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  height: fit-content;
 }
 
 .modal-content h3 {
@@ -1170,22 +1378,30 @@ textarea {
 #pendingRequestsTable {
   width: 100%;
   border-collapse: collapse;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  border: none;
 }
 
 /* En-tête du tableau */
 #pendingRequestsTable thead th {
-  background-color: #f8f8f8;
-  color: #0077cc;
-  padding: 10px;
-  border: 1px solid #ddd;
+  background-color: #4a4a4a;
+  color: white;
+  padding: 12px 15px;
   text-align: left;
+  border-bottom: 1px solid #ddd;
+  border-right: none;
+  border-left: none;
   font-weight: bold;
 }
 
 /* Corps du tableau */
 #pendingRequestsTable tbody td {
-  padding: 10px;
-  border: 1px solid #ddd;
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  border-right: none;
+  border-left: none;
   text-align: left;
 }
 
@@ -1201,12 +1417,39 @@ textarea {
 
 /* Boutons d'action dans le tableau */
 #pendingRequestsTable button {
-  padding: 5px 10px;
+  padding: 8px 14px;
   border: none;
-  border-radius: 3px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 12px;
-  transition: background-color 0.3s ease;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#pendingRequestsTable button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+#pendingRequestsTable button:hover::before {
+  width: 100%;
+}
+
+#pendingRequestsTable button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 #pendingRequestsTable button.btn-accept {
@@ -1223,7 +1466,8 @@ textarea {
 }
 
 #pendingRequestsTable button:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .employeesList{
@@ -1422,343 +1666,211 @@ modal2-title{
   margin-top: 8px; 
 }
 
-/* Historique Panel Styles */
-#historiquePanel {
-  margin: 20px auto;
-  padding: 20px;
-  width: 95%;
-  background: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0e0e0;
-}
-
-#historiquePanel h3 {
-  text-align: left;
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
+/* Styles améliorés pour le tableau des archives */
 #archivesTable {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  border: none;
 }
 
 #archivesTable thead {
-  background-color: #f2f2f2;
-  color: #0077cc;
+  background-color: #4a4a4a;
+  color: white;
 }
 
 #archivesTable th,
 #archivesTable td {
   padding: 12px 15px;
   text-align: left;
-  border: 1px solid #e0e0e0;
+  border-bottom: 1px solid #ddd;
+  border-right: none;
+  border-left: none;
 }
 
-#archivesTable tbody tr:nth-child(even) {
-  background-color: #f8f8f8;
+/* Style pour les groupes de mois - sans bordures */
+.month-group {
+  background-color: #f0f8ff;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 15px !important;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s;
+  border: none !important;
 }
 
-#archivesTable tbody tr:hover {
+.month-group:hover {
+  background-color: #e0f0ff;
+}
+
+.month-group::after {
+  content: "▼";
+  position: absolute;
+  right: 15px;
+  transition: transform 0.3s;
+}
+
+.month-group.collapsed::after {
+  transform: rotate(-90deg);
+}
+
+/* Style pour le contenu des mois - sans bordures */
+.month-content {
+  transition: max-height 0.3s ease-out;
+  overflow: hidden;
+  border: none !important;
+}
+
+.month-content.collapsed {
+  max-height: 0;
+  display: none !important;
+}
+
+.month-content td {
+  border: none !important;
+}
+
+/* S'assurer que les tableaux internes n'ont pas de bordures */
+.month-content table {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Style pour les cellules des tableaux - sans bordures latérales */
+#archivesTable td, 
+#formationsTable td, 
+#pendingClosureTable td, 
+#pendingRequestsTable td, 
+#closureParticipantsTable td {
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* Style pour les participants dans la liste des archives */
+.participant-item {
+  display: flex;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.participant-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+}
+
+.participant-info {
+  flex-grow: 1;
+}
+
+.participant-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.participant-details {
+  display: flex;
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 3px;
+}
+
+.participant-matricule {
+  margin-right: 10px;
+}
+
+.participant-entity {
+  font-style: italic;
+}
+
+.participant-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+  align-self: center;
+}
+
+.status-present {
+  background-color: #4CAF50;
+}
+
+.status-absent {
+  background-color: #f44336;
+}
+
+/* Onglets des années */
+.year-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.year-tab {
+  padding: 10px 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 5px 5px 0 0;
   background-color: #f1f1f1;
+  transition: background-color 0.3s;
 }
 
-/* Style du container de filtres */
+.year-tab:hover {
+  background-color: #e0e0e0;
+}
+
+.year-tab.active {
+  background-color: #4a90e2;
+  color: white;
+  font-weight: bold;
+}
+
+/* Styles pour les filtres */
 .filter-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 15px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 #archiveSearch {
   flex: 1;
-  padding: 8px 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
+  min-width: 200px;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 #archiveDateFilter {
-  padding: 8px 12px;
-  font-size: 16px;
-  background-color: #0077cc;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  transition: all 0.3s;
-}
-
-#archiveDateFilter:hover {
-  background-color: #005fa3;
-  cursor: pointer;
-}
-
-/* Bouton d'accès au calendrier */
-.calendar-btn {
-  width: 300px;
-  background-color: #f49f42 !important;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.calendar-btn:hover {
-  background-color: #d47f00 !important;
-}
-
-/* Modal */
-#calendarModal {
-  display: none; /* Masqué par défaut */
-  position: fixed;
-  z-index: 4000 !important;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.5);
-}
-
-#calendarModal .modal-content {
-  background-color: #fff;
-  margin: 5% auto;
-  padding: 20px;
-  border-radius: 6px;
-  max-width: 50%;
-  position: relative;
-}
-
-/* Bouton de fermeture */
-.close {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-  cursor: pointer;
-}
-
-/* FullCalendar */
-#calendar {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.fc-event {
- text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: 100%;
-}
-
-.fc-event:hover {
-  opacity: 0.8;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-}
-
-/* ===== MODULE TÂCHES ===== */
-.tasks-module {
-  width: 95%;
-  margin: 20px auto;
-  padding: 20px;
-  background: #fff;
+  min-width: 150px;
+  padding: 10px 15px;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: white;
+  font-size: 14px;
 }
 
-/* Titre du module */
-.tasks-module h3 {
-  text-align: left;
-  font-size: 22px;
-  margin-bottom: 20px;
-  color: #333;
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Formulaire de création de tâche */
-.task-form {
-  margin-bottom: 30px;
-}
-.task-form .form-group {
-  margin-bottom: 15px;
-}
-.task-form .form-group label {
-  display: block;
-  margin-bottom: 5px;
+.filter-label {
   font-weight: 600;
-  color: #444;
+  color: #555;
 }
-.task-form .form-group input,
-.task-form .form-group select {
-  width: 100%;
-  padding: 10px;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-#taskImportance {
-  background-color: #e9e9e9cc;
-  transition: all 0.3s;
-  color: #333;
-  border: none;
-  padding: 12px;
-}
-
-#taskImportance:hover{
-  cursor: pointer;
-  background-color: #3333;
-}
-
-.task-form .submit-btn {
-  margin: 10px auto;
-  padding: 10px 20px;
-  font-size: 1em;
-  background-color: #f49f42;
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.task-form .submit-btn:hover {
-  background-color: #d47f00;
-}
-
-/* Tables de tâches */
-.tasks-active, .tasks-history {
-  margin-bottom: 30px;
-}
-.tasks-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-.tasks-table th,
-.tasks-table td {
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  text-align: left;
-  font-size: 0.95em;
-}
-.tasks-table th {
-  background-color: #f2f2f2;
-  color: #0077cc;
-}
-.tasks-table tbody tr {
-  transition: background-color 0.2s ease;
-}
-.tasks-table tbody tr:hover {
-  background-color: #f1f1f1;
-}
-/* Pour l'historique, on réduit l'opacité */
-.task-history-row {
-  opacity: 0.7;
-}
-
-/* Boutons dans les tableaux */
-.btn-complete-task,
-.btn-delete-task {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9em;
-  margin-right: 5px;
-  transition: background-color 0.2s ease;
-}
-.btn-complete-task {
-  background-color: #37ec5f;
-  color: #fff;
-}
-.btn-complete-task:hover {
-  background-color: #32d14c;
-}
-.btn-delete-task {
-  background-color: #e74c3c;
-  color: #fff;
-}
-.btn-delete-task:hover {
-  background-color: #cf3f31;
-}
-
-/* Bouton pour effacer l'historique */
-.clear-history-btn {
-  margin: 15px auto;
-  padding: 10px 20px;
-  background-color: #e74c3c;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1em;
-  transition: background-color 0.2s ease;
-}
-.clear-history-btn:hover {
-  background-color: #cf3f31;
-}
-
-/* Styles for the importance cell */
-.importance-cell {
-  font-weight: bold;
-  text-align: center;
-  color: #fff;
-  padding: 6px 10px;
-}
-
-/* When importance is 'vert' */
-.importance-vert {
-  background-color: #37ec5f;
-}
-
-/* When importance is 'orange' */
-.importance-orange {
-  background-color: #f49f42;
-}
-
-/* When importance is 'rouge' */
-.importance-rouge {
-  background-color: #e74c3c;
-}
-
-.historyTask{
-  text-decoration: line-through;
-}
-
-
-.modal {
-  display: none; /* Masqué par défaut */
-  position: fixed;
-  z-index: 5000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-  background-color: #fff;
-  margin: 10% auto;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
-  position: relative;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
 
 /* Bouton de fermeture (croix) */
 .close {
@@ -1896,3 +2008,1692 @@ footer {
   font-size: 12px;
   padding: 15px;
 }
+
+/* Styles pour le tableau des formations à clôturer */
+#pendingClosurePanel {
+  margin: 20px auto;
+  padding: 20px;
+  width: 95%;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+#pendingClosurePanel h3 {
+  text-align: left;
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#pendingClosureTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  border: none;
+}
+
+#pendingClosureTable th,
+#pendingClosureTable td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  border-right: none;
+  border-left: none;
+  font-size: 0.95em;
+}
+
+#pendingClosureTable th {
+  background-color: #4a4a4a;
+  color: white;
+  font-weight: bold;
+}
+
+#pendingClosureTable tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+#pendingClosureTable tbody tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+#pendingClosureTable tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+#pendingClosureTable .btn-close-formation,
+#pendingClosureTable .btn-delete-formation {
+  width: 100%;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#pendingClosureTable .btn-close-formation::before,
+#pendingClosureTable .btn-delete-formation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+#pendingClosureTable .btn-close-formation:hover::before,
+#pendingClosureTable .btn-delete-formation:hover::before {
+  width: 100%;
+}
+
+#pendingClosureTable .btn-close-formation {
+  background-color: #f49f42;
+  color: white;
+  margin-bottom: 10px;
+}
+
+#pendingClosureTable .btn-delete-formation {
+  background-color: #dc3545;
+  color: white;
+}
+
+#pendingClosureTable .btn-close-formation:hover,
+#pendingClosureTable .btn-delete-formation:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#pendingClosureTable .btn-close-formation:hover {
+  background-color: #e08420;
+}
+
+#pendingClosureTable .btn-delete-formation:hover {
+  background-color: #c82333;
+}
+
+/* Style pour les participants dans le tableau de clôture */
+#pendingClosureTable td div {
+  display: flex;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#pendingClosureTable td div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Styles pour le modal de clôture */
+#closureModal .modal-content {
+  max-width: 800px;
+}
+
+#closureFormationDetails {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+
+}
+
+#closureFormationDetails p {
+  margin: 5px 0;
+  font-size: 1.1em;
+}
+
+.participants-table-container {
+  margin-bottom: 20px;
+}
+
+.participants-table-container h4 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+#closureParticipantsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  border: none;
+}
+
+#closureParticipantsTable th,
+#closureParticipantsTable td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  border-right: none;
+  border-left: none;
+}
+
+#closureParticipantsTable th {
+  background-color: #4a4a4a;
+  color: white;
+}
+
+#closureParticipantsTable tbody tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+#closureParticipantsTable tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.presence-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.presence-toggle label {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.presence-toggle input[type="radio"] {
+  cursor: pointer;
+}
+
+#finalizeClosureBtn {
+  background-color: #f49f42;
+  margin-top: 10px;
+}
+
+#finalizeClosureBtn:hover {
+  background-color: #e08420;
+}
+
+/* Style pour l'historique avec participants présents/absents */
+.participant-present {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.participant-absent {
+  color: #dc3545;
+  text-decoration: line-through;
+}
+
+/* Animation pour l'expansion/réduction des groupes */
+.month-content {
+  transition: max-height 0.3s ease-out;
+  overflow: hidden;
+}
+
+.month-content.collapsed {
+  max-height: 0;
+}
+
+/* Historique Panel Styles */
+#historiquePanel {
+  margin: 20px auto;
+  padding: 20px;
+  width: 95%;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+#historiquePanel h3 {
+  text-align: left;
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Bouton d'accès au calendrier */
+.calendar-btn {
+  width: 300px;
+  background-color: #f49f42 !important;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.calendar-btn:hover {
+  background-color: #d47f00 !important;
+}
+
+.calendar-btn:hover {
+  background-position: right center !important;
+}
+
+/* Modal */
+#calendarModal {
+  display: none; /* Masqué par défaut */
+  position: fixed;
+  z-index: 4000 !important;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+#calendarModal .modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 6px;
+  max-width: 50%;
+  position: relative;
+}
+
+/* FullCalendar */
+#calendar {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.fc-event {
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+.fc-event:hover {
+  opacity: 0.8;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+/* ===== MODULE TÂCHES ===== */
+.tasks-module {
+  width: 95%;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre du module */
+.tasks-module h3 {
+  text-align: left;
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Formulaire de création de tâche */
+.task-form {
+  margin-bottom: 30px;
+}
+.task-form .form-group {
+  margin-bottom: 15px;
+}
+.task-form .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #444;
+}
+.task-form .form-group input,
+.task-form .form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#taskImportance {
+  background-color: #e9e9e9cc;
+  transition: all 0.3s;
+  color: #333;
+  border: none;
+  padding: 12px;
+}
+
+#taskImportance:hover{
+  cursor: pointer;
+  background-color: #3333;
+}
+
+.task-form .submit-btn {
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #f49f42;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.task-form .submit-btn:hover {
+  background-color: #d47f00;
+}
+
+/* Tables de tâches */
+.tasks-active, .tasks-history {
+  margin-bottom: 30px;
+}
+.tasks-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+.tasks-table th,
+.tasks-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 0.95em;
+}
+.tasks-table th {
+  background-color: #f2f2f2;
+  color: #0077cc;
+}
+.tasks-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+.tasks-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+/* Pour l'historique, on réduit l'opacité */
+.task-history-row {
+  opacity: 0.7;
+}
+
+/* Boutons dans les tableaux */
+.btn-complete-task,
+.btn-delete-task {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-right: 5px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.btn-complete-task {
+  background-color: #37ec5f;
+  color: #fff;
+}
+.btn-complete-task:hover {
+  background-color: #32d14c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.btn-delete-task {
+  background-color: #e74c3c;
+  color: #fff;
+}
+.btn-delete-task:hover {
+  background-color: #cf3f31;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Bouton pour effacer l'historique */
+.clear-history-btn {
+  margin: 15px auto;
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+.clear-history-btn:hover {
+  background-color: #cf3f31;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Styles for the importance cell */
+.importance-cell {
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  padding: 6px 10px;
+}
+
+/* When importance is 'vert' */
+.importance-vert {
+  background-color: #37ec5f;
+}
+
+/* When importance is 'orange' */
+.importance-orange {
+  background-color: #f49f42;
+}
+
+/* When importance is 'rouge' */
+.importance-rouge {
+  background-color: #e74c3c;
+}
+
+.historyTask{
+  text-decoration: line-through;
+}
+
+#archivesTable table,
+#formationsTable table,
+#pendingClosureTable table,
+#pendingRequestsTable table,
+#closureParticipantsTable table {
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+  margin: 0;
+  box-shadow: none;
+}
+
+#archivesTable table th,
+#archivesTable table td,
+#formationsTable table th,
+#formationsTable table td,
+#pendingClosureTable table th,
+#pendingClosureTable table td,
+#pendingRequestsTable table th,
+#pendingRequestsTable table td,
+#closureParticipantsTable table th,
+#closureParticipantsTable table td {
+  border-right: none;
+  border-left: none;
+  border-top: none;
+}
+
+/* Ajout d'une bordure fine entre les lignes pour plus de lisibilité */
+#archivesTable tbody tr:not(.month-group):not(.month-content),
+#formationsTable tbody tr,
+#pendingClosureTable tbody tr,
+#pendingRequestsTable tbody tr,
+#closureParticipantsTable tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Styles communs pour tous les boutons d'action dans les tableaux */
+.table-action-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.table-action-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.table-action-btn:hover::before {
+  width: 100%;
+}
+
+.table-action-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.table-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Boutons d'édition et suppression dans formationsTable */
+#formationsTable .edit-formation,
+#formationsTable .delete-formation {
+  margin: 2px;
+  min-width: 70px;
+  width: 100%;
+  display: block;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#formationsTable .edit-formation::before,
+#formationsTable .delete-formation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+#formationsTable .edit-formation:hover::before,
+#formationsTable .delete-formation:hover::before {
+  width: 100%;
+}
+
+#formationsTable .edit-formation:active,
+#formationsTable .delete-formation:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#formationsTable .edit-formation {
+  background-color: #0077cc;
+  color: white;
+}
+
+#formationsTable .delete-formation {
+  background-color: #f44336;
+  color: white;
+  margin-top: 10px;
+}
+
+#formationsTable .edit-formation:hover,
+#formationsTable .delete-formation:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#formationsTable .edit-formation:hover {
+  background-color: #0066b3;
+}
+
+#formationsTable .delete-formation:hover {
+  background-color: #e53935;
+}
+
+/* Boutons dans pendingRequestsTable - Suppression des styles dupliqués */
+#pendingRequestsTable button.btn-accept {
+  background-color: #28a745;
+  color: #fff;
+  width: 100%;
+}
+
+#pendingRequestsTable button.btn-refuse {
+  background-color: #dc3545;
+  color: #fff;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Bouton de clôture de formation */
+#pendingClosureTable .btn-close-formation {
+  width: 100%;
+  padding: 8px 14px;
+  background-color: #f49f42;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+#pendingClosureTable .btn-delete-formation {
+  width: 100%;
+  padding: 8px 14px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#pendingClosureTable .btn-close-formation:hover {
+  background-color: #e08420;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#pendingClosureTable .btn-delete-formation:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Boutons dans les tableaux de tâches */
+.btn-complete-task,
+.btn-delete-task {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-right: 5px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-complete-task {
+  background-color: #37ec5f;
+  color: #fff;
+}
+
+.btn-complete-task:hover {
+  background-color: #32d14c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-delete-task {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.btn-delete-task:hover {
+  background-color: #cf3f31;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Bouton pour effacer l'historique */
+.clear-history-btn {
+  margin: 15px auto;
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+.clear-history-btn:hover {
+  background-color: #cf3f31;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Bouton de suppression de participant */
+.btn-remove-participant {
+  width: 100%;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+.btn-remove-participant:hover {
+  background-color: #e53935;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#btnAddParticipant {
+  width: 100%;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+#btnAddParticipant:hover {
+  background-color: #0066b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#validerFormation {
+  width: 100%;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.validerFormation:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Styles améliorés pour le modal de confirmation */
+#confirmModal2 {
+  display: none;
+  position: fixed;
+  z-index: 5000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#confirmModal2 .modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 25px;
+  border: none;
+  width: 90%;
+  max-width: 450px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+#confirmModal2 .modal2-title {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+#confirmModal2 #confirmMessage2 {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+#confirmModal2 .modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+#confirmModal2 .modal-actions button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  min-width: 130px;
+}
+
+#confirmModal2 .btn-yes {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+#confirmModal2 .btn-yes:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#confirmModal2 .btn-no {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+#confirmModal2 .btn-no:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Conteneur pour les dates cliquables */
+.dates-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 100%;
+  padding: 5px 0;
+}
+
+/* Style pour le tableau de formations */
+#formationsTable td {
+  vertical-align: top;
+  padding: 10px;
+}
+
+/* Colonne des dates disponibles */
+#formationsTable td:nth-child(3) {
+  max-width: 400px;
+  overflow: hidden;
+}
+
+/* Style pour les dates validées */
+.validated-date {
+  background: linear-gradient(to right, #e8f5e9, #c8e6c9);
+  border: 1px solid #4CAF50 !important;
+  color: #2e7d32;
+  position: relative;
+}
+
+.validated-date::after {
+  content: "✓";
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Style moderne pour les titres de section */
+.section-title {
+  position: relative;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 25px;
+  padding-bottom: 12px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 60px;
+  background: linear-gradient(to right, #0077cc, #00a8ff);
+  border-radius: 2px;
+}
+
+.section-title .emoji {
+  margin-right: 12px;
+  font-size: 1.9rem;
+}
+
+/* Style spécifique pour chaque type de titre */
+.title-formations::after {
+  background: linear-gradient(to right, #0077cc, #00a8ff);
+}
+
+.title-requests::after {
+  background: linear-gradient(to right, #f49f42, #f7b267);
+}
+
+.title-closure::after {
+  background: linear-gradient(to right, #28a745, #5cb85c);
+}
+
+.title-history::after {
+  background: linear-gradient(to right, #6a11cb, #8e44ad);
+}
+
+.title-tasks::after {
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+}
+
+/* Suppression des styles existants qui pourraient entrer en conflit */
+.admin-container h2,
+#pendingRequests h3,
+#pendingClosurePanel h3,
+#historiquePanel h3,
+.tasks-module h3 {
+  margin-bottom: 25px;
+}
+
+/* ===== MODULE TÂCHES - STYLE MODERNISÉ ===== */
+.tasks-module {
+  width: 95%;
+  margin: 20px auto;
+  padding: 30px;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.tasks-module::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+}
+
+/* Formulaire de création de tâche */
+.task-form {
+  margin-bottom: 40px;
+  padding: 25px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.task-form:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+.task-form .form-group {
+  margin-bottom: 20px;
+}
+
+.task-form .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.task-form .form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1em;
+  border: none;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: #f8f9fa;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.task-form .form-group input:focus {
+  background-color: #fff;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05), 0 0 0 3px rgba(255, 65, 108, 0.1);
+  outline: none;
+}
+
+#taskImportance {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1em;
+  border: none;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  color: #333;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px top 50%;
+  background-size: 12px auto;
+  padding-right: 30px;
+}
+
+#taskImportance:hover,
+#taskImportance:focus {
+  background-color: #fff;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05), 0 0 0 3px rgba(255, 65, 108, 0.1);
+}
+
+.task-form .submit-btn {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 1em;
+  font-weight: 600;
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.task-form .submit-btn:hover {
+  background: linear-gradient(45deg, #ff4b2b, #ff416c);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 65, 108, 0.4);
+}
+
+.task-form .submit-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(255, 65, 108, 0.4);
+}
+
+/* Conteneurs de tâches */
+.tasks-active, 
+.tasks-history {
+  margin-bottom: 40px;
+  padding: 0 10px;
+}
+
+/* Style des cartes de tâches */
+.tasks-active-container,
+.tasks-history-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.task-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.task-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.task-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+}
+
+.task-card.importance-vert::before {
+  background-color: #37ec5f;
+}
+
+.task-card.importance-orange::before {
+  background-color: #f49f42;
+}
+
+.task-card.importance-rouge::before {
+  background-color: #e74c3c;
+}
+
+.task-card.history-task {
+  opacity: 0.7;
+}
+
+.task-card.history-task .task-description {
+  text-decoration: line-through;
+}
+
+.task-card .task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.task-card .task-title {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.task-card .task-badge {
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+}
+
+.task-card .badge-vert {
+  background-color: #37ec5f;
+}
+
+.task-card .badge-orange {
+  background-color: #f49f42;
+}
+
+.task-card .badge-rouge {
+  background-color: #e74c3c;
+}
+
+.task-card .task-description {
+  color: #555;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.task-card .task-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Boutons dans les cartes */
+.btn-complete-task,
+.btn-delete-task {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-complete-task {
+  background-color: #37ec5f;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(55, 236, 95, 0.3);
+}
+
+.btn-complete-task:hover {
+  background-color: #32d14c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(55, 236, 95, 0.4);
+}
+
+.btn-delete-task {
+  background-color: #e74c3c;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3);
+}
+
+.btn-delete-task:hover {
+  background-color: #cf3f31;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.4);
+}
+
+/* Bouton pour effacer l'historique */
+.clear-history-btn {
+  display: block;
+  width: auto;
+  margin: 30px auto 10px;
+  padding: 12px 24px;
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.clear-history-btn:hover {
+  background: linear-gradient(45deg, #c0392b, #e74c3c);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
+}
+
+.clear-history-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(231, 76, 60, 0.4);
+}
+
+/* Animation pour les nouvelles tâches */
+@keyframes fadeInTask {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.task-card {
+  animation: fadeInTask 0.5s ease forwards;
+}
+
+/* Message quand il n'y a pas de tâches */
+.no-tasks-message {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+  font-style: italic;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.task-card.history-task {
+  opacity: 0.65;
+  background-color: #f8f8f8;
+  border-left: 1px solid #e0e0e0;
+  position: relative;
+}
+
+.task-card.history-task::before {
+  opacity: 0.5;
+}
+
+.task-card.history-task::after {
+  content: "✓ TERMINÉE";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+  letter-spacing: 2px;
+}
+
+.task-card.history-task .task-description {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.task-card.history-task .task-title {
+  color: #777;
+}
+
+.task-card.history-task .task-badge {
+  opacity: 0.7;
+}
+
+.task-card.history-task:hover {
+  opacity: 0.8;
+  transform: translateY(-3px);
+}
+
+.formation-times {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+}
+
+.formation-times .time-input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.formation-times label {
+  font-weight: bold;
+  color: #333;
+}
+
+.formation-times input[type="time"] {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 120px;
+}
+
+.formation-times input[type="time"]:focus {
+  border-color: #4CAF50;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+/* Section Statistiques */
+.stats-titles {
+  width: fit-content;
+  margin: 0 auto 50px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px 35px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  border-left: 4px solid #f49f42;
+}
+
+
+.stats-title {
+  font-size: 2.5rem;
+  color: #0077cc;
+  text-align: center;
+  margin: 0;
+  position: relative;
+}
+
+.stats-intro {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+  margin: 10px 0 0;
+  font-style: italic;
+}
+
+.stats-section {
+  padding: 60px 20px;
+  background: linear-gradient(to right, #66a1b4, #ffffff);
+  border-bottom: #f49f42 2px solid;
+  width: 100%;
+}
+
+.stats-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.stats-card {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  width: 300px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 4px solid #f49f42;
+}
+
+.stats-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.stats-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.stats-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #4CAF50;
+  margin-bottom: 10px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats-label {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.stats-subtext {
+  font-size: 1rem;
+  color: #666;
+  min-height: 24px;
+}
+
+.stats-loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #4CAF50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+.podium-loader {
+  margin: 40px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.stats-podium-container {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #f49f42;
+}
+
+.podium-title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #0077cc;
+  margin-bottom: 30px;
+}
+
+.stats-podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 30px;
+  gap: 20px;
+  height: 250px;
+}
+
+.podium-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;
+  transition: transform 0.3s ease;
+}
+
+.podium-item:hover {
+  transform: translateY(-10px);
+}
+
+.podium-bar {
+  width: 100%;
+  background: linear-gradient(to top, #f5f5f5, #e0e0e0);
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.podium-position {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: #f49f42;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.podium-content {
+  text-align: center;
+  width: 100%;
+}
+
+.podium-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.podium-value {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Hauteur spécifique pour chaque position */
+.podium-1 .podium-bar {
+  height: 180px;
+  background: linear-gradient(to top, #ffd700, #ffeb3b);
+}
+
+.podium-1 .podium-position {
+  background-color: #ffa000;
+}
+
+.podium-2 .podium-bar {
+  height: 140px;
+  background: linear-gradient(to top, #c0c0c0, #e0e0e0);
+}
+
+.podium-2 .podium-position {
+  background-color: #9e9e9e;
+}
+
+.podium-3 .podium-bar {
+  height: 100px;
+  background: linear-gradient(to top, #cd7f32, #d7ccc8);
+}
+
+.podium-3 .podium-position {
+  background-color: #8d6e63;
+}
+
+/* Responsive design pour la section statistiques */
+@media (max-width: 900px) {
+  .stats-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stats-card {
+    width: 90%;
+    max-width: 350px;
+    margin-bottom: 20px;
+  }
+  
+  .stats-podium {
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+  }
+  
+  .podium-item {
+    margin-bottom: 40px;
+    width: 80%;
+  }
+  
+  .podium-bar {
+    width: 100%;
+    height: 60px !important;
+  }
+}
+
+.toggle-btn {
+  background-color: #4a6fa5;
+  margin-left: auto;
+}
+
+.toggle-btn:hover {
+  background-color: #3a5a8c;
+}
+
+.toggle-btn.collapsed {
+  background-color: #5a7db5;
+}
+
+#formationsTableContainer {
+  transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.5s ease;
+  overflow: hidden;
+}
+
+/* La classe collapsed n'est plus nécessaire car nous gérons tout en JS */

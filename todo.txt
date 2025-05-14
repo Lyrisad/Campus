@@ -1,1 +1,0 @@
-Ajouter la liste des participants dans l'agenda.
