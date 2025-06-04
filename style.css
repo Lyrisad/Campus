@@ -3455,7 +3455,7 @@ footer {
 }
 
 .stats-section {
-  padding: 60px 20px;
+  padding: 60px 0px;
   background: linear-gradient(to right, #66a1b4, #ffffff);
   border-bottom: #f49f42 2px solid;
   width: 100%;

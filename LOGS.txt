@@ -1,0 +1,150 @@
+🟠 [DEBUGGER] Formation mise à jour après ajout: 
+Object { id: 35, participants: '[{"matricule":"0000","nameEmployee":"TEST TEST","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0...' }
+​
+id: 35
+​
+participants: '[{"matricule":"0000","nameEmployee":"TEST TEST","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0...'
+​
+<prototype>: Object { … }
+animations.js:1248:17
+🟠 [DEBUGGER] Génération REF CONVOCATION: 
+Object { entite: "TERNETT", formationName: "FOR001 - TEST", date: "05/09/2025", stagiaire: "TEST3 TEST3" }
+animations.js:2437:11
+🟠 [DEBUGGER] URL construite: https://script.google.com/macros/s/AKfycbzdiTZmkApozu1qF16MMmpZElz-fxOt10hM0drtF4wbQZqTVq2VIVC2UNW-6Kk5mn6w/exec?action=addRefConvocation&entite=TERNETT&formation=FOR001%20-%20TEST&date=05%2F09%2F2025&stagiaire=TEST3%20TEST3 animations.js:2457:11
+🟠 [DEBUGGER] Envoi de la requête... animations.js:2460:13
+🟠 [DEBUGGER] Réponse reçue: 
+Object { success: true, vref: "vcvn140_ternett" }
+animations.js:2464:13
+🟠 [DEBUGGER] ✅ REF CONVOCATION générée avec succès: vcvn140_ternett animations.js:2467:15
+getTitreFormation FOR001 - TEST animations.js:1899:11
+🟠 [DEBUGGER] Téléchargement convocation: Convocation_TEST3 TEST3_05/09/2025.docx animations.js:2579:15
+🟠 [DEBUGGER] FIN downloadAllConvocations animations.js:2595:11
+🟠 [DEBUGGER] window.formationsData après fetch: 24 animations.js:1086:15
+🟠 [DEBUGGER] Formation mise à jour trouvée: 
+Object { id: 35, name: "FOR001 - TEST", participantsLength: 557, participantsPreview: '[{"matricule":"0000","nameEmployee":"TEST TEST","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0...' }
+animations.js:1092:17
+🟠 [DEBUGGER] Formation APRES mise à jour: 
+Object { id: 35, name: "FOR001 - TEST", participantsLength: 557, participantsPreview: '[{"matricule":"0000","nameEmployee":"TEST TEST","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0...' }
+animations.js:1102:17
+🟡 [DEBUGGER] Formation APRÈS refreshFormationData: 
+Object { id: 35, name: "FOR001 - TEST", availableDates: "2025-09-04T22:00:00.000Z", participants: '[{"matricule":"0000","nameEmployee":"TEST TEST","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0200 (heure d’été d’Europe centrale)), [{"matricule":"0000","nameEmployee":"PARISI DARYL","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0200 (heure d’été d’Europe centrale)), [{"matricule":"0000","nameEmployee":"TEST2 TEST2","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0200 (heure d’été d’Europe centrale)), [{"matricule":"0000","nameEmployee":"TEST3 TEST3","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0200 (heure d’été d’Europe centrale))' }
+animations.js:1395:15
+🟡 [DEBUGGER] freshFormation.participants APRÈS: [{"matricule":"0000","nameEmployee":"TEST TEST","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0200 (heure d’été d’Europe centrale)), [{"matricule":"0000","nameEmployee":"PARISI DARYL","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0200 (heure d’été d’Europe centrale)), [{"matricule":"0000","nameEmployee":"TEST2 TEST2","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0200 (heure d’été d’Europe centrale)), [{"matricule":"0000","nameEmployee":"TEST3 TEST3","entity":"TERNETT"}] (Fri Sep 05 2025 00:00:00 GMT+0200 (heure d’été d’Europe centrale)) animations.js:1396:15
+🟡 [DEBUGGER] Participants extraits pour la date 05/09/2025 : 
+Array(4) [ {…}, {…}, {…}, {…} ]
+animations.js:1400:15
+🟡 [DEBUGGER] Nombre de participants: 4 animations.js:1401:15
+🟡 [DEBUGGER] Entités uniques pour la date: 
+Array [ "TERNETT" ]
+animations.js:1405:15
+🟡 [DEBUGGER] Nombre d'entités uniques: 1 animations.js:1406:15
+🟡 [DEBUGGER] Début génération des documents... animations.js:1411:15
+🟠 [DEBUGGER] DEBUT downloadAllConvocations pour: 
+Object { formation: "FOR001 - TEST", date: "05/09/2025" }
+animations.js:2549:11
+🟠 [DEBUGGER] Participants trouvés pour les convocations: 
+Object { nombre: 4, participants: (4) […] }
+animations.js:2557:11
+🟠 [DEBUGGER] Génération convocation pour: TEST TEST animations.js:2568:13
+🟠 [DEBUGGER] Génération CONVOCATION DOC pour: 
+Object { formation: "FOR001 - TEST", date: "05/09/2025", participant: "TEST TEST", entity: "TERNETT" }
+animations.js:2480:11
+🟠 [DEBUGGER] Génération REF CONVOCATION: 
+Object { entite: "TERNETT", formationName: "FOR001 - TEST", date: "05/09/2025", stagiaire: "TEST TEST" }
+animations.js:2437:11
+🟠 [DEBUGGER] URL construite: https://script.google.com/macros/s/AKfycbzdiTZmkApozu1qF16MMmpZElz-fxOt10hM0drtF4wbQZqTVq2VIVC2UNW-6Kk5mn6w/exec?action=addRefConvocation&entite=TERNETT&formation=FOR001%20-%20TEST&date=05%2F09%2F2025&stagiaire=TEST%20TEST animations.js:2457:11
+🟠 [DEBUGGER] Envoi de la requête... animations.js:2460:13
+🟡 [DEBUGGER] Génération conventions pour 1 entités... animations.js:1445:15
+🟡 [DEBUGGER] Génération convention pour entité: TERNETT animations.js:1447:17
+TERNETT animations.js:2134:11
+🟠 [DEBUGGER] Génération de la référence de convention pour FOR001 - TEST 05/09/2025 TERNETT animations.js:2096:11
+🟠 [DEBUGGER] URL de la requête: https://script.google.com/macros/s/AKfycbzdiTZmkApozu1qF16MMmpZElz-fxOt10hM0drtF4wbQZqTVq2VIVC2UNW-6Kk5mn6w/exec?action=addRefConvention&entite=TERNETT&formation=FOR001%20-%20TEST&date=05%2F09%2F2025 animations.js:2108:11
+🟠 [DEBUGGER] Envoi de la requête... animations.js:2111:13
+🟡 [DEBUGGER] === FIN GÉNÉRATION GEN-EMAR === animations.js:1467:15
+Heures de formation : 3.5 animations.js:2024:11
+🟠 [DEBUGGER] Réponse reçue: 
+Object { success: true, vref: "vcvt044_ternett" }
+animations.js:2114:13
+🟠 [DEBUGGER] Référence générée avec succès: vcvt044_ternett animations.js:2116:15
+Date formation : 05/09/2025 animations.js:2198:11
+Date expiration (10 jours avant) : 26/08/2025 animations.js:2199:11
+getTitreFormation FOR001 - TEST animations.js:1899:11
+Titre de formation : FOR001 - Les bases de l'agent de service animations.js:2203:11
+Repas oui/non : oui animations.js:2280:9
+Une seule entité, tarifSalle complet utilisé : 100 animations.js:2313:11
+Une seule entité, coût de trajet complet utilisé : 30 animations.js:2332:11
+Une seule entité, repas formateur complet utilisé : 20 animations.js:2346:11
+🟠 [DEBUGGER] Réponse reçue: 
+Object { success: true, vref: "vcvn141_ternett" }
+animations.js:2464:13
+🟠 [DEBUGGER] ✅ REF CONVOCATION générée avec succès: vcvn141_ternett animations.js:2467:15
+getTitreFormation FOR001 - TEST animations.js:1899:11
+🟠 [DEBUGGER] Téléchargement convocation: Convocation_TEST2 TEST2_05/09/2025.docx animations.js:2579:15
+🟠 [DEBUGGER] Génération convocation pour: TEST3 TEST3 animations.js:2568:13
+🟠 [DEBUGGER] Génération CONVOCATION DOC pour: 
+Object { formation: "FOR001 - TEST", date: "05/09/2025", participant: "TEST3 TEST3", entity: "TERNETT" }
+animations.js:2480:11
+🟠 [DEBUGGER] Génération REF CONVOCATION: 
+Object { entite: "TERNETT", formationName: "FOR001 - TEST", date: "05/09/2025", stagiaire: "TEST3 TEST3" }
+animations.js:2437:11
+🟠 [DEBUGGER] URL construite: https://script.google.com/macros/s/AKfycbzdiTZmkApozu1qF16MMmpZElz-fxOt10hM0drtF4wbQZqTVq2VIVC2UNW-6Kk5mn6w/exec?action=addRefConvocation&entite=TERNETT&formation=FOR001%20-%20TEST&date=05%2F09%2F2025&stagiaire=TEST3%20TEST3 animations.js:2457:11
+🟠 [DEBUGGER] Envoi de la requête... animations.js:2460:13
+🟠 [DEBUGGER] Réponse reçue: 
+Object { success: true, vref: "vcvn142_ternett" }
+animations.js:2464:13
+🟠 [DEBUGGER] ✅ REF CONVOCATION générée avec succès: vcvn142_ternett animations.js:2467:15
+getTitreFormation FOR001 - TEST animations.js:1899:11
+🟠 [DEBUGGER] Téléchargement convocation: Convocation_TEST TEST_05/09/2025.docx animations.js:2579:15
+🟠 [DEBUGGER] Génération convocation pour: PARISI DARYL animations.js:2568:13
+🟠 [DEBUGGER] Génération CONVOCATION DOC pour: 
+Object { formation: "FOR001 - TEST", date: "05/09/2025", participant: "PARISI DARYL", entity: "TERNETT" }
+animations.js:2480:11
+🟠 [DEBUGGER] Génération REF CONVOCATION: 
+Object { entite: "TERNETT", formationName: "FOR001 - TEST", date: "05/09/2025", stagiaire: "PARISI DARYL" }
+animations.js:2437:11
+🟠 [DEBUGGER] URL construite: https://script.google.com/macros/s/AKfycbzdiTZmkApozu1qF16MMmpZElz-fxOt10hM0drtF4wbQZqTVq2VIVC2UNW-6Kk5mn6w/exec?action=addRefConvocation&entite=TERNETT&formation=FOR001%20-%20TEST&date=05%2F09%2F2025&stagiaire=PARISI%20DARYL animations.js:2457:11
+🟠 [DEBUGGER] Envoi de la requête... animations.js:2460:13
+🟠 [DEBUGGER] Réponse reçue: 
+Object { success: true, vref: "vcvn143_ternett" }
+animations.js:2464:13
+🟠 [DEBUGGER] ✅ REF CONVOCATION générée avec succès: vcvn143_ternett animations.js:2467:15
+getTitreFormation FOR001 - TEST animations.js:1899:11
+🟠 [DEBUGGER] Téléchargement convocation: Convocation_TEST3 TEST3_05/09/2025.docx animations.js:2579:15
+🟠 [DEBUGGER] FIN downloadAllConvocations animations.js:2595:11
+🟠 [DEBUGGER] Réponse reçue: 
+Object { success: true, vref: "vcvn144_ternett" }
+animations.js:2464:13
+🟠 [DEBUGGER] ✅ REF CONVOCATION générée avec succès: vcvn144_ternett animations.js:2467:15
+getTitreFormation FOR001 - TEST animations.js:1899:11
+🟠 [DEBUGGER] Téléchargement convocation: Convocation_PARISI DARYL_05/09/2025.docx animations.js:2579:15
+🟠 [DEBUGGER] Génération convocation pour: TEST2 TEST2 animations.js:2568:13
+🟠 [DEBUGGER] Génération CONVOCATION DOC pour: 
+Object { formation: "FOR001 - TEST", date: "05/09/2025", participant: "TEST2 TEST2", entity: "TERNETT" }
+animations.js:2480:11
+🟠 [DEBUGGER] Génération REF CONVOCATION: 
+Object { entite: "TERNETT", formationName: "FOR001 - TEST", date: "05/09/2025", stagiaire: "TEST2 TEST2" }
+animations.js:2437:11
+🟠 [DEBUGGER] URL construite: https://script.google.com/macros/s/AKfycbzdiTZmkApozu1qF16MMmpZElz-fxOt10hM0drtF4wbQZqTVq2VIVC2UNW-6Kk5mn6w/exec?action=addRefConvocation&entite=TERNETT&formation=FOR001%20-%20TEST&date=05%2F09%2F2025&stagiaire=TEST2%20TEST2 animations.js:2457:11
+🟠 [DEBUGGER] Envoi de la requête... animations.js:2460:13
+🟠 [DEBUGGER] Réponse reçue: 
+Object { success: true, vref: "vcvn145_ternett" }
+animations.js:2464:13
+🟠 [DEBUGGER] ✅ REF CONVOCATION générée avec succès: vcvn145_ternett animations.js:2467:15
+getTitreFormation FOR001 - TEST animations.js:1899:11
+🟠 [DEBUGGER] Téléchargement convocation: Convocation_TEST2 TEST2_05/09/2025.docx animations.js:2579:15
+🟠 [DEBUGGER] Génération convocation pour: TEST3 TEST3 animations.js:2568:13
+🟠 [DEBUGGER] Génération CONVOCATION DOC pour: 
+Object { formation: "FOR001 - TEST", date: "05/09/2025", participant: "TEST3 TEST3", entity: "TERNETT" }
+animations.js:2480:11
+🟠 [DEBUGGER] Génération REF CONVOCATION: 
+Object { entite: "TERNETT", formationName: "FOR001 - TEST", date: "05/09/2025", stagiaire: "TEST3 TEST3" }
+animations.js:2437:11
+🟠 [DEBUGGER] URL construite: https://script.google.com/macros/s/AKfycbzdiTZmkApozu1qF16MMmpZElz-fxOt10hM0drtF4wbQZqTVq2VIVC2UNW-6Kk5mn6w/exec?action=addRefConvocation&entite=TERNETT&formation=FOR001%20-%20TEST&date=05%2F09%2F2025&stagiaire=TEST3%20TEST3 animations.js:2457:11
+🟠 [DEBUGGER] Envoi de la requête... animations.js:2460:13
+🟠 [DEBUGGER] Réponse reçue: 
+Object { success: true, vref: "vcvn146_ternett" }
+animations.js:2464:13
+🟠 [DEBUGGER] ✅ REF CONVOCATION générée avec succès: vcvn146_ternett animations.js:2467:15
+getTitreFormation FOR001 - TEST animations.js:1899:11
+🟠 [DEBUGGER] Téléchargement convocation: Convocation_TEST3 TEST3_05/09/2025.docx animations.js:2579:15
+🟠 [DEBUGGER] FIN downloadAllConvocations animations.js:2595:11
