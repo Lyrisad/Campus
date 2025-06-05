@@ -47,6 +47,10 @@ import {
     }
   }
   
+  // Variable globale pour l'audio
+  let globalAudio = null;
+  let isMuted = false;
+  
   window.onload = function() {
     // Define an array with all your music file paths
     var tracks = [
@@ -61,20 +65,64 @@ import {
     var randomTrack = tracks[randomIndex];
     
     // Create a new Audio object using the randomly selected track
-    var audio = new Audio(randomTrack);
+    globalAudio = new Audio(randomTrack);
     
     // Set the audio to loop continuously
-    audio.loop = true;
+    globalAudio.loop = true;
     
     // Optional: Set the volume (range is 0.0 to 1.0)
-    audio.volume = 0.5;
+    globalAudio.volume = 0.5;
     
     // Attempt to play the audio
-    audio.play().catch(function(error) {
+    globalAudio.play().then(() => {
+      // Musique démarrée avec succès
+      updateMusicButtonState();
+    }).catch(function(error) {
       console.error('Playback failed due to browser restrictions or other issues:', error);
     });
+
+    // Initialiser le bouton de contrôle audio
+    initMusicControl();
   };
-  
+
+  // Fonction pour initialiser le contrôle audio
+  function initMusicControl() {
+    const musicBtn = document.getElementById('musicControlBtn');
+    if (!musicBtn) return;
+    
+    // Set initial tooltip
+    musicBtn.title = "Reprendre la musique";
+    
+    musicBtn.addEventListener('click', () => {
+      if (!globalAudio) return;
+      
+      if (globalAudio.paused) {
+        globalAudio.play().catch(console.error);
+        isMuted = false;
+      } else {
+        globalAudio.pause();
+        isMuted = true;
+      }
+      
+      updateMusicButtonState();
+    });
+  }
+
+  // Fonction pour mettre à jour l'état visuel du bouton
+  function updateMusicButtonState() {
+    const musicBtn = document.getElementById('musicControlBtn');
+    if (!musicBtn || !globalAudio) return;
+    
+    if (isMuted || globalAudio.paused) {
+      musicBtn.classList.add('muted');
+      musicBtn.classList.remove('playing');
+      musicBtn.title = "Reprendre la musique"; // Tooltip when music is paused/muted
+    } else {
+      musicBtn.classList.add('playing');
+      musicBtn.classList.remove('muted');
+      musicBtn.title = "Arrêter la musique"; // Tooltip when music is playing
+    }
+  }
   
   // Convertit une chaîne "dd/mm/yyyy" en objet Date
   function parseDDMMYYYY(dateStr) {
