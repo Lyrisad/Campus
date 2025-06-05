@@ -814,18 +814,21 @@ strong {
 /* Notification popup */
 .notification-popup {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #0077cc;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #0077cc, #00a6ff);
   color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  font-size: 1rem;
+  padding: 15px 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 119, 204, 0.2),
+              0 4px 10px rgba(0, 0, 0, 0.1);
+  font-size: 1.1rem;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   z-index: 9999;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .notification-popup.show {
