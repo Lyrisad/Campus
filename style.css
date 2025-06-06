@@ -2341,9 +2341,6 @@ textarea {
   
   .CCbody-container {
     width: 90%;
-    height: auto; /* Hauteur automatique pour les tablettes */
-    min-height: 420px;
-    max-height: 70vh; /* Limiter la hauteur pour éviter le débordement */
     padding: 0 30px;
   }
 
@@ -2428,8 +2425,10 @@ textarea {
     border: none;
     width: 100%;
     border-radius: 20px;
-    height: 600px;
+    height: 100vh;
     padding: 0px;
+    width: 100vw;
+    max-width: 100vw;
   }
 
   .goToForm{
