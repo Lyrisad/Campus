@@ -221,7 +221,7 @@ strong {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 250px;
+  width: 200px;
   height: 100px;
   margin-left: 30px;
   transition: all 0.3s ease;
@@ -338,8 +338,8 @@ strong {
 
 /* Contenu textuel */
 .CCbody-content {
-  padding: 40px;
-  width: 50%;
+  padding: 45px;
+  width: 55%;
   position: relative;
   z-index: 1;
   animation: fadeInLeft 1s ease-out 0.3s both;
@@ -347,6 +347,7 @@ strong {
 
 .CCbody-content button{
   padding: 15px 30px;
+  margin: 20px auto 0;
 
 }
 
@@ -499,7 +500,7 @@ strong {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  width: 45%;
+  width: 38%;
   height: 100%;
   position: relative;
   animation: fadeInRight 1s ease-out 0.5s both;
