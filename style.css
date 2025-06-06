@@ -291,8 +291,8 @@ strong {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 70%;
-  height: 60%;
+  width: 80%;
+  height: 62%;
   background: linear-gradient(145deg, #ffffff 0%, #fafafa 100%);
   border-radius: 20px;
   box-shadow: 
@@ -343,6 +343,11 @@ strong {
   position: relative;
   z-index: 1;
   animation: fadeInLeft 1s ease-out 0.3s both;
+}
+
+.CCbody-content button{
+  padding: 15px 30px;
+
 }
 
 @keyframes fadeInLeft {
@@ -494,7 +499,7 @@ strong {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  width: 50%;
+  width: 45%;
   height: 100%;
   position: relative;
   animation: fadeInRight 1s ease-out 0.5s both;
