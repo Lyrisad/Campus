@@ -291,7 +291,8 @@ strong {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
+  width: min(80%, 1200px); /* Largeur maximale pour éviter le débordement */
+  max-width: 90vw; /* Ne jamais dépasser 90% de la largeur de l'écran */
   height: 62%;
   background: linear-gradient(145deg, #ffffff 0%, #fafafa 100%);
   border-radius: 20px;
@@ -304,6 +305,8 @@ strong {
   transform: translateY(0);
   transition: all 0.3s ease;
   animation: slideInUp 0.8s ease-out;
+  margin: 0 auto; /* Centrer le container */
+  box-sizing: border-box; /* Inclure les bordures dans la largeur */
 }
 
 .CCbody-container::before {
@@ -338,11 +341,12 @@ strong {
 
 /* Contenu textuel */
 .CCbody-content {
-  padding: 45px;
+  padding: clamp(20px, 4vw, 45px); /* Padding adaptatif */
   width: 55%;
   position: relative;
   z-index: 1;
   animation: fadeInLeft 1s ease-out 0.3s both;
+  box-sizing: border-box; /* Inclure le padding dans la largeur */
 }
 
 .CCbody-content button{
@@ -363,7 +367,7 @@ strong {
 }
 
 .CCbody-title {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem); /* Taille de police adaptative */
   margin-bottom: 0px;
   color: #0077cc;
   text-align: left;
@@ -371,6 +375,7 @@ strong {
   font-weight: 700;
   letter-spacing: -0.5px;
   animation: titleGlow 2s ease-in-out infinite alternate;
+  word-wrap: break-word; /* Éviter le débordement du texte */
 }
 
 .CCbody-title::after {
@@ -412,13 +417,14 @@ strong {
 }
 
 .CCbody-text {
-  font-size: 1.19rem;
+  font-size: clamp(1rem, 2.5vw, 1.19rem); /* Taille de police adaptative */
   line-height: 1.8;
   margin-bottom: 10px;
   margin-top: 20px;
   color: #555;
   position: relative;
   animation: fadeInText 1s ease-out 0.6s both;
+  word-wrap: break-word; /* Éviter le débordement du texte */
 }
 
 @keyframes fadeInText {
@@ -5457,5 +5463,62 @@ footer {
     width: 200%;
     height: 200%;
     opacity: 0;
+  }
+}
+
+/* Media Queries pour écrans intermédiaires (1000px à 1300px) */
+@media (max-width: 1200px) {
+  .CCbody-container {
+    width: min(85%, 1000px);
+    max-width: 95vw;
+  }
+  
+  .CCbody-content {
+    padding: clamp(15px, 3vw, 35px);
+  }
+  
+  .CCbody-title {
+    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+  }
+  
+  .CCbody-text {
+    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+  }
+}
+
+/* Media Queries pour tablettes moyennes (768px à 1000px) */
+@media (max-width: 1000px) {
+  .CCbody-container {
+    width: min(90%, 800px);
+    max-width: 95vw;
+    flex-direction: column;
+    height: auto;
+    min-height: 400px;
+    padding: 20px;
+  }
+  
+  .CCbody-content {
+    width: 100%;
+    padding: clamp(15px, 3vw, 25px);
+    text-align: center;
+  }
+  
+  .CCbody-image {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .about-container,
+  .services-container,
+  .contact-container {
+    width: 90%;
+  }
+
+  .CCbody-container{
+    width: 85%;
   }
 }
