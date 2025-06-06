@@ -242,7 +242,7 @@ strong {
   width: 250px;
   height: 150px;
   position: absolute; /* Position it above the container */
-  top: calc(50% - 31.5%); /* Adjust position to align with CCbody-container */
+  top: calc(48.5% - 31.5%); /* Adjust position to align with CCbody-container */
   left: 50%; /* Center horizontally */
   transform: translate(-50%, -50%); /* Center the hat exactly */
   z-index: 10; /* Ensure it's above the container */
@@ -3216,7 +3216,8 @@ footer {
 }
 
 #pendingClosureTable .btn-close-formation,
-#pendingClosureTable .btn-delete-formation {
+#pendingClosureTable .btn-delete-formation,
+#pendingClosureTable .btn-edit-participants {
   width: 100%;
   padding: 8px 14px;
   border: none;
@@ -3232,7 +3233,8 @@ footer {
 }
 
 #pendingClosureTable .btn-close-formation::before,
-#pendingClosureTable .btn-delete-formation::before {
+#pendingClosureTable .btn-delete-formation::before,
+#pendingClosureTable .btn-edit-participants::before {
   content: '';
   position: absolute;
   top: 0;
@@ -3245,8 +3247,15 @@ footer {
 }
 
 #pendingClosureTable .btn-close-formation:hover::before,
-#pendingClosureTable .btn-delete-formation:hover::before {
+#pendingClosureTable .btn-delete-formation:hover::before,
+#pendingClosureTable .btn-edit-participants:hover::before {
   width: 100%;
+}
+
+#pendingClosureTable .btn-edit-participants {
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 10px;
 }
 
 #pendingClosureTable .btn-close-formation {
@@ -3261,9 +3270,14 @@ footer {
 }
 
 #pendingClosureTable .btn-close-formation:hover,
-#pendingClosureTable .btn-delete-formation:hover {
+#pendingClosureTable .btn-delete-formation:hover,
+#pendingClosureTable .btn-edit-participants:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#pendingClosureTable .btn-edit-participants:hover {
+  background-color: #0056b3;
 }
 
 #pendingClosureTable .btn-close-formation:hover {
@@ -5526,5 +5540,858 @@ footer {
 
   .CCbody-container{
     width: 85%;
+  }
+}
+
+/* ===== STYLES MODERNES POUR LE CALENDRIER ===== */
+
+/* Modal du calendrier - Design moderne */
+#calendarModal {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(50,50,50,0.4));
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Contenu du modal - Style élégant */
+#calendarModal .modal-content {
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border: none;
+  border-radius: 20px;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  max-width: min(95vw, 1200px);
+  max-height: 90vh;
+  overflow: hidden;
+  margin: 2.5% auto;
+  padding: 0;
+  animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Header du modal */
+#calendarModal .modal-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  z-index: 1;
+}
+
+#calendarModal .modal-content::after {
+  content: '📅 Calendrier des Formations';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 600;
+  z-index: 2;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Container du calendrier */
+#calendar {
+  max-width: 100%;
+  margin: 80px 20px 20px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  max-height: calc(90vh - 140px);
+  overflow-y: auto;
+}
+
+/* Scrollbar personnalisée pour le calendrier */
+#calendar::-webkit-scrollbar {
+  width: 8px;
+}
+
+#calendar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+#calendar::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 4px;
+}
+
+#calendar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a6fd8, #6a4190);
+}
+
+/* Header du calendrier FullCalendar */
+.fc-header-toolbar {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+  padding: 15px 20px !important;
+  border-bottom: 2px solid #dee2e6 !important;
+  margin-bottom: 0 !important;
+}
+
+.fc-toolbar-title {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #495057 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+}
+
+/* Boutons de navigation */
+.fc-button {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
+}
+
+.fc-button:hover {
+  background: linear-gradient(135deg, #5a6fd8, #6a4190) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6) !important;
+}
+
+.fc-button:active {
+  transform: translateY(0) !important;
+}
+
+.fc-button-primary:disabled {
+  background: #6c757d !important;
+  opacity: 0.6 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Table du calendrier */
+.fc-daygrid-table {
+  border: none !important;
+}
+
+/* Cellules des jours */
+.fc-daygrid-day {
+  border: 1px solid #e9ecef !important;
+  transition: background-color 0.2s ease !important;
+  position: relative !important;
+}
+
+.fc-daygrid-day:hover {
+  background-color: #f8f9fa !important;
+}
+
+/* Numéros des jours */
+.fc-daygrid-day-number {
+  font-weight: 600 !important;
+  color: #495057 !important;
+  font-size: 0.9rem !important;
+  padding: 8px !important;
+}
+
+/* Jour d'aujourd'hui */
+.fc-day-today {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)) !important;
+  position: relative !important;
+}
+
+.fc-day-today::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid #667eea;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.fc-day-today .fc-daygrid-day-number {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  color: white !important;
+  border-radius: 50% !important;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 4px !important;
+}
+
+/* Événements dans le calendrier */
+.fc-event {
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 4px 8px !important;
+  margin: 2px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Couleurs des événements par type */
+.fc-event[style*="rgb(255, 193, 7)"], /* Jaune - En attente */
+.fc-event[style*="#ffc107"] {
+  background: linear-gradient(135deg, #ffc107, #ff8f00) !important;
+  color: #000 !important;
+}
+
+.fc-event[style*="rgb(40, 167, 69)"], /* Vert - Validé */
+.fc-event[style*="#28a745"] {
+  background: linear-gradient(135deg, #28a745, #20c997) !important;
+  color: #fff !important;
+}
+
+.fc-event[style*="rgb(220, 53, 69)"], /* Rouge - Annulé */
+.fc-event[style*="#dc3545"] {
+  background: linear-gradient(135deg, #dc3545, #e83e8c) !important;
+  color: #fff !important;
+}
+
+.fc-event[style*="rgb(0, 123, 255)"], /* Bleu - En cours */
+.fc-event[style*="#007bff"] {
+  background: linear-gradient(135deg, #007bff, #6610f2) !important;
+  color: #fff !important;
+}
+
+.fc-event[style*="rgb(108, 117, 125)"], /* Gris - Reporté */
+.fc-event[style*="#6c757d"] {
+  background: linear-gradient(135deg, #6c757d, #495057) !important;
+  color: #fff !important;
+}
+
+/* Effet au survol des événements */
+.fc-event:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+  z-index: 10 !important;
+}
+
+/* Animation d'apparition des événements */
+.fc-event {
+  animation: eventFadeIn 0.5s ease-out !important;
+}
+
+@keyframes eventFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Titre de l'événement */
+.fc-event-title {
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+}
+
+/* En-têtes des jours de la semaine */
+.fc-col-header-cell {
+  background: linear-gradient(135deg, #495057, #6c757d) !important;
+  color: white !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  padding: 12px 0 !important;
+  border: none !important;
+}
+
+/* Weekend styling */
+.fc-day-sat, .fc-day-sun {
+  background-color: rgba(248, 249, 250, 0.5) !important;
+}
+
+/* Responsive pour tablettes */
+@media (max-width: 768px) {
+  #calendarModal .modal-content {
+    margin: 1% auto;
+    max-width: 98vw;
+    max-height: 95vh;
+    border-radius: 15px;
+  }
+  
+  #calendar {
+    margin: 70px 10px 10px 10px;
+    max-height: calc(95vh - 120px);
+  }
+  
+  .fc-toolbar-title {
+    font-size: 1.2rem !important;
+  }
+  
+  .fc-button {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .fc-event {
+    font-size: 0.7rem !important;
+    padding: 2px 6px !important;
+  }
+}
+
+/* Responsive pour mobiles */
+@media (max-width: 480px) {
+  #calendarModal .modal-content::after {
+    font-size: 1.1rem;
+  }
+  
+  #calendar {
+    margin: 65px 5px 5px 5px;
+    max-height: calc(95vh - 110px);
+  }
+  
+  .fc-toolbar {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  
+  .fc-toolbar-title {
+    font-size: 1rem !important;
+  }
+  
+  .fc-button {
+    padding: 4px 8px !important;
+    font-size: 0.7rem !important;
+  }
+  
+  .fc-event {
+    font-size: 0.6rem !important;
+    padding: 1px 4px !important;
+  }
+  
+  .fc-daygrid-day-number {
+    font-size: 0.8rem !important;
+    padding: 4px !important;
+  }
+}
+
+/* Bouton de fermeture moderne */
+#calendarModal .close {
+  position: absolute !important;
+  top: 15px !important;
+  right: 20px !important;
+  z-index: 10 !important;
+  background: rgba(255,255,255,0.2) !important;
+  border: 2px solid rgba(255,255,255,0.3) !important;
+  border-radius: 50% !important;
+  width: 35px !important;
+  height: 35px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: white !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+#calendarModal .close:hover {
+  background: rgba(255,255,255,0.3) !important;
+  border-color: rgba(255,255,255,0.5) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+}
+
+/* Animation de chargement pour le calendrier */
+.fc-calendar-loading {
+  position: relative;
+}
+
+.fc-calendar-loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: calendarSpin 1s linear infinite;
+  z-index: 1000;
+}
+
+@keyframes calendarSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Style pour les événements multiplusjours */
+.fc-event-multiday {
+  border-radius: 0 !important;
+  margin: 1px 0 !important;
+}
+
+.fc-event-multiday:first-child {
+  border-top-left-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
+}
+
+.fc-event-multiday:last-child {
+  border-top-right-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+}
+
+/* Amélioration de la lisibilité */
+.fc-daygrid-event-harness {
+  margin: 1px 0 !important;
+}
+
+.fc-daygrid-day-events {
+  margin: 0 2px !important;
+}
+
+/* Hover effect pour les cellules */
+.fc-daygrid-day-frame:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05)) !important;
+}
+
+/* Styles pour le modal d'édition des participants */
+#editParticipantsModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+#editParticipantsModal .modal-content {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  margin: 2% auto;
+  padding: 0;
+  border: none;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 1000px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.4s ease-out;
+  position: relative;
+}
+
+#editParticipantsModal .modal-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #dc3545);
+  border-radius: 20px 20px 0 0;
+  animation: colorShift 3s infinite;
+}
+
+@keyframes colorShift {
+  0%, 100% { background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #dc3545); }
+  25% { background: linear-gradient(90deg, #28a745, #ffc107, #dc3545, #007bff); }
+  50% { background: linear-gradient(90deg, #ffc107, #dc3545, #007bff, #28a745); }
+  75% { background: linear-gradient(90deg, #dc3545, #007bff, #28a745, #ffc107); }
+}
+
+#editParticipantsModal .close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #6c757d;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1001;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+#editParticipantsModal .close:hover,
+#editParticipantsModal .close:focus {
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.1);
+  transform: rotate(90deg) scale(1.1);
+}
+
+#editParticipantsModal h3 {
+  margin: 0;
+  padding: 25px 30px 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: center;
+  border-bottom: 2px solid #e9ecef;
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  border-radius: 20px 20px 0 0;
+  position: relative;
+}
+
+#editParticipantsModal h3::after {
+  content: '✏️';
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+#editFormationDetails {
+  padding: 20px 30px;
+  background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+  border-radius: 15px;
+  margin: 20px 30px;
+  border-left: 4px solid #007bff;
+}
+
+#editFormationDetails p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #495057;
+  display: flex;
+  align-items: center;
+}
+
+#editFormationDetails strong {
+  color: #2c3e50;
+  margin-right: 10px;
+  min-width: 80px;
+}
+
+.participants-table-container {
+  padding: 0 30px;
+  margin: 20px 0;
+}
+
+.participants-table-container h4 {
+  margin: 0 0 15px;
+  font-size: 18px;
+  color: #495057;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.participants-table-container h4::before {
+  content: '👥';
+  font-size: 20px;
+}
+
+#editParticipantsTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#editParticipantsTable thead {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+}
+
+#editParticipantsTable th {
+  padding: 15px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: white;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  border: none;
+}
+
+#editParticipantsTable tbody tr {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #e9ecef;
+}
+
+#editParticipantsTable tbody tr:hover {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  transform: scale(1.01);
+}
+
+#editParticipantsTable tbody tr:last-child {
+  border-bottom: none;
+}
+
+#editParticipantsTable td {
+  padding: 12px;
+  border: none;
+  vertical-align: middle;
+}
+
+#editParticipantsTable .participant-field {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+#editParticipantsTable .participant-field:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+  transform: scale(1.02);
+}
+
+.btn-remove-edit-participant {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.btn-remove-edit-participant:hover {
+  background: linear-gradient(135deg, #c82333, #a71e2a);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+}
+
+#addParticipantSection {
+  margin: 25px 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #e8f5e8, #f0f8ff);
+  border-radius: 15px;
+  border: 2px dashed #28a745;
+}
+
+#addParticipantSection h4 {
+  margin: 0 0 15px;
+  font-size: 16px;
+  color: #495057;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#addParticipantSection h4::before {
+  content: '➕';
+  font-size: 18px;
+}
+
+#addParticipantSection .form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+#addParticipantSection input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 15px;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+#addParticipantSection input:focus {
+  outline: none;
+  border-color: #28a745;
+  box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
+  transform: scale(1.02);
+}
+
+#editBtnAddParticipant {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#editBtnAddParticipant:hover {
+  background: linear-gradient(135deg, #20c997, #17a2b8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+#editBtnAddParticipant::before {
+  content: '✨';
+  font-size: 16px;
+}
+
+#saveParticipantsChanges {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  width: 95%;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+  margin: 25px auto;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+#saveParticipantsChanges::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+#saveParticipantsChanges:hover::before {
+  left: 100%;
+}
+
+#saveParticipantsChanges:hover {
+  background: linear-gradient(135deg, #0056b3, #004085);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
+}
+
+#saveParticipantsChanges::after {
+  content: '💾';
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #editParticipantsModal .modal-content {
+    margin: 5% auto;
+    width: 95%;
+    border-radius: 15px;
+  }
+  
+  #editParticipantsModal h3 {
+    font-size: 20px;
+    padding: 20px 20px 15px;
+  }
+  
+  #editFormationDetails,
+  .participants-table-container,
+  #addParticipantSection {
+    margin: 15px 20px;
+    padding: 15px;
+  }
+  
+  #addParticipantSection .form-row {
+    flex-direction: column;
+  }
+  
+  #addParticipantSection input {
+    min-width: unset;
+  }
+  
+  #editParticipantsTable {
+    font-size: 12px;
+  }
+  
+  #editParticipantsTable th,
+  #editParticipantsTable td {
+    padding: 8px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  #editParticipantsModal .modal-content {
+    margin: 2% auto;
+    width: 98%;
+    max-height: 95vh;
+  }
+  
+  #editParticipantsTable thead {
+    display: none;
+  }
+  
+  #editParticipantsTable tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  #editParticipantsTable tbody td {
+    display: block;
+    padding: 5px 0;
+    border: none;
+  }
+  
+  #editParticipantsTable tbody td::before {
+    content: attr(data-label) ': ';
+    font-weight: bold;
+    color: #495057;
   }
 }

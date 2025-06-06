@@ -9,7 +9,7 @@ import {
   
   // URL de votre Web App Google Apps Script
   const SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbyxUJOkgP2bBTcYIUdwZdtPZsca4VxvKy3VzfAdMdvzd72n7wx45ZTsIDW2dp3PXbgtbg/exec";
+    "https://script.google.com/macros/s/AKfycbxz3P0mEgaynxIRNEVkoEpOBtzy6iGhOmZs6e3CC_Iq1pq1az3-sxBfYek-M8Tubrw7iw/exec";
   
   // ---------------------- Fonctions Utilitaires Globales ----------------------
   
@@ -3212,6 +3212,7 @@ import {
           <td>${formattedDate}</td>
           <td>${participantsHTML || 'Aucun participant'}</td>
           <td>
+            <button class="btn-edit-participants" data-id="${entry.id}" data-date="${formattedDate}" data-formation="${entry.formation}">✏️ Modifier</button>
             <button class="btn-close-formation" data-id="${entry.id}" data-date="${formattedDate}">✅ Clôturer</button>
             <button class="btn-delete-formation" data-id="${entry.id}" data-date="${formattedDate}">🗑️ Supprimer</button>
           </td>
@@ -3243,6 +3244,16 @@ import {
             showNotification("Suppression en cours...");
             await deleteFromPendingClosure(id, date);
           }
+        });
+      });
+
+      // Ajouter les écouteurs d'événements pour les boutons "Modifier"
+      document.querySelectorAll(".btn-edit-participants").forEach((btn) => {
+        btn.addEventListener("click", async (e) => {
+          const id = e.target.getAttribute("data-id");
+          const date = e.target.getAttribute("data-date");
+          const formationName = e.target.getAttribute("data-formation");
+          await openEditParticipantsModal(id, formationName, date);
         });
       });
     } catch (error) {
@@ -3540,7 +3551,7 @@ import {
           "HEURES": heures,
           "DATE": formationDate,
           "AUJOURD'HUI": todayFormatted,
-          "AUJOURDHUI": todayFormatted,
+          "AUJOURD'HUI": todayFormatted,
           "AUJOURD HUI": todayFormatted,
           "DATE DU JOUR": todayFormatted,
           "DATE_DU_JOUR": todayFormatted,
@@ -5189,5 +5200,361 @@ import {
     console.log("🧪 Test de notification déclenché");
     showNotificationWithIcon("🧪 Test de notification - Le système fonctionne !", 'info', 5000);
   };
+  
+  // Ajouter les écouteurs d'événements pour les boutons "Modifier"
+  document.querySelectorAll(".btn-edit-participants").forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      const id = e.target.getAttribute("data-id");
+      const date = e.target.getAttribute("data-date");
+      const formationName = e.target.getAttribute("data-formation");
+      await openEditParticipantsModal(id, formationName, date);
+    });
+  });
+  
+  // Fonction pour ouvrir le modal de modification des participants
+  async function openEditParticipantsModal(id, formationName, date) {
+    try {
+      showNotification("Ouverture du modal de modification...");
+      
+      // Récupérer les détails de la formation depuis PendingClosure
+      const response = await fetch(`${SCRIPT_URL}?action=readPendingClosure`);
+      const result = await response.json();
+      
+      if (!result.success || !result.values) {
+        showNotification("Erreur lors de la récupération des formations");
+        return;
+      }
+      
+      // Trouver la formation correspondante
+      const formation = result.values.find(f => 
+        String(f.id) === String(id) && 
+        formatDateClient(f.date) === date
+      );
+      
+      if (!formation) {
+        showNotification("Formation non trouvée");
+        return;
+      }
+      
+      // Appeler la fonction pour afficher le modal avec les données complètes
+      showEditParticipantsModal(formation, date);
+      
+    } catch (error) {
+      console.error("Erreur lors de l'ouverture du modal d'édition:", error);
+      showNotification("Erreur lors de l'ouverture du modal");
+    }
+  }
+
+  // Fonction pour afficher le modal de modification des participants
+  function showEditParticipantsModal(formation, date) {
+    // Créer le modal s'il n'existe pas
+    let modal = document.getElementById("editParticipantsModal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "editParticipantsModal";
+      modal.className = "modal";
+      modal.innerHTML = `
+        <div class="modal-content">
+          <span class="close" id="closeEditParticipantsModal">&times;</span>
+          <h3>Modifier les participants</h3>
+          <div id="editFormationDetails">
+            <p><strong>Formation :</strong> <span id="editFormationName"></span></p>
+            <p><strong>Date :</strong> <span id="editFormationDate"></span></p>
+          </div>
+          <div class="participants-table-container">
+            <h4>Liste des participants</h4>
+            <table id="editParticipantsTable">
+              <thead>
+                <tr>
+                  <th>Matricule</th>
+                  <th>Nom / Prénom</th>
+                  <th>Entité</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Les participants seront ajoutés dynamiquement ici -->
+              </tbody>
+            </table>
+          </div>
+          <div id="addParticipantSection" style="margin-top:15px;">
+            <h4>Ajouter un participant</h4>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+              <input type="text" id="editNewMatricule" placeholder="Matricule" />
+              <input type="text" id="editNewName" placeholder="Nom/Prénom" />
+              <input type="text" id="editNewEntity" placeholder="Entité" />
+              <button id="editBtnAddParticipant">Ajouter</button>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 20px;">
+            <button id="saveParticipantsChanges" class="submit-button">Sauvegarder les modifications</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      
+      // Ajouter les gestionnaires d'événements
+      document.getElementById("closeEditParticipantsModal").addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+      
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    }
+    
+    // Remplir les détails de la formation
+    document.getElementById("editFormationName").textContent = formation.formation;
+    document.getElementById("editFormationDate").textContent = formatDateClient(formation.date);
+    
+    // Remplir le tableau des participants
+    const participantsTable = document.getElementById("editParticipantsTable").querySelector("tbody");
+    participantsTable.innerHTML = "";
+    
+    // Extraire et afficher les participants pour la date spécifiée
+    const targetDate = parseDDMMYYYY(date);
+    let participantsForDate = [];
+    
+    // Traiter les participants depuis PendingClosure (format avec séparateurs "|||")
+    if (formation.participants) {
+      const blocks = formation.participants.split("|||");
+      
+      blocks.forEach((block) => {
+        if (!block.trim()) return;
+        
+        try {
+          // Extraire le JSON entre crochets
+          const jsonMatch = block.match(/\[(.*?)\]/);
+          if (!jsonMatch) return;
+          
+          // Extraire la date entre parenthèses
+          const dateMatch = block.match(/\((.*?)\)/);
+          if (!dateMatch) return;
+          
+          const blockDate = new Date(dateMatch[1]);
+          if (isSameDate(blockDate, targetDate)) {
+            // Parser le JSON des participants
+            const jsonStr = '[' + jsonMatch[1] + ']';
+            const participants = JSON.parse(jsonStr);
+            
+            // Chaque bloc contient un tableau de participants
+            if (Array.isArray(participants)) {
+              participantsForDate.push(...participants);
+            } else {
+              participantsForDate.push(participants);
+            }
+          }
+        } catch (error) {
+          console.error("Erreur lors du parsing des participants:", error);
+        }
+      });
+    }
+    
+    // Afficher les participants
+    if (participantsForDate.length === 0) {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td colspan="4" style="text-align: center; color: #666; font-style: italic;">
+          Aucun participant trouvé pour cette date.
+        </td>
+      `;
+      participantsTable.appendChild(row);
+    } else {
+      participantsForDate.forEach((participant, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>
+            <input type="text" value="${participant && participant.matricule ? participant.matricule : ''}" 
+                   data-field="matricule" data-index="${index}" 
+                   class="participant-field" />
+          </td>
+          <td>
+            <input type="text" value="${participant && participant.nameEmployee ? participant.nameEmployee : ''}" 
+                   data-field="nameEmployee" data-index="${index}" 
+                   class="participant-field" />
+          </td>
+          <td>
+            <input type="text" value="${participant && participant.entity ? participant.entity : ''}" 
+                   data-field="entity" data-index="${index}" 
+                   class="participant-field" />
+          </td>
+          <td>
+            <button class="btn-remove-edit-participant" data-index="${index}">🗑️ Supprimer</button>
+          </td>
+        `;
+        participantsTable.appendChild(row);
+      });
+    }
+    
+    // Gestionnaire pour ajouter un participant
+    document.getElementById("editBtnAddParticipant").onclick = () => {
+      const matricule = document.getElementById("editNewMatricule").value.trim();
+      const nameEmployee = document.getElementById("editNewName").value.trim();
+      const entity = document.getElementById("editNewEntity").value.trim();
+      
+      if (!matricule || !nameEmployee || !entity) {
+        showNotification("Veuillez remplir tous les champs.");
+        return;
+      }
+      
+      // Ajouter une nouvelle ligne au tableau
+      const newIndex = participantsForDate.length;
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>
+          <input type="text" value="${matricule}" 
+                 data-field="matricule" data-index="${newIndex}" 
+                 class="participant-field" />
+        </td>
+        <td>
+          <input type="text" value="${nameEmployee}" 
+                 data-field="nameEmployee" data-index="${newIndex}" 
+                 class="participant-field" />
+        </td>
+        <td>
+          <input type="text" value="${entity}" 
+                 data-field="entity" data-index="${newIndex}" 
+                 class="participant-field" />
+        </td>
+        <td>
+          <button class="btn-remove-edit-participant" data-index="${newIndex}">🗑️ Supprimer</button>
+        </td>
+      `;
+      participantsTable.appendChild(row);
+      
+      // Ajouter le participant aux données
+      participantsForDate.push({ matricule, nameEmployee, entity });
+      
+      // Vider les champs
+      document.getElementById("editNewMatricule").value = "";
+      document.getElementById("editNewName").value = "";
+      document.getElementById("editNewEntity").value = "";
+    };
+    
+    // Gestionnaire pour supprimer un participant
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("btn-remove-edit-participant")) {
+        const index = parseInt(e.target.getAttribute("data-index"));
+        e.target.closest("tr").remove();
+        participantsForDate.splice(index, 1);
+        // Réindexer les boutons restants
+        document.querySelectorAll(".btn-remove-edit-participant").forEach((btn, newIndex) => {
+          btn.setAttribute("data-index", newIndex);
+        });
+        document.querySelectorAll(".participant-field").forEach((field, fieldIndex) => {
+          const rowIndex = Math.floor(fieldIndex / 3);
+          field.setAttribute("data-index", rowIndex);
+        });
+      }
+    });
+    
+    // Gestionnaire pour sauvegarder les modifications
+    document.getElementById("saveParticipantsChanges").onclick = async () => {
+      try {
+        showNotification("Sauvegarde en cours...");
+        
+        // Collecter les données modifiées
+        const updatedParticipants = [];
+        const rows = participantsTable.querySelectorAll("tr");
+        
+        rows.forEach((row) => {
+          const matricule = row.querySelector('[data-field="matricule"]').value.trim();
+          const nameEmployee = row.querySelector('[data-field="nameEmployee"]').value.trim();
+          const entity = row.querySelector('[data-field="entity"]').value.trim();
+          
+          if (matricule && nameEmployee && entity) {
+            updatedParticipants.push({ matricule, nameEmployee, entity });
+          }
+        });
+        
+        // Reconstruire la chaîne de participants
+        await updateParticipantsForDate(formation, date, updatedParticipants);
+        
+        // Fermer le modal
+        modal.style.display = "none";
+        
+        // Rafraîchir les données
+        await fetchPendingClosure();
+        
+        showNotification("Participants modifiés avec succès!");
+        
+      } catch (error) {
+        console.error("Erreur lors de la sauvegarde:", error);
+        showNotification("Erreur lors de la sauvegarde des modifications");
+      }
+    };
+    
+    // Afficher le modal
+    modal.style.display = "flex";
+  }
+
+  // Fonction pour mettre à jour les participants pour une date spécifique
+  async function updateParticipantsForDate(formation, targetDate, newParticipants) {
+    try {
+      const targetDateObj = parseDDMMYYYY(targetDate);
+      let newBlocks = [];
+      
+      // Traiter les blocs de participants existants (format PendingClosure avec "|||")
+      if (formation.participants) {
+        const blocks = formation.participants.split("|||");
+        
+        // Conserver tous les blocs qui ne sont pas de la date cible
+        blocks.forEach((block) => {
+          if (!block.trim()) return;
+          
+          try {
+            // Extraire la date entre parenthèses
+            const dateMatch = block.match(/\((.*?)\)/);
+            if (!dateMatch) return;
+            
+            const blockDate = new Date(dateMatch[1]);
+            if (!isSameDate(blockDate, targetDateObj)) {
+              newBlocks.push(block.trim());
+            }
+          } catch (error) {
+            console.error("Erreur lors du traitement d'un bloc:", error);
+          }
+        });
+      }
+      
+      // Ajouter les nouveaux participants pour la date cible
+      if (newParticipants.length > 0) {
+        const fullDateStr = convertDDMMYYYYToFull(targetDate);
+        const newBlock = JSON.stringify(newParticipants) + " (" + fullDateStr + ")";
+        newBlocks.push(newBlock);
+      }
+      
+      // Reconstruire la chaîne de participants avec des séparateurs "|||" pour PendingClosure
+      const updatedParticipantsStr = newBlocks.join("|||");
+      
+      // Mettre à jour dans la feuille PendingClosure au lieu de Formations
+      await updatePendingClosureParticipantsInSheet(formation.id, targetDate, updatedParticipantsStr);
+      
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour des participants:", error);
+      throw error;
+    }
+  }
+
+  // Fonction pour mettre à jour les participants dans PendingClosure
+  async function updatePendingClosureParticipantsInSheet(id, date, participantsStr) {
+    try {
+      const url = `${SCRIPT_URL}?action=updatePendingClosureParticipants&id=${encodeURIComponent(id)}&date=${encodeURIComponent(date)}&participants=${encodeURIComponent(participantsStr)}`;
+      
+      const response = await fetch(url);
+      const result = await response.json();
+      
+      if (!result.success) {
+        throw new Error(result.error || "Erreur lors de la mise à jour des participants");
+      }
+      
+      return result;
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour des participants dans PendingClosure:", error);
+      throw error;
+    }
+  }
   
   
