@@ -293,7 +293,9 @@ strong {
   justify-content: space-between;
   width: min(80%, 1200px); /* Largeur maximale pour éviter le débordement */
   max-width: 90vw; /* Ne jamais dépasser 90% de la largeur de l'écran */
-  height: 62%;
+  height: min(62vh, 600px); 
+  max-height: 80vh; /* Ne jamais dépasser 80% de la hauteur de l'écran */
+  min-height: 400px; /* Hauteur minimale pour éviter que ce soit trop petit */
   background: linear-gradient(145deg, #ffffff 0%, #fafafa 100%);
   border-radius: 20px;
   box-shadow: 
@@ -342,7 +344,7 @@ strong {
 /* Contenu textuel */
 .CCbody-content {
   padding: clamp(20px, 4vw, 45px); /* Padding adaptatif */
-  width: 55%;
+  width: 60%;
   position: relative;
   z-index: 1;
   animation: fadeInLeft 1s ease-out 0.3s both;
@@ -351,7 +353,7 @@ strong {
 
 .CCbody-content button{
   padding: 15px 30px;
-  margin: 20px auto 0;
+  margin: 20px auto 0 !important;
 
 }
 
@@ -2341,7 +2343,9 @@ textarea {
   
   .CCbody-container {
     width: 90%;
-    height: 60%;
+    height: auto; /* Hauteur automatique pour les tablettes */
+    min-height: 250px;
+    max-height: 70vh; /* Limiter la hauteur pour éviter le débordement */
     padding: 0 30px;
   }
 
@@ -2426,7 +2430,9 @@ textarea {
     border: none;
     width: 100%;
     border-radius: 0;
-    height: 100%;
+    height: auto; /* Hauteur automatique pour mobiles */
+    min-height: 300px;
+    max-height: 90vh; /* Limite la hauteur sur les écrans hauts */
     padding: 0px;
   }
 
@@ -5471,43 +5477,43 @@ footer {
   .CCbody-container {
     width: min(85%, 1000px);
     max-width: 95vw;
+    height: auto; /* Hauteur automatique pour tablettes */
+    min-height: 250px;
+    max-height: 70vh; /* Limiter la hauteur sur tablettes */
+    padding: 0 30px;
   }
   
   .CCbody-content {
-    padding: clamp(15px, 3vw, 35px);
+    padding: clamp(18px, 3.5vw, 40px);
   }
   
   .CCbody-title {
-    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+    font-size: clamp(1.8rem, 4.5vw, 2.8rem);
   }
   
   .CCbody-text {
-    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+    font-size: clamp(0.9rem, 2.3vw, 1.1rem);
   }
 }
 
-/* Media Queries pour tablettes moyennes (768px à 1000px) */
 @media (max-width: 1000px) {
   .CCbody-container {
     width: min(90%, 800px);
-    max-width: 95vw;
     flex-direction: column;
-    height: auto;
-    min-height: 400px;
-    padding: 20px;
+    padding: clamp(15px, 3vw, 30px);
+    height: auto; /* Hauteur automatique en mode colonne */
+    min-height: 300px;
+    max-height: none; /* Pas de limite en mode colonne */
   }
   
   .CCbody-content {
     width: 100%;
     padding: clamp(15px, 3vw, 25px);
-    text-align: center;
   }
   
   .CCbody-image {
-    width: 100%;
-    max-width: 300px;
+    width: 80%;
     height: 200px;
-    margin-top: 20px;
   }
 }
 
