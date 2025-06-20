@@ -1002,6 +1002,242 @@ strong {
   color: #0077cc;
 }
 
+/* Section Qualiopi */
+.qualiopi-section {
+  width: 100%;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qualiopi-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.qualiopi-container {
+  width: 50%;
+  text-align: left;
+  position: relative;
+  z-index: 2;
+  animation: fadeInUp 1s ease-out;
+}
+
+.qualiopi-title {
+  padding-left: 5px;
+  font-size: 2.5rem;
+  color: #0077cc;
+  margin-bottom: 20px;
+  position: relative;
+  animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+.qualiopi-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 5px;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #f49f42, #0077cc);
+  border-radius: 2px;
+  animation: underlineExpand 1.2s ease-out 0.8s both;
+}
+
+.qualiopi-description {
+  padding-left: 5px;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #666;
+  margin: 20px 0 35px 0;
+  animation: fadeInText 1s ease-out 0.2s both;
+  font-style: italic;
+}
+
+.qualiopi-banner {
+  margin: 40px 0;
+  animation: fadeInDown 1s ease-out 0.3s both;
+}
+
+.qualiopi-logo {
+  max-width: 100%;
+  height: auto;
+  max-height: 200px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qualiopi-logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.qualiopi-text {
+  padding-left: 5px;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
+  margin: 25px 0 40px 0;
+  animation: fadeInText 1s ease-out 0.4s both;
+}
+
+.qualiopi-documents {
+  padding-left: 5px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 30px;
+  flex-wrap: nowrap;
+  margin-top: 40px;
+  animation: fadeInUp 1s ease-out 0.9s both;
+}
+
+.qualiopi-doc {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: white;
+  padding: 10px;
+  max-width: 300px;
+}
+
+.qualiopi-doc::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(0, 86, 179, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.qualiopi-doc:hover::before {
+  opacity: 1;
+}
+
+.qualiopi-doc:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.qualiopi-doc img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.qualiopi-doc:hover img {
+  transform: scale(1.05);
+}
+
+.qualiopi-doc::after {
+  content: '🔍 Cliquer pour agrandir';
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+  white-space: nowrap;
+}
+
+.qualiopi-doc:hover::after {
+  opacity: 1;
+}
+
+/* Responsive design pour la section Qualiopi */
+@media (max-width: 900px) {
+  .qualiopi-container {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .qualiopi-section {
+    padding: 60px 15px;
+  }
+  
+  .qualiopi-container {
+    width: 90%;
+  }
+  
+  .qualiopi-title {
+    font-size: 2rem;
+  }
+  
+  .qualiopi-description {
+    font-size: 1rem;
+  }
+  
+  .qualiopi-documents {
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .qualiopi-doc {
+    max-width: 45%;
+    flex-shrink: 1;
+  }
+  
+  .qualiopi-logo {
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 510px) {
+  .qualiopi-container {
+    width: 95%;
+  }
+  
+  .qualiopi-title {
+    font-size: 1.8rem;
+  }
+  
+  .qualiopi-description {
+    font-size: 0.95rem;
+  }
+  
+  .qualiopi-text {
+    font-size: 1rem;
+  }
+  
+  .qualiopi-documents {
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .qualiopi-doc {
+    max-width: 48%;
+    flex-shrink: 1;
+  }
+}
+
 .formation-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
