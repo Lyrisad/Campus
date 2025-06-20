@@ -1180,7 +1180,7 @@ strong {
 
 @media (max-width: 768px) {
   .qualiopi-section {
-    padding: 60px 15px;
+    padding: 60px 0px;
   }
   
   .qualiopi-container {
