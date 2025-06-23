@@ -392,6 +392,14 @@ import {
           appointmentSection.style.display = "none";
           hideAllFormations();
           targetFormation.style.display = "flex";
+          
+          // Scroll vers le haut de la page pour voir le début de la formation
+          setTimeout(() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }, 100);
         }
       });
     });

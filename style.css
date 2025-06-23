@@ -588,6 +588,7 @@ strong {
   height: fit-content;
   position: relative;
   overflow: hidden;
+  border-bottom: #f49f42 2px solid;
 }
 
 .services-section::before {
@@ -865,26 +866,40 @@ strong {
 }
 
 .contact-section {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f9f9f9;
+  background: linear-gradient(135deg, rgba(24, 142, 200, 0.98) 0%, rgba(15, 76, 147, 0.98) 30%, rgba(48, 123, 180, 0.98) 60%, rgba(72, 149, 217, 0.98) 100%);
   width: 100%;
   height: fit-content;
   text-align: center;
+  border-bottom: #f49f42 2px solid;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)" /></svg>');
+  pointer-events: none;
 }
 
 .contact-container {
   text-align: left;
   padding: 60px 25px;
   width: 50%;
-  border-radius: 10px;
+
 }
 
 .contact-title {
   padding-left: 5px;
   font-size: 2.5rem;
-  color: #0077cc;
+  color: white;
   position: relative;
   animation: titleGlow 2s ease-in-out infinite alternate;
 }
@@ -906,7 +921,7 @@ strong {
   padding-left: 5px;
   font-size: 1.2rem;
   line-height: 1.8;
-  color: #555;
+  color: white;
   margin-bottom: 30px;
 }
 
