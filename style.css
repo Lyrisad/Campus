@@ -3489,6 +3489,46 @@ footer {
   margin-bottom: 10px;
 }
 
+#pendingClosureTable .btn-reschedule-formation {
+  background-color: #8e44ad;
+  color: white;
+  margin-bottom: 10px;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  width: 100%;
+}
+
+#pendingClosureTable .btn-reschedule-formation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+#pendingClosureTable .btn-reschedule-formation:hover::before {
+  width: 100%;
+}
+
+#pendingClosureTable .btn-reschedule-formation:hover {
+  background-color: #7d3c98;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 #pendingClosureTable .btn-close-formation {
   background-color: #f49f42;
   color: white;
@@ -3511,12 +3551,14 @@ footer {
   background-color: #0056b3;
 }
 
-#pendingClosureTable .btn-close-formation:hover {
-  background-color: #e08420;
+#pendingClosureTable .btn-reschedule-formation:hover {
+  background-color: #7d3c98;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-#pendingClosureTable .btn-delete-formation:hover {
-  background-color: #c82333;
+#pendingClosureTable .btn-close-formation:hover {
+  background-color: #e08420;
 }
 
 /* Style pour les participants dans le tableau de clôture */
@@ -6806,5 +6848,120 @@ footer {
   
   .copyright {
     font-size: 0.8rem;
+  }
+}
+
+/* Styles pour le modal de replanification */
+#rescheduleModal .modal-content {
+  max-width: 500px;
+}
+
+.reschedule-details {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.reschedule-details p {
+  margin: 5px 0;
+  font-size: 1.1em;
+}
+
+#rescheduleModal .form-group {
+  margin-bottom: 20px;
+}
+
+#rescheduleModal .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+#rescheduleModal .form-group input[type="date"] {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+#rescheduleModal .form-group input[type="date"]:focus {
+  border-color: #0077cc;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.1);
+}
+
+#rescheduleModal .modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+#rescheduleModal .modal-actions button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#rescheduleModal .submit-button {
+  background-color: #0077cc;
+  color: white;
+}
+
+#rescheduleModal .submit-button:hover {
+  background-color: #005fa3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#rescheduleModal .cancel-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+#rescheduleModal .cancel-button:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Styles responsifs pour le modal de replanification */
+@media (max-width: 768px) {
+  #rescheduleModal .modal-content {
+    max-width: 90%;
+    margin: 20px;
+  }
+  
+  #rescheduleModal .modal-actions {
+    flex-direction: column;
+  }
+  
+  #rescheduleModal .modal-actions button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  #rescheduleModal .modal-content {
+    max-width: 95%;
+    margin: 10px;
+    padding: 20px;
+  }
+  
+  .reschedule-details {
+    padding: 10px;
+  }
+  
+  .reschedule-details p {
+    font-size: 1em;
   }
 }

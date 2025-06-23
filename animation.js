@@ -9,7 +9,7 @@ import {
   
   // URL de votre Web App Google Apps Script
   const SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbxz3P0mEgaynxIRNEVkoEpOBtzy6iGhOmZs6e3CC_Iq1pq1az3-sxBfYek-M8Tubrw7iw/exec";
+    "https://script.google.com/macros/s/AKfycbyOIbX_3AxDIDbngaO8yTcdWVkcfr4dkW1SHWWwXqvzUkJQTqQ_EvS0V50OjCJUnSydvQ/exec";
   
   // ---------------------- Fonctions Utilitaires Globales ----------------------
   
@@ -3213,6 +3213,7 @@ import {
           <td>${participantsHTML || 'Aucun participant'}</td>
           <td>
             <button class="btn-edit-participants" data-id="${entry.id}" data-date="${formattedDate}" data-formation="${entry.formation}">✏️ Modifier</button>
+            <button class="btn-reschedule-formation" data-id="${entry.id}" data-date="${formattedDate}" data-formation="${entry.formation}">📅 Replanifier</button>
             <button class="btn-close-formation" data-id="${entry.id}" data-date="${formattedDate}">✅ Clôturer</button>
             <button class="btn-delete-formation" data-id="${entry.id}" data-date="${formattedDate}">🗑️ Supprimer</button>
           </td>
@@ -3254,6 +3255,16 @@ import {
           const date = e.target.getAttribute("data-date");
           const formationName = e.target.getAttribute("data-formation");
           await openEditParticipantsModal(id, formationName, date);
+        });
+      });
+
+      // Ajouter les écouteurs d'événements pour les boutons "Replanifier"
+      document.querySelectorAll(".btn-reschedule-formation").forEach((btn) => {
+        btn.addEventListener("click", async (e) => {
+          const id = e.target.getAttribute("data-id");
+          const date = e.target.getAttribute("data-date");
+          const formationName = e.target.getAttribute("data-formation");
+          await openRescheduleModal(id, formationName, date);
         });
       });
     } catch (error) {
@@ -5541,19 +5552,130 @@ import {
   // Fonction pour mettre à jour les participants dans PendingClosure
   async function updatePendingClosureParticipantsInSheet(id, date, participantsStr) {
     try {
-      const url = `${SCRIPT_URL}?action=updatePendingClosureParticipants&id=${encodeURIComponent(id)}&date=${encodeURIComponent(date)}&participants=${encodeURIComponent(participantsStr)}`;
+      const response = await fetch(`${SCRIPT_URL}?action=updatePendingClosureParticipants`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          id: id,
+          date: date,
+          participants: participantsStr
+        })
+      });
+
+      const result = await response.json();
       
+      if (result.success) {
+        showNotification("Participants mis à jour avec succès!");
+        await fetchPendingClosure(); // Rafraîchir le tableau
+      } else {
+        showNotification("Erreur lors de la mise à jour: " + result.error);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour des participants:", error);
+      showNotification("Erreur lors de la mise à jour des participants");
+    }
+  }
+  
+  // Fonction pour ouvrir le modal de replanification
+  function openRescheduleModal(id, formationName, currentDate) {
+    // Créer le modal s'il n'existe pas
+    let modal = document.getElementById("rescheduleModal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "rescheduleModal";
+      modal.className = "modal";
+      modal.innerHTML = `
+        <div class="modal-content">
+          <span class="close" id="closeRescheduleModal">&times;</span>
+          <h3>Replanifier la formation</h3>
+          <div class="reschedule-details">
+            <p><strong>Formation :</strong> <span id="rescheduleFormationName"></span></p>
+            <p><strong>Date actuelle :</strong> <span id="rescheduleCurrentDate"></span></p>
+          </div>
+          <div class="form-group">
+            <label for="newDateInput">Nouvelle date :</label>
+            <input type="date" id="newDateInput" required>
+          </div>
+          <div class="modal-actions">
+            <button id="confirmRescheduleBtn" class="submit-button">Confirmer la replanification</button>
+            <button id="cancelRescheduleBtn" class="cancel-button">Annuler</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      
+      // Ajouter les écouteurs d'événements pour fermer le modal
+      document.getElementById("closeRescheduleModal").addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+      
+      document.getElementById("cancelRescheduleBtn").addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+      
+      // Fermer le modal en cliquant à l'extérieur
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+      
+      // Gestionnaire pour le bouton de confirmation
+      document.getElementById("confirmRescheduleBtn").addEventListener("click", async () => {
+        const newDateInput = document.getElementById("newDateInput");
+        const newDate = newDateInput.value;
+        
+        if (!newDate) {
+          showNotification("Veuillez sélectionner une nouvelle date");
+          return;
+        }
+        
+        // Convertir la date au format dd/mm/yyyy
+        const dateObj = new Date(newDate);
+        const formattedNewDate = formatDateToDDMMYYYY(dateObj);
+        
+        await rescheduleFormation(id, currentDate, formattedNewDate);
+      });
+    }
+    
+    // Remplir les informations de la formation
+    document.getElementById("rescheduleFormationName").textContent = formationName;
+    document.getElementById("rescheduleCurrentDate").textContent = currentDate;
+    
+    // Définir la date minimale à aujourd'hui
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("newDateInput").min = today;
+    
+    // Afficher le modal
+    modal.style.display = "flex";
+  }
+
+  // Fonction pour replanifier une formation
+  async function rescheduleFormation(id, oldDate, newDate) {
+    try {
+      showNotification("Replanification en cours...");
+      
+      const url = `${SCRIPT_URL}?action=rescheduleFormation&id=${encodeURIComponent(id)}&oldDate=${encodeURIComponent(oldDate)}&newDate=${encodeURIComponent(newDate)}`;
       const response = await fetch(url);
       const result = await response.json();
       
-      if (!result.success) {
-        throw new Error(result.error || "Erreur lors de la mise à jour des participants");
+      if (result.success) {
+        showNotification(result.message);
+        
+        // Fermer le modal
+        document.getElementById("rescheduleModal").style.display = "none";
+        
+        // Rafraîchir les tableaux
+        await fetchPendingClosure();
+        await fetchFormations(); // Rafraîchir aussi le tableau des formations
+      } else {
+        showNotification("Erreur lors de la replanification: " + result.error);
       }
-      
-      return result;
     } catch (error) {
-      console.error("Erreur lors de la mise à jour des participants dans PendingClosure:", error);
-      throw error;
+      console.error("Erreur lors de la replanification:", error);
+      showNotification("Erreur lors de la replanification");
     }
   }
   
