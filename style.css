@@ -6579,3 +6579,232 @@ footer {
     color: #495057;
   }
 }
+
+/* Footer Styles */
+.main-footer {
+  background: linear-gradient(135deg, 
+    rgba(24, 142, 200, 0.95) 0%, 
+    rgba(15, 76, 147, 0.95) 30%, 
+    rgba(48, 123, 180, 0.95) 60%, 
+    rgba(72, 149, 217, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #ffffff;
+  padding: 3rem 0 1rem 0;
+  margin-top: 0rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 -8px 32px rgba(24, 142, 200, 0.3),
+    0 -4px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.main-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent);
+  transition: left 3s ease-in-out;
+  animation: footerShine 6s ease-in-out infinite;
+}
+
+@keyframes footerShine {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section {
+  position: relative;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+}
+
+.footer-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.05), 
+    transparent);
+  transition: left 2s ease-in-out;
+}
+
+.footer-section:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(24, 142, 200, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: rgba(244, 159, 66, 0.3);
+}
+
+.footer-section:hover::before {
+  left: 100%;
+}
+
+.footer-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #ffffff, #e3f2fd, #ffffff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 3s ease-in-out infinite;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
+}
+
+.footer-subtitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: #e3f2fd;
+  position: relative;
+  letter-spacing: 0.3px;
+}
+
+.footer-subtitle::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, #f49f42, #ffc266);
+  border-radius: 1px;
+  transition: width 0.3s ease;
+}
+
+.footer-section:hover .footer-subtitle::after {
+  width: 50px;
+}
+
+.footer-info {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.footer-info:last-child {
+  margin-bottom: 0;
+}
+
+.contact-icon {
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.copyright {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* Responsive Design for Footer */
+@media (max-width: 768px) {
+  .main-footer {
+    padding: 2rem 0 1rem 0;
+  }
+  
+  .footer-container {
+    padding: 0 1rem;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .footer-section {
+    padding: 1rem;
+  }
+  
+  .footer-title {
+    font-size: 1.3rem;
+  }
+  
+  .footer-subtitle {
+    font-size: 1rem;
+  }
+  
+  .footer-info {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-footer {
+    padding: 1.5rem 0 1rem 0;
+  }
+  
+  .footer-container {
+    padding: 0 0.8rem;
+  }
+  
+  .footer-content {
+    gap: 1rem;
+  }
+  
+  .footer-section {
+    padding: 0.8rem;
+  }
+  
+  .footer-title {
+    font-size: 1.2rem;
+  }
+  
+  .footer-info {
+    font-size: 0.85rem;
+  }
+  
+  .copyright {
+    font-size: 0.8rem;
+  }
+}
