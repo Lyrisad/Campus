@@ -375,11 +375,22 @@ import {
     const menuItems = document.querySelectorAll(".menu-item");
     const appointmentButtons = document.querySelectorAll(".goToForm");
     const adminPanel = document.getElementById("adminPanel");
+    const rgpdPage = document.getElementById("rgpdPage");
+    const footerLinks = document.querySelectorAll(".footer-link");
   
     const hideAllFormations = () => {
       formations.forEach((formation) => {
         formation.style.display = "none";
       });
+    };
+
+    const hideAllPages = () => {
+      homePage.style.display = "none";
+      appointmentSection.style.display = "none";
+      adminLogin.style.display = "none";
+      adminPanel.style.display = "none";
+      if (rgpdPage) rgpdPage.style.display = "none";
+      hideAllFormations();
     };
   
     serviceItems.forEach((item) => {
@@ -387,10 +398,7 @@ import {
         const targetId = item.id.replace("item-", "");
         const targetFormation = document.querySelector(`#${targetId}`);
         if (targetFormation) {
-          adminLogin.style.display = "none";
-          homePage.style.display = "none";
-          appointmentSection.style.display = "none";
-          hideAllFormations();
+          hideAllPages();
           targetFormation.style.display = "flex";
           
           // Scroll vers le haut de la page pour voir le début de la formation
@@ -410,16 +418,29 @@ import {
         adminLogin.style.display = "none";
         appointmentSection.style.display = "none";
         adminPanel.style.display = "none";
+        if (rgpdPage) rgpdPage.style.display = "none";
         hideAllFormations();
-        const targetSection = document.getElementById("servicesSection");
-        if (targetSection) {
-          const sectionPosition =
-            targetSection.getBoundingClientRect().top + window.scrollY;
-          const offset = window.innerHeight / 10;
-          window.scrollTo({
-            top: sectionPosition - offset,
-            behavior: "smooth",
-          });
+        
+        // Si on revient depuis la page RGPD, aller au début de la page
+        if (button.closest('#rgpdPage')) {
+          setTimeout(() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }, 100);
+        } else {
+          // Sinon, comportement normal pour les formations
+          const targetSection = document.getElementById("servicesSection");
+          if (targetSection) {
+            const sectionPosition =
+              targetSection.getBoundingClientRect().top + window.scrollY;
+            const offset = window.innerHeight / 10;
+            window.scrollTo({
+              top: sectionPosition - offset,
+              behavior: "smooth",
+            });
+          }
         }
       });
     });
@@ -435,6 +456,7 @@ import {
           hideAllFormations();
           adminLogin.style.display = "none";
           adminPanel.style.display = "none";
+          if (rgpdPage) rgpdPage.style.display = "none";
           setTimeout(() => {
             const sectionPosition =
               targetSection.getBoundingClientRect().top + window.scrollY;
@@ -455,6 +477,7 @@ import {
         homePage.style.display = "none";
         adminLogin.style.display = "none";
         adminPanel.style.display = "none";
+        if (rgpdPage) rgpdPage.style.display = "none";
       });
     });
   
@@ -469,6 +492,28 @@ import {
       hideAllFormations();
       homePage.style.display = "none";
       appointmentSection.style.display = "none";
+      if (rgpdPage) rgpdPage.style.display = "none";
+    });
+
+    // Gestion des liens du footer
+    footerLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("data-target");
+        
+        if (targetId === "rgpdPage" && rgpdPage) {
+          hideAllPages();
+          rgpdPage.style.display = "flex";
+          
+          // Scroll vers le haut de la page
+          setTimeout(() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }, 100);
+        }
+      });
     });
   }
   
