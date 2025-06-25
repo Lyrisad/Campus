@@ -2306,6 +2306,9 @@ import {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    
+    // Enregistrer le log
+    await recordLog(`Génération du document d'émargement pour "${formation.name}" du ${date}`);
   }
   
   function getUniqueEntitiesForDate(formation, date) {
@@ -2797,6 +2800,9 @@ import {
         console.error("Erreur génération convocation:", err);
       }
     }
+    
+    // Enregistrer le log
+    await recordLog(`Génération de ${participants.length} convocation(s) pour "${formation.name}" du ${date}`);
   }
   
   async function downloadAllEval(formation, date) {
@@ -2854,6 +2860,9 @@ import {
         showNotification(`Erreur avec ${participant.nameEmployee} : ${error.message}`);
       }
     }
+    
+    // Enregistrer le log
+    await recordLog(`Génération de ${participants.length} évaluation(s) pour "${formation.name}" du ${date}`);
   }
   
   
@@ -2916,6 +2925,9 @@ import {
         );
       }
     }
+    
+    // Enregistrer le log
+    await recordLog(`Génération de ${participants.length} QCM pour "${formation.name}" du ${date}`);
   }
   
   document
@@ -3657,6 +3669,9 @@ import {
       if (result.success) {
         showNotification("Formation clôturée avec succès!");
         
+        // Enregistrer le log
+        await recordLog(`Clôture de la formation "${formationName}" du ${formationDate} (${presentParticipants.length} présents, ${absentParticipants.length} absents)`);
+        
         // Fermer le modal
         document.getElementById("closureModal").style.display = "none";
         
@@ -3806,6 +3821,9 @@ import {
       }
       
       showNotification(`${participants.length} attestation(s) générée(s) avec succès!`);
+      
+      // Enregistrer le log
+      await recordLog(`Génération de ${participants.length} attestation(s) pour la formation "${formationName}" du ${formationDate}`);
     } catch (error) {
       console.error("Erreur lors de la génération des attestations:", error);
       showNotification("Erreur lors de la génération des attestations");
@@ -5872,6 +5890,9 @@ import {
       
       if (result.success) {
         showNotification(result.message);
+        
+        // Enregistrer le log
+        await recordLog(`Replanification de formation de ${oldDate} vers ${newDate} (ID: ${id})`);
         
         // Fermer le modal
         document.getElementById("rescheduleModal").style.display = "none";

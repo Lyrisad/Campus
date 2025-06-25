@@ -2133,6 +2133,11 @@ textarea {
   background: linear-gradient(45deg, #0077cc, #00a8ff);
 }
 
+/* Bouton Toggle Logs */
+#toggleLogsTableBtn{
+  background: linear-gradient(45deg, #0077cc, #00a8ff);
+}
+
 .admin-button::before {
   content: '';
   position: absolute;
