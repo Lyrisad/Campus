@@ -960,6 +960,32 @@
 
 
       <div class="admin-container">
+        <!-- Section Logs -->
+        <div id="logsSection" style="margin-bottom: 30px;">
+          <h2 class="section-title title-logs"><span class="emoji">📋</span>Logs du système</h2>
+          <div class="logs-buttons-container">
+            <button id="refreshLogsBtn" class="admin-button">🔄 Actualiser les logs</button>
+            <button id="clearLogsBtn" class="admin-button">🗑️ Vider les logs</button>
+            <button id="toggleLogsTableBtn" class="admin-button toggle-btn">🔽 Masquer les logs</button>
+          </div>
+          <div id="logsTableContainer">
+            <table id="logsTable" border="1">
+              <thead>
+                <tr>
+                  <th class="ID-LOG">ID</th>
+                  <th>Date</th>
+                  <th>Heure</th>
+                  <th>Action</th>
+                  <th>IP</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Dynamic rows will be added here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         <h2 class="section-title title-formations"><span class="emoji">📊</span>Gestion des Formations</h2>
         <div class="admin-buttons-container">
           <button id="addFormationButton" class="admin-button">➕ Ajouter une Formation</button>

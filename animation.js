@@ -9,9 +9,35 @@ import {
   
   // URL de votre Web App Google Apps Script
   const SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbyOIbX_3AxDIDbngaO8yTcdWVkcfr4dkW1SHWWwXqvzUkJQTqQ_EvS0V50OjCJUnSydvQ/exec";
+    "https://script.google.com/macros/s/AKfycbyUYWtAq_lVY3QdDfhbz6JIhahOhi-zuiPI9lQgS0P5_X6TN2-6Bvy2NqmikLQtwY2qtg/exec";
   
   // ---------------------- Fonctions Utilitaires Globales ----------------------
+  
+  // Fonction pour obtenir l'adresse IP utilisateur
+  async function getUserIP() {
+    try {
+      const response = await fetch('https://api.ipify.org?format=json');
+      const data = await response.json();
+      return data.ip;
+    } catch (error) {
+      console.warn('Impossible d\'obtenir l\'IP utilisateur:', error);
+      return 'IP non disponible';
+    }
+  }
+  
+  // Fonction utilitaire pour enregistrer un log
+  async function recordLog(action) {
+    try {
+      const userIp = await getUserIP();
+      const logResponse = await fetch(`${SCRIPT_URL}?action=addLog&logAction=${encodeURIComponent(action)}&userIp=${encodeURIComponent(userIp)}`);
+      const logResult = await logResponse.json();
+      if (!logResult.success) {
+        console.warn('Erreur lors de l\'enregistrement du log:', logResult.error);
+      }
+    } catch (error) {
+      console.warn('Erreur lors de l\'enregistrement du log:', error);
+    }
+  }
   
   // Fonction de synchronisation complète des données
   async function syncAllData() {
@@ -572,9 +598,114 @@ import {
     const validUsername = "CampusCandor";
     const validPassword = "CC1234!";
   
-    let formationsData = [];
+        let formationsData = [];
     let pendingRequests = [];
-  
+    let logsData = [];
+
+    // --- Gestion des logs ---
+    const fetchLogs = async () => {
+      try {
+        const response = await fetch(`${SCRIPT_URL}?action=readLogs`);
+        const responseJson = await response.json();
+        if (!responseJson || !responseJson.values) {
+          logsData = [];
+          renderLogs();
+          return;
+        }
+        logsData = responseJson.values.map((row) => ({
+          id: row.id,
+          date: row.date,
+          heure: row.heure,
+          action: row.action,
+          ip: row.ip
+        }));
+        
+        // Trier les logs par ID décroissant (plus récent en premier)
+        logsData.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+        
+        renderLogs();
+      } catch (error) {
+        console.error("Erreur lors de la récupération des logs :", error.message);
+      }
+    };
+
+    const renderLogs = () => {
+      const logsTableBody = document.querySelector("#logsTable tbody");
+      if (!logsTableBody) return;
+      
+      logsTableBody.innerHTML = "";
+      
+      logsData.forEach((log) => {
+        const row = document.createElement("tr");
+        
+        // Déterminer la classe CSS pour l'action
+        let actionClass = "log-action";
+        if (log.action.toLowerCase().includes("création") || log.action.toLowerCase().includes("ajout")) {
+          actionClass += " creation";
+        } else if (log.action.toLowerCase().includes("modification") || log.action.toLowerCase().includes("mise à jour")) {
+          actionClass += " modification";
+        } else if (log.action.toLowerCase().includes("suppression") || log.action.toLowerCase().includes("supprimé")) {
+          actionClass += " suppression";
+        } else if (log.action.toLowerCase().includes("connexion") || log.action.toLowerCase().includes("login")) {
+          actionClass += " connexion";
+        }
+        
+        // Formater la date et l'heure
+        const formattedDate = formatLogDate(log.date);
+        const formattedTime = formatLogTime(log.heure);
+        
+        row.innerHTML = `
+          <td data-label="ID" class="log-id">${log.id}</td>
+          <td data-label="Date" class="log-date">${formattedDate}</td>
+          <td data-label="Heure" class="log-time">${formattedTime}</td>
+          <td data-label="Action" class="${actionClass}">${log.action}</td>
+          <td data-label="IP" class="log-ip">${log.ip}</td>
+        `;
+        logsTableBody.appendChild(row);
+      });
+    };
+
+    const clearLogs = async () => {
+      try {
+        const confirmed = await customConfirm("Êtes-vous sûr de vouloir vider tous les logs ? Cette action est irréversible.");
+        if (confirmed) {
+          const response = await fetch(`${SCRIPT_URL}?action=clearLogs`);
+          const result = await response.json();
+          if (result.success) {
+            await fetchLogs();
+            showNotificationWithIcon("Logs vidés avec succès", "success");
+          } else {
+            showNotificationWithIcon("Erreur lors du vidage des logs", "error");
+          }
+        }
+      } catch (error) {
+        console.error("Erreur lors du vidage des logs :", error.message);
+        showNotificationWithIcon("Erreur lors du vidage des logs", "error");
+      }
+    };
+
+    // Initialisation des boutons de logs
+    const refreshLogsBtn = document.getElementById("refreshLogsBtn");
+    const clearLogsBtn = document.getElementById("clearLogsBtn");
+    const toggleLogsTableBtn = document.getElementById("toggleLogsTableBtn");
+    const logsTableContainer = document.getElementById("logsTableContainer");
+
+    if (refreshLogsBtn) {
+      refreshLogsBtn.addEventListener("click", fetchLogs);
+    }
+
+    if (clearLogsBtn) {
+      clearLogsBtn.addEventListener("click", clearLogs);
+    }
+
+    if (toggleLogsTableBtn && logsTableContainer) {
+      toggleLogsTableBtn.addEventListener("click", () => {
+        const isVisible = logsTableContainer.style.display !== "none";
+        logsTableContainer.style.display = isVisible ? "none" : "block";
+        toggleLogsTableBtn.textContent = isVisible ? "🔽 Afficher les logs" : "🔼 Masquer les logs";
+      });
+    }
+
     const showError = (message) => {
       errorMessage.textContent = message;
       errorMessage.style.color = "red";
@@ -671,6 +802,9 @@ import {
         const response = await fetch(url);
         const result = await response.json();
         await fetchFormations();
+        
+        // Enregistrer le log
+        await recordLog(`Création de la formation "${name}" (ID: ${newId})`);
       } catch (error) {
         console.error("Erreur lors de l'ajout de la formation :", error.message);
       }
@@ -684,6 +818,9 @@ import {
         const response = await fetch(url);
         const result = await response.json();
         await fetchFormations();
+        
+        // Enregistrer le log
+        await recordLog(`Modification de la formation "${name}" (ID: ${id})`);
       } catch (error) {
         console.error(
           "Erreur lors de la mise à jour de la formation :",
@@ -694,10 +831,17 @@ import {
   
     const deleteFormationFromSheet = async (id) => {
       try {
+        // Récupérer le nom de la formation avant suppression
+        const formation = formationsData.find(f => f.id === id);
+        const formationName = formation ? formation.name : `ID ${id}`;
+        
         const url = `${SCRIPT_URL}?action=delete&id=${id}`;
         const response = await fetch(url);
         const result = await response.json();
         await fetchFormations();
+        
+        // Enregistrer le log
+        await recordLog(`Suppression de la formation "${formationName}" (ID: ${id})`);
       } catch (error) {
         console.error(
           "Erreur lors de la suppression de la formation :",
@@ -976,6 +1120,9 @@ import {
           await fetchPendingRequests();
           await fetchFormations();
           showNotification("✅ Vous venez d'accepter la demande");
+          
+          // Enregistrer le log
+          await recordLog(`Acceptation de la demande de formation (ID: ${id})`);
         } else {
           throw new Error(result.error || "Erreur lors de l'acceptation");
         }
@@ -996,6 +1143,9 @@ import {
         if (result.success) {
           await fetchPendingRequests();
           showNotification("🗑️ Vous avez rejeté la demande");
+          
+          // Enregistrer le log
+          await recordLog(`Refus de la demande de formation (ID: ${id})`);
         } else {
           throw new Error(result.error || "Erreur lors du refus");
         }
@@ -1033,6 +1183,9 @@ import {
     if (getCookie("adminAuth") === "true") {
       fetchFormations();
       fetchPendingRequests();
+      fetchLogs();
+      // Enregistrer un log de connexion automatique
+      recordLog("Connexion administrateur automatique (cookie)");
     }
   
     submitLogin.addEventListener("click", () => {
@@ -1045,6 +1198,9 @@ import {
         document.getElementById("adminPanel").style.display = "flex";
         fetchFormations();
         fetchPendingRequests();
+        fetchLogs();
+        // Enregistrer un log de connexion manuelle
+        recordLog(`Connexion administrateur manuelle (utilisateur: ${username})`);
       } else {
         showError("Identifiant ou mot de passe incorrect.");
       }
@@ -5729,6 +5885,76 @@ import {
     } catch (error) {
       console.error("Erreur lors de la replanification:", error);
       showNotification("Erreur lors de la replanification");
+    }
+  }
+  
+  // ---------------------- Fonctions Utilitaires Globales ----------------------
+  
+  // Fonction pour formater une date en dd/MM/yyyy
+  function formatLogDate(dateValue) {
+    try {
+      // Si c'est déjà au bon format, on le retourne tel quel
+      if (typeof dateValue === 'string' && /^\d{2}\/\d{2}\/\d{4}$/.test(dateValue)) {
+        return dateValue;
+      }
+      
+      // Sinon, essayer de parser et reformater
+      let date;
+      if (dateValue instanceof Date) {
+        date = dateValue;
+      } else {
+        date = new Date(dateValue);
+      }
+      
+      if (isNaN(date.getTime())) {
+        return dateValue; // Retourner la valeur originale si ce n'est pas une date valide
+      }
+      
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      
+      return `${day}/${month}/${year}`;
+    } catch (error) {
+      console.warn('Erreur lors du formatage de la date:', error);
+      return dateValue;
+    }
+  }
+  
+  // Fonction pour formater une heure en HHhMMmSSs
+  function formatLogTime(timeValue) {
+    try {
+      // Si c'est déjà au bon format (contient 'h', 'm', 's'), on le retourne tel quel
+      if (typeof timeValue === 'string' && timeValue.includes('h') && timeValue.includes('m') && timeValue.includes('s')) {
+        return timeValue;
+      }
+      
+      // Si c'est au format HH:mm:ss
+      if (typeof timeValue === 'string' && /^\d{2}:\d{2}:\d{2}$/.test(timeValue)) {
+        const parts = timeValue.split(':');
+        return `${parts[0]}h${parts[1]}m${parts[2]}s`;
+      }
+      
+      // Si c'est un objet Date
+      let date;
+      if (timeValue instanceof Date) {
+        date = timeValue;
+      } else {
+        date = new Date(timeValue);
+      }
+      
+      if (isNaN(date.getTime())) {
+        return timeValue; // Retourner la valeur originale si ce n'est pas une date valide
+      }
+      
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+      
+      return `${hours}h${minutes}m${seconds}s`;
+    } catch (error) {
+      console.warn('Erreur lors du formatage de l\'heure:', error);
+      return timeValue;
     }
   }
   

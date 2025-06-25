@@ -4465,6 +4465,10 @@ footer {
   background: linear-gradient(to right, #ff416c, #ff4b2b);
 }
 
+.title-logs::after {
+  background: linear-gradient(135deg, #6c757d, #495057);
+}
+
 /* Suppression des styles existants qui pourraient entrer en conflit */
 .admin-container h2,
 #pendingRequests h3,
@@ -6631,9 +6635,11 @@ footer {
   }
   
   #editParticipantsTable tbody td::before {
-    content: attr(data-label) ': ';
+    content: attr(data-label) ": ";
     font-weight: bold;
     color: #495057;
+    display: inline-block;
+    width: 80px;
   }
 }
 
@@ -7253,5 +7259,216 @@ footer {
   .rgpd-intro {
     padding: 15px;
     font-size: 1rem;
+  }
+}
+
+/* ===== LOGS SECTION STYLES ===== */
+#logsSection {
+  width: 95%;
+  margin: 20px auto 30px auto;
+  padding: 25px;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+#logsSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(135deg, #6c757d, #495057);
+}
+
+.logs-buttons-container {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+#logsTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin-top: 20px;
+}
+
+#logsTable thead {
+  background: linear-gradient(135deg, #6c757d, #495057);
+}
+
+#logsTable thead th {
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding: 15px 12px;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+#logsTable th,
+#logsTable td {
+  border: none;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+#logsTable tbody tr {
+  transition: all 0.3s ease;
+}
+
+#logsTable tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+#logsTable tbody tr:hover {
+  background-color: #e9ecef;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#logsTable .ID-LOG {
+  width: 80px;
+  text-align: center;
+}
+
+#logsTable tbody td {
+  color: #333;
+  font-size: 0.9rem;
+}
+
+#logsTable tbody tr:hover td {
+  color: #000;
+}
+
+.log-action {
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.log-action.creation {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.log-action.modification {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.log-action.suppression {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.log-action.connexion {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.log-ip {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.log-time {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #495057;
+}
+
+.log-date {
+  font-weight: 500;
+  color: #495057;
+}
+
+#refreshLogsBtn {
+  background: linear-gradient(45deg, #28a745, #20c997) !important;
+}
+
+#refreshLogsBtn:hover {
+  background: linear-gradient(45deg, #20c997, #28a745) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+}
+
+#clearLogsBtn {
+  background: linear-gradient(45deg, #dc3545, #c82333) !important;
+}
+
+#clearLogsBtn:hover {
+  background: linear-gradient(45deg, #c82333, #dc3545) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
+}
+
+@media (max-width: 768px) {
+  #logsSection {
+    padding: 20px 15px;
+    margin: 15px auto 25px auto;
+  }
+  
+  .logs-buttons-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #logsTable {
+    font-size: 0.8rem;
+  }
+  
+  #logsTable th,
+  #logsTable td {
+    padding: 8px 10px;
+  }
+  
+  .log-action {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  #logsTable thead {
+    display: none;
+  }
+  
+  #logsTable tbody tr {
+    display: block;
+    border: 1px solid #dee2e6;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  #logsTable tbody td {
+    display: block;
+    text-align: left !important;
+    padding: 10px 15px;
+    border-bottom: 1px solid #f1f3f4;
+  }
+  
+  #logsTable tbody td::before {
+    content: attr(data-label) ": ";
+    font-weight: bold;
+    color: #495057;
+    display: inline-block;
+    width: 80px;
+  }
+  
+  #logsTable tbody td:last-child {
+    border-bottom: none;
   }
 }
