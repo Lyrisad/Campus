@@ -635,6 +635,7 @@ import {
       
       logsTableBody.innerHTML = "";
       
+      // Afficher tous les logs
       logsData.forEach((log) => {
         const row = document.createElement("tr");
         
@@ -700,9 +701,16 @@ import {
 
     if (toggleLogsTableBtn && logsTableContainer) {
       toggleLogsTableBtn.addEventListener("click", () => {
-        const isVisible = logsTableContainer.style.display !== "none";
-        logsTableContainer.style.display = isVisible ? "none" : "block";
-        toggleLogsTableBtn.textContent = isVisible ? "🔽 Afficher les logs" : "🔼 Masquer les logs";
+        const logsTable = document.getElementById("logsTable");
+        const isVisible = logsTable.classList.contains("show");
+        
+        if (isVisible) {
+          logsTable.classList.remove("show");
+          toggleLogsTableBtn.textContent = "🔽 Afficher les logs";
+        } else {
+          logsTable.classList.add("show");
+          toggleLogsTableBtn.textContent = "🔼 Masquer les logs";
+        }
       });
     }
 
@@ -1203,6 +1211,8 @@ import {
         recordLog(`Connexion administrateur manuelle (utilisateur: ${username})`);
       } else {
         showError("Identifiant ou mot de passe incorrect.");
+        // Enregistrer un log de tentative de connexion échouée
+        recordLog(`Tentative de connexion échouée (utilisateur: ${username || 'non renseigné'})`);
       }
     });
   
@@ -4369,6 +4379,9 @@ import {
         // Rafraîchir la liste des tâches
         await fetchTasks();
         
+        // Enregistrer un log d'ajout de tâche
+        recordLog(`Ajout de tâche: "${description}" pour ${concerne} (importance: ${importance})`);
+        
         // Afficher une notification de succès avec une petite animation
         const taskCard = document.querySelector(".task-card");
         if (taskCard) {
@@ -4423,6 +4436,12 @@ import {
         btn.addEventListener("click", async (e) => {
           const id = e.target.getAttribute("data-id");
           try {
+            // Récupérer les informations de la tâche avant de la modifier
+            const taskCard = e.target.closest('.task-card');
+            const taskTitle = taskCard.querySelector('.task-title').textContent;
+            const taskDescription = taskCard.querySelector('.task-description').textContent;
+            const taskImportance = taskCard.querySelector('.task-badge').textContent;
+            
             const response = await fetch(
               `${SCRIPT_URL}?action=updateTaskState&id=${id}&etat=Accomplie`
             );
@@ -4432,6 +4451,9 @@ import {
                 "Erreur lors de la mise à jour de l'état de la tâche: " +
                   result.error
               );
+            } else {
+              // Enregistrer un log d'accomplissement de tâche
+              recordLog(`Tâche accomplie: "${taskDescription}" pour ${taskTitle} (importance: ${taskImportance})`);
             }
             await fetchTasks();
             await fetchTasksHistory();
@@ -4446,7 +4468,18 @@ import {
         btn.addEventListener("click", async (e) => {
           showNotification("Veuillez patienter.. Suppression de tâche en cours.");
           const id = e.target.getAttribute("data-id");
+          
+          // Récupérer les informations de la tâche avant de la supprimer
+          const taskCard = e.target.closest('.task-card');
+          const taskTitle = taskCard.querySelector('.task-title').textContent;
+          const taskDescription = taskCard.querySelector('.task-description').textContent;
+          const taskImportance = taskCard.querySelector('.task-badge').textContent;
+          
           await deleteTask(id);
+          
+          // Enregistrer un log de suppression de tâche
+          recordLog(`Tâche supprimée: "${taskDescription}" pour ${taskTitle} (importance: ${taskImportance})`);
+          
           await fetchTasks();
           setTimeout(() => {
             showNotification("Tâche supprimée avec succès !");
@@ -4493,7 +4526,18 @@ import {
         .forEach((btn) => {
           btn.addEventListener("click", async (e) => {
             const id = e.target.getAttribute("data-id");
+            
+            // Récupérer les informations de la tâche avant de la supprimer
+            const taskCard = e.target.closest('.task-card');
+            const taskTitle = taskCard.querySelector('.task-title').textContent;
+            const taskDescription = taskCard.querySelector('.task-description').textContent;
+            const taskImportance = taskCard.querySelector('.task-badge').textContent;
+            
             await deleteTask(id);
+            
+            // Enregistrer un log de suppression de tâche de l'historique
+            recordLog(`Tâche supprimée de l'historique: "${taskDescription}" pour ${taskTitle} (importance: ${taskImportance})`);
+            
             await fetchTasksHistory();
           });
         });
@@ -4530,6 +4574,9 @@ import {
         const result = await response.json();
         
         if (result.success) {
+          // Enregistrer un log d'effacement de l'historique
+          recordLog("Effacement complet de l'historique des tâches accomplies");
+          
           await fetchTasksHistory();
           showNotification("L'historique des tâches a été effacé avec succès.");
         } else {
