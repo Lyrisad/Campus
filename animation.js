@@ -2514,7 +2514,7 @@ import {
   // 3) Définir les coûts unitaires
   const formationHeures = getHeures(formation.name);
   const costParParticipant = formationHeures === "7" ? 210.0 : 105.0;
-  const costParRepas = 20.0;          // 20€ par repas
+  const costParRepas = 30.0;          // 30€ par repas
   const costParKm = 0.6;              // 0.60€ par km
   const trainerMeal = 1;              // 1 repas pour le formateur
   
