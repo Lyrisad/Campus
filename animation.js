@@ -2513,8 +2513,28 @@ import {
   
   // 3) Définir les coûts unitaires
   const formationHeures = getHeures(formation.name);
-  const costParParticipant = formationHeures === "7" ? 210.0 : 105.0;
-  const costParRepas = 30.0;          // 30€ par repas
+  // Tarifs par code formation (HT / participant)
+  const formationCodeForPricing = getFormationCode(formation.name);
+  const priceByFormation = {
+    // 3.5 heures
+    'FOR001': 125.0,
+    'FOR002': 125.0,
+    'FOR004': 125.0, // Durée alignée à 3.5h dans la logique
+    'FOR011': 150.0,
+    'FOR012': 150.0,
+    'FOR016': 150.0,
+    'FOR018': 150.0,
+    // 7 heures
+    'FOR006': 300.0,
+    'FOR007': 300.0,
+    'FOR009': 300.0,
+    'FOR010': 300.0,
+    'JTF': 250.0
+  };
+  // Fallback conservant logique heures si code inconnu
+  const defaultCostFromHours = formationHeures === "7" ? 210.0 : 105.0;
+  const costParParticipant = priceByFormation[formationCodeForPricing] ?? defaultCostFromHours;
+  const costParRepas = 25.0;          // Prix panier repas par personne
   const costParKm = 0.6;              // 0.60€ par km
   const trainerMeal = 1;              // 1 repas pour le formateur
   
@@ -3556,7 +3576,7 @@ import {
     formationDateSpan.textContent = formatDateClient(formation.date);
     
     // Définir les horaires par défaut en fonction du nom de la formation
-    const halfDayFormations = ["FOR001", "FOR002", "FOR011", "FOR012", "FOR016", "FOR018"];
+    const halfDayFormations = ["FOR001", "FOR002", "FOR004", "FOR011", "FOR012", "FOR016", "FOR018"];
     const isHalfDay = halfDayFormations.some(code => formation.formation.includes(code));
     
     startTimeInput.value = "09:00";
@@ -4739,7 +4759,7 @@ import {
     const hoursByFormation = {
       'FOR001': 3.5,
       'FOR002': 3.5,
-      'FOR004': 7,  // Peut être 3.5 ou 7, on prend 7 par défaut
+      'FOR004': 3.5,
       'FOR006': 7,
       'FOR007': 7,
       'FOR009': 7,
@@ -4748,7 +4768,7 @@ import {
       'FOR012': 3.5,
       'FOR016': 3.5,
       'FOR018': 3.5,
-      'JTF': 7      // Généralement FOR001 + FOR002
+      'JTF': 7
     };
     
     // Retourner la durée correspondante ou 3.5 par défaut
