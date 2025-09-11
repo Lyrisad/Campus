@@ -9,7 +9,7 @@ import {
   
   // URL de votre Web App Google Apps Script
   const SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbz44cjENXhEZU-TEJEGgGUmUCMkzn_G46AUKvg_pa97wnd6fLjlFxaz1xkV--Wtz8J-qA/exec";
+    "https://script.google.com/macros/s/AKfycbyej0hnyBIk8LZPCTkdBlwTxSRatAeAYB4L1GMQxXRn1918NXy-jIlEUJEEcSmn0btEYg/exec";
   
   // ---------------------- Fonctions Utilitaires Globales ----------------------
   
@@ -1269,6 +1269,121 @@ import {
       }
     });
   
+    // --- Tarifs (formations & repas) ---
+    const openTarifsModalBtn = document.getElementById('openTarifsModalBtn');
+    const tarifsModal = document.getElementById('tarifsModal');
+    const closeTarifsModal = document.getElementById('closeTarifsModal');
+    const tarifFormationCode = document.getElementById('tarifFormationCode');
+    const tarifFormationPrix = document.getElementById('tarifFormationPrix');
+    const saveTarifFormationBtn = document.getElementById('saveTarifFormationBtn');
+    const tarifRepasStagiaire = document.getElementById('tarifRepasStagiaire');
+    const tarifRepasFormateur = document.getElementById('tarifRepasFormateur');
+    const saveTarifRepasBtn = document.getElementById('saveTarifRepasBtn');
+
+    if (openTarifsModalBtn && tarifsModal) {
+      openTarifsModalBtn.addEventListener('click', async () => {
+        tarifsModal.style.display = 'block';
+        await refreshTarifsUI();
+      });
+    }
+    if (closeTarifsModal && tarifsModal) {
+      closeTarifsModal.addEventListener('click', () => {
+        tarifsModal.style.display = 'none';
+      });
+      window.addEventListener('click', (event) => {
+        if (event.target === tarifsModal) {
+          tarifsModal.style.display = 'none';
+        }
+      });
+    }
+
+    async function refreshTarifsUI() {
+      try {
+        TARIFS_CACHE = null; // force reload
+        await ensureTarifsLoaded();
+        // Populate repas inputs
+        if (TARIFS_CACHE && TARIFS_CACHE.mealPrices) {
+          if (tarifRepasStagiaire) tarifRepasStagiaire.value = Number(TARIFS_CACHE.mealPrices.stagiaire || 0).toFixed(2);
+          if (tarifRepasFormateur) tarifRepasFormateur.value = Number(TARIFS_CACHE.mealPrices.formateur || 0).toFixed(2);
+        }
+        // For formation code currently selected, populate price if exists
+        if (tarifFormationCode && tarifFormationPrix) {
+          const code = tarifFormationCode.value;
+          const price = TARIFS_CACHE && TARIFS_CACHE.formationPrices ? TARIFS_CACHE.formationPrices[code] : undefined;
+          tarifFormationPrix.value = price != null ? Number(price).toFixed(2) : '';
+        }
+      } catch (e) {
+        console.error('Erreur refreshTarifsUI:', e);
+      }
+    }
+
+    if (tarifFormationCode) {
+      tarifFormationCode.addEventListener('change', () => {
+        const code = tarifFormationCode.value;
+        const price = TARIFS_CACHE && TARIFS_CACHE.formationPrices ? TARIFS_CACHE.formationPrices[code] : undefined;
+        tarifFormationPrix.value = price != null ? Number(price).toFixed(2) : '';
+      });
+    }
+
+    if (saveTarifFormationBtn && tarifFormationCode && tarifFormationPrix) {
+      saveTarifFormationBtn.addEventListener('click', async () => {
+        const code = (tarifFormationCode.value || '').trim();
+        const price = parseFloat((tarifFormationPrix.value || '').replace(',', '.'));
+        if (!code || isNaN(price)) {
+          showNotificationWithIcon('Code ou prix invalide', 'error');
+          return;
+        }
+        try {
+          const url = `${SCRIPT_URL}?action=updateTarifFormation&code=${encodeURIComponent(code)}&price=${encodeURIComponent(price)}`;
+          const res = await fetch(url);
+          const data = await res.json();
+          if (data && data.success) {
+            showNotificationWithIcon('Tarif formation enregistré', 'success');
+            await refreshTarifsUI();
+            // Mettre à jour l'affichage des tarifs dans les pages formations
+            if (TARIFS_CACHE && TARIFS_CACHE.formationPrices) {
+              updateDisplayedPrices(TARIFS_CACHE.formationPrices);
+            }
+          } else {
+            showNotificationWithIcon('Erreur lors de l\'enregistrement', 'error');
+          }
+        } catch (e) {
+          console.error('Erreur updateTarifFormation:', e);
+          showNotificationWithIcon('Erreur réseau', 'error');
+        }
+      });
+    }
+
+    if (saveTarifRepasBtn && tarifRepasStagiaire && tarifRepasFormateur) {
+      saveTarifRepasBtn.addEventListener('click', async () => {
+        const stag = parseFloat((tarifRepasStagiaire.value || '').replace(',', '.'));
+        const form = parseFloat((tarifRepasFormateur.value || '').replace(',', '.'));
+        if (isNaN(stag) || isNaN(form)) {
+          showNotificationWithIcon('Valeurs de repas invalides', 'error');
+          return;
+        }
+        try {
+          const url = `${SCRIPT_URL}?action=updateTarifRepas&repasStagiaire=${encodeURIComponent(stag)}&repasFormateur=${encodeURIComponent(form)}`;
+          const res = await fetch(url);
+          const data = await res.json();
+          if (data && data.success) {
+            showNotificationWithIcon('Tarifs repas enregistrés', 'success');
+            await refreshTarifsUI();
+          } else {
+            showNotificationWithIcon('Erreur lors de l\'enregistrement', 'error');
+          }
+        } catch (e) {
+          console.error('Erreur updateTarifRepas:', e);
+          showNotificationWithIcon('Erreur réseau', 'error');
+        }
+      });
+    }
+
+    // On admin login or load, populate tariffs UI
+    if (getCookie("adminAuth") === "true") {
+      // Lazy load into modal when opened
+    }
+
     // Gestion du bouton toggle pour le tableau des formations
     const toggleFormationsTableBtn = document.getElementById('toggleFormationsTableBtn');
     const formationsTableContainer = document.getElementById('formationsTableContainer');
@@ -2378,6 +2493,52 @@ import {
     }
   }
   
+  // === Chargement dynamique des tarifs (formations + repas) depuis Apps Script ===
+  let TARIFS_CACHE = null;
+  async function ensureTarifsLoaded() {
+    if (TARIFS_CACHE) return;
+    try {
+      const res = await fetch(`${SCRIPT_URL}?action=readTarifs`);
+      const data = await res.json();
+      if (data && data.success) {
+        TARIFS_CACHE = {
+          formationPrices: data.formationPrices || {},
+          mealPrices: data.mealPrices || { stagiaire: 0, formateur: 0 },
+        };
+        try { updateDisplayedPrices(TARIFS_CACHE.formationPrices); } catch (e) {}
+      } else {
+        TARIFS_CACHE = { formationPrices: {}, mealPrices: { stagiaire: 0, formateur: 0 } };
+      }
+    } catch (e) {
+      console.error('Erreur lecture tarifs:', e);
+      TARIFS_CACHE = { formationPrices: {}, mealPrices: { stagiaire: 0, formateur: 0 } };
+    }
+  }
+
+  function updateDisplayedPrices(formationPrices) {
+    if (!formationPrices) return;
+    const updateOne = (code, price) => {
+      if (!code || price == null) return;
+      const id = code === 'JTF' ? 'JTF' : `for${code.slice(3).toLowerCase()}`;
+      const container = document.getElementById(id);
+      if (!container) return;
+      const h2s = Array.from(container.querySelectorAll('h2'));
+      const tarifsH2 = h2s.find(h => h.textContent.trim().toLowerCase() === 'tarifs');
+      if (!tarifsH2) return;
+      let p = tarifsH2.nextElementSibling;
+      while (p && p.tagName !== 'P') p = p.nextElementSibling;
+      if (!p) return;
+      const ht = Number(price);
+      const ttc = Math.round(ht * 1.2);
+      const htDisplay = (Math.round(ht) === ht ? ht.toFixed(0) : ht.toFixed(2)).replace('.', ',');
+      const ttcDisplay = ttc.toFixed(0);
+      p.innerHTML = `Le tarif de la formation est de <strong>${htDisplay} €</strong> HT soit <strong>${ttcDisplay} €</strong> TTC /participant.`;
+    };
+    Object.entries(formationPrices).forEach(([code, price]) => updateOne(code, price));
+  }
+
+  document.addEventListener('DOMContentLoaded', () => { try { ensureTarifsLoaded(); } catch(e){} });
+
   async function downloadConventionDocForEntity(
     formation,
     trainer,
@@ -2511,30 +2672,16 @@ import {
   const distanceTrajet = parseFloat(trainer.distanceInput) || 0;
   const tarifSalleInitial = parseFloat(trainer.tarifSalle) || 0;
   
-  // 3) Définir les coûts unitaires
+  // 3) Définir les coûts unitaires (dynamiques via Google Sheet)
+  await ensureTarifsLoaded();
   const formationHeures = getHeures(formation.name);
-  // Tarifs par code formation (HT / participant)
   const formationCodeForPricing = getFormationCode(formation.name);
-  const priceByFormation = {
-    // 3.5 heures
-    'FOR001': 125.0,
-    'FOR002': 125.0,
-    'FOR004': 125.0, // Durée alignée à 3.5h dans la logique
-    'FOR011': 150.0,
-    'FOR012': 150.0,
-    'FOR016': 150.0,
-    'FOR018': 150.0,
-    // 7 heures
-    'FOR006': 300.0,
-    'FOR007': 300.0,
-    'FOR009': 300.0,
-    'FOR010': 300.0,
-    'JTF': 250.0
-  };
-  // Fallback conservant logique heures si code inconnu
   const defaultCostFromHours = formationHeures === "7" ? 210.0 : 105.0;
-  const costParParticipant = priceByFormation[formationCodeForPricing] ?? defaultCostFromHours;
-  const costParRepas = 25.0;          // Prix panier repas par personne
+  const costParParticipant = (TARIFS_CACHE && TARIFS_CACHE.formationPrices && TARIFS_CACHE.formationPrices[formationCodeForPricing] != null)
+    ? Number(TARIFS_CACHE.formationPrices[formationCodeForPricing])
+    : defaultCostFromHours;
+  const costRepasStagiaire = Number((TARIFS_CACHE && TARIFS_CACHE.mealPrices && TARIFS_CACHE.mealPrices.stagiaire) || 0);
+  const costRepasFormateur = Number((TARIFS_CACHE && TARIFS_CACHE.mealPrices && TARIFS_CACHE.mealPrices.formateur) || 0);
   const costParKm = 0.6;              // 0.60€ par km
   const trainerMeal = 1;              // 1 repas pour le formateur
   
@@ -2552,8 +2699,8 @@ import {
   let repasOuiOuNon = document.querySelector('input[name="repas"]:checked').value;
   console.log("Repas oui/non :", repasOuiOuNon);
   if (repasOuiOuNon === "oui") {
-    totalRepas = nbStagiaires * costParRepas;
-    totalRepasFormateur = trainerMeal * costParRepas;
+    totalRepas = nbStagiaires * costRepasStagiaire;
+    totalRepasFormateur = trainerMeal * costRepasFormateur;
     nombreDeRepasStagiaire = nbStagiaires;
   } else {
     totalRepas = 0;
@@ -2649,6 +2796,9 @@ import {
     TABLEAU: tableau,
     NBS: nbStagiaires,
     NBT: distanceTrajet,
+    TRAJETAR: costParKm.toFixed(2) + "€",
+    TR : costRepasStagiaire.toFixed(2) + "€",
+    RF : costRepasFormateur.toFixed(2) + "€",
     NBRS: nombreDeRepasStagiaire,
     NBRF: trainerMeal,
     // Afficher les parts réparties

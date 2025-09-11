@@ -2491,6 +2491,44 @@ textarea {
   height: fit-content;
 }
 
+/* Tarifs Modal - modern layout */
+.tarifs-modal-content {
+  max-width: 900px;
+  padding: 25px 25px 35px 25px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fbfc 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.tarifs-modal-content h3.modal2-title {
+  text-align: center;
+  margin: 10px 0 20px 0;
+  color: #0077cc;
+}
+
+.tarifs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.tarifs-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  padding: 18px 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.tarifs-card h4 {
+  margin-top: 0;
+  color: #333;
+}
+
+@media (max-width: 900px) {
+  .tarifs-grid { grid-template-columns: 1fr; }
+}
+
 .modal-content h3 {
   font-size: 1.5rem;
   color: #0077cc;

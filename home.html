@@ -361,8 +361,9 @@
         </p>
         <h2>Tarifs</h2>
         <p class="formation-description">
-          Le tarif de la formation est de <strong>125€</strong> HT soit
-          <strong>150€</strong> TTC /participant.
+          <!-- Mis à jour dynamiquement par animation.js via readTarifs -->
+          Le tarif de la formation est de <strong>—</strong> HT soit
+          <strong>—</strong> TTC /participant.
         </p>
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
@@ -404,8 +405,9 @@
         </p>
         <h2>Tarifs</h2>
         <p>
-          Le tarif de la formation est de <strong>125€</strong> HT soit
-          <strong>150€</strong> TTC /participant.
+          <!-- Mis à jour dynamiquement par animation.js via readTarifs -->
+          Le tarif de la formation est de <strong>—</strong> HT soit
+          <strong>—</strong> TTC /participant.
         </p>
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
@@ -449,8 +451,9 @@
         </p>
         <h2>Tarifs</h2>
         <p>
-          Le tarif de la formation est de <strong>125€</strong> HT soit
-          <strong>150€</strong> TTC /participant.
+          <!-- Mis à jour dynamiquement par animation.js via readTarifs -->
+          Le tarif de la formation est de <strong>—</strong> HT soit
+          <strong>—</strong> TTC /participant.
         </p>
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
@@ -488,8 +491,9 @@
         </p>
         <h2>Tarifs</h2>
         <p>
-          Le tarif de la formation est de <strong>300€</strong> HT soit
-          <strong>360€</strong> TTC /participant.
+          <!-- Mis à jour dynamiquement par animation.js via readTarifs -->
+          Le tarif de la formation est de <strong>—</strong> HT soit
+          <strong>—</strong> TTC /participant.
         </p>
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
@@ -573,8 +577,9 @@
         </p>
         <h2>Tarifs</h2>
         <p>
-          Le tarif de la formation est de <strong>300 €</strong> HT soit
-          <strong>360 €</strong> TTC /participant.
+          <!-- Mis à jour dynamiquement par animation.js via readTarifs -->
+          Le tarif de la formation est de <strong>—</strong> HT soit
+          <strong>—</strong> TTC /participant.
         </p>
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
@@ -620,8 +625,9 @@
         </p>
         <h2>Tarifs</h2>
         <p>
-          Le tarif de la formation est de <strong>300 €</strong> HT soit
-          <strong>360 €</strong> TTC /participant.
+          <!-- Mis à jour dynamiquement par animation.js via readTarifs -->
+          Le tarif de la formation est de <strong>—</strong> HT soit
+          <strong>—</strong> TTC /participant.
         </p>
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
@@ -666,8 +672,9 @@
         </p>
         <h2>Tarifs</h2>
         <p>
-          Le tarif de la formation est de <strong>150 €</strong> HT soit
-          <strong>180 €</strong> TTC /participant.
+          <!-- Mis à jour dynamiquement par animation.js via readTarifs -->
+          Le tarif de la formation est de <strong>—</strong> HT soit
+          <strong>—</strong> TTC /participant.
         </p>
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
@@ -712,8 +719,9 @@
         </p>
         <h2>Tarifs</h2>
         <p>
-          Le tarif de la formation est de <strong>150 €</strong> HT soit
-          <strong>180 €</strong> TTC /participant.
+          <!-- Mis à jour dynamiquement par animation.js via readTarifs -->
+          Le tarif de la formation est de <strong>—</strong> HT soit
+          <strong>—</strong> TTC /participant.
         </p>
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
@@ -743,7 +751,8 @@
         </p>
         <h2>Tarifs</h2>
         <p>
-          Le tarif de la formation est de <strong>150 €</strong> HT soit <strong>180 €</strong> TTC /participant.
+          <!-- Mis à jour dynamiquement par animation.js via readTarifs -->
+          Le tarif de la formation est de <strong>—</strong> HT soit <strong>—</strong> TTC /participant.
         </p>
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
@@ -773,7 +782,8 @@
         </p>
         <h2>Tarifs</h2>
         <p>
-          Le tarif de la formation est de <strong>150 €</strong> HT soit <strong>180 €</strong> TTC /participant.
+          <!-- Mis à jour dynamiquement par animation.js via readTarifs -->
+          Le tarif de la formation est de <strong>—</strong> HT soit <strong>—</strong> TTC /participant.
         </p>
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
@@ -801,7 +811,8 @@
         </p>
         <h2>Tarifs</h2>
         <p>
-          Le tarif de la formation est de <strong>250 €</strong> HT soit <strong>300 €</strong> TTC /participant.
+          <!-- Mis à jour dynamiquement par animation.js via readTarifs -->
+          Le tarif de la formation est de <strong>—</strong> HT soit <strong>—</strong> TTC /participant.
         </p>
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
@@ -989,6 +1000,7 @@
           <button id="addFormationButton" class="admin-button">➕ Ajouter une Formation</button>
           <!-- Bouton pour ouvrir le calendrier -->
           <button id="openCalendarBtn" class="admin-button calendar-btn">📅 Accéder au calendrier</button>
+          <button id="openTarifsModalBtn" class="admin-button" style="background: linear-gradient(45deg, #00b894, #00cec9);">💶 Gérer les tarifs</button>
           <button id="logoutButton" class="admin-button">🚪 Déconnexion</button>
           <!-- Bouton pour ouvrir/fermer le tableau des formations -->
           <button id="toggleFormationsTableBtn" class="admin-button toggle-btn">🔽 Masquer le tableau</button>
@@ -1032,6 +1044,54 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Modal Tarifs Formations & Repas -->
+      <div id="tarifsModal" class="modal">
+        <div class="modal-content tarifs-modal-content">
+          <span class="close" id="closeTarifsModal">&times;</span>
+          <h3 class="modal2-title">💶 Gestion des tarifs</h3>
+          <div class="tarifs-grid">
+            <div class="tarifs-card">
+              <h4>Tarifs des formations</h4>
+              <div class="form-group">
+                <label for="tarifFormationCode">Code formation</label>
+                <select id="tarifFormationCode">
+                  <option value="FOR001">FOR001</option>
+                  <option value="FOR002">FOR002</option>
+                  <option value="FOR004">FOR004</option>
+                  <option value="FOR006">FOR006</option>
+                  <option value="FOR007">FOR007</option>
+                  <option value="FOR009">FOR009</option>
+                  <option value="FOR010">FOR010</option>
+                  <option value="FOR011">FOR011</option>
+                  <option value="FOR012">FOR012</option>
+                  <option value="FOR016">FOR016</option>
+                  <option value="FOR018">FOR018</option>
+                  <option value="JTF">JTF</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="tarifFormationPrix">Prix (HT)</label>
+                <input type="number" id="tarifFormationPrix" step="0.01" min="0" placeholder="Ex: 150.00" />
+              </div>
+              <button id="saveTarifFormationBtn" class="admin-button" style="background: linear-gradient(45deg, #0077cc, #00a8ff);">💾 Enregistrer le tarif formation</button>
+            </div>
+            <div class="tarifs-card">
+              <h4>Tarifs des repas</h4>
+              <div class="form-group">
+                <label for="tarifRepasStagiaire">Repas stagiaire (HT)</label>
+                <input type="number" id="tarifRepasStagiaire" step="0.01" min="0" placeholder="Ex: 25.00" />
+              </div>
+              <div class="form-group">
+                <label for="tarifRepasFormateur">Repas formateur (HT)</label>
+                <input type="number" id="tarifRepasFormateur" step="0.01" min="0" placeholder="Ex: 25.00" />
+              </div>
+              <button id="saveTarifRepasBtn" class="admin-button" style="background: linear-gradient(45deg, #f49f42, #f7b267);">💾 Enregistrer les tarifs repas</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       
       <!-- Nouveau bloc pour les formations à clôturer -->
       <div id="pendingClosurePanel" style="margin-top: 20px;">
