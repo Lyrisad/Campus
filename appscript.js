@@ -566,6 +566,10 @@ function doGet(e) {
       return rescheduleFormation(e);
     } else if (action == "readTarifs") {
       return readTarifs();
+    } else if (action == "updateTarifFormation") {
+      return updateTarifFormation(e);
+    } else if (action == "updateTarifRepas") {
+      return updateTarifRepas(e);
     } else if (action == "readLogs") {
       return readLogs();
     } else if (action == "addLog") {
@@ -643,6 +647,93 @@ function readTarifs() {
   } catch (e) {
     return ContentService
       .createTextOutput(JSON.stringify({ success: false, error: e.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function updateTarifFormation(e) {
+  try {
+    var code = (e.parameter.code || "").toString().trim().toUpperCase();
+    var priceStr = (e.parameter.price || "").toString().trim();
+    var price = parseFloat(priceStr);
+    if (!code || isNaN(price)) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ success: false, error: "Paramètres invalides (code/price)" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName("TarifsFormations");
+    if (!sheet) {
+      sheet = ss.insertSheet("TarifsFormations");
+      sheet.appendRow(["FORMATION", "PRIX"]);
+    }
+
+    var data = sheet.getDataRange().getValues();
+    if (data.length <= 1) {
+      sheet.appendRow([code, price]);
+    } else {
+      var headers = data[0].map(function(h){ return String(h).trim().toLowerCase(); });
+      var codeIdx = headers.indexOf("formation");
+      var priceIdx = headers.indexOf("prix");
+      var updated = false;
+      for (var i = 1; i < data.length; i++) {
+        var rowCode = (data[i][codeIdx] || "").toString().trim().toUpperCase();
+        if (rowCode === code) {
+          sheet.getRange(i + 1, priceIdx + 1).setValue(price);
+          updated = true;
+          break;
+        }
+      }
+      if (!updated) {
+        sheet.appendRow([code, price]);
+      }
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: false, error: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function updateTarifRepas(e) {
+  try {
+    var stagiaireStr = (e.parameter.repasStagiaire || e.parameter.stagiaire || "").toString().trim();
+    var formateurStr = (e.parameter.repasFormateur || e.parameter.formateur || "").toString().trim();
+    var stagiaire = parseFloat(stagiaireStr);
+    var formateur = parseFloat(formateurStr);
+    if (isNaN(stagiaire) || isNaN(formateur)) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ success: false, error: "Paramètres invalides (repasStagiaire/repasFormateur)" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName("TarifRepas");
+    if (!sheet) {
+      sheet = ss.insertSheet("TarifRepas");
+      sheet.appendRow(["REPASSTAGIAIRE", "REPASFORMATEUR"]);
+    }
+
+    var lastRow = sheet.getLastRow();
+    if (lastRow < 2) {
+      sheet.appendRow([stagiaire, formateur]);
+    } else {
+      // Écrire toujours sur la première ligne de données (ligne 2)
+      sheet.getRange(2, 1).setValue(stagiaire);
+      sheet.getRange(2, 2).setValue(formateur);
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: false, error: err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 }

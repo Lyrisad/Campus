@@ -1656,7 +1656,11 @@ import {
   
     // ============ NOUVEAUX EVENT LISTENERS (appliqués aux nouveaux boutons) ============
     document.getElementById("validerFormation").addEventListener("click", () => {
-      document.getElementById("trainerModal").style.display = "flex";
+      if (isPackCE(formation.name)) {
+        openPackTrainerModal(formation, date);
+      } else {
+        document.getElementById("trainerModal").style.display = "flex";
+      }
     });
 
     document.getElementById("generateDocs").addEventListener("click", async () => {
@@ -1900,6 +1904,491 @@ import {
       showNotification("Documents genérés avec succès !");
     });
   
+  }
+
+  // Détection PACK CE (variantes : "PACK CE", "PACK-CE", "PACKCE", "CE PACK")
+  function isPackCE(name) {
+    if (!name) return false;
+    const normalized = String(name).toLowerCase().replace(/[\s_\-]/g, "");
+    return normalized.includes("packce") || normalized.includes("cepack");
+  }
+
+  // Ouvrir le modal PACK CE et initialiser les onglets/valeurs par défaut
+  function openPackTrainerModal(formation, baseDate) {
+    const modal = document.getElementById("packTrainerModal");
+    if (!modal) return;
+
+    // Préremplir Jour 1 avec la date sélectionnée (si fournie)
+    if (baseDate) {
+      try {
+        const [dd, mm, yyyy] = baseDate.split("/");
+        const iso = `${yyyy}-${mm}-${dd}`;
+        const d1 = document.getElementById("packDate1");
+        if (d1) d1.value = iso;
+      } catch (e) {}
+    }
+
+    // Auto-remplissage séquentiel J2->J9 depuis J1 (sans écraser si l'utilisateur a déjà saisi)
+    const d1El = document.getElementById("packDate1");
+    const fillSequentialDates = () => {
+      if (!d1El || !d1El.value) return;
+      const start = new Date(d1El.value); // yyyy-mm-dd
+      if (isNaN(start.getTime())) return;
+      for (let i = 2; i <= 9; i++) {
+        const dayEl = document.getElementById("packDate" + i);
+        if (!dayEl || (dayEl && dayEl.value)) continue; // ne pas écraser si déjà renseigné
+        const d = new Date(start);
+        d.setDate(d.getDate() + (i - 1));
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        dayEl.value = `${yyyy}-${mm}-${dd}`;
+      }
+    };
+    // Remplir immédiatement si J1 est déjà positionnée
+    fillSequentialDates();
+    // Et re-remplir quand J1 change (n'écrase pas les champs non vides)
+    if (d1El) {
+      // Nettoyer anciens listeners
+      const d1Clone = d1El.cloneNode(true);
+      d1El.parentNode.replaceChild(d1Clone, d1El);
+      d1Clone.addEventListener("change", fillSequentialDates);
+    }
+
+    // Gestion des onglets
+    const tabs = Array.from(document.querySelectorAll(".pack-tab"));
+    const panels = Array.from(document.querySelectorAll(".pack-day-panel"));
+    const showDay = (day) => {
+      panels.forEach((p, idx) => {
+        p.style.display = (idx + 1) === day ? "block" : "none";
+      });
+      tabs.forEach((t) => t.classList.remove("active"));
+      const current = tabs.find((t) => Number(t.getAttribute("data-day")) === day);
+      if (current) current.classList.add("active");
+    };
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const d = Number(tab.getAttribute("data-day"));
+        showDay(d);
+      });
+    });
+
+    // Bouton fermeture
+    const closeBtn = document.getElementById("closePackTrainerModal");
+    if (closeBtn) {
+      // Nettoyage d'écouteurs précédents
+      const newClose = closeBtn.cloneNode(true);
+      closeBtn.parentNode.replaceChild(newClose, closeBtn);
+      newClose.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+    }
+
+    // Génération des documents
+    const genBtn = document.getElementById("generatePackDocs");
+    if (genBtn) {
+      const newGen = genBtn.cloneNode(true);
+      genBtn.parentNode.replaceChild(newGen, genBtn);
+      newGen.addEventListener("click", async () => {
+        try {
+          await ensureTarifsLoaded();
+          await generatePackDocuments(formation, baseDate);
+          showNotification("Documents PACK CE générés avec succès !");
+          modal.style.display = "none";
+        } catch (e) {
+          console.error("Erreur génération PACK CE:", e);
+          showNotification("Erreur lors de la génération PACK CE");
+        }
+      });
+    }
+
+    // Affichage
+    modal.style.display = "flex";
+  }
+
+  function readPackDay(i) {
+    const get = (id) => document.getElementById(id + i);
+    const dateInput = get("packDate");
+    const typeSel = get("packTrainerType");
+    const nameInput = get("packTrainerName");
+    const addrInput = get("packTrainerAdress");
+    const distInput = get("packDistance");
+    const roomInput = get("packTarifSalle");
+    const mStart = get("packMorningStart");
+    const mEnd = get("packMorningEnd");
+    const aStart = get("packAfternoonStart");
+    const aEnd = get("packAfternoonEnd");
+    const repasOui = document.getElementById("packRepasOui" + i);
+    const repas = repasOui && repasOui.checked ? "oui" : "non";
+    const iso = dateInput && dateInput.value ? dateInput.value : ""; // yyyy-mm-dd
+    const dateFr = iso ? formatDateToDDMMYYYY(new Date(iso)) : ""; // dd/mm/yyyy
+    return {
+      dayIndex: i,
+      dateISO: iso,
+      dateFR: dateFr,
+      trainerType: typeSel ? typeSel.value : "Interne",
+      trainerName: nameInput ? nameInput.value.trim() : "",
+      address: addrInput ? addrInput.value.trim() : "",
+      distanceKm: Number(distInput && distInput.value ? distInput.value : 0) || 0,
+      roomFee: Number(roomInput && roomInput.value ? roomInput.value : 0) || 0,
+      morningStart: mStart ? mStart.value : "",
+      morningEnd: mEnd ? mEnd.value : "",
+      afternoonStart: aStart ? aStart.value : "",
+      afternoonEnd: aEnd ? aEnd.value : "",
+      repas: repas,
+    };
+  }
+
+  function collectPackDays() {
+    const days = [];
+    for (let i = 1; i <= 9; i++) {
+      days.push(readPackDay(i));
+    }
+    // Filtrer uniquement les jours ayant une date
+    return days.filter((d) => d.dateISO);
+  }
+
+  function formatTimeFR(hhmm) {
+    if (!hhmm) return "";
+    const [h, m] = hhmm.split(":");
+    return `${Number(h)}h${m}`;
+  }
+
+  function timeDiffHours(startHHMM, endHHMM) {
+    const [sh, sm] = startHHMM.split(":").map(Number);
+    const [eh, em] = endHHMM.split(":").map(Number);
+    const start = sh * 60 + sm;
+    const end = eh * 60 + em;
+    const diffMin = Math.max(0, end - start);
+    return diffMin / 60;
+  }
+
+  function buildLISTEDH(days) {
+    // Exemple: "JJ/MM/YYYY de 9h00 à 12h30 && 13h30 à 17h00 avec NOM"
+    const lines = days.map((d) => {
+      const parts = [];
+      if (d.morningStart && d.morningEnd) {
+        parts.push(`de ${formatTimeFR(d.morningStart)} à ${formatTimeFR(d.morningEnd)}`);
+      }
+      if (d.afternoonStart && d.afternoonEnd) {
+        parts.push(`${parts.length > 0 ? "&& " : ""}${formatTimeFR(d.afternoonStart)} à ${formatTimeFR(d.afternoonEnd)}`);
+      }
+      const hours = parts.length > 0 ? parts.join(" ") : "";
+      const withTrainer = d.trainerName ? ` avec ${d.trainerName}` : "";
+      const address = d.address ? ` - ${d.address}` : "";
+      return `${d.dateFR}${hours ? " " + hours : ""}${withTrainer}${address}`.trim();
+    });
+    return lines.join("\n");
+  }
+
+  async function generatePackDocuments(formation, baseDate) {
+    const days = collectPackDays();
+    if (days.length === 0) throw new Error("Aucune date renseignée pour le PACK CE");
+
+    const LISTEDH = buildLISTEDH(days);
+
+    // Participants et entités basés sur la date de référence (Jour 1 ou baseDate)
+    const refDate = days[0].dateFR || baseDate;
+    const participants = getParticipantsForDate(formation, refDate);
+    const totalParticipants = participants.length;
+    if (totalParticipants === 0) throw new Error("Aucun participant trouvé pour la date sélectionnée");
+
+    const uniqueEntities = getUniqueEntitiesForDate(formation, refDate);
+    const daysRepasCount = days.filter((d) => d.repas === "oui").length;
+    const totalDistanceKm = days.reduce((sum, d) => sum + (Number(d.distanceKm) || 0), 0);
+
+    // Tarifs
+    const costParKm = 0.6;
+    const costRepasStagiaire = Number((TARIFS_CACHE && TARIFS_CACHE.mealPrices && TARIFS_CACHE.mealPrices.stagiaire) || 0);
+    const costRepasFormateur = Number((TARIFS_CACHE && TARIFS_CACHE.mealPrices && TARIFS_CACHE.mealPrices.formateur) || 0);
+
+    // Cumuls
+    // Calcul prix fixe par jour avec demi-journée pour le 9e jour
+    const totalFixed = days.reduce((sum, d) => {
+      const isHalfDay = d.dayIndex === 9; // jour 9 == demi-journée
+      const full = (d.trainerType === "Interne" ? 1800 : 2400);
+      const half = (d.trainerType === "Interne" ? 900 : 1200);
+      return sum + (isHalfDay ? half : full);
+    }, 0);
+    const totalTrajet = days.reduce((sum, d) => sum + (d.distanceKm * costParKm), 0);
+    const totalTarifSalle = days.reduce((sum, d) => sum + d.roomFee, 0);
+    const totalRepasStagiaires = days.reduce((sum, d) => sum + (d.repas === "oui" ? (totalParticipants * costRepasStagiaire) : 0), 0);
+    const totalRepasFormateur = days.reduce((sum, d) => sum + (d.repas === "oui" ? costRepasFormateur : 0), 0);
+
+    // Heures totales et nombre de sessions
+    const hoursForDay = (d) => {
+      const m = (d.morningStart && d.morningEnd) ? (timeDiffHours(d.morningStart, d.morningEnd)) : 0;
+      const a = (d.afternoonStart && d.afternoonEnd) ? (timeDiffHours(d.afternoonStart, d.afternoonEnd)) : 0;
+      return m + a;
+    };
+    const totalHours = days.reduce((sum, d) => sum + hoursForDay(d), 0);
+    const nbSession = days.length; // 9 jours (dont 0.5 jour inclus via heures)
+
+    // Par entité: répartition
+    for (const entity of uniqueEntities) {
+      const entityParticipants = participants.filter(p => p.entity.trim().toLowerCase() === entity.trim().toLowerCase());
+      const countEntity = entityParticipants.length;
+      if (countEntity === 0) continue;
+
+      const shareRatio = countEntity / totalParticipants;
+      const shareFixed = totalFixed * shareRatio;
+      const shareTrajet = totalTrajet * shareRatio;
+      const shareSalle = totalTarifSalle * shareRatio;
+      const shareRepasStagiaires = totalRepasStagiaires * shareRatio;
+      const shareRepasFormateur = uniqueEntities.length > 1 ? (totalRepasFormateur / uniqueEntities.length) : totalRepasFormateur;
+
+      const totalHT = shareFixed + shareTrajet + shareSalle + shareRepasStagiaires + shareRepasFormateur;
+      const TVA = totalHT * 0.2;
+      const totalTTC = totalHT + TVA;
+
+      // Quantités pour placeholders
+      const nbRepasStagiaires = daysRepasCount * countEntity; // 0 si aucun repas
+      const nbRepasFormateur = daysRepasCount; // 1/jour si repas "oui"
+
+      await downloadConventionPackDocForEntity(
+        formation,
+        days,
+        entity,
+        {
+          LISTEDH,
+          totalParticipants,
+          countEntity,
+          nbSession,
+          totalHours,
+          totalDistanceKm,
+          shareFixed,
+          shareTrajet,
+          shareSalle,
+          shareRepasStagiaires,
+          shareRepasFormateur,
+          nbRepasStagiaires,
+          nbRepasFormateur,
+          totalHT,
+          TVA,
+          totalTTC,
+          costParKm,
+          costRepasStagiaire,
+          costRepasFormateur,
+          refDate,
+        }
+      );
+    }
+
+    // Convocations PACK pour chaque participant
+    await downloadAllPackConvocations(formation, days, LISTEDH, refDate, participants);
+
+    // Feuilles d'émargement GEN-EMAR: une par jour (avec fallback participants sur refDate)
+    for (const d of days) {
+      const trainer = {
+        type: d.trainerType,
+        name: d.trainerName,
+        adress: d.address,
+        morningStart: d.morningStart,
+        morningEnd: d.morningEnd,
+        afternoonStart: d.afternoonStart,
+        afternoonEnd: d.afternoonEnd,
+      };
+      const dayDate = d.dateFR || refDate;
+      await downloadGENEMARDocForPackDay(formation, trainer, dayDate, refDate);
+    }
+  }
+
+  async function downloadConventionPackDocForEntity(formation, days, entity, totals) {
+    const response = await fetch("Model/CONVENTION_PACK.docx");
+    if (!response.ok) {
+      alert("Erreur lors du chargement du template CONVENTION_PACK.docx");
+      return;
+    }
+    const arrayBuffer = await response.arrayBuffer();
+    const zip = new PizZip(arrayBuffer);
+    const doc = new window.docxtemplater(zip, {
+      paragraphLoop: true,
+      linebreaks: true,
+      delimiters: { start: "[", end: "]" },
+    });
+
+    // Référence convention
+    const vref = await generateConventionRef(formation, totals.refDate, entity);
+
+    // Titre formation
+    const titreFormation = getTitreFormation(formation.name);
+
+    // SIREN/SIRET par entité (réutiliser logique existante via getUniqueEntitiesForDate + mapping dans downloadConventionDocForEntity)
+    // On reprend la même logique de mappage indirecte en appelant la fonction pour forcer la génération (mais ici on reconstruit le SIREN basiquement)
+    let siretNb = "";
+    const e = entity.toLowerCase();
+    if (e === "ternett" || e === "ternet") siretNb = "324 465 921 000 82";
+    else if (e === "ernett" || e === "ernet") siretNb = "398 715 904 000 49";
+    else if (e === "eclanet" || e === "eclanett") siretNb = "322 032 491 000 27";
+    else if (e === "rie") siretNb = "403 384 035 000 16";
+    else if (e === "pratis" || e === "practis") siretNb = "88 004 978 800 024";
+    else if (e === "creabat") siretNb = "538 452 673 000 48";
+    else if (e === "groupe candor" || e === "candor") siretNb = "538 441 833 000 26";
+    else if (e === "alpha" || e === "candor alpha" || e === "candor-alpha" || e === "alpha candor") siretNb = "89 241 544 900 016";
+    else if (e === "dakin") siretNb = "34 771 182 200 085";
+    else if (e === "gamma" || e === "candor gamma") siretNb = "352 00672 0000 36";
+
+    // Préparer données tableau participants par entité pour la date de référence
+    const tableau = prepareTableauDataForEntity(formation, totals.refDate, entity);
+
+    // Objectifs de formation (PACK CE spécifiques)
+    const packObjectifs = `- L'organisation du chantier\n- Gérer les stocks et les plannings\n- Exécuter les opérations de nettoyage\n- Accueillir et intégrer un nouvel embauché\n- Faire appliquer les mesures de sécurité et d'hygiène\n- Contrôler les résultats du chantier\n- Traiter une plainte d'un client\n- Encadrer une équipe d'agents`;
+
+    // Date du jour
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const yyyy = today.getFullYear();
+    const dateOfToday = `${dd}/${mm}/${yyyy}`;
+
+    // Expiration: 10 jours avant la première date du PACK CE
+    let firstDate = null;
+    try {
+      const isoDates = days.map(d => d.dateISO).filter(Boolean).sort();
+      if (isoDates.length > 0) {
+        firstDate = new Date(isoDates[0]);
+      } else if (totals.refDate) {
+        firstDate = parseDDMMYYYY(totals.refDate);
+      }
+    } catch (e) {}
+    let expirationDateStr = "";
+    if (firstDate && !isNaN(firstDate.getTime())) {
+      const exp = new Date(firstDate);
+      exp.setDate(exp.getDate() - 10);
+      const ed = String(exp.getDate()).padStart(2, '0');
+      const em = String(exp.getMonth() + 1).padStart(2, '0');
+      const ey = exp.getFullYear();
+      expirationDateStr = `${ed}/${em}/${ey}`;
+    }
+
+    // Rendu
+    const shareKm = (totals.totalDistanceKm && totals.totalParticipants)
+      ? (totals.totalDistanceKm * (totals.countEntity / totals.totalParticipants))
+      : 0;
+
+    doc.render({
+      VREF: vref,
+      "NOM DE FORMATION": formation.name,
+      "TITRE DE FORMATION": titreFormation,
+      ENTITE: entity,
+      LISTEDH: totals.LISTEDH,
+      "NB SESSION": totals.nbSession,
+      JOUR: (totals.totalHours / 7).toFixed(1),
+      HEURES: totals.totalHours.toFixed(1),
+      CPP: (totals.shareFixed / totals.countEntity).toFixed(2) + "€",
+      NBS: totals.countEntity,
+      NBT: shareKm.toFixed(1),
+      "DATE DU JOUR": dateOfToday,
+      EXPIRATION: expirationDateStr,
+      SIREN: siretNb,
+      OBJECTIFS: packObjectifs,
+      TABLEAU: tableau,
+      // Variables unitaires pour cohérence
+      TRAJETAR: totals.costParKm.toFixed(2) + "€",
+      TR: totals.costRepasStagiaire.toFixed(2) + "€",
+      RF: totals.costRepasFormateur.toFixed(2) + "€",
+      NBRS: totals.nbRepasStagiaires,
+      NBRF: totals.nbRepasFormateur,
+      // Détails coûts partagés
+      "TARIF SALLE": totals.shareSalle.toFixed(2) + "€",
+      "TARIF TRAJET": totals.shareTrajet.toFixed(2) + "€",
+      "REPAIS STAGIAIRES": totals.shareRepasStagiaires.toFixed(2) + "€",
+      "REPAIS FORMATEUR": totals.shareRepasFormateur.toFixed(2) + "€",
+      "TOTAL HT": totals.totalHT.toFixed(2) + "€",
+      TVA: totals.TVA.toFixed(2) + "€",
+      "TOTAL TTC": totals.totalTTC.toFixed(2) + "€",
+      // Totaux bruts utiles
+      "TOTAL NBS": (totals.totalParticipants || 0).toString(),
+      "TOTAL NBT": totals.totalDistanceKm.toFixed(1),
+      "TOTAL NBRS": totals.nbRepasStagiaires.toString(),
+      "TOTAL NBRF": totals.nbRepasFormateur.toString(),
+    });
+
+    const out = doc.getZip().generate({ type: "blob" });
+    const url = URL.createObjectURL(out);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${formation.name}_${entity}_CONVENTION_PACK.docx`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  async function downloadAllPackConvocations(formation, days, LISTEDH, refDate, participants) {
+    // Essayer plusieurs variantes de chemin/nom si le premier échoue
+    const candidatePaths = [
+      "Model/CONVOCATION_PACK.docx",
+      "Model/Convocation_PACK.docx",
+      "Model/convocation_pack.docx",
+      "Model/CONVOCATION_PACK.DOCX",
+      "Model/Convocation_Pack.docx",
+    ];
+    let arrayBuffer = null;
+    let lastError = null;
+    for (const path of candidatePaths) {
+      try {
+        const res = await fetch(path);
+        if (res.ok) {
+          arrayBuffer = await res.arrayBuffer();
+          console.log("CONVOCATION template loaded:", path);
+          break;
+        } else {
+          lastError = `HTTP ${res.status} for ${path}`;
+        }
+      } catch (e) {
+        lastError = e.message || String(e);
+      }
+    }
+    if (!arrayBuffer) {
+      alert("Erreur chargement CONVOCATION_PACK (templates introuvables)\n" + (lastError || ""));
+      return;
+    }
+    const titreFormation = getTitreFormation(formation.name);
+    // Objectifs PACK CE et total d'heures
+    const packObjectifs = `- L'organisation du chantier\n- Gérer les stocks et les plannings\n- Exécuter les opérations de nettoyage\n- Accueillir et intégrer un nouvel embauché\n- Faire appliquer les mesures de sécurité et d'hygiène\n- Contrôler les résultats du chantier\n- Traiter une plainte d'un client\n- Encadrer une équipe d'agents`;
+    const totalHours = days.reduce((sum, d) => {
+      let h = 0;
+      if (d.morningStart && d.morningEnd) h += timeDiffHours(d.morningStart, d.morningEnd);
+      if (d.afternoonStart && d.afternoonEnd) h += timeDiffHours(d.afternoonStart, d.afternoonEnd);
+      return sum + h;
+    }, 0);
+
+    for (const participant of participants) {
+      // Générer et enregistrer la référence de convocation dans le Sheet
+      const vref = await generateConvocationRef(
+        participant.entity,
+        formation.name,
+        refDate,
+        participant.nameEmployee
+      );
+      const zip = new PizZip(arrayBuffer);
+      const doc = new window.docxtemplater(zip, {
+        paragraphLoop: true,
+        linebreaks: true,
+        delimiters: { start: "[", end: "]" },
+      });
+
+      doc.render({
+        "NOM/PRENOM": participant.nameEmployee,
+        ENTITE: participant.entity,
+        FORMATION: titreFormation,
+        LISTEDH: LISTEDH,
+        OBJECTIFS: packObjectifs,
+        HEURE: totalHours.toFixed(1),
+        VREF: vref || "",
+      });
+
+      const out = doc.getZip().generate({ type: "blob" });
+      const url = URL.createObjectURL(out);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `CONVOCATION_PACK_${participant.nameEmployee.replace(/\s+/g, '_')}_${refDate.replace(/\//g, '-')}.docx`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   }
   async function markAllValidatedDates() {
     const url = `${SCRIPT_URL}?action=readRefConventions`;
@@ -2145,6 +2634,65 @@ import {
     }
   
     return tableauData;
+  }
+
+  // Variante pour PACK CE: si pas de participants sur la date du jour, fallback sur la date de référence
+  function prepareTableauDataWithFallback(formation, date, fallbackDate) {
+    let data = prepareTableauData(formation, date);
+    const nonEmpty = data.some(r => (r.NOM_PRENOM || r.MATRICULE || r.ENTITE));
+    if (nonEmpty) return data;
+    if (fallbackDate) return prepareTableauData(formation, fallbackDate);
+    return data;
+  }
+
+  async function downloadGENEMARDocForPackDay(formation, trainer, date, fallbackDate) {
+    // Cette version réutilise downloadGENEMARDoc mais passe un tableau recalculé
+    // On copie downloadGENEMARDoc et on remplace prepareTableauData par withFallback
+    const response = await fetch("Model/GEN-EMAR.docx");
+    if (!response.ok) {
+      alert("Erreur lors du chargement du template");
+      return;
+    }
+    const arrayBuffer = await response.arrayBuffer();
+    const zip = new PizZip(arrayBuffer);
+    const doc = new window.docxtemplater(zip, {
+      paragraphLoop: true,
+      linebreaks: true,
+      delimiters: { start: "[", end: "]" },
+    });
+
+    const heures = getHeures(formation.name);
+    let intraInter = computeIntraInter(formation, date);
+    if ((!intraInter || intraInter === "") && fallbackDate) {
+      intraInter = computeIntraInter(formation, fallbackDate);
+    }
+    if (!intraInter) intraInter = "INTRA";
+    const morningSchedule = trainer.morningStart && trainer.morningEnd ? `${trainer.morningStart} à ${trainer.morningEnd}` : "Ø";
+    const afternoonSchedule = trainer.afternoonStart && trainer.afternoonEnd ? `${trainer.afternoonStart} à ${trainer.afternoonEnd}` : "Ø";
+    const tableauData = prepareTableauDataWithFallback(formation, date, fallbackDate);
+
+    doc.render({
+      "NOM FORMATION": formation.name,
+      "TYPE DE FORMATION": trainer.type,
+      "NOM DU FORMATEUR": trainer.name,
+      ADRESSE: trainer.adress,
+      HEURES: heures,
+      "INTRA / INTER": intraInter,
+      "HORAIRES MATIN": morningSchedule,
+      "HORAIRES APRES-MIDI": afternoonSchedule,
+      DATE: date,
+      TABLEAU: tableauData,
+    });
+
+    const out = doc.getZip().generate({ type: "blob" });
+    const url = URL.createObjectURL(out);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${formation.name.replace(/\s+/g,'_')}_${date.replace(/\//g,'-')}_EMARGEMENT.docx`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
   
   function prepareTableauDataForEntity(formation, date, entity) {

@@ -2491,6 +2491,105 @@ textarea {
   height: fit-content;
 }
 
+.pack-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 16px 0;
+}
+
+.pack-tab {
+  padding: 8px 12px;
+  border: 1px solid #d7e6ff;
+  background: linear-gradient(180deg, #ffffff, #f6f9ff);
+  color: #1e3a8a;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.pack-tab:hover {
+  transform: translateY(-1px);
+  border-color: #9ec5ff;
+}
+
+.pack-tab.active {
+  background: linear-gradient(180deg, #e8f0ff, #d6e6ff);
+  border-color: #7fb3ff;
+  box-shadow: 0 4px 10px rgba(0, 119, 204, 0.15);
+}
+
+#packTrainerModal .modal-content {
+  max-width: 950px;
+  padding: 20px 24px 28px 24px;
+}
+
+#packTrainerModal .trainer-form {
+  display: block;
+}
+
+#packTrainerModal .pack-day-panel {
+  background: #ffffff;
+  border: 1px solid #eef3fb;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+#packTrainerModal .pack-day-panel + .pack-day-panel {
+  margin-top: 12px;
+}
+
+#packTrainerModal .form-group {
+  margin-bottom: 14px;
+}
+
+#packTrainerModal label {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+#packTrainerModal .time-input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#packTrainerModal .pack-repas-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#packTrainerModal .download-btn {
+  background: linear-gradient(45deg, #00b894, #00cec9);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+#packTrainerModal .download-btn:hover {
+  filter: brightness(0.95);
+}
+
+@media (max-width: 768px) {
+  #packTrainerModal .modal-content {
+    max-width: 95vw;
+    margin: 5% auto;
+    padding: 16px;
+  }
+  .pack-tabs {
+    gap: 6px;
+  }
+  .pack-tab {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+}
+
 /* Tarifs Modal - modern layout */
 .tarifs-modal-content {
   max-width: 900px;

@@ -262,6 +262,14 @@
                   Generalement <strong>FOR001</strong> et <strong>FOR002</strong>.
                 </p>
               </div>
+              <div class="service-item" id="item-PACKCE">
+                <h3>
+                  <span class="important">PACK CE</span> - Parcours de formation Chef d'équipe
+                </h3>
+                <p class="service-text">
+                  Parcours complet pour maîtriser le rôle de <strong>chef d'équipe</strong> : organisation du chantier, gestion des stocks et plannings, intégration des nouveaux, <strong>sécurité</strong>, <strong>qualité</strong> et pilotage opérationnel.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -285,7 +293,7 @@
               </div>
               <div
                 class="contact-item"
-                data-email="contactcampus@groupecandor.fr"
+                data-email="amoquereau@groupecandor.fr"
               >
                 <p class="contact-text">
                   <strong>Nom :</strong> Alexis MOQUEREAU
@@ -817,6 +825,41 @@
         <div class="goToForm">Prenez un rendez-vous</div>
       </div>
     </div>
+    <div id="PACKCE" class="formation-container">
+      <button class="back-button">↩</button>
+      <div class="formation-section">
+        <h1 class="formation-title">
+          <span class="important">PACK CE</span> - Parcours de formation Chef d'équipe
+        </h1>
+        <p class="formation-description">
+          Un parcours structuré pour accompagner la prise de poste de chef d'équipe : pilotage d'un chantier, coordination des ressources et maintien des standards de qualité, sécurité et hygiène.
+        </p>
+        <h2>Objectifs de la formation</h2>
+        <ul>
+          <li>L'organisation du chantier</li>
+          <li>Gérer les stocks et les plannings</li>
+          <li>Exécuter les opérations de nettoyage</li>
+          <li>Accueillir et intégrer un nouvel embauché</li>
+          <li>Faire appliquer les mesures de sécurité et d'hygiène</li>
+          <li>Contrôler les résultats du chantier</li>
+          <li>Traiter une plainte d'un client</li>
+          <li>Encadrer une équipe d'agents</li>
+        </ul>
+        <h2>Durée de la formation</h2>
+        <p class="formation-description">
+          <strong>59,5</strong> Heures soit <strong>8,5</strong> jours de formation (7 h/jour, 3,5 h la dernière demi-journée).
+        </p>
+        <h2>Public cible</h2>
+        <p class="formation-description">
+          Agents expérimentés amenés à encadrer une équipe, chefs d'équipe débutants, référents opérationnels et managers de proximité.
+        </p>
+        <h2>Tarifs</h2>
+        <p class="formation-description">
+          Tarif fixe par jour : <strong>1800€ HT</strong> (formateur interne) ou <strong>2400€ HT</strong> (formateur externe). Le montant est réparti entre les participants (prix/participant = tarif fixe ÷ nombre de participants).
+        </p>
+        <div class="goToForm">Prenez un rendez-vous</div>
+      </div>
+    </div>
     <div id="appointment-section">
       <div class="appointment-container">
         <h1 class="appointment-title"><span class="emojiAfficher">🗓️ </span>Participer à une formation</h1>
@@ -1332,6 +1375,487 @@
               Générer les documents
             </button>
             <button id="addEvent" type="button" class="addEventClass">Bloquer l'agenda</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Modal PACK CE (9 jours) -->
+      <div id="packTrainerModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closePackTrainerModal">&times;</span>
+          <h3>Validation PACK CE - Détails des 9 jours</h3>
+
+          <div class="pack-tabs" id="packTabs">
+            <button type="button" class="pack-tab active" data-day="1">Jour 1</button>
+            <button type="button" class="pack-tab" data-day="2">Jour 2</button>
+            <button type="button" class="pack-tab" data-day="3">Jour 3</button>
+            <button type="button" class="pack-tab" data-day="4">Jour 4</button>
+            <button type="button" class="pack-tab" data-day="5">Jour 5</button>
+            <button type="button" class="pack-tab" data-day="6">Jour 6</button>
+            <button type="button" class="pack-tab" data-day="7">Jour 7</button>
+            <button type="button" class="pack-tab" data-day="8">Jour 8</button>
+            <button type="button" class="pack-tab" data-day="9">Jour 9</button>
+          </div>
+
+          <form id="packTrainerForm" class="trainer-form">
+            <!-- Panneaux par jour -->
+            <!-- Gabarit répliqué pour 9 jours -->
+            
+            <!-- Jour 1 -->
+            <div class="pack-day-panel" id="packDayPanel1" style="display: block;">
+              <div class="form-group">
+                <label for="packDate1">Date (Jour 1) :</label>
+                <input type="date" id="packDate1" />
+              </div>
+              <div class="form-group">
+                <label for="packTrainerType1">Type de formateur :</label>
+                <select id="packTrainerType1">
+                  <option value="Interne">Interne</option>
+                  <option value="Externe">Externe</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="packTrainerName1">Nom formateur :</label>
+                <input type="text" id="packTrainerName1" placeholder="Nom du formateur" />
+                <label for="packTrainerAdress1">Lieu de formation :</label>
+                <input type="text" id="packTrainerAdress1" placeholder="Adresse" />
+                <label for="packDistance1">Distance (/km) :</label>
+                <input type="number" id="packDistance1" value="0" min="0" step="1" />
+                <label for="packTarifSalle1">Tarif salle :</label>
+                <input type="number" id="packTarifSalle1" value="0" min="0" step="1" />
+              </div>
+              <div class="form-group">
+                <label>Horaires matin :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packMorningStart1" step="900" value="09:00" />
+                  <span>à</span>
+                  <input type="time" id="packMorningEnd1" step="900" value="12:30" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Horaires après-midi :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packAfternoonStart1" step="900" value="13:30" />
+                  <span>à</span>
+                  <input type="time" id="packAfternoonEnd1" step="900" value="17:00" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Repas ?</label>
+                <div class="pack-repas-group">
+                  <input type="radio" id="packRepasOui1" name="packRepas1" value="oui" checked />
+                  <label for="packRepasOui1">Oui</label>
+                  <input type="radio" id="packRepasNon1" name="packRepas1" value="non" />
+                  <label for="packRepasNon1">Non</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jours 2 à 9 -->
+            <!-- Pour rester concis dans le HTML, nous dupliquons la structure en changeant les index -->
+            <!-- Jour 2 -->
+            <div class="pack-day-panel" id="packDayPanel2" style="display: none;">
+              <div class="form-group">
+                <label for="packDate2">Date (Jour 2) :</label>
+                <input type="date" id="packDate2" />
+              </div>
+              <div class="form-group">
+                <label for="packTrainerType2">Type de formateur :</label>
+                <select id="packTrainerType2">
+                  <option value="Interne">Interne</option>
+                  <option value="Externe">Externe</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="packTrainerName2">Nom formateur :</label>
+                <input type="text" id="packTrainerName2" placeholder="Nom du formateur" />
+                <label for="packTrainerAdress2">Lieu de formation :</label>
+                <input type="text" id="packTrainerAdress2" placeholder="Adresse" />
+                <label for="packDistance2">Distance (/km) :</label>
+                <input type="number" id="packDistance2" value="0" min="0" step="1" />
+                <label for="packTarifSalle2">Tarif salle :</label>
+                <input type="number" id="packTarifSalle2" value="0" min="0" step="1" />
+              </div>
+              <div class="form-group">
+                <label>Horaires matin :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packMorningStart2" step="900" value="09:00" />
+                  <span>à</span>
+                  <input type="time" id="packMorningEnd2" step="900" value="12:30" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Horaires après-midi :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packAfternoonStart2" step="900" value="13:30" />
+                  <span>à</span>
+                  <input type="time" id="packAfternoonEnd2" step="900" value="17:00" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Repas ?</label>
+                <div class="pack-repas-group">
+                  <input type="radio" id="packRepasOui2" name="packRepas2" value="oui" checked />
+                  <label for="packRepasOui2">Oui</label>
+                  <input type="radio" id="packRepasNon2" name="packRepas2" value="non" />
+                  <label for="packRepasNon2">Non</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jour 3 -->
+            <div class="pack-day-panel" id="packDayPanel3" style="display: none;">
+              <div class="form-group">
+                <label for="packDate3">Date (Jour 3) :</label>
+                <input type="date" id="packDate3" />
+              </div>
+              <div class="form-group">
+                <label for="packTrainerType3">Type de formateur :</label>
+                <select id="packTrainerType3">
+                  <option value="Interne">Interne</option>
+                  <option value="Externe">Externe</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="packTrainerName3">Nom formateur :</label>
+                <input type="text" id="packTrainerName3" placeholder="Nom du formateur" />
+                <label for="packTrainerAdress3">Lieu de formation :</label>
+                <input type="text" id="packTrainerAdress3" placeholder="Adresse" />
+                <label for="packDistance3">Distance (/km) :</label>
+                <input type="number" id="packDistance3" value="0" min="0" step="1" />
+                <label for="packTarifSalle3">Tarif salle :</label>
+                <input type="number" id="packTarifSalle3" value="0" min="0" step="1" />
+              </div>
+              <div class="form-group">
+                <label>Horaires matin :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packMorningStart3" step="900" value="09:00" />
+                  <span>à</span>
+                  <input type="time" id="packMorningEnd3" step="900" value="12:30" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Horaires après-midi :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packAfternoonStart3" step="900" value="13:30" />
+                  <span>à</span>
+                  <input type="time" id="packAfternoonEnd3" step="900" value="17:00" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Repas ?</label>
+                <div class="pack-repas-group">
+                  <input type="radio" id="packRepasOui3" name="packRepas3" value="oui" checked />
+                  <label for="packRepasOui3">Oui</label>
+                  <input type="radio" id="packRepasNon3" name="packRepas3" value="non" />
+                  <label for="packRepasNon3">Non</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jour 4 -->
+            <div class="pack-day-panel" id="packDayPanel4" style="display: none;">
+              <div class="form-group">
+                <label for="packDate4">Date (Jour 4) :</label>
+                <input type="date" id="packDate4" />
+              </div>
+              <div class="form-group">
+                <label for="packTrainerType4">Type de formateur :</label>
+                <select id="packTrainerType4">
+                  <option value="Interne">Interne</option>
+                  <option value="Externe">Externe</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="packTrainerName4">Nom formateur :</label>
+                <input type="text" id="packTrainerName4" placeholder="Nom du formateur" />
+                <label for="packTrainerAdress4">Lieu de formation :</label>
+                <input type="text" id="packTrainerAdress4" placeholder="Adresse" />
+                <label for="packDistance4">Distance (/km) :</label>
+                <input type="number" id="packDistance4" value="0" min="0" step="1" />
+                <label for="packTarifSalle4">Tarif salle :</label>
+                <input type="number" id="packTarifSalle4" value="0" min="0" step="1" />
+              </div>
+              <div class="form-group">
+                <label>Horaires matin :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packMorningStart4" step="900" value="09:00" />
+                  <span>à</span>
+                  <input type="time" id="packMorningEnd4" step="900" value="12:30" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Horaires après-midi :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packAfternoonStart4" step="900" value="13:30" />
+                  <span>à</span>
+                  <input type="time" id="packAfternoonEnd4" step="900" value="17:00" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Repas ?</label>
+                <div class="pack-repas-group">
+                  <input type="radio" id="packRepasOui4" name="packRepas4" value="oui" checked />
+                  <label for="packRepasOui4">Oui</label>
+                  <input type="radio" id="packRepasNon4" name="packRepas4" value="non" />
+                  <label for="packRepasNon4">Non</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jour 5 -->
+            <div class="pack-day-panel" id="packDayPanel5" style="display: none;">
+              <div class="form-group">
+                <label for="packDate5">Date (Jour 5) :</label>
+                <input type="date" id="packDate5" />
+              </div>
+              <div class="form-group">
+                <label for="packTrainerType5">Type de formateur :</label>
+                <select id="packTrainerType5">
+                  <option value="Interne">Interne</option>
+                  <option value="Externe">Externe</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="packTrainerName5">Nom formateur :</label>
+                <input type="text" id="packTrainerName5" placeholder="Nom du formateur" />
+                <label for="packTrainerAdress5">Lieu de formation :</label>
+                <input type="text" id="packTrainerAdress5" placeholder="Adresse" />
+                <label for="packDistance5">Distance (/km) :</label>
+                <input type="number" id="packDistance5" value="0" min="0" step="1" />
+                <label for="packTarifSalle5">Tarif salle :</label>
+                <input type="number" id="packTarifSalle5" value="0" min="0" step="1" />
+              </div>
+              <div class="form-group">
+                <label>Horaires matin :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packMorningStart5" step="900" value="09:00" />
+                  <span>à</span>
+                  <input type="time" id="packMorningEnd5" step="900" value="12:30" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Horaires après-midi :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packAfternoonStart5" step="900" value="13:30" />
+                  <span>à</span>
+                  <input type="time" id="packAfternoonEnd5" step="900" value="17:00" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Repas ?</label>
+                <div class="pack-repas-group">
+                  <input type="radio" id="packRepasOui5" name="packRepas5" value="oui" checked />
+                  <label for="packRepasOui5">Oui</label>
+                  <input type="radio" id="packRepasNon5" name="packRepas5" value="non" />
+                  <label for="packRepasNon5">Non</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jour 6 -->
+            <div class="pack-day-panel" id="packDayPanel6" style="display: none;">
+              <div class="form-group">
+                <label for="packDate6">Date (Jour 6) :</label>
+                <input type="date" id="packDate6" />
+              </div>
+              <div class="form-group">
+                <label for="packTrainerType6">Type de formateur :</label>
+                <select id="packTrainerType6">
+                  <option value="Interne">Interne</option>
+                  <option value="Externe">Externe</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="packTrainerName6">Nom formateur :</label>
+                <input type="text" id="packTrainerName6" placeholder="Nom du formateur" />
+                <label for="packTrainerAdress6">Lieu de formation :</label>
+                <input type="text" id="packTrainerAdress6" placeholder="Adresse" />
+                <label for="packDistance6">Distance (/km) :</label>
+                <input type="number" id="packDistance6" value="0" min="0" step="1" />
+                <label for="packTarifSalle6">Tarif salle :</label>
+                <input type="number" id="packTarifSalle6" value="0" min="0" step="1" />
+              </div>
+              <div class="form-group">
+                <label>Horaires matin :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packMorningStart6" step="900" value="09:00" />
+                  <span>à</span>
+                  <input type="time" id="packMorningEnd6" step="900" value="12:30" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Horaires après-midi :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packAfternoonStart6" step="900" value="13:30" />
+                  <span>à</span>
+                  <input type="time" id="packAfternoonEnd6" step="900" value="17:00" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Repas ?</label>
+                <div class="pack-repas-group">
+                  <input type="radio" id="packRepasOui6" name="packRepas6" value="oui" checked />
+                  <label for="packRepasOui6">Oui</label>
+                  <input type="radio" id="packRepasNon6" name="packRepas6" value="non" />
+                  <label for="packRepasNon6">Non</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jour 7 -->
+            <div class="pack-day-panel" id="packDayPanel7" style="display: none;">
+              <div class="form-group">
+                <label for="packDate7">Date (Jour 7) :</label>
+                <input type="date" id="packDate7" />
+              </div>
+              <div class="form-group">
+                <label for="packTrainerType7">Type de formateur :</label>
+                <select id="packTrainerType7">
+                  <option value="Interne">Interne</option>
+                  <option value="Externe">Externe</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="packTrainerName7">Nom formateur :</label>
+                <input type="text" id="packTrainerName7" placeholder="Nom du formateur" />
+                <label for="packTrainerAdress7">Lieu de formation :</label>
+                <input type="text" id="packTrainerAdress7" placeholder="Adresse" />
+                <label for="packDistance7">Distance (/km) :</label>
+                <input type="number" id="packDistance7" value="0" min="0" step="1" />
+                <label for="packTarifSalle7">Tarif salle :</label>
+                <input type="number" id="packTarifSalle7" value="0" min="0" step="1" />
+              </div>
+              <div class="form-group">
+                <label>Horaires matin :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packMorningStart7" step="900" value="09:00" />
+                  <span>à</span>
+                  <input type="time" id="packMorningEnd7" step="900" value="12:30" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Horaires après-midi :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packAfternoonStart7" step="900" value="13:30" />
+                  <span>à</span>
+                  <input type="time" id="packAfternoonEnd7" step="900" value="17:00" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Repas ?</label>
+                <div class="pack-repas-group">
+                  <input type="radio" id="packRepasOui7" name="packRepas7" value="oui" checked />
+                  <label for="packRepasOui7">Oui</label>
+                  <input type="radio" id="packRepasNon7" name="packRepas7" value="non" />
+                  <label for="packRepasNon7">Non</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jour 8 -->
+            <div class="pack-day-panel" id="packDayPanel8" style="display: none;">
+              <div class="form-group">
+                <label for="packDate8">Date (Jour 8) :</label>
+                <input type="date" id="packDate8" />
+              </div>
+              <div class="form-group">
+                <label for="packTrainerType8">Type de formateur :</label>
+                <select id="packTrainerType8">
+                  <option value="Interne">Interne</option>
+                  <option value="Externe">Externe</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="packTrainerName8">Nom formateur :</label>
+                <input type="text" id="packTrainerName8" placeholder="Nom du formateur" />
+                <label for="packTrainerAdress8">Lieu de formation :</label>
+                <input type="text" id="packTrainerAdress8" placeholder="Adresse" />
+                <label for="packDistance8">Distance (/km) :</label>
+                <input type="number" id="packDistance8" value="0" min="0" step="1" />
+                <label for="packTarifSalle8">Tarif salle :</label>
+                <input type="number" id="packTarifSalle8" value="0" min="0" step="1" />
+              </div>
+              <div class="form-group">
+                <label>Horaires matin :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packMorningStart8" step="900" value="09:00" />
+                  <span>à</span>
+                  <input type="time" id="packMorningEnd8" step="900" value="12:30" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Horaires après-midi :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packAfternoonStart8" step="900" value="13:30" />
+                  <span>à</span>
+                  <input type="time" id="packAfternoonEnd8" step="900" value="17:00" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Repas ?</label>
+                <div class="pack-repas-group">
+                  <input type="radio" id="packRepasOui8" name="packRepas8" value="oui" checked />
+                  <label for="packRepasOui8">Oui</label>
+                  <input type="radio" id="packRepasNon8" name="packRepas8" value="non" />
+                  <label for="packRepasNon8">Non</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jour 9 -->
+            <div class="pack-day-panel" id="packDayPanel9" style="display: none;">
+              <div class="form-group">
+                <label for="packDate9">Date (Jour 9) :</label>
+                <input type="date" id="packDate9" />
+              </div>
+              <div class="form-group">
+                <label for="packTrainerType9">Type de formateur :</label>
+                <select id="packTrainerType9">
+                  <option value="Interne">Interne</option>
+                  <option value="Externe">Externe</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="packTrainerName9">Nom formateur :</label>
+                <input type="text" id="packTrainerName9" placeholder="Nom du formateur" />
+                <label for="packTrainerAdress9">Lieu de formation :</label>
+                <input type="text" id="packTrainerAdress9" placeholder="Adresse" />
+                <label for="packDistance9">Distance (/km) :</label>
+                <input type="number" id="packDistance9" value="0" min="0" step="1" />
+                <label for="packTarifSalle9">Tarif salle :</label>
+                <input type="number" id="packTarifSalle9" value="0" min="0" step="1" />
+              </div>
+              <div class="form-group">
+                <label>Horaires matin :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packMorningStart9" step="900" value="09:00" />
+                  <span>à</span>
+                  <input type="time" id="packMorningEnd9" step="900" value="12:30" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Horaires après-midi :</label>
+                <div class="time-input-group">
+                  <input type="time" id="packAfternoonStart9" step="900" value="13:30" />
+                  <span>à</span>
+                  <input type="time" id="packAfternoonEnd9" step="900" value="17:00" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Repas ?</label>
+                <div class="pack-repas-group">
+                  <input type="radio" id="packRepasOui9" name="packRepas9" value="oui" checked />
+                  <label for="packRepasOui9">Oui</label>
+                  <input type="radio" id="packRepasNon9" name="packRepas9" value="non" />
+                  <label for="packRepasNon9">Non</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button id="generatePackDocs" type="button" class="download-btn">Générer les documents</button>
+            </div>
           </form>
         </div>
       </div>
