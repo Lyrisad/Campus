@@ -13,6 +13,68 @@ import {
   
   // ---------------------- Fonctions Utilitaires Globales ----------------------
   
+  // ====== Entity Canonicalization & SIRET mapping (fusions) ======
+  // Use this everywhere we compare or display entity names or select SIRET.
+  function canonicalizeEntityName(raw) {
+    if (!raw) return '';
+    const e = String(raw).trim().toLowerCase();
+    // Normalize common typos
+    const normalized = e
+      .replace(/\s+/g, ' ')
+      .replace(/[._-]+/g, ' ')
+      .trim();
+    // DELTA group: TERNNET/ECLANET/DAKIN/GAMMA => DELTA (SIRET of TERNNET)
+    if (/(^|\b)(ternett|ternet|eclanet|eclanett|dakin|gamma|candor gamma)(\b|$)/.test(normalized)) {
+      return 'DELTA';
+    }
+    // COPRO group: ERNETT/RIE/NET SERVICE => COPRO (SIRET of ERNETT)
+    if (/(^|\b)(ernett|ernet|rie|net service|netservice)(\b|$)/.test(normalized)) {
+      return 'COPRO';
+    }
+    // Entities not yet merged remain as they are (PRATIS, CREABAT, ALPHA, CANDOR, etc.)
+    if (/^(pratis|practis)$/.test(normalized)) return 'PRATIS';
+    if (/^creabat$/.test(normalized)) return 'CREABAT';
+    if (/(^|\b)(alpha|candor alpha)(\b|$)/.test(normalized)) return 'ALPHA';
+    if (/(^|\b)(groupe candor|candor)(\b|$)/.test(normalized)) return 'CANDOR';
+    // Default: uppercase original without extra spaces
+    return normalized.toUpperCase();
+  }
+
+  function getSiretForEntity(raw) {
+    // Returns the SIRET to display for the entity after canonicalization
+    const name = canonicalizeEntityName(raw);
+    switch (name) {
+      case 'DELTA':
+        // Shared SIRET of TERNNET after fusion
+        return '324 465 921 000 82';
+      case 'COPRO':
+        // Shared SIRET of ERNETT after fusion
+        return '398 715 904 000 49';
+      case 'PRATIS':
+        return '88 004 978 800 024';
+      case 'CREABAT':
+        return '538 452 673 000 48';
+      case 'CANDOR':
+        return '538 441 833 000 26';
+      case 'ALPHA':
+        return '89 241 544 900 016';
+      default:
+        // For any legacy names not captured above, keep old logic fallback:
+        const e = String(raw || '').toLowerCase();
+        if (e === 'ternett' || e === 'ternet') return '324 465 921 000 82';
+        if (e === 'ernett' || e === 'ernet') return '398 715 904 000 49';
+        if (e === 'eclanet' || e === 'eclanett') return '322 032 491 000 27';
+        if (e === 'rie') return '403 384 035 000 16';
+        if (e === 'creabat') return '538 452 673 000 48';
+        if (e === 'groupe candor' || e === 'candor') return '538 441 833 000 26';
+        if (e === 'alpha' || e === 'candor alpha' || e === 'candor-alpha' || e === 'alpha candor') return '89 241 544 900 016';
+        if (e === 'dakin') return '34 771 182 200 085';
+        if (e === 'gamma' || e === 'candor gamma') return '352 00672 0000 36';
+        // Unknown
+        return '';
+    }
+  }
+  
   // Fonction pour obtenir l'adresse IP utilisateur
   async function getUserIP() {
     try {
@@ -388,7 +450,6 @@ import {
     // Démarrer le système de notification automatique pour l'admin
     startNotificationSystem();
   });
-  
   /* =================== Navigation =================== */
   function initNavigation() {
     const serviceItems = document.querySelectorAll(".service-item");
@@ -575,7 +636,6 @@ import {
   
     return showNotification;
   }
-  
   /* =================== Admin Panel =================== */
   function initAdminPanel() {
     const adminPanel = document.getElementById("adminPanel");
@@ -857,7 +917,6 @@ import {
         );
       }
     };
-  
     // --- Affichage des formations ---
     const renderFormations = () => {
       formationsTable.innerHTML = "";
@@ -1075,7 +1134,7 @@ import {
               employeesFormatted = empArray
                 .map(
                   (emp) =>
-                    `${emp.matricule} - ${emp.nameEmployee} (${emp.entity})`
+                    `${emp.matricule} - ${emp.nameEmployee} (${canonicalizeEntityName(emp.entity)})`
                 )
                 .join("<br>");
             } else {
@@ -1228,7 +1287,6 @@ import {
     addFormationButton.addEventListener("click", () => {
       showModal("Ajouter une Formation");
     });
-  
     // On submit, we assume the user's input is in "dd/mm/yyyy" format
     formationForm.addEventListener("submit", async (e) => {
       showNotification("Enregistrement en cours, veuillez patienter..");
@@ -1353,7 +1411,6 @@ import {
         }
       });
     }
-
     if (saveTarifRepasBtn && tarifRepasStagiaire && tarifRepasFormateur) {
       saveTarifRepasBtn.addEventListener('click', async () => {
         const stag = parseFloat((tarifRepasStagiaire.value || '').replace(',', '.'));
@@ -1378,7 +1435,6 @@ import {
         }
       });
     }
-
     // On admin login or load, populate tariffs UI
     if (getCookie("adminAuth") === "true") {
       // Lazy load into modal when opened
@@ -1573,7 +1629,7 @@ import {
               <td style="padding:8px; border:1px solid #ddd;">${
                 emp.nameEmployee
               }</td>
-              <td style="padding:8px; border:1px solid #ddd;">${emp.entity}</td>
+              <td style="padding:8px; border:1px solid #ddd;">${canonicalizeEntityName(emp.entity)}</td>
               <td style="padding:8px; border:1px solid #ddd;">
                 <button class="btn-remove-participant" data-index="${index}">Retirer</button>
               </td>
@@ -1778,7 +1834,6 @@ import {
         document.getElementById("afternoonStart").value = "";
         document.getElementById("afternoonEnd").value = "";
       });
-  
     document
       .getElementById("downloadGENEMARBtn")
       .addEventListener("click", async () => {
@@ -1938,7 +1993,7 @@ import {
         const dayEl = document.getElementById("packDate" + i);
         if (!dayEl || (dayEl && dayEl.value)) continue; // ne pas écraser si déjà renseigné
         const d = new Date(start);
-        d.setDate(d.getDate() + (i - 1));
+        d.getDate(d.getDate() + (i - 1));
         const yyyy = d.getFullYear();
         const mm = String(d.getMonth() + 1).padStart(2, '0');
         const dd = String(d.getDate()).padStart(2, '0');
@@ -2080,7 +2135,6 @@ import {
     });
     return lines.join("\n");
   }
-
   async function generatePackDocuments(formation, baseDate) {
     const days = collectPackDays();
     if (days.length === 0) throw new Error("Aucune date renseignée pour le PACK CE");
@@ -2126,7 +2180,7 @@ import {
 
     // Par entité: répartition
     for (const entity of uniqueEntities) {
-      const entityParticipants = participants.filter(p => p.entity.trim().toLowerCase() === entity.trim().toLowerCase());
+      const entityParticipants = participants.filter(p => canonicalizeEntityName(p.entity) === canonicalizeEntityName(entity));
       const countEntity = entityParticipants.length;
       if (countEntity === 0) continue;
 
@@ -2192,7 +2246,6 @@ import {
       await downloadGENEMARDocForPackDay(formation, trainer, dayDate, refDate);
     }
   }
-
   async function downloadConventionPackDocForEntity(formation, days, entity, totals) {
     const response = await fetch("Model/CONVENTION_PACK.docx");
     if (!response.ok) {
@@ -2208,28 +2261,17 @@ import {
     });
 
     // Référence convention
-    const vref = await generateConventionRef(formation, totals.refDate, entity);
+    const canonicalEntity = canonicalizeEntityName(entity);
+    const vref = await generateConventionRef(formation, totals.refDate, canonicalEntity);
 
     // Titre formation
     const titreFormation = getTitreFormation(formation.name);
 
-    // SIREN/SIRET par entité (réutiliser logique existante via getUniqueEntitiesForDate + mapping dans downloadConventionDocForEntity)
-    // On reprend la même logique de mappage indirecte en appelant la fonction pour forcer la génération (mais ici on reconstruit le SIREN basiquement)
-    let siretNb = "";
-    const e = entity.toLowerCase();
-    if (e === "ternett" || e === "ternet") siretNb = "324 465 921 000 82";
-    else if (e === "ernett" || e === "ernet") siretNb = "398 715 904 000 49";
-    else if (e === "eclanet" || e === "eclanett") siretNb = "322 032 491 000 27";
-    else if (e === "rie") siretNb = "403 384 035 000 16";
-    else if (e === "pratis" || e === "practis") siretNb = "88 004 978 800 024";
-    else if (e === "creabat") siretNb = "538 452 673 000 48";
-    else if (e === "groupe candor" || e === "candor") siretNb = "538 441 833 000 26";
-    else if (e === "alpha" || e === "candor alpha" || e === "candor-alpha" || e === "alpha candor") siretNb = "89 241 544 900 016";
-    else if (e === "dakin") siretNb = "34 771 182 200 085";
-    else if (e === "gamma" || e === "candor gamma") siretNb = "352 00672 0000 36";
+    // SIREN/SIRET par entité via mapping fusion
+    const siretNb = getSiretForEntity(canonicalEntity);
 
     // Préparer données tableau participants par entité pour la date de référence
-    const tableau = prepareTableauDataForEntity(formation, totals.refDate, entity);
+    const tableau = prepareTableauDataForEntity(formation, totals.refDate, canonicalEntity);
 
     // Objectifs de formation (PACK CE spécifiques)
     const packObjectifs = `- L'organisation du chantier\n- Gérer les stocks et les plannings\n- Exécuter les opérations de nettoyage\n- Accueillir et intégrer un nouvel embauché\n- Faire appliquer les mesures de sécurité et d'hygiène\n- Contrôler les résultats du chantier\n- Traiter une plainte d'un client\n- Encadrer une équipe d'agents`;
@@ -2270,7 +2312,7 @@ import {
       VREF: vref,
       "NOM DE FORMATION": formation.name,
       "TITRE DE FORMATION": titreFormation,
-      ENTITE: entity,
+      ENTITE: canonicalEntity,
       LISTEDH: totals.LISTEDH,
       "NB SESSION": totals.nbSession,
       JOUR: (totals.totalHours / 7).toFixed(1),
@@ -2308,7 +2350,7 @@ import {
     const url = URL.createObjectURL(out);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${formation.name}_${entity}_CONVENTION_PACK.docx`;
+    a.download = `${formation.name}_${canonicalEntity}_CONVENTION_PACK.docx`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -2357,7 +2399,7 @@ import {
     for (const participant of participants) {
       // Générer et enregistrer la référence de convocation dans le Sheet
       const vref = await generateConvocationRef(
-        participant.entity,
+        canonicalizeEntityName(participant.entity),
         formation.name,
         refDate,
         participant.nameEmployee
@@ -2371,7 +2413,7 @@ import {
 
       doc.render({
         "NOM/PRENOM": participant.nameEmployee,
-        ENTITE: participant.entity,
+        ENTITE: canonicalizeEntityName(participant.entity),
         FORMATION: titreFormation,
         LISTEDH: LISTEDH,
         OBJECTIFS: packObjectifs,
@@ -2459,7 +2501,7 @@ import {
     // Construire la liste des participants
   
     let participantsList = participants
-      .map((emp, index) => `${index + 1}. ${emp.matricule} - ${emp.nameEmployee} - ${emp.entity}`)
+      .map((emp, index) => `${index + 1}. ${emp.matricule} - ${emp.nameEmployee} - ${canonicalizeEntityName(emp.entity)}`)
       .filter((emp) => emp !== null)
       .join('\\n');
   
@@ -2506,7 +2548,6 @@ import {
     a.download = `Evenement-${formationName}.ics`;
     a.click();
   }
-  
   function downloadAttendanceListWord(formation, date) {
     // Convert the date (format DD/MM/YYYY) to a Date object
     const targetDate = parseDDMMYYYY(date);
@@ -2544,7 +2585,7 @@ import {
               new TableCell({ children: [new Paragraph(String(index + 1))] }),
               new TableCell({ children: [new Paragraph(emp.matricule)] }),
               new TableCell({ children: [new Paragraph(emp.nameEmployee)] }),
-              new TableCell({ children: [new Paragraph(emp.entity)] }),
+              new TableCell({ children: [new Paragraph(canonicalizeEntityName(emp.entity))] }),
             ],
           });
         } catch (e) {
@@ -2611,7 +2652,7 @@ import {
           return {
             NOM_PRENOM: emp.nameEmployee,
             MATRICULE: emp.matricule,
-            ENTITE: emp.entity,
+            ENTITE: canonicalizeEntityName(emp.entity),
             MATIN: "", // champ vide pour l'instant
             APRES_MIDI: "", // idem
           };
@@ -2644,7 +2685,6 @@ import {
     if (fallbackDate) return prepareTableauData(formation, fallbackDate);
     return data;
   }
-
   async function downloadGENEMARDocForPackDay(formation, trainer, date, fallbackDate) {
     // Cette version réutilise downloadGENEMARDoc mais passe un tableau recalculé
     // On copie downloadGENEMARDoc et on remplace prepareTableauData par withFallback
@@ -2710,11 +2750,11 @@ import {
           const empData = JSON.parse(b.json);
           const emp = Array.isArray(empData) ? empData[0] : empData;
           // Vérifier que l'entité du stagiaire correspond à `entity`
-          if (emp.entity.trim().toLowerCase() === entity.trim().toLowerCase()) {
+          if (canonicalizeEntityName(emp.entity) === canonicalizeEntityName(entity)) {
             return {
               NOM_PRENOM: emp.nameEmployee,
               MATRICULE: emp.matricule,
-              ENTITE: emp.entity,
+              ENTITE: canonicalizeEntityName(emp.entity),
               MATIN: "",
               APRES_MIDI: "",
             };
@@ -2851,7 +2891,6 @@ import {
     // Si aucun cas ne correspond, on renvoie le nom de formation original
     return formationName;
   }
-  
   function getObjectifFormation(formationName) {
     // Normaliser en minuscule pour ignorer la casse
     const nameLower = formationName.toLowerCase();
@@ -2902,7 +2941,7 @@ import {
         try {
           const empData = JSON.parse(block.json);
           const emp = Array.isArray(empData) ? empData[0] : empData;
-          return emp.entity.trim().toLowerCase();
+          return canonicalizeEntityName(emp.entity);
         } catch (e) {
           console.error("Erreur de parsing dans computeIntraInter :", e);
           return null;
@@ -2912,7 +2951,7 @@ import {
   
     if (entities.length === 0) return "";
     const first = entities[0];
-    // Si tous les participants ont la même entité, c'est INTRA, sinon INTER
+    // Si tous les participants ont la même entité (après canonicalisation), c'est INTRA, sinon INTER
     const allSame = entities.every((ent) => ent === first);
     return allSame ? "INTRA" : "INTER";
   }
@@ -2998,7 +3037,7 @@ import {
         try {
           const empData = JSON.parse(block.json);
           const emp = Array.isArray(empData) ? empData[0] : empData;
-          return emp.entity.trim(); // ou .toLowerCase() si vous voulez uniformiser
+          return canonicalizeEntityName(emp.entity);
         } catch (e) {
           console.error("Erreur de parsing d'un bloc :", e);
           return null;
@@ -3020,7 +3059,7 @@ import {
       SCRIPT_URL +
       "?action=addRefConvention" +
       "&entite=" +
-      encodeURIComponent(entity) +
+      encodeURIComponent(canonicalizeEntityName(entity)) +
       "&formation=" +
       encodeURIComponent(formation.name) +
       "&date=" +
@@ -3084,9 +3123,7 @@ import {
     };
     Object.entries(formationPrices).forEach(([code, price]) => updateOne(code, price));
   }
-
   document.addEventListener('DOMContentLoaded', () => { try { ensureTarifsLoaded(); } catch(e){} });
-
   async function downloadConventionDocForEntity(
     formation,
     trainer,
@@ -3095,7 +3132,8 @@ import {
   ) {
     console.log(entity);
   
-    const vref = await generateConventionRef(formation, date, entity);
+    const canonicalEntity = canonicalizeEntityName(entity);
+    const vref = await generateConventionRef(formation, date, canonicalEntity);
     // Charger le template depuis le dossier Model
     const response = await fetch("Model/CONVENTION.docx");
     if (!response.ok) {
@@ -3163,51 +3201,9 @@ import {
     // Obtenir le Titre de formation
     const titreFormation = getTitreFormation(formation.name);
     console.log("Titre de formation :", titreFormation);
-    let siretNb;
+    const siretNb = getSiretForEntity(canonicalEntity);
   
-    if (entity.toLowerCase() == "ternett" || entity.toLowerCase() == "ternet") {
-      siretNb = "324 465 921 000 82";
-    } else if (
-      entity.toLowerCase() == "ernett" ||
-      entity.toLowerCase() == "ernet"
-    ) {
-      siretNb = "398 715 904 000 49";
-    } else if (
-      entity.toLowerCase() == "eclanet" ||
-      entity.toLowerCase() == "eclanett"
-    ) {
-      siretNb = "322 032 491 000 27";
-    } else if (entity.toLowerCase() == "rie") {
-      siretNb = "403 384 035 000 16";
-    } else if (
-      entity.toLowerCase() == "pratis" ||
-      entity.toLowerCase() == "practis"
-    ) {
-      siretNb = "88 004 978 800 024";
-    } else if (entity.toLowerCase() == "creabat") {
-      siretNb = "538 452 673 000 48";
-    } else if (
-      entity.toLowerCase() == "groupe candor" ||
-      entity.toLowerCase() == "candor"
-    ) {
-      siretNb = "538 441 833 000 26";
-    } else if (
-      entity.toLowerCase() == "alpha" ||
-      entity.toLowerCase() == "candor alpha" ||
-      entity.toLowerCase() == "candor-alpha" ||
-      entity.toLowerCase() == "alpha candor"
-    ) {
-      siretNb = "89 241 544 900 016";
-    } else if (entity.toLowerCase() == "dakin") {
-      siretNb = "34 771 182 200 085";
-    } else if (
-      entity.toLowerCase() == "gamma" ||
-      entity.toLowerCase() == "candor gamma"
-    ) {
-      siretNb = "352 00672 0000 36";
-    }
-  
-    const tableau = prepareTableauDataForEntity(formation, date, entity);
+    const tableau = prepareTableauDataForEntity(formation, date, canonicalEntity);
   
     const objectifs = getObjectifFormation(formation.name);
   
@@ -3267,7 +3263,7 @@ import {
   if (uniqueEntities.length > 1 && totalParticipants > 0) {
     // Nombre de participants dans l'entité courante (en normalisant)
     const entityParticipants = allParticipants.filter(p =>
-      p.entity.trim().toLowerCase() === entity.trim().toLowerCase()
+      canonicalizeEntityName(p.entity) === canonicalEntity
     );
     const countEntity = entityParticipants.length;
     tarifSalleConvention = (tarifSalleInitial * countEntity) / totalParticipants;
@@ -3286,7 +3282,7 @@ import {
   let tarifTrajetConvention = totalTrajet;
   if (uniqueEntities.length > 1 && totalParticipants > 0) {
     const entityParticipants = allParticipants.filter(p =>
-      p.entity.trim().toLowerCase() === entity.trim().toLowerCase()
+      canonicalizeEntityName(p.entity) === canonicalEntity
     );
     const countEntity = entityParticipants.length;
     tarifTrajetConvention = (totalTrajet * countEntity) / totalParticipants;
@@ -3329,7 +3325,7 @@ import {
     VREF: vref,
     "NOM DE FORMATION": titreFormation,
     "TITRE DE FORMATION": titreFormation,
-    ENTITE: entity,
+    ENTITE: canonicalEntity,
     "HORAIRES MATIN": morningSchedule,
     "HORAIRES APRES-MIDI": afternoonSchedule,
     ADRESSE: trainer.adress,
@@ -3369,7 +3365,7 @@ import {
     const a = document.createElement("a");
     a.href = url;
     // Nom du fichier : formation + entité + date
-    a.download = `${formation.name}_${entity}_${date}_CONVENTION.docx`;
+    a.download = `${formation.name}_${canonicalEntity}_${date}_CONVENTION.docx`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -3392,7 +3388,7 @@ import {
           return {
             nameEmployee: emp.nameEmployee,
             matricule: emp.matricule,
-            entity: emp.entity,
+            entity: canonicalizeEntityName(emp.entity),
           };
         } catch (e) {
           console.error("Erreur parsing bloc participant:", e);
@@ -3410,7 +3406,7 @@ import {
       SCRIPT_URL +
       "?action=addRefConvocation" +
       "&entite=" +
-      encodeURIComponent(entite) +
+      encodeURIComponent(canonicalizeEntityName(entite)) +
       "&formation=" +
       encodeURIComponent(formationName) +
       "&date=" +
@@ -3434,8 +3430,9 @@ import {
   }
   
   async function generateConvocationDoc(formation, trainer, date, participant) {
+    const canonicalEntity = canonicalizeEntityName(participant.entity);
     const vref = await generateConvocationRef(
-      participant.entity, // entite
+      canonicalEntity, // entite
       formation.name, // formationName
       date, // date
       participant.nameEmployee // stagiaire
@@ -3532,7 +3529,6 @@ import {
     // Enregistrer le log
     await recordLog(`Génération de ${participants.length} convocation(s) pour "${formation.name}" du ${date}`);
   }
-  
   async function downloadAllEval(formation, date) {
     // Récupérer tous les participants pour la formation et la date donnée
     const participants = getParticipantsForDate(formation, date);
@@ -3695,7 +3691,6 @@ import {
     // );
     // showParticipantsModal(updatedFormation, date);
   }
-  
   // Lorsqu'on supprime, on reconstruit la chaîne en supprimant le bloc ciblé
   async function removeParticipantFromFormation(formation, date, index) {
     // Extraire tous les blocs existants
@@ -3761,7 +3756,6 @@ import {
       );
     }
   }
-  
   /* =================== Formulaire de Rendez-vous =================== */
   function initAppointmentForm(showNotification) {
     emailjs.init("4sYz-WzrDCXInmUCl");
@@ -3846,7 +3840,7 @@ import {
   
         // Si l'ajout au Google Sheet réussit, envoyer l'email
         const employeesList = employees
-          .map((emp) => `${emp.matricule} - ${emp.nameEmployee} (${emp.entity})`)
+          .map((emp) => `${emp.matricule} - ${emp.nameEmployee} (${canonicalizeEntityName(emp.entity)})`)
           .join("\n");
   
         const formData = {
@@ -4001,7 +3995,6 @@ import {
   function eraseCookie(name) {
     document.cookie = name + "=; Max-Age=-99999999;";
   }
-  
   /* =================== Tableau Dynamique Employés =================== */
   function initEmployeeTable() {
     const employeeTable = document.getElementById("employeeTable");
@@ -4142,7 +4135,7 @@ import {
                 if (Array.isArray(arr) && arr.length > 0) {
                   arr.forEach(p => {
                     if (p && typeof p === 'object') {
-                      participantsHTML += `<div>${p.matricule || 'N/A'} - ${p.nameEmployee || 'N/A'} - ${p.entity || 'N/A'}</div>`;
+                      participantsHTML += `<div>${p.matricule || 'N/A'} - ${p.nameEmployee || 'N/A'} - ${canonicalizeEntityName(p.entity || 'N/A')}</div>`;
                     }
                   });
                 }
@@ -4311,7 +4304,7 @@ import {
             row.innerHTML = `
               <td>${participant.matricule || 'N/A'}</td>
               <td>${participant.nameEmployee || 'N/A'}</td>
-              <td>${participant.entity || 'N/A'}</td>
+              <td>${canonicalizeEntityName(participant.entity) || 'N/A'}</td>
               <td class="presence-toggle">
                 <input type="radio" name="presence_${blockIndex}_${participantIndex}" id="present_${blockIndex}_${participantIndex}" value="present" checked>
                 <label for="present_${blockIndex}_${participantIndex}">Présent</label>
@@ -4414,7 +4407,6 @@ import {
       showNotification("Erreur lors de la clôture de la formation");
     }
   }
-  
   // Fonction pour générer et enregistrer une référence d'attestation
   async function generateAttestationRef(formationName, date, stagiaire, entite) {
     try {
@@ -4423,7 +4415,7 @@ import {
       const numericCode = formationCode.replace(/[^0-9]/g, ""); // Extraire seulement les chiffres
       
       // Nettoyer l'entité pour qu'elle soit utilisable dans une référence
-      const cleanEntite = entite.toLowerCase().replace(/[^a-z0-9]/g, "");
+      const cleanEntite = canonicalizeEntityName(entite).toLowerCase().replace(/[^a-z0-9]/g, "");
       
       // Appeler l'API pour obtenir la prochaine référence et l'enregistrer
       const url = `${SCRIPT_URL}?action=addRefAttestation&entite=${encodeURIComponent(cleanEntite)}&formation=${encodeURIComponent(formationCode)}&date=${encodeURIComponent(date)}&stagiaire=${encodeURIComponent(stagiaire)}`;
@@ -4446,10 +4438,9 @@ import {
       } catch (e) {
         numericCode = "000";
       }
-      return `vatt${numericCode}_${entite.toLowerCase().replace(/[^a-z0-9]/g, "")}`;
+      return `vatt${numericCode}_${canonicalizeEntityName(entite).toLowerCase().replace(/[^a-z0-9]/g, "")}`;
     }
   }
-  
   // Fonction pour générer les attestations
   async function generateAttestations(formationName, formationDate, participants, heureDebut, heureFin) {
     try {
@@ -4493,8 +4484,9 @@ import {
       
       // Générer une attestation pour chaque participant présent
       for (const participant of participants) {
+        const canonicalEntity = canonicalizeEntityName(participant.entity);
         // Générer la référence d'attestation
-        const attestationRef = await generateAttestationRef(formationName, formationDate, participant.nameEmployee, participant.entity);
+        const attestationRef = await generateAttestationRef(formationName, formationDate, participant.nameEmployee, canonicalEntity);
         
         // Décompresser avec PizZip
         const zip = new PizZip(arrayBuffer);
@@ -4523,7 +4515,7 @@ import {
           "DATE FRANCAISE": dateEnFrancais,
           "DATE_FRANCAISE": dateEnFrancais,
           "NOM_PRENOM": participant.nameEmployee,
-          "ENTITE": participant.entity,
+          "ENTITE": canonicalEntity,
           "ADRESSE": candorAddress,
           "CP VILLE": candorCpVille,
           "HEURE DEBUT": heureDebut,
@@ -4682,7 +4674,7 @@ import {
                           <div class="participant-name">${p.nameEmployee || 'N/A'}</div>
                           <div class="participant-details">
                             <span class="participant-matricule">${p.matricule || 'N/A'}</span>
-                            <span class="participant-entity">${p.entity || 'N/A'}</span>
+                            <span class="participant-entity">${canonicalizeEntityName(p.entity) || 'N/A'}</span>
                           </div>
                         </div>
                       </div>
@@ -4704,7 +4696,7 @@ import {
                                 <div class="participant-name">${p.nameEmployee || 'N/A'}</div>
                                 <div class="participant-details">
                                   <span class="participant-matricule">${p.matricule || 'N/A'}</span>
-                                  <span class="participant-entity">${p.entity || 'N/A'}</span>
+                                  <span class="participant-entity">${canonicalizeEntityName(p.entity) || 'N/A'}</span>
                                 </div>
                               </div>
                             </div>
@@ -4933,7 +4925,6 @@ import {
     }
     return dateStr;
   }
-  
   // Fonction pour extraire les événements à partir du tableau des formations
   function getEventsFromFormations() {
     // Sélectionne toutes les lignes du tableau de formations
@@ -5060,9 +5051,7 @@ import {
       calendarModal.style.display = "none";
     }
   });
-  
   /* =================== TÂCHES MODULE =================== */
-  
   // Task Form submission: l'état est forcé à "Due"
   document.getElementById("taskForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -5208,7 +5197,6 @@ import {
       showNotification("Erreur lors de la récupération des tâches actives.");
     }
   }
-  
   // Function to fetch tasks history (state "Accomplie")
   async function fetchTasksHistory() {
     try {
@@ -5417,7 +5405,6 @@ import {
       btnNo.addEventListener("click", onNo);
     });
   }
-  
   // Fonction utilitaire pour essayer de parser une date de plusieurs façons
   function tryParseDate(dateStr) {
     if (!dateStr) return null;
@@ -5685,7 +5672,6 @@ import {
   function easeOutQuad(x) {
     return 1 - (1 - x) * (1 - x);
   }
-  
   // Fonction pour générer le podium des formations
   function generatePodium(element, popularFormations) {
     if (!element) return;
@@ -5844,7 +5830,6 @@ import {
     lastPendingClosureCount: 0,
     initialized: false
   };
-
   // Fonction pour vérifier et afficher les notifications
   async function checkForNotifications() {
     // Vérifier si l'admin est connecté
@@ -6247,7 +6232,6 @@ import {
       showNotification("Erreur lors de l'ouverture du modal");
     }
   }
-
   // Fonction pour afficher le modal de modification des participants
   function showEditParticipantsModal(formation, date) {
     // Créer le modal s'il n'existe pas
@@ -6379,7 +6363,7 @@ import {
                    class="participant-field" />
           </td>
           <td>
-            <input type="text" value="${participant && participant.entity ? participant.entity : ''}" 
+            <input type="text" value="${participant && participant.entity ? canonicalizeEntityName(participant.entity) : ''}" 
                    data-field="entity" data-index="${index}" 
                    class="participant-field" />
           </td>
@@ -6643,7 +6627,6 @@ import {
     // Afficher le modal
     modal.style.display = "flex";
   }
-
   // Fonction pour replanifier une formation
   async function rescheduleFormation(id, oldDate, newDate) {
     try {
@@ -6743,5 +6726,3 @@ import {
       return timeValue;
     }
   }
-  
-  

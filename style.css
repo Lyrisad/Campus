@@ -7709,3 +7709,15 @@ footer {
     border-bottom: none;
   }
 }
+
+/* Ensure participants modal content scrolls within the viewport */
+#participantsModal .modal-content {
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+/* If the participants list grows large, allow it to scroll specifically */
+#participantsModal #participantsList {
+  max-height: 70vh;
+  overflow-y: auto;
+}
