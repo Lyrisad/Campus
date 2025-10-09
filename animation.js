@@ -339,9 +339,9 @@ import {
           let storedDate = new Date(match[2]);
           if (isSameDate(storedDate, targetDate)) {
             const empData = JSON.parse(match[1]);
-            // Chaque bloc contient un tableau d'un objet
             let empArray = Array.isArray(empData) ? empData : [empData];
-            count += empArray.length;
+            // Count only real participants (ignore rqth marker objects)
+            count += empArray.filter(e => !(e && typeof e === 'object' && e.__rqth)).length;
           }
         } catch (e) {
           console.error("Erreur lors du parsing des participants:", e);
@@ -1128,15 +1128,22 @@ import {
             }
           }
           let employeesFormatted = "";
+          let rqthBlock = "";
           try {
             const empArray = JSON.parse(req.employees);
             if (Array.isArray(empArray)) {
-              employeesFormatted = empArray
+              const staff = empArray.filter(e => !(e && typeof e === 'object' && e.__rqth));
+              const rqth = empArray.filter(e => e && typeof e === 'object' && e.__rqth);
+              employeesFormatted = staff
                 .map(
                   (emp) =>
-                    `${emp.matricule} - ${emp.nameEmployee} (${canonicalizeEntityName(emp.entity)})`
+                    `${emp.nameEmployee || ''} (${canonicalizeEntityName(emp.entity || '')})`
                 )
                 .join("<br>");
+              if (rqth && rqth.length) {
+                const lines = rqth.map(r => `<div><span class=\"rqth-title\">RQTH :</span> ${r.person || 'Non renseigné'}${r.actions ? `, ${r.actions}` : ''}</div>`).join("");
+                rqthBlock = `<div class=\"rqth-callout\">${lines}</div>`;
+              }
             } else {
               employeesFormatted = req.employees;
             }
@@ -1151,7 +1158,7 @@ import {
             <td>${req.telephone}</td>
             <td>${req.formation}</td>
             <td>${formattedDate}</td>
-            <td>${req.message}</td>
+            <td>${req.message}${rqthBlock}</td>
             <td class="employeesList">${employeesFormatted}</td>
             <td>
               <button class="btn-accept" data-id="${req.id}">✅ Accepter</button>
@@ -1274,7 +1281,6 @@ import {
         recordLog(`Tentative de connexion échouée (utilisateur: ${username || 'non renseigné'})`);
       }
     });
-  
     logoutButton.addEventListener("click", () => {
       document.getElementById("adminPanel").style.display = "none";
       adminLogin.style.display = "flex";
@@ -1580,19 +1586,30 @@ import {
   
     // Pour l'affichage, on reconstitue la liste des employés à partir de chaque bloc
     let participants = [];
+    let rqthDisplays = [];
     blocks.forEach((block) => {
       const m = block.match(/(\[.*?\])\s*\((.*?)\)/);
       if (m && m[1]) {
         try {
           const empData = JSON.parse(m[1]);
           let empArray = Array.isArray(empData) ? empData : [empData];
-          participants = participants.concat(empArray);
+          // Detect special rqth marker objects and keep them aside
+          empArray.forEach(item => {
+            if (item && typeof item === 'object' && item.__rqth) {
+              rqthDisplays.push({
+                person: item.person || '',
+                actions: item.actions || ''
+              });
+            } else {
+              participants.push(item);
+            }
+          });
         } catch (e) {
           console.error("Erreur lors du parsing d'un bloc :", e);
         }
       }
     });
-  
+
     let htmlContent = "";
     if (participants.length === 0) {
       htmlContent += "<p>Aucun participant pour cette date.</p>";
@@ -1619,17 +1636,20 @@ import {
         try {
           const empData = JSON.parse(block.json);
           // Chaque bloc est un tableau contenant un seul objet
-          const emp = Array.isArray(empData) ? empData[0] : empData;
+          const empCandidate = Array.isArray(empData) ? empData[0] : empData;
+          // Skip rqth marker rows
+          if (empCandidate && empCandidate.__rqth) return;
+          const emp = empCandidate;
           htmlContent += `
             <tr>
               <td style="padding:8px; border:1px solid #ddd;">${index + 1}</td>
               <td style="padding:8px; border:1px solid #ddd;">${
-                emp.matricule
+                emp && emp.matricule ? emp.matricule : '0000'
               }</td>
               <td style="padding:8px; border:1px solid #ddd;">${
-                emp.nameEmployee
+                (emp && emp.nameEmployee) || ''
               }</td>
-              <td style="padding:8px; border:1px solid #ddd;">${canonicalizeEntityName(emp.entity)}</td>
+              <td style="padding:8px; border:1px solid #ddd;">${canonicalizeEntityName(emp && emp.entity || '')}</td>
               <td style="padding:8px; border:1px solid #ddd;">
                 <button class="btn-remove-participant" data-index="${index}">Retirer</button>
               </td>
@@ -1644,12 +1664,25 @@ import {
         </table>
       `;
     }
+
+    // Append RQTH info below table if present (handle multiple)
+    if (rqthDisplays && rqthDisplays.length > 0) {
+      const lines = rqthDisplays.map(r => {
+        const personTxt = r.person ? r.person : 'Non renseigné';
+        const actionsTxt = r.actions ? r.actions : 'Non renseigné';
+        return `<div><span class="rqth-title">RQTH :</span> ${personTxt}${actionsTxt ? `, ${actionsTxt}` : ''}</div>`;
+      }).join("");
+      htmlContent += `
+        <div class="rqth-callout">
+          ${lines}
+        </div>
+      `;
+    }
   
     // Section d'ajout manuel d'un participant
     htmlContent += `
       <div id="addParticipantSection" style="margin-top:15px;">
         <h4>Ajouter un participant</h4>
-        <input type="text" id="newMatricule" placeholder="Matricule" style="margin-right:5px;" />
         <input type="text" id="newName" placeholder="Nom/Prénom" style="margin-right:5px;" />
         <input type="text" id="newEntity" placeholder="Entité" style="margin-right:5px;" />
         <button id="btnAddParticipant">Ajouter participant(e)</button>
@@ -1662,10 +1695,9 @@ import {
     // Gestion de l'ajout d'un participant
     document.getElementById("btnAddParticipant").addEventListener("click", () => {
       document.getElementById("btnAddParticipant").disabled = true;
-      const matricule = document.getElementById("newMatricule").value.trim();
       const nameEmployee = document.getElementById("newName").value.trim();
       const entity = document.getElementById("newEntity").value.trim();
-      if (!matricule || !nameEmployee || !entity) {
+      if (!nameEmployee || !entity) {
         document.getElementById("btnAddParticipant").disabled = false;
         showNotification("Veuillez remplir tous les champs.");
         return;
@@ -1679,7 +1711,7 @@ import {
         date: date
       }));
       
-      const newParticipant = { matricule, nameEmployee, entity };
+      const newParticipant = { matricule: '0000', nameEmployee, entity };
       addParticipantToFormation(formation, date, newParticipant);
 
       setTimeout(() => {
@@ -2478,8 +2510,6 @@ import {
       console.error("Error marking validated dates globally:", error);
     }
   }
-  
-  
   function generateOutlookEvent(formationName, { startTime, endTime, date, trainerName, address }, formation) {
     const targetDate = parseDDMMYYYY(date);
     // Filtrer par date
@@ -2491,17 +2521,19 @@ import {
     const participants = participantsBlocks.map((block) => {
       try {
         const empData = JSON.parse(block.json);
-        return Array.isArray(empData) ? empData[0] : empData;
+        const emp = Array.isArray(empData) ? empData[0] : empData;
+        if (emp && typeof emp === 'object' && emp.__rqth) return null;
+        return emp;
       } catch (e) {
         console.error("Erreur lors du parsing d'un bloc :", e);
         return null;
       }
-    });
+    }).filter(Boolean);
   
     // Construire la liste des participants
   
     let participantsList = participants
-      .map((emp, index) => `${index + 1}. ${emp.matricule} - ${emp.nameEmployee} - ${canonicalizeEntityName(emp.entity)}`)
+      .map((emp, index) => `${index + 1}. ${emp.matricule || '0000'} - ${emp.nameEmployee} - ${canonicalizeEntityName(emp.entity)}`)
       .filter((emp) => emp !== null)
       .join('\\n');
   
@@ -2563,9 +2595,6 @@ import {
       children: [
         new TableCell({ children: [new Paragraph({ text: "N°", bold: true })] }),
         new TableCell({
-          children: [new Paragraph({ text: "Matricule", bold: true })],
-        }),
-        new TableCell({
           children: [new Paragraph({ text: "Nom / Prénom", bold: true })],
         }),
         new TableCell({
@@ -2580,10 +2609,10 @@ import {
         try {
           const empData = JSON.parse(block.json);
           const emp = Array.isArray(empData) ? empData[0] : empData;
+          if (emp && typeof emp === 'object' && emp.__rqth) return null; // ignorer RQTH
           return new TableRow({
             children: [
               new TableCell({ children: [new Paragraph(String(index + 1))] }),
-              new TableCell({ children: [new Paragraph(emp.matricule)] }),
               new TableCell({ children: [new Paragraph(emp.nameEmployee)] }),
               new TableCell({ children: [new Paragraph(canonicalizeEntityName(emp.entity))] }),
             ],
@@ -2649,6 +2678,7 @@ import {
         try {
           const empData = JSON.parse(b.json);
           const emp = Array.isArray(empData) ? empData[0] : empData;
+          if (emp && typeof emp === 'object' && emp.__rqth) return null; // ignorer RQTH
           return {
             NOM_PRENOM: emp.nameEmployee,
             MATRICULE: emp.matricule,
@@ -2680,7 +2710,7 @@ import {
   // Variante pour PACK CE: si pas de participants sur la date du jour, fallback sur la date de référence
   function prepareTableauDataWithFallback(formation, date, fallbackDate) {
     let data = prepareTableauData(formation, date);
-    const nonEmpty = data.some(r => (r.NOM_PRENOM || r.MATRICULE || r.ENTITE));
+    const nonEmpty = data.some(r => (r.NOM_PRENOM || r.ENTITE));
     if (nonEmpty) return data;
     if (fallbackDate) return prepareTableauData(formation, fallbackDate);
     return data;
@@ -2749,6 +2779,7 @@ import {
         try {
           const empData = JSON.parse(b.json);
           const emp = Array.isArray(empData) ? empData[0] : empData;
+          if (emp && typeof emp === 'object' && emp.__rqth) return null; // ignorer RQTH
           // Vérifier que l'entité du stagiaire correspond à `entity`
           if (canonicalizeEntityName(emp.entity) === canonicalizeEntityName(entity)) {
             return {
@@ -2926,7 +2957,6 @@ import {
     // Si aucun cas ne correspond, on renvoie le nom de formation original
     return "Objectifs non définis";
   }
-  
   function computeIntraInter(formation, date) {
     const targetDate = parseDDMMYYYY(date);
     // Récupérer et filtrer les blocs correspondant à la date
@@ -2941,6 +2971,7 @@ import {
         try {
           const empData = JSON.parse(block.json);
           const emp = Array.isArray(empData) ? empData[0] : empData;
+          if (emp && typeof emp === 'object' && emp.__rqth) return null; // ignorer RQTH
           return canonicalizeEntityName(emp.entity);
         } catch (e) {
           console.error("Erreur de parsing dans computeIntraInter :", e);
@@ -3037,6 +3068,7 @@ import {
         try {
           const empData = JSON.parse(block.json);
           const emp = Array.isArray(empData) ? empData[0] : empData;
+          if (emp && typeof emp === 'object' && emp.__rqth) return null; // ignorer RQTH
           return canonicalizeEntityName(emp.entity);
         } catch (e) {
           console.error("Erreur de parsing d'un bloc :", e);
@@ -3385,6 +3417,7 @@ import {
         try {
           const empData = JSON.parse(block.json);
           const emp = Array.isArray(empData) ? empData[0] : empData;
+          if (emp && typeof emp === 'object' && emp.__rqth) return null; // ignorer le marqueur RQTH
           return {
             nameEmployee: emp.nameEmployee,
             matricule: emp.matricule,
@@ -3695,49 +3728,81 @@ import {
   async function removeParticipantFromFormation(formation, date, index) {
     // Extraire tous les blocs existants
     let blocks = getBlocks(formation.participants);
-    let newBlocks = [];
-    let currentDateIndex = 0;
     const targetDate = parseDDMMYYYY(date);
-  
-    // Fonction utilitaire pour s'assurer qu'un bloc se termine par ")"
-    function fixBlock(blockStr) {
-      blockStr = blockStr.trim();
-      return blockStr.endsWith("))") ? blockStr : blockStr + ")";
-    }
-  
-    // Parcourir tous les blocs
+
+    // Tableau des blocs à conserver
+    const keep = new Array(blocks.length).fill(true);
+
+    // 1) Retirer le bloc ciblé par index (sur la date cible)
+    let currentDateIndex = 0;
     for (let i = 0; i < blocks.length; i++) {
-      let block = blocks[i];
-      let blockDate = new Date(block.date);
+      const blockDate = new Date(blocks[i].date);
       if (isSameDate(blockDate, targetDate)) {
-        // Pour les blocs de la date cible, on ne garde que ceux qui ne correspondent pas à l'index à supprimer
-        if (currentDateIndex !== index) {
-          newBlocks.push(fixBlock(block.fullBlock));
+        if (currentDateIndex === index) {
+          keep[i] = false; // supprimer ce bloc
         }
         currentDateIndex++;
-      } else {
-        // Les blocs d'autres dates restent inchangés (mais corrigés au besoin)
-        newBlocks.push(fixBlock(block.fullBlock));
       }
     }
-  
-    // Reconstruire la chaîne à partir des blocs filtrés
-    formation.participants = newBlocks.join(", ").trim();
-  
+
+    // 2) Calculer les participants restants sur cette date (hors RQTH)
+    const remainingNames = [];
+    for (let i = 0; i < blocks.length; i++) {
+      if (!keep[i]) continue;
+      const blockDate = new Date(blocks[i].date);
+      if (!isSameDate(blockDate, targetDate)) continue;
+      try {
+        const arr = JSON.parse(blocks[i].json);
+        const obj = Array.isArray(arr) ? arr[0] : arr;
+        if (obj && typeof obj === 'object' && obj.__rqth) continue; // ignorer RQTH
+        if (obj && obj.nameEmployee) remainingNames.push(String(obj.nameEmployee).trim());
+      } catch (e) {
+        // Ignorer les erreurs de parsing
+      }
+    }
+
+    // 3) Retirer les blocs RQTH orphelins (plus de personne correspondante) OU si plus aucun participant restant
+    const noParticipantsLeft = remainingNames.length === 0;
+    for (let i = 0; i < blocks.length; i++) {
+      if (!keep[i]) continue;
+      const blockDate = new Date(blocks[i].date);
+      if (!isSameDate(blockDate, targetDate)) continue;
+      try {
+        const arr = JSON.parse(blocks[i].json);
+        const obj = Array.isArray(arr) ? arr[0] : arr;
+        if (obj && typeof obj === 'object' && obj.__rqth) {
+          const person = (obj.person || '').trim();
+          if (noParticipantsLeft || (person && !remainingNames.includes(person))) {
+            keep[i] = false; // supprimer RQTH orphelin
+          }
+        }
+      } catch (e) {
+        // Ignorer
+      }
+    }
+
+    // 4) Reconstruire la chaîne à partir des blocs conservés
+    function fixBlock(blockStr) {
+      blockStr = String(blockStr || '').trim();
+      return blockStr.endsWith(')') ? blockStr : (blockStr + ')');
+    }
+
+    const newBlocks = [];
+    for (let i = 0; i < blocks.length; i++) {
+      if (keep[i]) newBlocks.push(fixBlock(blocks[i].fullBlock));
+    }
+    formation.participants = newBlocks.join(', ').trim();
+
     await updateFormationParticipantsInSheet(
       formation.id,
       formation.participants
     );
-    
-    // Ne plus rouvrir automatiquement le modal ici car on va refresh la page
-    // showParticipantsModal(formation, date);
   }
   
   // Fonction d'échappement pour utiliser une chaîne dans une regex
   function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
-  
   /* ---------------------- Mise à Jour dans le Sheet ---------------------- */
   async function updateFormationParticipantsInSheet(id, participantsStr) {
     try {
@@ -3790,19 +3855,28 @@ import {
         const date = dateSelect.value;
         const message = document.getElementById("message").value;
   
-        // Récupérer les données du tableau des employés
+        // Validate required objectives checkbox
+        const confirmObjectives = document.getElementById("confirmObjectives");
+        if (!confirmObjectives || !confirmObjectives.checked) {
+          showNotification("Merci de confirmer les objectifs de formation (case obligatoire)");
+          return;
+        }
+  
+        // RQTH inputs
+        const rqthCheck = document.getElementById("rqthCheck");
+        const rqthActionsContainer = document.getElementById("rqthActionsContainer");
+        const rqthPersonsChecklist = document.getElementById("rqthPersonsChecklist");
+  
+        // Récupérer les données du tableau des employés (matricule auto 0000)
         const employees = [];
         const rows = document.querySelectorAll("#employeeTable tbody tr");
         rows.forEach((row) => {
-          const matricule = row
-            .querySelector('input[name="matricule[]"]')
-            .value.trim();
           const nameEmployee = row
             .querySelector('input[name="nameEmployee[]"]')
             .value.trim();
           const entity = row.querySelector('input[name="entity[]"]').value.trim();
-          if (matricule && nameEmployee && entity) {
-            employees.push({ matricule, nameEmployee, entity });
+          if (nameEmployee && entity) {
+            employees.push({ nameEmployee, entity });
           }
         });
   
@@ -3823,25 +3897,50 @@ import {
         // Si le message est vide, on le remplace par "Aucun message"
         const messageText = message.trim() === "" ? "Aucun message" : message;
   
-        // D'abord, essayer d'ajouter la demande au Google Sheet
-        const addResult = await addPendingRequest({
+        // Build optional RQTH payload to store along with employees/message
+        let rqthMarkers = [];
+        if (rqthCheck && rqthCheck.checked && rqthPersonsChecklist) {
+          const selectedPersons = Array.from(rqthPersonsChecklist.querySelectorAll('.rqth-person-checkbox'))
+            .filter(cb => cb.checked)
+            .map(cb => cb.getAttribute('data-person'));
+          selectedPersons.forEach(person => {
+            const actionsEl = rqthActionsContainer ? rqthActionsContainer.querySelector(`[data-rqth-person="${CSS.escape(person)}"] textarea`) : null;
+            const actionsVal = actionsEl ? actionsEl.value.trim() : '';
+            rqthMarkers.push({ __rqth: true, person, actions: actionsVal });
+          });
+        }
+
+        const enrichedEmployees = employees.map(e => ({ ...e }));
+        const employeesForSheet = rqthMarkers.length > 0
+          ? [...enrichedEmployees, ...rqthMarkers]
+          : enrichedEmployees;
+        const payload = {
           manager: name,
           email: email,
           telephone: phone,
           formation: formationName,
           date: date,
           message: messageText,
-          employees: JSON.stringify(employees),
-        });
+          employees: JSON.stringify(employeesForSheet)
+        };
+  
+        // D'abord, essayer d'ajouter la demande au Google Sheet
+        const addResult = await addPendingRequest(payload);
   
         if (!addResult.success) {
           throw new Error(addResult.error || "Erreur lors de l'ajout de la demande");
         }
   
         // Si l'ajout au Google Sheet réussit, envoyer l'email
-        const employeesList = employees
-          .map((emp) => `${emp.matricule} - ${emp.nameEmployee} (${canonicalizeEntityName(emp.entity)})`)
+        const employeesList = enrichedEmployees
+          .map((emp) => `${emp.nameEmployee} (${canonicalizeEntityName(emp.entity)})`)
           .join("\n");
+  
+        // Append RQTH block to email body if applicable
+        let rqthEmailBlock = '';
+        if (rqthMarkers && rqthMarkers.length) {
+          rqthEmailBlock = `\n\n[RQTH]\n${rqthMarkers.map(m => `- Personne: ${m.person || 'Non renseigné'}\n- Actions recommandées: ${m.actions || 'Non renseigné'}`).join('\n')}`;
+        }
   
         const formData = {
           name,
@@ -3849,7 +3948,7 @@ import {
           phone,
           formation: formationName,
           date,
-          message: messageText,
+          message: messageText + rqthEmailBlock,
           employees: employeesList,
         };
   
@@ -4023,6 +4122,7 @@ import {
         });
         tbody.appendChild(newRow);
         updateButtons();
+        refreshRqthChecklist();
       }
     }
   
@@ -4031,6 +4131,7 @@ import {
       if (currentRows > MIN_ROWS) {
         row.remove();
         updateButtons();
+        refreshRqthChecklist();
       }
     }
   
@@ -4045,6 +4146,75 @@ import {
     });
   
     updateButtons();
+  }
+
+  // RQTH UI: toggle details and keep person list in sync with participants
+  const rqthCheckEl = document.getElementById('rqthCheck');
+  const rqthDetailsEl = document.getElementById('rqthDetails');
+  const rqthPersonsChecklistEl = document.getElementById('rqthPersonsChecklist');
+  const rqthActionsContainerEl = document.getElementById('rqthActionsContainer');
+
+  if (rqthCheckEl) {
+    rqthCheckEl.addEventListener('change', () => {
+      if (rqthDetailsEl) rqthDetailsEl.style.display = rqthCheckEl.checked ? 'block' : 'none';
+      if (rqthCheckEl.checked) {
+        refreshRqthChecklist();
+        renderRqthActionsInputs();
+      }
+    });
+  }
+
+  function refreshRqthChecklist() {
+    if (!rqthPersonsChecklistEl) return;
+    const rows = document.querySelectorAll("#employeeTable tbody tr");
+    const names = [];
+    rows.forEach(row => {
+      const nameEmployee = row.querySelector('input[name="nameEmployee[]"]').value.trim();
+      if (nameEmployee) names.push(nameEmployee);
+    });
+    // Preserve previous typed actions
+    const prevActions = new Map();
+    Array.from(rqthActionsContainerEl.querySelectorAll('[data-rqth-person]')).forEach(div => {
+      const person = div.getAttribute('data-rqth-person');
+      const ta = div.querySelector('textarea');
+      prevActions.set(person, ta ? ta.value : '');
+    });
+    rqthPersonsChecklistEl.innerHTML = '';
+    names.forEach(n => {
+      const id = `rqthPerson_${n.replace(/[^a-z0-9]/gi,'_')}`;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'rqth-person-item';
+      wrapper.innerHTML = `<label><input type="checkbox" class="rqth-person-checkbox" data-person="${n.replace(/\"/g,'&quot;')}" id="${id}"> ${n}</label>`;
+      rqthPersonsChecklistEl.appendChild(wrapper);
+    });
+    // Re-render actions with preserved values
+    renderRqthActionsInputs(prevActions);
+  }
+
+  function renderRqthActionsInputs(preserved) {
+    if (!rqthActionsContainerEl || !rqthPersonsChecklistEl) return;
+    const selected = Array.from(rqthPersonsChecklistEl.querySelectorAll('.rqth-person-checkbox'))
+      .filter(cb => cb.checked)
+      .map(cb => cb.getAttribute('data-person'));
+    const existingInputs = preserved || new Map();
+    rqthActionsContainerEl.innerHTML = '';
+    selected.forEach(person => {
+      const val = existingInputs.get(person) || '';
+      const wrapper = document.createElement('div');
+      wrapper.setAttribute('data-rqth-person', person);
+      wrapper.style.marginBottom = '6px';
+      wrapper.innerHTML = `
+        <label style="display:block; font-weight:600; margin-bottom:4px;">Actions pour ${person} :</label>
+        <textarea rows="2" placeholder="Recommandations pour ${person}">${val}</textarea>
+      `;
+      rqthActionsContainerEl.appendChild(wrapper);
+    });
+  }
+
+  if (rqthPersonsChecklistEl) {
+    rqthPersonsChecklistEl.addEventListener('change', () => {
+      renderRqthActionsInputs();
+    });
   }
   // Fonction de formatage côté client : si la chaîne n'est pas déjà au format JJ/MM/AAAA, on la reformate.
   function formatDateClient(dateStr) {
@@ -4134,8 +4304,8 @@ import {
                 
                 if (Array.isArray(arr) && arr.length > 0) {
                   arr.forEach(p => {
-                    if (p && typeof p === 'object') {
-                      participantsHTML += `<div>${p.matricule || 'N/A'} - ${p.nameEmployee || 'N/A'} - ${canonicalizeEntityName(p.entity || 'N/A')}</div>`;
+                    if (p && typeof p === 'object' && !p.__rqth) {
+                      participantsHTML += `<div>${p.nameEmployee || 'N/A'} - ${canonicalizeEntityName(p.entity || 'N/A')}</div>`;
                     }
                   });
                 }
@@ -4251,7 +4421,6 @@ import {
       showNotification("Erreur lors de la clôture de la formation");
     }
   }
-  
   // Fonction pour ouvrir le modal de clôture
   function openClosureModal(formation) {
     const modal = document.getElementById("closureModal");
@@ -4297,12 +4466,13 @@ import {
         
         if (Array.isArray(participants) && participants.length > 0) {
           participants.forEach((participant, participantIndex) => {
+            if (participant.__rqth) return; // Ignorer les marqueurs RQTH
+            
             const row = document.createElement("tr");
             row.setAttribute("data-block-index", blockIndex);
             row.setAttribute("data-participant-index", participantIndex);
             
             row.innerHTML = `
-              <td>${participant.matricule || 'N/A'}</td>
               <td>${participant.nameEmployee || 'N/A'}</td>
               <td>${canonicalizeEntityName(participant.entity) || 'N/A'}</td>
               <td class="presence-toggle">
@@ -4338,7 +4508,6 @@ import {
     // Afficher le modal
     modal.style.display = "flex";
   }
-  
   // Fonction pour finaliser la clôture et générer les attestations
   async function finalizeClosureProcess(formationId, formationName, formationDate, participantsData) {
     try {
@@ -4549,7 +4718,6 @@ import {
       showNotification("Erreur lors de la génération des attestations");
     }
   }
-  
   // Fonction fetchArchives mise à jour pour formater la date côté client
   async function fetchArchives() {
     try {
@@ -4673,7 +4841,6 @@ import {
                         <div class="participant-info">
                           <div class="participant-name">${p.nameEmployee || 'N/A'}</div>
                           <div class="participant-details">
-                            <span class="participant-matricule">${p.matricule || 'N/A'}</span>
                             <span class="participant-entity">${canonicalizeEntityName(p.entity) || 'N/A'}</span>
                           </div>
                         </div>
@@ -4695,7 +4862,6 @@ import {
                               <div class="participant-info">
                                 <div class="participant-name">${p.nameEmployee || 'N/A'}</div>
                                 <div class="participant-details">
-                                  <span class="participant-matricule">${p.matricule || 'N/A'}</span>
                                   <span class="participant-entity">${canonicalizeEntityName(p.entity) || 'N/A'}</span>
                                 </div>
                               </div>
@@ -4827,7 +4993,6 @@ import {
       console.error("Erreur lors de la récupération de l'historique:", error);
     }
   }
-  
   // Fonction de filtrage améliorée
   function filterArchives() {
     const searchTerm = document.getElementById("archiveSearch").value.trim().toLowerCase();
@@ -4877,7 +5042,6 @@ import {
       if (content) content.style.display = hasVisibleFormations ? "" : "none";
     });
   }
-  
   // Fonction pour peupler le filtre par date sans doublons
   function populateArchiveDateFilter() {
     const rows = document.querySelectorAll("#archivesTable tbody tr:not(.month-group):not(.month-content)");
@@ -5107,7 +5271,6 @@ import {
       showNotification("Erreur lors de l'ajout de la tâche.");
     }
   });
-  
   // Function to fetch active tasks (state "Due")
   async function fetchTasks() {
     try {
@@ -5459,7 +5622,6 @@ import {
     // Retourner la durée correspondante ou 3.5 par défaut
     return hoursByFormation[formationCode] || 3.5;
   }
-  
   // Fonction pour calculer et afficher les statistiques
   async function loadStatistics() {
     try {
@@ -6040,7 +6202,6 @@ import {
       console.error('Erreur lors de la vérification des notifications:', error);
     }
   }
-
   // Fonction pour afficher une notification avec icône et type
   function showNotificationWithIcon(message, type = 'info', duration = 3000, clickAction = null) {
     const notification = document.createElement('div');
@@ -6253,7 +6414,6 @@ import {
             <table id="editParticipantsTable">
               <thead>
                 <tr>
-                  <th>Matricule</th>
                   <th>Nom / Prénom</th>
                   <th>Entité</th>
                   <th>Actions</th>
@@ -6267,7 +6427,6 @@ import {
           <div id="addParticipantSection" style="margin-top:15px;">
             <h4>Ajouter un participant</h4>
             <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-              <input type="text" id="editNewMatricule" placeholder="Matricule" />
               <input type="text" id="editNewName" placeholder="Nom/Prénom" />
               <input type="text" id="editNewEntity" placeholder="Entité" />
               <button id="editBtnAddParticipant">Ajouter</button>
@@ -6343,7 +6502,7 @@ import {
     if (participantsForDate.length === 0) {
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td colspan="4" style="text-align: center; color: #666; font-style: italic;">
+        <td colspan="3" style="text-align: center; color: #666; font-style: italic;">
           Aucun participant trouvé pour cette date.
         </td>
       `;
@@ -6352,11 +6511,6 @@ import {
       participantsForDate.forEach((participant, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>
-            <input type="text" value="${participant && participant.matricule ? participant.matricule : ''}" 
-                   data-field="matricule" data-index="${index}" 
-                   class="participant-field" />
-          </td>
           <td>
             <input type="text" value="${participant && participant.nameEmployee ? participant.nameEmployee : ''}" 
                    data-field="nameEmployee" data-index="${index}" 
@@ -6377,11 +6531,10 @@ import {
     
     // Gestionnaire pour ajouter un participant
     document.getElementById("editBtnAddParticipant").onclick = () => {
-      const matricule = document.getElementById("editNewMatricule").value.trim();
       const nameEmployee = document.getElementById("editNewName").value.trim();
       const entity = document.getElementById("editNewEntity").value.trim();
       
-      if (!matricule || !nameEmployee || !entity) {
+      if (!nameEmployee || !entity) {
         showNotification("Veuillez remplir tous les champs.");
         return;
       }
@@ -6390,11 +6543,6 @@ import {
       const newIndex = participantsForDate.length;
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td>
-          <input type="text" value="${matricule}" 
-                 data-field="matricule" data-index="${newIndex}" 
-                 class="participant-field" />
-        </td>
         <td>
           <input type="text" value="${nameEmployee}" 
                  data-field="nameEmployee" data-index="${newIndex}" 
@@ -6412,10 +6560,9 @@ import {
       participantsTable.appendChild(row);
       
       // Ajouter le participant aux données
-      participantsForDate.push({ matricule, nameEmployee, entity });
+      participantsForDate.push({ nameEmployee, entity });
       
       // Vider les champs
-      document.getElementById("editNewMatricule").value = "";
       document.getElementById("editNewName").value = "";
       document.getElementById("editNewEntity").value = "";
     };
@@ -6431,7 +6578,7 @@ import {
           btn.setAttribute("data-index", newIndex);
         });
         document.querySelectorAll(".participant-field").forEach((field, fieldIndex) => {
-          const rowIndex = Math.floor(fieldIndex / 3);
+          const rowIndex = Math.floor(fieldIndex / 2);
           field.setAttribute("data-index", rowIndex);
         });
       }
@@ -6447,12 +6594,11 @@ import {
         const rows = participantsTable.querySelectorAll("tr");
         
         rows.forEach((row) => {
-          const matricule = row.querySelector('[data-field="matricule"]').value.trim();
           const nameEmployee = row.querySelector('[data-field="nameEmployee"]').value.trim();
           const entity = row.querySelector('[data-field="entity"]').value.trim();
           
-          if (matricule && nameEmployee && entity) {
-            updatedParticipants.push({ matricule, nameEmployee, entity });
+          if (nameEmployee && entity) {
+            updatedParticipants.push({ nameEmployee, entity });
           }
         });
         
@@ -6476,7 +6622,6 @@ import {
     // Afficher le modal
     modal.style.display = "flex";
   }
-
   // Fonction pour mettre à jour les participants pour une date spécifique
   async function updateParticipantsForDate(formation, targetDate, newParticipants) {
     try {
@@ -6689,7 +6834,6 @@ import {
       return dateValue;
     }
   }
-  
   // Fonction pour formater une heure en HHhMMmSSs
   function formatLogTime(timeValue) {
     try {

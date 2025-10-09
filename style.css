@@ -7721,3 +7721,23 @@ footer {
   max-height: 70vh;
   overflow-y: auto;
 }
+
+/* RQTH callout styling for emphasis */
+.rqth-callout {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-left: 4px solid #8e44ad;
+  background: linear-gradient(90deg, rgba(142,68,173,0.08), rgba(142,68,173,0.02));
+  color: #4a235a;
+  border-radius: 6px;
+}
+.rqth-callout .rqth-title {
+  font-weight: 700;
+  color: #6c3483;
+  margin-right: 6px;
+}
+
+/* Slightly larger in participants modal */
+#participantsModal .rqth-callout {
+  font-size: 0.96rem;
+}
