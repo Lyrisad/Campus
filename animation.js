@@ -2398,11 +2398,11 @@ import {
       "TOTAL HT": totals.totalHT.toFixed(2) + "€",
       TVA: totals.TVA.toFixed(2) + "€",
       "TOTAL TTC": totals.totalTTC.toFixed(2) + "€",
-      // Totaux bruts utiles
-      "TOTAL NBS": (totals.totalParticipants || 0).toString(),
-      "TOTAL NBT": totals.totalDistanceKm.toFixed(1),
-      "TOTAL NBRS": totals.nbRepasStagiaires.toString(),
-      "TOTAL NBRF": totals.nbRepasFormateur.toString(),
+      // Totaux calculés (unit x qty)
+      "TOTAL NBS": (totals.shareFixed).toFixed(2) + "€",
+      "TOTAL NBT": (totals.costParKm * shareKm).toFixed(2) + "€",
+      "TOTAL NBRS": (totals.costRepasStagiaire * totals.nbRepasStagiaires).toFixed(2) + "€",
+      "TOTAL NBRF": (totals.costRepasFormateur * totals.nbRepasFormateur).toFixed(2) + "€",
     });
 
     const out = doc.getZip().generate({ type: "blob" });
@@ -3409,10 +3409,10 @@ import {
     "TARIF TRAJET": tarifTrajetConvention.toFixed(2) + "€",
     "REPAIS STAGIAIRES": totalRepas + "€",
     "REPAIS FORMATEUR": tarifRepasFormateurConvention.toFixed(2) + "€",
-    "TOTAL NBS": totalNbs + "€",
-    "TOTAL NBRS": totalRepas + "€",
-    "TOTAL NBT": tarifTrajetConvention.toFixed(2) + "€",
-    "TOTAL NBRF": tarifRepasFormateurConvention.toFixed(2) + "€",
+    "TOTAL NBS": (totalNbs).toFixed(2) + "€",
+    "TOTAL NBRS": (totalRepas).toFixed(2) + "€",
+    "TOTAL NBT": (tarifTrajetConvention).toFixed(2) + "€",
+    "TOTAL NBRF": (tarifRepasFormateurConvention).toFixed(2) + "€",
     "TOTAL HT": totalHT.toFixed(2) + "€",
     TVA: TVA.toFixed(2) + "€",
     "TOTAL TTC": totalTTC.toFixed(2) + "€",
