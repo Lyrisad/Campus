@@ -2042,6 +2042,18 @@ import {
       d1Clone.addEventListener("change", fillSequentialDates);
     }
 
+    // Enforcer Jour 9 demi-journée + pas de repas
+    const enforceHalfDayForDay9 = () => {
+      const as9 = document.getElementById("packAfternoonStart9");
+      const ae9 = document.getElementById("packAfternoonEnd9");
+      const repasOui9 = document.getElementById("packRepasOui9");
+      const repasNon9 = document.getElementById("packRepasNon9");
+      if (as9) { as9.value = ""; as9.disabled = true; }
+      if (ae9) { ae9.value = ""; ae9.disabled = true; }
+      if (repasOui9) { repasOui9.checked = false; repasOui9.disabled = true; }
+      if (repasNon9) { repasNon9.checked = true; repasNon9.disabled = false; }
+    };
+
     // Gestion des onglets
     const tabs = Array.from(document.querySelectorAll(".pack-tab"));
     const panels = Array.from(document.querySelectorAll(".pack-day-panel"));
@@ -2052,6 +2064,7 @@ import {
       tabs.forEach((t) => t.classList.remove("active"));
       const current = tabs.find((t) => Number(t.getAttribute("data-day")) === day);
       if (current) current.classList.add("active");
+      if (day === 9) enforceHalfDayForDay9();
     };
     tabs.forEach((tab) => {
       tab.addEventListener("click", () => {
@@ -2059,6 +2072,9 @@ import {
         showDay(d);
       });
     });
+
+    // Forcer immédiatement le jour 9 au cas où il est affiché plus tard
+    setTimeout(enforceHalfDayForDay9, 0);
 
     // Bouton fermeture
     const closeBtn = document.getElementById("closePackTrainerModal");
@@ -2079,6 +2095,8 @@ import {
       newGen.addEventListener("click", async () => {
         try {
           await ensureTarifsLoaded();
+          // Enforcer une dernière fois avant lecture
+          enforceHalfDayForDay9();
           await generatePackDocuments(formation, baseDate);
           showNotification("Documents PACK CE générés avec succès !");
           modal.style.display = "none";
@@ -2106,9 +2124,18 @@ import {
     const aStart = get("packAfternoonStart");
     const aEnd = get("packAfternoonEnd");
     const repasOui = document.getElementById("packRepasOui" + i);
-    const repas = repasOui && repasOui.checked ? "oui" : "non";
     const iso = dateInput && dateInput.value ? dateInput.value : ""; // yyyy-mm-dd
     const dateFr = iso ? formatDateToDDMMYYYY(new Date(iso)) : ""; // dd/mm/yyyy
+
+    // Force half-day and no meal for Day 9
+    let afternoonStartVal = aStart ? aStart.value : "";
+    let afternoonEndVal = aEnd ? aEnd.value : "";
+    let repas = (repasOui && repasOui.checked) ? "oui" : "non";
+    if (i === 9) {
+      afternoonStartVal = "";
+      afternoonEndVal = "";
+      repas = "non";
+    }
     return {
       dayIndex: i,
       dateISO: iso,
@@ -2120,8 +2147,8 @@ import {
       roomFee: Number(roomInput && roomInput.value ? roomInput.value : 0) || 0,
       morningStart: mStart ? mStart.value : "",
       morningEnd: mEnd ? mEnd.value : "",
-      afternoonStart: aStart ? aStart.value : "",
-      afternoonEnd: aEnd ? aEnd.value : "",
+      afternoonStart: afternoonStartVal,
+      afternoonEnd: afternoonEndVal,
       repas: repas,
     };
   }
