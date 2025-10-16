@@ -2283,6 +2283,7 @@ import {
           costRepasStagiaire,
           costRepasFormateur,
           refDate,
+          totalFixed
         }
       );
     }
@@ -2367,6 +2368,11 @@ import {
       ? (totals.totalDistanceKm * (totals.countEntity / totals.totalParticipants))
       : 0;
 
+    // CPP: prix formation par participant (totalFixed / totalParticipants)
+    const cppUnit = (totals.totalFixed && totals.totalParticipants)
+      ? (Number(totals.totalFixed) / Number(totals.totalParticipants))
+      : 0;
+
     doc.render({
       VREF: vref,
       "NOM DE FORMATION": formation.name,
@@ -2376,7 +2382,7 @@ import {
       "NB SESSION": totals.nbSession,
       JOUR: (totals.totalHours / 7).toFixed(1),
       HEURES: totals.totalHours.toFixed(1),
-      CPP: (totals.shareFixed / totals.countEntity).toFixed(2) + "€",
+      CPP: cppUnit.toFixed(2) + "€",
       NBS: totals.countEntity,
       NBT: shareKm.toFixed(1),
       "DATE DU JOUR": dateOfToday,
@@ -2399,7 +2405,7 @@ import {
       TVA: totals.TVA.toFixed(2) + "€",
       "TOTAL TTC": totals.totalTTC.toFixed(2) + "€",
       // Totaux calculés (unit x qty)
-      "TOTAL NBS": (totals.shareFixed).toFixed(2) + "€",
+      "TOTAL NBS": (cppUnit * Number(totals.countEntity)).toFixed(2) + "€",
       "TOTAL NBT": (totals.costParKm * shareKm).toFixed(2) + "€",
       "TOTAL NBRS": (totals.costRepasStagiaire * totals.nbRepasStagiaires).toFixed(2) + "€",
       "TOTAL NBRF": (totals.costRepasFormateur * totals.nbRepasFormateur).toFixed(2) + "€",
