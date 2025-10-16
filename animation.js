@@ -3138,7 +3138,6 @@ import {
       return "";
     }
   }
-  
   // === Chargement dynamique des tarifs (formations + repas) depuis Apps Script ===
   let TARIFS_CACHE = null;
   async function ensureTarifsLoaded() {
@@ -3889,6 +3888,21 @@ import {
           return;
         }
   
+        // Extra validations: name, email, phone are mandatory
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!name || !name.trim()) {
+          showNotification("Nom et prénom obligatoires");
+          return;
+        }
+        if (!email || !emailRegex.test(email.trim())) {
+          showNotification("Email obligatoire et valide");
+          return;
+        }
+        if (!phone || !phone.trim()) {
+          showNotification("Téléphone obligatoire");
+          return;
+        }
+  
         // RQTH inputs
         const rqthCheck = document.getElementById("rqthCheck");
         const rqthActionsContainer = document.getElementById("rqthActionsContainer");
@@ -3924,7 +3938,7 @@ import {
         // Si le message est vide, on le remplace par "Aucun message"
         const messageText = message.trim() === "" ? "Aucun message" : message;
   
-        // Build optional RQTH payload to store along with employees/message
+        // Build optional RQTH payload to store along with employees/message (multiple)
         let rqthMarkers = [];
         if (rqthCheck && rqthCheck.checked && rqthPersonsChecklist) {
           const selectedPersons = Array.from(rqthPersonsChecklist.querySelectorAll('.rqth-person-checkbox'))
@@ -3963,10 +3977,11 @@ import {
           .map((emp) => `${emp.nameEmployee} (${canonicalizeEntityName(emp.entity)})`)
           .join("\n");
   
-        // Append RQTH block to email body if applicable
+        // Append RQTH block to email body if applicable (multiple)
         let rqthEmailBlock = '';
-        if (rqthMarkers && rqthMarkers.length) {
-          rqthEmailBlock = `\n\n[RQTH]\n${rqthMarkers.map(m => `- Personne: ${m.person || 'Non renseigné'}\n- Actions recommandées: ${m.actions || 'Non renseigné'}`).join('\n')}`;
+        if (rqthMarkers.length > 0) {
+          const lines = rqthMarkers.map(m => `- ${m.person || 'Non renseigné'}${m.actions ? `: ${m.actions}` : ''}`).join('\n');
+          rqthEmailBlock = `\n\n[RQTH]\n${lines}`;
         }
   
         const formData = {
@@ -4275,7 +4290,6 @@ import {
       console.error("Error calling moveToPendingClosure action:", error);
     }
   }
-  
   // Fonction pour récupérer les formations à clôturer
   async function fetchPendingClosure() {
     try {
