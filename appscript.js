@@ -896,18 +896,29 @@ try {
     if (passedBlocks.length > 0) {
       for (const block of passedBlocks) {
         try {
-          const blockDate = new Date(block.date);
+          // Reparser la date du bloc de façon robuste
+          let blockDate = null;
+          if (typeof block.date === 'string' && /^\d{2}\/\d{2}\/\d{4}$/.test(block.date)) {
+            blockDate = parseDDMMYYYY(block.date);
+          } else {
+            blockDate = new Date(block.date);
+          }
           blockDate.setHours(0, 0, 0, 0);
           
           // Vérifier si cette entrée existe déjà dans PendingClosure
           const pendingClosureData = pendingClosureSheet.getDataRange().getValues();
-          let exists = false;
-          
-          for (let j = 1; j < pendingClosureData.length; j++) {
-            const pcRow = pendingClosureData[j];
-            if (pcRow[0] == formationId && 
-                formatDateToDDMMYYYY(new Date(pcRow[2])) === formatDateToDDMMYYYY(blockDate) &&
-                pcRow[1] === formationName) {
+          var exists = false;
+
+          for (var j = 1; j < pendingClosureData.length; j++) {
+            var pcRow = pendingClosureData[j];
+            // Normaliser l'ID et la date pour comparaison robuste
+            var pcId = String(pcRow[0]);
+            var pcFormation = pcRow[1];
+            var pcDateRaw = pcRow[2];
+            var pcDate = formatDateToDDMMYYYY(pcDateRaw);
+            var blkDate = formatDateToDDMMYYYY(blockDate);
+
+            if (pcId === String(formationId) && pcFormation === formationName && pcDate === blkDate) {
               exists = true;
               break;
             }
@@ -918,10 +929,8 @@ try {
             const participantsForDate = passedBlocks
               .filter(b => {
                 try {
-                  const d = new Date(b.date);
-                  if (isNaN(d.getTime())) return false; // Ignorer les dates invalides
-                  d.setHours(0, 0, 0, 0);
-                  return d.getTime() === blockDate.getTime();
+                  // Comparer en dd/mm/yyyy pour neutraliser fuseaux/strings
+                  return formatDateToDDMMYYYY(b.date) === formatDateToDDMMYYYY(blockDate);
                 } catch (e) {
                   Logger.log("Erreur lors de la comparaison des dates: " + e);
                   return false;
@@ -932,12 +941,12 @@ try {
                 try {
                   // Vérifier si le JSON est valide
                   JSON.parse(b.json);
-                  return b.json + ' (' + b.date + ')';
+                  return b.json + ' (' + formatDateToDDMMYYYY(b.date) + ')';
                 } catch (e) {
                   // Si le parsing échoue, essayer de nettoyer le JSON
                   Logger.log("Erreur de parsing JSON, tentative de nettoyage: " + e);
                   const cleanedJson = b.json.replace(/([^\\])\\([^"\\])/g, '$1\\\\$2');
-                  return cleanedJson + ' (' + b.date + ')';
+                  return cleanedJson + ' (' + formatDateToDDMMYYYY(b.date) + ')';
                 }
               })
               .join('|||');
@@ -1032,6 +1041,45 @@ try {
             dates: ""
           });
         }
+      }
+    } else {
+      // Aucun bloc passé détecté, mais on nettoie quand même les dates obsolètes
+      try {
+        var newDatesStr = availableDates;
+        if (typeof availableDates === 'string' && availableDates.trim() !== '') {
+          var datesArray2 = availableDates.split(',').map(function (d) { return d.trim(); });
+          var remainingDates2 = datesArray2.filter(function (dateStr) {
+            try {
+              if (!/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) {
+                return true; // conserver les entrées non conformes
+              }
+              var d2 = parseDDMMYYYY(dateStr);
+              if (isNaN(d2.getTime())) return true;
+              d2.setHours(0, 0, 0, 0);
+              return d2 >= today;
+            } catch (e2) {
+              Logger.log('Erreur lors du filtrage des dates (aucun bloc passé): ' + e2 + ' pour ' + dateStr);
+              return true;
+            }
+          });
+          newDatesStr = remainingDates2.join(', ');
+        }
+
+        // Si changement de dates, programmer la mise à jour
+        if (newDatesStr !== availableDates) {
+          updates.push({
+            row: i + 1,
+            participants: participants || '',
+            dates: newDatesStr
+          });
+        }
+
+        // Si plus aucune date future et pas de participants, supprimer la ligne
+        if ((!newDatesStr || newDatesStr.trim() === '') && (!participants || String(participants).trim() === '')) {
+          updates.push({ row: i + 1, participants: '', dates: '' });
+        }
+      } catch (e3) {
+        Logger.log('Nettoyage des dates échoué (aucun bloc passé): ' + e3);
       }
     }
   }
@@ -1160,7 +1208,7 @@ try {
     let dateMatches = true;
     if (date && dateIndex >= 0) {
       const rowDate = formatDateToDDMMYYYY(pendingData[i][dateIndex]);
-      dateMatches = (rowDate === date);
+      dateMatches = (rowDate === formatDateToDDMMYYYY(date));
     }
     
     if (rowId === id && dateMatches) {
@@ -1214,53 +1262,74 @@ try {
 
 // Fonction utilitaire pour obtenir les blocs de participants
 function getBlocks(participantsStr) {
-if (!participantsStr) return [];
+  if (!participantsStr) return [];
 
-// Expression régulière améliorée pour capturer les blocs de participants
-// Elle recherche un tableau JSON suivi d'une date entre parenthèses
-const regex = /(\[.*?\])\s*\((.*?)\)/g;
-let blocks = [];
-let match;
+  // Expression régulière pour capturer les blocs de participants
+  // Elle recherche un tableau JSON suivi d'une date entre parenthèses
+  var regex = /(\[.*?\])\s*\((.*?)\)/g;
+  var blocks = [];
+  var match;
 
-while ((match = regex.exec(participantsStr)) !== null) {
-  try {
-    // Vérifier si le format JSON est valide
-    const jsonStr = match[1];
-    const dateStr = match[2];
-    
-    // Vérifier si la date est valide
-    const date = new Date(dateStr);
-    if (isNaN(date.getTime())) {
-      Logger.log("Date invalide ignorée: " + dateStr);
-      continue;
+  while ((match = regex.exec(participantsStr)) !== null) {
+    try {
+      var jsonStr = match[1];
+      var dateStr = match[2];
+
+      // Supporter les dates au format dd/mm/yyyy en plus des formats natifs JS
+      var dateObj;
+      if (typeof dateStr === 'string' && /^\d{2}\/\d{2}\/\d{4}$/.test(dateStr.trim())) {
+        dateObj = parseDDMMYYYY(dateStr.trim());
+      } else {
+        dateObj = new Date(dateStr);
+      }
+
+      if (isNaN(dateObj.getTime())) {
+        Logger.log('Date invalide ignorée: ' + dateStr);
+        continue;
+      }
+
+      blocks.push({
+        json: jsonStr,
+        date: formatDateToDDMMYYYY(dateObj),
+        fullBlock: match[0]
+      });
+    } catch (e) {
+      Logger.log("Erreur lors de l'extraction d'un bloc: " + e + "\nBloc: " + match[0]);
     }
-    
-    blocks.push({
-      json: jsonStr,
-      date: dateStr,
-      fullBlock: match[0]
-    });
-  } catch (e) {
-    Logger.log("Erreur lors de l'extraction d'un bloc: " + e + "\nBloc: " + match[0]);
   }
-}
 
-return blocks;
+  return blocks;
 }
 
 // Fonction utilitaire pour formater une date en DD/MM/YYYY
 function formatDateToDDMMYYYY(date) {
-if (!(date instanceof Date)) {
-  date = new Date(date);
-}
+  // Si on reçoit déjà une chaîne au format dd/mm/yyyy, la renvoyer telle quelle
+  if (typeof date === 'string') {
+    var trimmed = date.trim();
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(trimmed)) {
+      return trimmed;
+    }
+  }
 
-if (isNaN(date)) return '';
+  // Si ce n'est pas un objet Date valide, essayer plusieurs parsings
+  if (!(date instanceof Date) || isNaN(date.getTime())) {
+    var parsed = new Date(date);
+    if (!isNaN(parsed.getTime())) {
+      date = parsed;
+    } else if (typeof date === 'string') {
+      var ddmmyyyy = parseDDMMYYYY(date);
+      if (!isNaN(ddmmyyyy.getTime())) {
+        date = ddmmyyyy;
+      }
+    }
+  }
 
-const dd = date.getDate().toString().padStart(2, '0');
-const mm = (date.getMonth() + 1).toString().padStart(2, '0');
-const yyyy = date.getFullYear();
+  if (!(date instanceof Date) || isNaN(date.getTime())) return '';
 
-return `${dd}/${mm}/${yyyy}`;
+  var dd = String(date.getDate()).padStart(2, '0');
+  var mm = String(date.getMonth() + 1).padStart(2, '0');
+  var yyyy = date.getFullYear();
+  return dd + '/' + mm + '/' + yyyy;
 }
 
 // Fonction de diagnostic pour vérifier la structure de la feuille "Formations"
@@ -1936,43 +2005,29 @@ function rescheduleFormation(e) {
 // Fonction utilitaire pour mettre à jour la date des participants
 function updateParticipantsDate(participantsStr, newDate) {
   if (!participantsStr) return '';
-  
-  // Convertir la nouvelle date en format JavaScript complet
-  let formattedNewDate = newDate;
-  if (newDate && typeof newDate === 'string') {
-    try {
-      // Si c'est déjà au format dd/mm/yyyy, le parser
-      if (/^\d{2}\/\d{2}\/\d{4}$/.test(newDate)) {
-        const parts = newDate.split('/');
-        const dateObj = new Date(parts[2], parts[1] - 1, parts[0]);
-        formattedNewDate = dateObj.toString();
-      } else {
-        // Sinon, essayer de parser directement
-        const dateObj = new Date(newDate);
-        if (!isNaN(dateObj.getTime())) {
-          formattedNewDate = dateObj.toString();
-        }
-      }
-    } catch (e) {
-      // En cas d'erreur, utiliser la date originale
-      formattedNewDate = newDate;
-    }
+
+  // Normaliser la nouvelle date en dd/mm/yyyy
+  var normalizedNewDate = formatDateToDDMMYYYY(newDate);
+  if (!normalizedNewDate) {
+    var nd = new Date(newDate);
+    if (!isNaN(nd.getTime())) normalizedNewDate = formatDateToDDMMYYYY(nd);
   }
-  
+  if (!normalizedNewDate) normalizedNewDate = String(newDate || '');
+
   // Découper les participants par "|||"
-  const participantBlocks = participantsStr.split('|||');
-  
-  const updatedBlocks = participantBlocks.map(block => {
+  var participantBlocks = participantsStr.split('|||');
+
+  var updatedBlocks = participantBlocks.map(function (block) {
     // Extraire le JSON et l'ancienne date
-    const match = block.match(/^(\[.*?\])\s*\((.*?)\)$/);
+    var match = block.match(/^(\[.*?\])\s*\((.*?)\)$/);
     if (match) {
-      const jsonPart = match[1];
-      // Retourner le JSON avec la nouvelle date au format JavaScript complet
-      return jsonPart + ' (' + formattedNewDate + ')';
+      var jsonPart = match[1];
+      // Retourner le JSON avec la nouvelle date normalisée dd/mm/yyyy
+      return jsonPart + ' (' + normalizedNewDate + ')';
     }
     return block; // Si le format ne correspond pas, retourner tel quel
   });
-  
+
   return updatedBlocks.join('|||');
 }
 
