@@ -9,7 +9,7 @@ import {
   
   // URL de votre Web App Google Apps Script
   const SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbwy23VMVeGOeG1M1yO-vQ5Y_7oIk9Z7ZUT8UMRI3Kc4E3M4h99MxbN4C0ViON4LEYjrNg/exec";
+    "https://script.google.com/macros/s/AKfycbzS3PLSw-5qs868Z-p7L8LtckSMrdjUWOm3XUnZxCfgtD-vCPaJ60KRXdcm_v7cM0PaVg/exec";
   
   // ---------------------- Fonctions Utilitaires Globales ----------------------
   
@@ -82,6 +82,7 @@ import {
       const data = await response.json();
       return data.ip;
     } catch (error) {
+
       console.warn('Impossible d\'obtenir l\'IP utilisateur:', error);
       return 'IP non disponible';
     }
@@ -4287,9 +4288,19 @@ import {
     try {
       const response = await fetch(`${SCRIPT_URL}?action=moveToPendingClosure`);
       const result = await response.json();
-      if (result.success) {
-        console.log("Moving to pending closure completed successfully.");
-      } else {
+    if (result.success) {
+      console.log("Moving to pending closure completed successfully.");
+      // Rafraîchir les données côté UI pour refléter les déplacements
+      if (typeof window !== 'undefined' && typeof window.fetchFormations === 'function') {
+        await window.fetchFormations();
+      }
+      if (typeof window !== 'undefined' && typeof window.fetchPendingClosure === 'function') {
+        await window.fetchPendingClosure();
+      }
+      if (typeof fetchArchives === 'function') {
+        await fetchArchives();
+      }
+    } else {
         console.error("Moving to pending closure error:", result.error);
       }
     } catch (error) {

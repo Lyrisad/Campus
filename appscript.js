@@ -595,9 +595,16 @@ function doGet(e) {
   );
 }
 
+// ====== Unified Spreadsheet Access ======
+// IMPORTANT: Use the same spreadsheet across ALL functions
+var SPREADSHEET_ID = "1J7s8dl-eEn_An1VY5K3cVKYdF3dOWZRSsYtRWbQ4Z_w";
+function getSS() {
+  return SpreadsheetApp.openById(SPREADSHEET_ID);
+}
+
 function readTarifs() {
   try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = getSS();
     var formationPrices = {};
     var mealPrices = { stagiaire: 0, formateur: 0 };
 
@@ -662,7 +669,7 @@ function updateTarifFormation(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = getSS();
     var sheet = ss.getSheetByName("TarifsFormations");
     if (!sheet) {
       sheet = ss.insertSheet("TarifsFormations");
@@ -712,7 +719,7 @@ function updateTarifRepas(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = getSS();
     var sheet = ss.getSheetByName("TarifRepas");
     if (!sheet) {
       sheet = ss.insertSheet("TarifRepas");
@@ -741,7 +748,7 @@ function updateTarifRepas(e) {
 function readRefConventions() {
 try {
   // If you have a specific spreadsheet ID, replace getActiveSpreadsheet() with openById(...)
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getSS();
   var sheet = ss.getSheetByName("Ref_Conventions");
   
   if (!sheet) {
@@ -786,7 +793,7 @@ return new Date(parts[2], parts[1] - 1, parts[0]);
 // Fonction pour déplacer les formations passées vers le tableau 'à clôturer'
 function moveToPendingClosure(e) {
 try {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getSS();
   const formationsSheet = ss.getSheetByName('Formations');
   const pendingClosureSheet = ss.getSheetByName('PendingClosure');
   
@@ -863,29 +870,36 @@ try {
     
     for (const block of participantBlocks) {
       try {
-        const blockDate = new Date(block.date);
-        blockDate.setHours(0, 0, 0, 0);
-        
-        // Vérifier si la date est valide
-        if (isNaN(blockDate.getTime())) {
+        // block.date peut être au format dd/mm/yyyy (normalisé par getBlocks)
+        // Utiliser un parseur robuste
+        var bd;
+        if (typeof block.date === 'string' && /^\d{2}\/\d{2}\/\d{4}$/.test(block.date.trim())) {
+          bd = parseDDMMYYYY(block.date.trim());
+        } else {
+          var cleaned = String(block.date).replace(/\s*\(.*$/, '').trim();
+          bd = new Date(cleaned);
+        }
+        if (isNaN(bd.getTime())) {
           Logger.log("Date invalide ignorée: " + block.date);
-          remainingBlocks.push(block); // Conserver les blocs avec dates invalides
+          remainingBlocks.push(block);
           continue;
         }
-        
-        Logger.log("Date du bloc: " + blockDate + " (comparée à aujourd'hui: " + today + ")");
-        
-        // Si la date est passée ou égale à aujourd'hui, la marquer pour déplacement
-        if (blockDate <= today) {
-          Logger.log("Date passée détectée: " + blockDate);
+        bd.setHours(0, 0, 0, 0);
+
+        Logger.log("Date du bloc: " + bd + " (comparée à aujourd'hui: " + today + ")");
+
+        if (bd <= today) {
+          Logger.log("Date passée détectée: " + bd);
+          // Remplacer la date du bloc par une version normalisée pour toutes les étapes suivantes
+          block.date = formatDateToDDMMYYYY(bd);
           passedBlocks.push(block);
         } else {
-          // Sinon, la conserver
+          block.date = formatDateToDDMMYYYY(bd);
           remainingBlocks.push(block);
         }
       } catch (e) {
         Logger.log('Erreur lors du traitement d\'un bloc: ' + e + '\nBloc: ' + JSON.stringify(block));
-        remainingBlocks.push(block); // En cas d'erreur, conserver le bloc
+        remainingBlocks.push(block);
       }
     }
     
@@ -903,6 +917,7 @@ try {
           blockDate.setHours(0, 0, 0, 0);
           
           // Vérifier si cette entrée existe déjà dans PendingClosure
+          // Construire la clé unique pour empêcher les doublons et vérifier l'existence
           const pendingClosureData = pendingClosureSheet.getDataRange().getValues();
           var exists = false;
 
@@ -913,9 +928,9 @@ try {
             var pcFormation = pcRow[1];
             var pcDateRaw = pcRow[2];
             var pcDate = formatDateToDDMMYYYY(pcDateRaw);
-            var blkDate = formatDateToDDMMYYYY(blockDate);
+            var blkDate = formatDateToDDMMYYYY(block.date);
 
-            if (pcId === String(formationId) && pcFormation === formationName && pcDate === blkDate) {
+            if (pcId === String(formationId) && String(pcFormation).trim() === String(formationName).trim() && pcDate === blkDate) {
               exists = true;
               break;
             }
@@ -927,7 +942,7 @@ try {
               .filter(b => {
                 try {
                   // Comparer en dd/mm/yyyy pour neutraliser fuseaux/strings
-                  return formatDateToDDMMYYYY(b.date) === formatDateToDDMMYYYY(blockDate);
+                  return formatDateToDDMMYYYY(b.date) === formatDateToDDMMYYYY(block.date);
                 } catch (e) {
                   Logger.log("Erreur lors de la comparaison des dates: " + e);
                   return false;
@@ -949,7 +964,7 @@ try {
               .join('|||');
             
             // Formater la date en dd/mm/yyyy avant de l'ajouter
-            const formattedDate = formatDateToDDMMYYYY(blockDate);
+            const formattedDate = formatDateToDDMMYYYY(block.date);
             Logger.log("Ajout à PendingClosure: " + formationId + ", " + formationName + ", " + formattedDate);
             pendingClosureSheet.appendRow([formationId, formationName, formattedDate, participantsForDate]);
           }
@@ -1117,7 +1132,7 @@ try {
 // Fonction pour lire les formations en attente de clôture
 function readPendingClosure(e) {
 try {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getSS();
   const sheet = ss.getSheetByName('PendingClosure');
   
   if (!sheet) {
@@ -1176,7 +1191,7 @@ try {
     })).setMimeType(ContentService.MimeType.JSON);
   }
   
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getSS();
   const pendingClosureSheet = ss.getSheetByName('PendingClosure');
   const archiveSheet = ss.getSheetByName('Archives');
   
@@ -1274,10 +1289,13 @@ function getBlocks(participantsStr) {
 
       // Supporter les dates au format dd/mm/yyyy en plus des formats natifs JS
       var dateObj;
-      if (typeof dateStr === 'string' && /^\d{2}\/\d{2}\/\d{4}$/.test(dateStr.trim())) {
-        dateObj = parseDDMMYYYY(dateStr.trim());
+      var raw = (typeof dateStr === 'string') ? dateStr.trim() : String(dateStr);
+      // Supprimer tout suffixe à partir du premier " (" (ex: fuseau local)
+      var cleaned = raw.replace(/\s*\(.*$/, '').trim();
+      if (/^\d{2}\/\d{2}\/\d{4}$/.test(cleaned)) {
+        dateObj = parseDDMMYYYY(cleaned);
       } else {
-        dateObj = new Date(dateStr);
+        dateObj = new Date(cleaned);
       }
 
       if (isNaN(dateObj.getTime())) {
@@ -1332,7 +1350,7 @@ function formatDateToDDMMYYYY(date) {
 // Fonction de diagnostic pour vérifier la structure de la feuille "Formations"
 function diagFormations() {
 try {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getSS();
   const formationsSheet = ss.getSheetByName('Formations');
   
   if (!formationsSheet) {
@@ -1411,7 +1429,7 @@ try {
     })).setMimeType(ContentService.MimeType.JSON);
   }
   
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getSS();
   const pendingClosureSheet = ss.getSheetByName('PendingClosure');
   
   if (!pendingClosureSheet) {
@@ -1564,7 +1582,7 @@ try {
   }
   
   // Ouvrir la feuille de calcul
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getSS();
   let sheet = ss.getSheetByName("Ref_Attestations");
   
   // Créer la feuille si elle n'existe pas
@@ -1629,7 +1647,7 @@ try {
 function readRefAttestations(e) {
 try {
   // Ouvrir la feuille de calcul
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getSS();
   const sheet = ss.getSheetByName("Ref_Attestations");
   
   if (!sheet) {
