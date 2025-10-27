@@ -847,16 +847,13 @@ try {
     const availableDates = row[datesIndex];
     const participants = row[participantsIndex];
     
-    // Vérifier que participants existe et n'est pas vide
-    if (!participants) continue;
-    
     // Log pour le débogage
     Logger.log("Traitement de la formation: " + formationId + " - " + formationName);
     Logger.log("Dates disponibles: " + availableDates);
     Logger.log("Participants: " + participants);
     
     // Analyser les blocs de participants
-    const participantBlocks = getBlocks(participants);
+    const participantBlocks = getBlocks(participants || '');
     
     Logger.log("Nombre de blocs de participants trouvés: " + participantBlocks.length);
     
@@ -892,8 +889,8 @@ try {
       }
     }
     
-    // S'il y a des blocs passés, les traiter
-    if (passedBlocks.length > 0) {
+    // S'il y a des blocs passés, les traiter (si participants)
+    if (passedBlocks.length > 0 && (participants && String(participants).trim() !== '')) {
       for (const block of passedBlocks) {
         try {
           // Reparser la date du bloc de façon robuste
