@@ -9,7 +9,7 @@ import {
   
   // URL de votre Web App Google Apps Script
   const SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbzS3PLSw-5qs868Z-p7L8LtckSMrdjUWOm3XUnZxCfgtD-vCPaJ60KRXdcm_v7cM0PaVg/exec";
+    "https://script.google.com/macros/s/AKfycby2Hh9Ou0mh6l_tLU8Fu7UstWSiVPEvyIfA5B4Opb7iyjE7SYyarydx0Xsha6GI8OaPWw/exec";
   
   // ---------------------- Fonctions Utilitaires Globales ----------------------
   
@@ -6063,11 +6063,13 @@ import {
     try {
       // Récupérer les demandes en attente
       const pendingResponse = await fetch(`${SCRIPT_URL}?action=readPending&t=${Date.now()}`);
+      if (!pendingResponse.ok) throw new Error(`HTTP ${pendingResponse.status}`);
       const pendingData = await pendingResponse.json();
       const currentPendingCount = pendingData.values ? pendingData.values.length : 0;
 
       // Récupérer les formations à clôturer
       const closureResponse = await fetch(`${SCRIPT_URL}?action=readPendingClosure&t=${Date.now()}`);
+      if (!closureResponse.ok) throw new Error(`HTTP ${closureResponse.status}`);
       const closureData = await closureResponse.json();
       const currentClosureCount = closureData.values ? closureData.values.length : 0;
 
@@ -6257,7 +6259,8 @@ import {
       notificationState.lastPendingClosureCount = currentClosureCount;
 
     } catch (error) {
-      console.error('Erreur lors de la vérification des notifications:', error);
+      // Silencieux pour CORS / 429: on logge sans noisy console.error
+      console.debug('Notifications skipped:', error && error.message ? error.message : error);
     }
   }
   // Fonction pour afficher une notification avec icône et type

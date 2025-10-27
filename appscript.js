@@ -851,7 +851,16 @@ try {
     const row = data[i];
     const formationId = row[idIndex];
     const formationName = row[nameIndex];
-    const availableDates = row[datesIndex];
+    // Normaliser availableDates en chaîne (supporte Date Sheets et autres types)
+    const rawAvailableDates = row[datesIndex];
+    let availableDates = '';
+    if (rawAvailableDates) {
+      if (Object.prototype.toString.call(rawAvailableDates) === '[object Date]') {
+        availableDates = Utilities.formatDate(rawAvailableDates, Session.getScriptTimeZone(), 'dd/MM/yyyy');
+      } else {
+        availableDates = String(rawAvailableDates);
+      }
+    }
     const participants = row[participantsIndex];
     
     // Log pour le débogage
@@ -1039,7 +1048,7 @@ try {
         }
         
         // Ne vider la ligne que si il n'y a plus de dates futures
-        if (newDates && newDates.trim() !== '') {
+        if (typeof newDates === 'string' && newDates.trim() !== '') {
           updates.push({
             row: i + 1,
             participants: "", // Vider les participants
@@ -1078,7 +1087,7 @@ try {
         }
 
         // Si changement de dates, programmer la mise à jour
-        if (newDatesStr !== availableDates) {
+        if (String(newDatesStr) !== String(availableDates)) {
           updates.push({
             row: i + 1,
             participants: participants || '',
@@ -1087,7 +1096,7 @@ try {
         }
 
         // Si plus aucune date future et pas de participants, supprimer la ligne
-        if ((!newDatesStr || newDatesStr.trim() === '') && (!participants || String(participants).trim() === '')) {
+        if ((typeof newDatesStr !== 'string' || newDatesStr.trim() === '') && (!participants || String(participants).trim() === '')) {
           updates.push({ row: i + 1, participants: '', dates: '' });
         }
       } catch (e3) {
