@@ -3887,6 +3887,7 @@ import {
         const formationName = selectedOption ? selectedOption.text : "";
         const date = dateSelect.value;
         const message = document.getElementById("message").value;
+        const effectiveness = document.getElementById("effectiveness") ? document.getElementById("effectiveness").value : "";
   
         // Validate required objectives checkbox
         const confirmObjectives = document.getElementById("confirmObjectives");
@@ -3907,6 +3908,12 @@ import {
         }
         if (!phone || !phone.trim()) {
           showNotification("Téléphone obligatoire");
+          return;
+        }
+
+        // Effectiveness required
+        if (!effectiveness || !effectiveness.trim()) {
+          showNotification("Merci d'indiquer comment vous souhaitez évaluer l’efficacité de la formation");
           return;
         }
   
@@ -3984,12 +3991,18 @@ import {
           .map((emp) => `${emp.nameEmployee} (${canonicalizeEntityName(emp.entity)})`)
           .join("\n");
   
-        // Append RQTH block to email body if applicable (multiple)
+        // Justificatif (objectifs) + RQTH section pour l'email
+        const objectivesJustif = `Le demandeur a confirmé que les objectifs de la formation sont conformes à ceux attendus par le Campus CANDOR et en cohérence avec le plan de développement de chaque agent.`;
+
         let rqthEmailBlock = '';
         if (rqthMarkers.length > 0) {
           const lines = rqthMarkers.map(m => `- ${m.person || 'Non renseigné'}${m.actions ? `: ${m.actions}` : ''}`).join('\n');
           rqthEmailBlock = `\n\n[RQTH]\n${lines}`;
+        } else {
+          rqthEmailBlock = `\n\n[RQTH]\nAucun RQTH n'a été signalé pour cette demande de formation.`;
         }
+
+        const finalMessage = `${messageText}\n\n[Justificatif]\n${objectivesJustif}${rqthEmailBlock}\n\n[Évaluation de l’efficacité]\n${effectiveness.trim()}`;
   
         const formData = {
           name,
@@ -3997,7 +4010,7 @@ import {
           phone,
           formation: formationName,
           date,
-          message: messageText + rqthEmailBlock,
+          message: finalMessage,
           employees: employeesList,
         };
   
