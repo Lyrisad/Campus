@@ -172,8 +172,13 @@ function doGet(e) {
         // Recherche de la formation correspondante dans "Formations" par le nom (colonne B)
         var dataF = formationsSheet.getDataRange().getValues();
         var found = false;
+        // Recherche de la formation correspondante dans "Formations" par le nom (colonne B)
+        // On essaie d'abord une correspondance exacte, puis une correspondance approximative (trim + lowerCase)
+        var targetName = String(request.formation).trim().toLowerCase();
+        
         for (var j = 1; j < dataF.length; j++) {
-          if (dataF[j][1] == request.formation) {
+          var currentName = String(dataF[j][1]).trim().toLowerCase();
+          if (currentName == targetName) {
             // Récupérer la colonne Participants (colonne D)
             var existing = dataF[j][3];
             // --- Modification ici ---
@@ -207,7 +212,7 @@ function doGet(e) {
           demandesSheet.deleteRow(rowIndex);
           result.success = true;
         } else {
-          result.error = "Formation non trouvée pour la demande";
+          result.error = "Formation non trouvée pour la demande : '" + request.formation + "'";
         }
       }
     } else if (action == "updateParticipants") {
