@@ -502,14 +502,15 @@ strong {
 
 /* Section image améliorée */
 .CCbody-image {
-  background-image: url("/images/daryl-removebg-preview.png");
+  background-image: url("/images/daryl-removebg-preview.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  width: 38%;
-  height: 55vh;
+  width: 40%;
+  height: 50vh;
   position: relative;
   animation: fadeInRight 1s ease-out 0.5s both;
+  border-radius: 300px 20px 20px 80px;
 }
 
 .CCbody-image::before {
