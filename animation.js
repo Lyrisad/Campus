@@ -282,7 +282,8 @@ function getParticipantsCount(formation, date) {
     const targetDate = parseDDMMYYYY(date);
     while ((match = regex.exec(formation.participants)) !== null) {
       try {
-        let storedDate = new Date(match[2]);
+        let storedDate = tryParseDate(match[2]);
+        if (!storedDate || isNaN(storedDate)) continue;
         if (isSameDate(storedDate, targetDate)) {
           const empData = JSON.parse(match[1]);
           let empArray = Array.isArray(empData) ? empData : [empData];
@@ -1649,10 +1650,9 @@ function initAdminPanel() {
           .map((p) => `${JSON.stringify([p])} (${dateISO})`)
           .join(", ");
 
-        // Pour l'archive: on stocke uniquement la liste JSON (sans "(DATE)")
-        const participantsStrForArchive = participants
-          .map((p) => JSON.stringify([p]))
-          .join(", ");
+        // Pour l'archive: on stocke une chaîne JSON valide (sans "(DATE)")
+        // Format attendu par fetchArchives/loadStatistics: tableau d'objets
+        const participantsStrForArchive = JSON.stringify(participants);
 
         const formationLike = {
           ...formation,
@@ -2185,7 +2185,8 @@ function showParticipantsModal(formation, date) {
   const targetDate = parseDDMMYYYY(date);
   while ((match = regex.exec(formation.participants)) !== null) {
     try {
-      let storedDate = new Date(match[2]);
+      let storedDate = tryParseDate(match[2]);
+      if (!storedDate || isNaN(storedDate)) continue;
       if (isSameDate(storedDate, targetDate)) {
         blocks.push(match[0]);
       }
@@ -3276,7 +3277,8 @@ function generateOutlookEvent(
   const targetDate = parseDDMMYYYY(date);
   // Filtrer par date
   const participantsBlocks = getBlocks(formation.participants).filter((b) => {
-    const d = new Date(b.date);
+    const d = tryParseDate(b.date);
+    if (!d || isNaN(d)) return false;
     return isSameDate(d, targetDate);
   });
 
@@ -3352,7 +3354,8 @@ function downloadAttendanceListWord(formation, date) {
 
   // Filter the participant blocks for the target date
   const blocks = getBlocks(formation.participants).filter((b) => {
-    const d = new Date(b.date);
+    const d = tryParseDate(b.date);
+    if (!d || isNaN(d)) return false;
     return isSameDate(d, targetDate);
   });
 
@@ -3436,7 +3439,8 @@ function downloadAttendanceListWord(formation, date) {
 function prepareTableauData(formation, date) {
   const targetDate = parseDDMMYYYY(date);
   const blocks = getBlocks(formation.participants).filter((b) => {
-    const d = new Date(b.date);
+    const d = tryParseDate(b.date);
+    if (!d || isNaN(d)) return false;
     return isSameDate(d, targetDate);
   });
 
@@ -3552,7 +3556,8 @@ function prepareTableauDataForEntity(formation, date, entity) {
   const targetDate = parseDDMMYYYY(date);
   // Filtrer par date
   const blocks = getBlocks(formation.participants).filter((b) => {
-    const d = new Date(b.date);
+    const d = tryParseDate(b.date);
+    if (!d || isNaN(d)) return false;
     return isSameDate(d, targetDate);
   });
 
@@ -3744,7 +3749,8 @@ function computeIntraInter(formation, date) {
   const targetDate = parseDDMMYYYY(date);
   // Récupérer et filtrer les blocs correspondant à la date
   const blocks = getBlocks(formation.participants).filter((b) => {
-    const d = new Date(b.date);
+    const d = tryParseDate(b.date);
+    if (!d || isNaN(d)) return false;
     return isSameDate(d, targetDate);
   });
 
@@ -3843,7 +3849,8 @@ function getUniqueEntitiesForDate(formation, date) {
   const targetDate = parseDDMMYYYY(date);
   // Récupérer tous les blocs participants de la formation
   const blocks = getBlocks(formation.participants).filter((b) => {
-    const d = new Date(b.date);
+    const d = tryParseDate(b.date);
+    if (!d || isNaN(d)) return false;
     return isSameDate(d, targetDate);
   });
 
@@ -4246,7 +4253,8 @@ async function downloadConventionDocForEntity(
 function getParticipantsForDate(formation, date) {
   const targetDate = parseDDMMYYYY(date);
   const blocks = getBlocks(formation.participants).filter((b) => {
-    const d = new Date(b.date);
+    const d = tryParseDate(b.date);
+    if (!d || isNaN(d)) return false;
     return isSameDate(d, targetDate);
   });
 
@@ -4585,7 +4593,8 @@ async function removeParticipantFromFormation(formation, date, index) {
   // 1) Retirer le bloc ciblé par index (sur la date cible)
   let currentDateIndex = 0;
   for (let i = 0; i < blocks.length; i++) {
-    const blockDate = new Date(blocks[i].date);
+    const blockDate = tryParseDate(blocks[i].date);
+    if (!blockDate || isNaN(blockDate)) continue;
     if (isSameDate(blockDate, targetDate)) {
       if (currentDateIndex === index) {
         keep[i] = false; // supprimer ce bloc
@@ -4598,7 +4607,8 @@ async function removeParticipantFromFormation(formation, date, index) {
   const remainingNames = [];
   for (let i = 0; i < blocks.length; i++) {
     if (!keep[i]) continue;
-    const blockDate = new Date(blocks[i].date);
+    const blockDate = tryParseDate(blocks[i].date);
+    if (!blockDate || isNaN(blockDate)) continue;
     if (!isSameDate(blockDate, targetDate)) continue;
     try {
       const arr = JSON.parse(blocks[i].json);
@@ -4615,7 +4625,8 @@ async function removeParticipantFromFormation(formation, date, index) {
   const noParticipantsLeft = remainingNames.length === 0;
   for (let i = 0; i < blocks.length; i++) {
     if (!keep[i]) continue;
-    const blockDate = new Date(blocks[i].date);
+    const blockDate = tryParseDate(blocks[i].date);
+    if (!blockDate || isNaN(blockDate)) continue;
     if (!isSameDate(blockDate, targetDate)) continue;
     try {
       const arr = JSON.parse(blocks[i].json);
@@ -4663,15 +4674,29 @@ async function updateFormationParticipantsInSheet(id, participantsStr) {
       participantsStr,
     )}`;
     const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
     const result = await response.json();
+    if (!result || result.success === false) {
+      throw new Error(result && result.error ? result.error : "Erreur inconnue");
+    }
     if (typeof window.fetchFormations === "function") {
       await window.fetchFormations();
     }
   } catch (error) {
     console.error(
       "Erreur lors de la mise à jour des participants :",
-      error.message,
+      error && error.message ? error.message : error,
     );
+    try {
+      showNotificationWithIcon(
+        "Erreur réseau: impossible d'enregistrer le participant (Apps Script).",
+        "error",
+      );
+    } catch (e) {
+      // ignore
+    }
   }
 }
 /* =================== Formulaire de Rendez-vous =================== */
@@ -5154,6 +5179,34 @@ function formatDateClient(dateStr) {
 }
 
 /* =================== ARCHIVES =================== */
+
+// Helper: parser tolérant pour différents formats historiques de "participants"
+function parseParticipantsJsonLenient(raw) {
+  if (!raw) return [];
+  // 1) JSON standard: [{"...":...}, ...]
+  try {
+    const val = JSON.parse(raw);
+    return Array.isArray(val) ? val : [val];
+  } catch (e) {
+    // 2) Ancien format bug: "[{...}], [{...}]" (concat de tableaux JSON)
+    try {
+      const trimmed = String(raw).trim();
+      const parts = trimmed.split(/\]\s*,\s*\[/g);
+      const items = [];
+      parts.forEach((part, idx) => {
+        let p = part.trim();
+        if (!p) return;
+        if (idx > 0) p = "[" + p;
+        if (idx < parts.length - 1) p = p + "]";
+        const arr = JSON.parse(p);
+        if (Array.isArray(arr)) items.push(...arr);
+      });
+      return items;
+    } catch (e2) {
+      return [];
+    }
+  }
+}
 
 async function runArchiveProcess() {
   try {
@@ -5886,7 +5939,9 @@ async function fetchArchives() {
               // Vérifier si les participants contiennent des informations de statut
               if (entry.participants.includes('"status"')) {
                 // Format JSON avec statut
-                const participants = JSON.parse(entry.participants);
+                const participants = parseParticipantsJsonLenient(
+                  entry.participants,
+                );
                 participants.forEach((p) => {
                   const statusClass =
                     p.status === "present" ? "status-present" : "status-absent";
@@ -6793,7 +6848,9 @@ async function loadStatistics() {
           if (archive.participants.includes('"status"')) {
             // Format JSON avec statut
             try {
-              const participants = JSON.parse(archive.participants);
+              const participants = parseParticipantsJsonLenient(
+                archive.participants,
+              );
               // Filtrer uniquement les participants présents
               presentParticipants = participants.filter(
                 (p) => p.status !== "absent" && p.present !== false,
@@ -7663,37 +7720,51 @@ function showEditParticipantsModal(formation, date) {
 
   // Traiter les participants depuis PendingClosure (format avec séparateurs "|||")
   if (formation.participants) {
-    const blocks = formation.participants.split("|||");
-
-    blocks.forEach((block) => {
-      if (!block.trim()) return;
-
+    // Cas 1: JSON direct (ex: [{"nameEmployee":...,"status":"present"}])
+    if (
+      formation.participants.trim().startsWith("[") &&
+      formation.participants.includes('"status"')
+    ) {
       try {
-        // Extraire le JSON entre crochets
-        const jsonMatch = block.match(/\[(.*?)\]/);
-        if (!jsonMatch) return;
-
-        // Extraire la date entre parenthèses
-        const dateMatch = block.match(/\((.*?)\)/);
-        if (!dateMatch) return;
-
-        const blockDate = new Date(dateMatch[1]);
-        if (isSameDate(blockDate, targetDate)) {
-          // Parser le JSON des participants
-          const jsonStr = "[" + jsonMatch[1] + "]";
-          const participants = JSON.parse(jsonStr);
-
-          // Chaque bloc contient un tableau de participants
-          if (Array.isArray(participants)) {
-            participantsForDate.push(...participants);
-          } else {
-            participantsForDate.push(participants);
-          }
-        }
-      } catch (error) {
-        console.error("Erreur lors du parsing des participants:", error);
+        const parsed = JSON.parse(formation.participants);
+        participantsForDate = Array.isArray(parsed) ? parsed : [parsed];
+      } catch (e) {
+        console.error("Erreur parsing JSON direct PendingClosure:", e);
       }
-    });
+    } else {
+      const blocks = formation.participants.split("|||");
+
+      blocks.forEach((block) => {
+        if (!block.trim()) return;
+
+        try {
+          // Extraire le JSON entre crochets
+          const jsonMatch = block.match(/\[(.*?)\]/);
+          if (!jsonMatch) return;
+
+          // Extraire la date entre parenthèses
+          const dateMatch = block.match(/\((.*?)\)/);
+          if (!dateMatch) return;
+
+          const blockDate = tryParseDate(dateMatch[1]);
+          if (!blockDate || isNaN(blockDate)) return;
+          if (isSameDate(blockDate, targetDate)) {
+            // Parser le JSON des participants
+            const jsonStr = "[" + jsonMatch[1] + "]";
+            const participants = JSON.parse(jsonStr);
+
+            // Chaque bloc contient un tableau de participants
+            if (Array.isArray(participants)) {
+              participantsForDate.push(...participants);
+            } else {
+              participantsForDate.push(participants);
+            }
+          }
+        } catch (error) {
+          console.error("Erreur lors du parsing des participants:", error);
+        }
+      });
+    }
   }
 
   // Afficher les participants
@@ -7848,7 +7919,8 @@ async function updateParticipantsForDate(
           const dateMatch = block.match(/\((.*?)\)/);
           if (!dateMatch) return;
 
-          const blockDate = new Date(dateMatch[1]);
+          const blockDate = tryParseDate(dateMatch[1]);
+          if (!blockDate || isNaN(blockDate)) return;
           if (!isSameDate(blockDate, targetDateObj)) {
             newBlocks.push(block.trim());
           }
@@ -7888,20 +7960,16 @@ async function updatePendingClosureParticipantsInSheet(
   participantsStr,
 ) {
   try {
-    const response = await fetch(
-      `${SCRIPT_URL}?action=updatePendingClosureParticipants`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          id: id,
-          date: date,
-          participants: participantsStr,
-        }),
-      },
-    );
+    // IMPORTANT: utiliser GET (comme les autres actions) pour éviter le préflight CORS bloquant sur Apps Script.
+    const url = `${SCRIPT_URL}?action=updatePendingClosureParticipants&id=${encodeURIComponent(
+      id,
+    )}&date=${encodeURIComponent(date)}&participants=${encodeURIComponent(
+      participantsStr,
+    )}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
 
     const result = await response.json();
 
