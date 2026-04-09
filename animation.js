@@ -1582,10 +1582,30 @@ function initAdminPanel() {
         const yyyy = String(dateFR.split("/")[2]);
         const dateISO = `${yyyy}-${mm}-${dd}`;
 
-        const morningStartV = (pastMorningStart?.value || "").trim();
-        const morningEndV = (pastMorningEnd?.value || "").trim();
-        const afternoonStartV = (pastAfternoonStart?.value || "").trim();
-        const afternoonEndV = (pastAfternoonEnd?.value || "").trim();
+        let morningStartV = (pastMorningStart?.value || "").trim();
+        let morningEndV = (pastMorningEnd?.value || "").trim();
+        let afternoonStartV = (pastAfternoonStart?.value || "").trim();
+        let afternoonEndV = (pastAfternoonEnd?.value || "").trim();
+
+        // Horaires standards: si non PACK CE et champs vides, appliquer la logique existante (3.5h vs 7h)
+        const allHorairesEmpty =
+          !morningStartV && !morningEndV && !afternoonStartV && !afternoonEndV;
+        if (allHorairesEmpty && !isPackCE(formation?.name || "")) {
+          const heures = getHeures(formation?.name || "");
+          const heuresNum = parseFloat(String(heures || "").replace(",", "."));
+          if (!isNaN(heuresNum) && heuresNum <= 3.6) {
+            morningStartV = "09:00";
+            morningEndV = "12:30";
+            afternoonStartV = "";
+            afternoonEndV = "";
+          } else {
+            // Par défaut: journée complète (ou si heures inconnues)
+            morningStartV = "09:00";
+            morningEndV = "12:30";
+            afternoonStartV = "13:30";
+            afternoonEndV = "17:00";
+          }
+        }
         const trainerChoice = String(
           pastFormationTrainerSelect?.value || "KUSOSKY_DAVID",
         );
