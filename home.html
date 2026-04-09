@@ -1074,6 +1074,7 @@
           <button id="addFormationButton" class="admin-button">➕ Ajouter une Formation</button>
           <!-- Bouton pour ouvrir le calendrier -->
           <button id="openCalendarBtn" class="admin-button calendar-btn">📅 Accéder au calendrier</button>
+          <button id="openPastFormationModalBtn" class="admin-button" style="background: linear-gradient(45deg, #6c5ce7, #a29bfe);">🕘 Rattraper des formations passées</button>
           <button id="openTarifsModalBtn" class="admin-button" style="background: linear-gradient(45deg, #00b894, #00cec9);">💶 Gérer les tarifs</button>
           <button id="logoutButton" class="admin-button">🚪 Déconnexion</button>
           <!-- Bouton pour ouvrir/fermer le tableau des formations -->
@@ -1283,6 +1284,89 @@
           </form>
         </div>
       </div>
+
+      <!-- Modal: Rattraper une formation passée -->
+      <div id="pastFormationModal" class="modal" style="display: none">
+        <div class="modal-content">
+          <span class="close" id="closePastFormationModal">&times;</span>
+          <h3 class="modal2-title">🕘 Rattraper une formation passée</h3>
+
+          <div class="form-group">
+            <label for="pastFormationSelect">Formation</label>
+            <select id="pastFormationSelect"></select>
+          </div>
+
+          <div class="form-group">
+            <label for="pastFormationDatePicker">Date</label>
+            <input type="date" id="pastFormationDatePicker" />
+            <input type="text" id="pastFormationDate" placeholder="JJ/MM/AAAA" autocomplete="off" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="pastFormationAddress">Lieu / Adresse de formation</label>
+            <input type="text" id="pastFormationAddress" placeholder="Adresse complète" autocomplete="off" />
+          </div>
+
+          <div class="form-group">
+            <label for="pastFormationTrainerSelect">Formateur</label>
+            <select id="pastFormationTrainerSelect">
+              <option value="KUSOSKY_DAVID">KUSOSKY David</option>
+              <option value="BOURCIER_JEROME">BOURCIER Jérôme</option>
+            </select>
+          </div>
+
+          <div id="pastHorairesSection" style="display: none;">
+            <div class="form-group">
+              <small style="opacity: 0.85;">Horaires requis uniquement pour <strong>PACK CE</strong>.</small>
+            </div>
+          </div>
+
+          <div id="pastHorairesGrid" style="display: none; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <label>Horaires matin</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <input type="text" id="pastMorningStart" placeholder="Début (ex: 09:00)" autocomplete="off" />
+                <input type="text" id="pastMorningEnd" placeholder="Fin (ex: 12:00)" autocomplete="off" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Horaires après-midi</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <input type="text" id="pastAfternoonStart" placeholder="Début (ex: 13:00)" autocomplete="off" />
+                <input type="text" id="pastAfternoonEnd" placeholder="Fin (ex: 17:00)" autocomplete="off" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Participants</label>
+            <div style="display:flex; justify-content: space-between; align-items:center; gap: 12px; margin-bottom: 10px;">
+              <small style="opacity: 0.85;">Nom, matricule (optionnel), entité (obligatoire pour conventions)</small>
+              <button type="button" id="addPastParticipantRowBtn" class="admin-button" style="padding: 10px 14px; font-size: 14px;">➕ Ajouter</button>
+            </div>
+
+            <div style="overflow:auto;">
+              <table id="pastParticipantsTable" border="1" style="width:100%; border-collapse: collapse;">
+                <thead>
+                  <tr>
+                    <th>Nom / Prénom</th>
+                    <th>Matricule</th>
+                    <th>Entité</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="modal-actions" style="display:flex; gap: 10px; justify-content:flex-end;">
+            <button type="button" id="cancelPastFormationBtn" class="btn-no">Annuler</button>
+            <button type="button" id="generateAndArchivePastFormationBtn" class="btn-yes">Générer & archiver</button>
+          </div>
+        </div>
+      </div>
+
       <div id="confirmModal2" class="modal">
         <div class="modal-content">
           <h3 class="modal2-title">Confirmation</h3>

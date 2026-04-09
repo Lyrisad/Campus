@@ -444,6 +444,29 @@ function doGet(e) {
           participants: row[3],
         };
       });
+    } else if (action == "addArchivedPastSession") {
+      // Ajout direct dans l'onglet "Archives" (session déjà passée)
+      var sheet = ss.getSheetByName("Archives");
+      if (!sheet) {
+        sheet = ss.insertSheet("Archives");
+        sheet.appendRow(["ID", "Formation", "Date", "Participants"]);
+      }
+      
+      var formation = e.parameter.formation;
+      var date = e.parameter.date;
+      var participants = e.parameter.participants || "";
+      
+      // Calculer un nouvel ID
+      var data = sheet.getDataRange().getValues();
+      var newId = 1;
+      if (data.length > 1) {
+        var ids = data.slice(1).map(function (row) { return parseInt(row[0], 10); }).filter(function (n) { return !isNaN(n); });
+        if (ids.length > 0) newId = Math.max.apply(null, ids) + 1;
+      }
+      
+      sheet.appendRow([newId, formation, date, participants]);
+      result.success = true;
+      result.id = newId;
     } else if (action == "moveToPendingClosure") {
       return moveToPendingClosure(e);
     } else if (action == "readPendingClosure") {
@@ -1616,23 +1639,19 @@ try {
     nextId = Math.max(...ids) + 1;
   }
   
-  // Déterminer le numéro de séquence pour cette entité et formation
+  // Déterminer le numéro de séquence pour cette entité (toutes formations confondues)
   let seqNum = 1;
-  const entiteFormationRefs = data.slice(1).filter(row => 
-    row[2].toLowerCase() === entite.toLowerCase() && 
-    row[3].includes(formation)
+  const entiteRefs = data.slice(1).filter(row => 
+    String(row[2] || "").toLowerCase() === String(entite || "").toLowerCase()
   );
   
-  if (entiteFormationRefs.length > 0) {
+  if (entiteRefs.length > 0) {
     // Extraire les numéros de séquence existants
-    const seqNums = entiteFormationRefs.map(row => {
-      const refParts = row[1].split('_');
-      if (refParts.length === 2) {
-        const numPart = refParts[0].replace('vatt', '');
-        return parseInt(numPart);
-      }
-      return 0;
-    });
+    const seqNums = entiteRefs.map(row => {
+      const vrefCell = String(row[1] || "");
+      const m = vrefCell.match(/^vatt(\d+)_/i);
+      return m ? parseInt(m[1], 10) : 0;
+    }).filter(function(n){ return !isNaN(n); });
     seqNum = Math.max(...seqNums) + 1;
   }
   
