@@ -9,7 +9,7 @@ import {
 
 // URL de votre Web App Google Apps Script
 const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxxmuEWcFS_qRdZ_ZFZgr9kzaehWnxs2ujIytpt6SMQHw96CIRJC9fLZhKU2KGcWL_qDA/exec";
+  "https://script.google.com/macros/s/AKfycbxkpaN_FpTgLxQA-N9nnAcsS95B3cADIa76F1dS6H8qzufxMHjwSuVU-w3MuQzWTnlVYA/exec";
 
 // ---------------------- Fonctions Utilitaires Globales ----------------------
 
@@ -2048,6 +2048,97 @@ function initAdminPanel() {
   // On admin login or load, populate tariffs UI
   if (getCookie("adminAuth") === "true") {
     // Lazy load into modal when opened
+  }
+
+  // ===== Modal Statistiques (mise à jour manuelle) =====
+  const openStatsModalBtn = document.getElementById("openStatsModalBtn");
+  const statsModal = document.getElementById("statsModal");
+  const closeStatsModalBtn = document.getElementById("closeStatsModal");
+  const saveStatsBtn = document.getElementById("saveStatsBtn");
+
+  // Correspondance champ HTML -> clé stockée dans l'onglet "Statistiques"
+  const statsKeyByField = {
+    statTotalTrainees: "totalTrainees",
+    statTraineesSubtext: "traineesSubtext",
+    statTotalHours: "totalHours",
+    statHoursSubtext: "hoursSubtext",
+    statTotalSessions: "totalSessions",
+    statSessionsSubtext: "sessionsSubtext",
+    statPodium1Code: "podium1Code",
+    statPodium1Count: "podium1Count",
+    statPodium2Code: "podium2Code",
+    statPodium2Count: "podium2Count",
+    statPodium3Code: "podium3Code",
+    statPodium3Count: "podium3Count",
+  };
+
+  async function refreshStatsUI() {
+    try {
+      const res = await fetch(`${SCRIPT_URL}?action=readStats&t=${Date.now()}`);
+      const data = await res.json();
+      const stats = (data && data.stats) || {};
+      Object.keys(statsKeyByField).forEach((fieldId) => {
+        const el = document.getElementById(fieldId);
+        if (el) {
+          const val = stats[statsKeyByField[fieldId]];
+          el.value = val != null ? val : "";
+        }
+      });
+    } catch (e) {
+      console.error("Erreur refreshStatsUI:", e);
+    }
+  }
+
+  if (openStatsModalBtn && statsModal) {
+    openStatsModalBtn.addEventListener("click", async () => {
+      statsModal.style.display = "block";
+      await refreshStatsUI();
+    });
+  }
+  if (closeStatsModalBtn && statsModal) {
+    closeStatsModalBtn.addEventListener("click", () => {
+      statsModal.style.display = "none";
+    });
+    window.addEventListener("click", (event) => {
+      if (event.target === statsModal) {
+        statsModal.style.display = "none";
+      }
+    });
+  }
+
+  if (saveStatsBtn) {
+    saveStatsBtn.addEventListener("click", async () => {
+      const payload = {};
+      Object.keys(statsKeyByField).forEach((fieldId) => {
+        const el = document.getElementById(fieldId);
+        if (el) {
+          payload[statsKeyByField[fieldId]] = (el.value || "").toString().trim();
+        }
+      });
+      try {
+        const url = `${SCRIPT_URL}?action=updateStats&data=${encodeURIComponent(
+          JSON.stringify(payload),
+        )}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data && data.success) {
+          showNotificationWithIcon("Statistiques enregistrées", "success");
+          statsModal.style.display = "none";
+          // Rafraîchir l'affichage des statistiques sur la page d'accueil
+          if (typeof loadStatistics === "function") {
+            loadStatistics();
+          }
+        } else {
+          showNotificationWithIcon(
+            (data && data.error) || "Erreur lors de l'enregistrement",
+            "error",
+          );
+        }
+      } catch (e) {
+        console.error("Erreur updateStats:", e);
+        showNotificationWithIcon("Erreur réseau", "error");
+      }
+    });
   }
 
   // Gestion du bouton toggle pour le tableau des formations
@@ -6788,7 +6879,7 @@ function calculateTrainingHours(formationName) {
 // Fonction pour calculer et afficher les statistiques
 async function loadStatistics() {
   try {
-    // Vérifier si les éléments HTML existent
+    // Récupérer les éléments HTML
     const totalTraineesElement = document.getElementById("totalTrainees");
     const traineesPerMonthElement = document.getElementById("traineesPerMonth");
     const totalHoursElement = document.getElementById("totalHours");
@@ -6800,189 +6891,65 @@ async function loadStatistics() {
     // Si les éléments n'existent pas, sortir de la fonction
     if (!totalTraineesElement) return;
 
-    // Récupérer les archives de formation
-    const response = await fetch(`${SCRIPT_URL}?action=readArchives`);
+    // Lire les statistiques saisies manuellement depuis le panel admin
+    const response = await fetch(
+      `${SCRIPT_URL}?action=readStats&t=${Date.now()}`,
+    );
     const result = await response.json();
 
-    if (!result || !result.values || result.values.length === 0) {
-      console.error("Erreur lors de la récupération des archives");
+    if (!result || !result.success || !result.stats) {
+      console.error("Erreur lors de la récupération des statistiques");
       displayErrorStats();
       return;
     }
 
-    const archives = result.values;
+    const stats = result.stats;
 
-    // Date de début pour les statistiques (23 mars 2023)
-    const startDate = new Date(2023, 2, 23); // Mois commence à 0 en JS
+    // Convertit une valeur en nombre (gère virgule décimale et champs vides)
+    const toNumber = (v) => {
+      const n = parseFloat(String(v == null ? "" : v).replace(",", "."));
+      return isNaN(n) ? 0 : n;
+    };
 
-    // Filtrer les archives après la date de début
-    const validArchives = archives.filter((archive) => {
-      try {
-        const archiveDate = parseDDMMYYYY(archive.date);
-        return archiveDate >= startDate;
-      } catch (e) {
-        console.error("Erreur lors du parsing de la date:", archive.date, e);
-        return false;
-      }
-    });
+    const totalTrainees = toNumber(stats.totalTrainees);
+    const totalHours = toNumber(stats.totalHours);
+    const totalSessions = toNumber(stats.totalSessions);
 
-    // Calculer le nombre total de stagiaires et d'heures
-    let totalTrainees = 0;
-    let totalHours = 0;
-    const formationCounts = {};
-    const formationTrainees = {};
+    // Chiffres principaux (animation de compteur)
+    animateCounter(totalTraineesElement, totalTrainees);
+    animateCounter(totalHoursElement, totalHours);
+    animateCounter(totalSessionsElement, totalSessions);
 
-    validArchives.forEach((archive) => {
-      // Récupérer le nom de la formation (peut être dans archive.name ou archive.formation)
-      const formationName = archive.name || archive.formation;
+    // Sous-textes (texte libre saisi par l'admin)
+    if (traineesPerMonthElement) {
+      traineesPerMonthElement.textContent = stats.traineesSubtext || "";
+    }
+    if (hoursPerMonthElement) {
+      hoursPerMonthElement.textContent = stats.hoursSubtext || "";
+    }
+    if (sessionsPerMonthElement) {
+      sessionsPerMonthElement.textContent = stats.sessionsSubtext || "";
+    }
 
-      // Récupérer la durée de la formation en heures (convertir en nombre)
-      const formationHours = parseFloat(getHeures(formationName)) || 3.5; // Par défaut 3.5h si non trouvé
-
-      // Compter les participants présents
-      let presentParticipants = [];
-
-      try {
-        if (archive.participants) {
-          // Analyser le format des participants
-          if (archive.participants.includes('"status"')) {
-            // Format JSON avec statut
-            try {
-              const participants = parseParticipantsJsonLenient(
-                archive.participants,
-              );
-              // Filtrer uniquement les participants présents
-              presentParticipants = participants.filter(
-                (p) => p.status !== "absent" && p.present !== false,
-              );
-            } catch (e) {
-              console.error("Erreur lors du parsing JSON des participants:", e);
-            }
-          } else if (archive.participants.includes("|||")) {
-            // Format ancien avec séparateur |||
-            const blocks = archive.participants.split("|||");
-            blocks.forEach((block) => {
-              block = block.trim();
-              if (block) {
-                try {
-                  const arr = JSON.parse(block);
-                  if (Array.isArray(arr)) {
-                    // Ajouter tous les participants (pas de notion d'absence dans l'ancien format)
-                    presentParticipants = presentParticipants.concat(arr);
-                  }
-                } catch (e) {
-                  console.error(
-                    "Erreur lors du parsing d'un bloc de participants:",
-                    e,
-                  );
-                }
-              }
-            });
-          } else {
-            // Format avec getBlocks
-            const blocks = getBlocks(archive.participants);
-            blocks.forEach((block) => {
-              try {
-                const blockDate = new Date(block.date);
-                const archiveDate = parseDDMMYYYY(archive.date);
-
-                if (isSameDate(blockDate, archiveDate)) {
-                  const participantsData = JSON.parse(block.json);
-                  const participantsArray = Array.isArray(participantsData)
-                    ? participantsData
-                    : [participantsData];
-
-                  // Filtrer uniquement les participants présents
-                  const presentInBlock = participantsArray.filter(
-                    (p) => p.present !== false && p.status !== "absent",
-                  );
-                  presentParticipants =
-                    presentParticipants.concat(presentInBlock);
-                }
-              } catch (e) {
-                console.error(
-                  "Erreur lors du parsing d'un bloc de participants:",
-                  e,
-                );
-              }
-            });
-          }
-        }
-      } catch (e) {
-        console.error("Erreur lors du traitement des participants:", e);
-      }
-
-      // Nombre de participants présents pour cette formation
-      const presentCount = presentParticipants.length;
-      totalTrainees += presentCount;
-
-      // Calculer les heures de formation pour cette session
-      // (durée de la formation × nombre de participants présents)
-      const sessionHours = formationHours * presentCount;
-      totalHours += sessionHours;
-
-      // Compter les occurrences de chaque formation et les stagiaires par formation
-      const formationCode = getFormationCode(formationName);
-      if (formationCode) {
-        formationCounts[formationCode] =
-          (formationCounts[formationCode] || 0) + 1;
-        formationTrainees[formationCode] =
-          (formationTrainees[formationCode] || 0) + presentCount;
-      }
-    });
-
-    // Nombre total de sessions de formation
-    const totalSessions = validArchives.length;
-
-    // Calculer les moyennes mensuelles
-    const now = new Date();
-    const monthsDiff =
-      (now.getFullYear() - startDate.getFullYear()) * 12 +
-      now.getMonth() -
-      startDate.getMonth();
-
-    // Au lieu d'utiliser tous les mois depuis mars 2023, comptons uniquement les mois actifs
-    // où il y a eu au moins une formation
-    const uniqueMonths = new Set();
-    validArchives.forEach((archive) => {
-      try {
-        const date = parseDDMMYYYY(archive.date);
-        const monthKey = `${date.getFullYear()}-${date.getMonth()}`;
-        uniqueMonths.add(monthKey);
-      } catch (e) {
-        console.error(
-          "Erreur lors du parsing de la date pour les mois actifs:",
-          archive.date,
-          e,
-        );
-      }
-    });
-
-    // Nombre de mois où il y a eu au moins une formation
-    const activeMonths = Math.max(1, uniqueMonths.size); // Au moins 1 mois pour éviter division par zéro
-
-    // Calculer les moyennes basées sur les mois actifs uniquement
-    const traineesPerMonth = Math.round(totalTrainees / activeMonths);
-    const hoursPerMonth = Math.round(totalHours / activeMonths);
-    const sessionsPerMonth = Math.round(totalSessions / activeMonths);
-
-    // Trouver les formations les plus populaires (par nombre de stagiaires)
-    const popularFormations = Object.entries(formationTrainees)
-      .map(([code, count]) => ({ code, count }))
+    // Podium des formations (saisi manuellement, trié par nombre de stagiaires)
+    const popularFormations = [
+      {
+        code: (stats.podium1Code || "").toString().trim(),
+        count: toNumber(stats.podium1Count),
+      },
+      {
+        code: (stats.podium2Code || "").toString().trim(),
+        count: toNumber(stats.podium2Count),
+      },
+      {
+        code: (stats.podium3Code || "").toString().trim(),
+        count: toNumber(stats.podium3Count),
+      },
+    ]
+      .filter((f) => f.code !== "")
       .sort((a, b) => b.count - a.count)
       .slice(0, 3);
 
-    // Afficher les résultats avec une animation de compteur
-    animateCounter(totalTraineesElement, totalTrainees);
-    traineesPerMonthElement.textContent = `${traineesPerMonth} stagiaires / mois en moyenne`;
-
-    animateCounter(totalHoursElement, totalHours);
-    hoursPerMonthElement.textContent = `${hoursPerMonth} heures / mois en moyenne`;
-
-    animateCounter(totalSessionsElement, totalSessions);
-    sessionsPerMonthElement.textContent = `${sessionsPerMonth} sessions / mois en moyenne`;
-
-    // Générer le podium des formations les plus populaires
     generatePodium(formationsPodiumElement, popularFormations);
   } catch (error) {
     console.error("Erreur lors du chargement des statistiques:", error);

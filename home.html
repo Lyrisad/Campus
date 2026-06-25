@@ -86,7 +86,7 @@
           <div class="stats-container">
             <div class="stats-titles">
             <h2 class="stats-title">📊 Nos Statistiques</h2>
-            <p class="stats-intro">Découvrez Campus Candor à travers nos chiffres depuis le 26 Mars 2025</p>
+            <p class="stats-intro">Les statistiques sont mises à jour chaque mois</p>
             </div>
             <div class="stats-grid">
               <!-- Nombre total de stagiaires -->
@@ -1076,6 +1076,7 @@
           <button id="openCalendarBtn" class="admin-button calendar-btn">📅 Accéder au calendrier</button>
           <button id="openPastFormationModalBtn" class="admin-button" style="background: linear-gradient(45deg, #6c5ce7, #a29bfe);">🕘 Rattraper des formations passées</button>
           <button id="openTarifsModalBtn" class="admin-button" style="background: linear-gradient(45deg, #00b894, #00cec9);">💶 Gérer les tarifs</button>
+          <button id="openStatsModalBtn" class="admin-button" style="background: linear-gradient(45deg, #e17055, #fab1a0);">📊 Gérer les statistiques</button>
           <button id="logoutButton" class="admin-button">🚪 Déconnexion</button>
           <!-- Bouton pour ouvrir/fermer le tableau des formations -->
           <button id="toggleFormationsTableBtn" class="admin-button toggle-btn">🔽 Masquer le tableau</button>
@@ -1167,7 +1168,114 @@
         </div>
       </div>
 
-      
+      <!-- Modal Mise à jour des statistiques (page d'accueil) -->
+      <div id="statsModal" class="modal">
+        <div class="modal-content tarifs-modal-content">
+          <span class="close" id="closeStatsModal">&times;</span>
+          <h3 class="modal2-title">📊 Mise à jour des statistiques</h3>
+          <div class="tarifs-grid">
+            <div class="tarifs-card">
+              <h4>Chiffres principaux</h4>
+              <div class="form-group">
+                <label for="statTotalTrainees">👨‍🎓 Stagiaires formés</label>
+                <input type="number" id="statTotalTrainees" min="0" step="1" placeholder="Ex: 1250" />
+              </div>
+              <div class="form-group">
+                <label for="statTraineesSubtext">Sous-texte stagiaires</label>
+                <input type="text" id="statTraineesSubtext" placeholder="Ex: 42 stagiaires / mois en moyenne" />
+              </div>
+              <div class="form-group">
+                <label for="statTotalHours">⏱️ Heures de formation</label>
+                <input type="number" id="statTotalHours" min="0" step="0.5" placeholder="Ex: 4375" />
+              </div>
+              <div class="form-group">
+                <label for="statHoursSubtext">Sous-texte heures</label>
+                <input type="text" id="statHoursSubtext" placeholder="Ex: 150 heures / mois en moyenne" />
+              </div>
+              <div class="form-group">
+                <label for="statTotalSessions">📚 Sessions de formation</label>
+                <input type="number" id="statTotalSessions" min="0" step="1" placeholder="Ex: 320" />
+              </div>
+              <div class="form-group">
+                <label for="statSessionsSubtext">Sous-texte sessions</label>
+                <input type="text" id="statSessionsSubtext" placeholder="Ex: 11 sessions / mois en moyenne" />
+              </div>
+            </div>
+            <div class="tarifs-card">
+              <h4>Podium des formations</h4>
+              <div class="form-group">
+                <label for="statPodium1Code">🥇 1ère formation</label>
+                <select id="statPodium1Code">
+                  <option value="">— Aucune —</option>
+                  <option value="FOR001">FOR001</option>
+                  <option value="FOR002">FOR002</option>
+                  <option value="FOR004">FOR004</option>
+                  <option value="FOR006">FOR006</option>
+                  <option value="FOR007">FOR007</option>
+                  <option value="FOR009">FOR009</option>
+                  <option value="FOR010">FOR010</option>
+                  <option value="FOR011">FOR011</option>
+                  <option value="FOR012">FOR012</option>
+                  <option value="FOR016">FOR016</option>
+                  <option value="FOR018">FOR018</option>
+                  <option value="JTF">JTF</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="statPodium1Count">Nombre de stagiaires</label>
+                <input type="number" id="statPodium1Count" min="0" step="1" placeholder="Ex: 180" />
+              </div>
+              <div class="form-group">
+                <label for="statPodium2Code">🥈 2ème formation</label>
+                <select id="statPodium2Code">
+                  <option value="">— Aucune —</option>
+                  <option value="FOR001">FOR001</option>
+                  <option value="FOR002">FOR002</option>
+                  <option value="FOR004">FOR004</option>
+                  <option value="FOR006">FOR006</option>
+                  <option value="FOR007">FOR007</option>
+                  <option value="FOR009">FOR009</option>
+                  <option value="FOR010">FOR010</option>
+                  <option value="FOR011">FOR011</option>
+                  <option value="FOR012">FOR012</option>
+                  <option value="FOR016">FOR016</option>
+                  <option value="FOR018">FOR018</option>
+                  <option value="JTF">JTF</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="statPodium2Count">Nombre de stagiaires</label>
+                <input type="number" id="statPodium2Count" min="0" step="1" placeholder="Ex: 140" />
+              </div>
+              <div class="form-group">
+                <label for="statPodium3Code">🥉 3ème formation</label>
+                <select id="statPodium3Code">
+                  <option value="">— Aucune —</option>
+                  <option value="FOR001">FOR001</option>
+                  <option value="FOR002">FOR002</option>
+                  <option value="FOR004">FOR004</option>
+                  <option value="FOR006">FOR006</option>
+                  <option value="FOR007">FOR007</option>
+                  <option value="FOR009">FOR009</option>
+                  <option value="FOR010">FOR010</option>
+                  <option value="FOR011">FOR011</option>
+                  <option value="FOR012">FOR012</option>
+                  <option value="FOR016">FOR016</option>
+                  <option value="FOR018">FOR018</option>
+                  <option value="JTF">JTF</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="statPodium3Count">Nombre de stagiaires</label>
+                <input type="number" id="statPodium3Count" min="0" step="1" placeholder="Ex: 95" />
+              </div>
+            </div>
+          </div>
+          <button id="saveStatsBtn" class="admin-button" style="background: linear-gradient(45deg, #e17055, #fab1a0);">💾 Enregistrer les statistiques</button>
+        </div>
+      </div>
+
+
       <!-- Nouveau bloc pour les formations à clôturer -->
       <div id="pendingClosurePanel" style="margin-top: 20px;">
         <h3 class="section-title title-closure"><span class="emoji">✅</span>Formations à clôturer</h3>

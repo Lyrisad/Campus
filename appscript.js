@@ -605,6 +605,10 @@ function doGet(e) {
       return updateTarifFormation(e);
     } else if (action == "updateTarifRepas") {
       return updateTarifRepas(e);
+    } else if (action == "readStats") {
+      return readStats();
+    } else if (action == "updateStats") {
+      return updateStats(e);
     } else if (action == "readLogs") {
       return readLogs();
     } else if (action == "addLog") {
@@ -769,6 +773,77 @@ function updateTarifRepas(e) {
       sheet.getRange(2, 1).setValue(stagiaire);
       sheet.getRange(2, 2).setValue(formateur);
     }
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: false, error: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// ====== Statistiques de la page d'accueil (saisie manuelle) ======
+// Stockées dans l'onglet "Statistiques" sous forme de paires CLE / VALEUR.
+function readStats() {
+  try {
+    var ss = getSS();
+    var stats = {};
+    var sheet = ss.getSheetByName("Statistiques");
+    if (sheet) {
+      var data = sheet.getDataRange().getValues();
+      for (var i = 1; i < data.length; i++) {
+        var key = (data[i][0] || "").toString().trim();
+        if (key) {
+          stats[key] = data[i][1];
+        }
+      }
+    }
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: true, stats: stats }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (e) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: false, error: e.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function updateStats(e) {
+  try {
+    var raw = (e.parameter.data || "").toString();
+    if (!raw) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ success: false, error: "Paramètre 'data' manquant" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var incoming = JSON.parse(raw);
+
+    var ss = getSS();
+    var sheet = ss.getSheetByName("Statistiques");
+    if (!sheet) {
+      sheet = ss.insertSheet("Statistiques");
+      sheet.appendRow(["CLE", "VALEUR"]);
+    }
+
+    // Index des clés existantes -> numéro de ligne
+    var data = sheet.getDataRange().getValues();
+    var rowByKey = {};
+    for (var i = 1; i < data.length; i++) {
+      var k = (data[i][0] || "").toString().trim();
+      if (k) rowByKey[k] = i + 1;
+    }
+
+    Object.keys(incoming).forEach(function (key) {
+      var value = incoming[key];
+      if (rowByKey[key]) {
+        sheet.getRange(rowByKey[key], 2).setValue(value);
+      } else {
+        sheet.appendRow([key, value]);
+        rowByKey[key] = sheet.getLastRow();
+      }
+    });
 
     return ContentService
       .createTextOutput(JSON.stringify({ success: true }))
