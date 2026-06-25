@@ -42,6 +42,8 @@ function canonicalizeEntityName(raw) {
   if (/^creabat$/.test(normalized)) return "CREABAT";
   if (/(^|\b)(alpha|candor alpha)(\b|$)/.test(normalized)) return "ALPHA";
   if (/(^|\b)(groupe candor|candor)(\b|$)/.test(normalized)) return "CANDOR";
+  // PNS: entité autonome (ni DELTA ni COPRO). Gère "pns", "p n s", "P.N.S"...
+  if (normalized.replace(/\s+/g, "") === "pns") return "PNS";
   // Default: uppercase original without extra spaces
   return normalized.toUpperCase();
 }
@@ -64,6 +66,8 @@ function getSiretForEntity(raw) {
       return "538 441 833 000 26";
     case "ALPHA":
       return "89 241 544 900 016";
+    case "PNS":
+      return "322 904 145";
     default:
       // For any legacy names not captured above, keep old logic fallback:
       const e = String(raw || "").toLowerCase();
