@@ -173,11 +173,16 @@ function doGet(e) {
         var dataF = formationsSheet.getDataRange().getValues();
         var found = false;
         // Recherche de la formation correspondante dans "Formations" par le nom (colonne B)
-        // On essaie d'abord une correspondance exacte, puis une correspondance approximative (trim + lowerCase)
-        var targetName = String(request.formation).trim().toLowerCase();
-        
+        // Comparaison normalisée : insensible aux accents composés, espaces
+        // insécables, tirets variés et caractères invisibles (voir normalizeFormationName).
+        var targetName = normalizeFormationName(request.formation);
+        var availableNames = [];
+
         for (var j = 1; j < dataF.length; j++) {
-          var currentName = String(dataF[j][1]).trim().toLowerCase();
+          var currentName = normalizeFormationName(dataF[j][1]);
+          if (dataF[j][1] !== "" && dataF[j][1] != null) {
+            availableNames.push(String(dataF[j][1]));
+          }
           if (currentName == targetName) {
             // Récupérer la colonne Participants (colonne D)
             var existing = dataF[j][3];
@@ -212,7 +217,9 @@ function doGet(e) {
           demandesSheet.deleteRow(rowIndex);
           result.success = true;
         } else {
-          result.error = "Formation non trouvée pour la demande : '" + request.formation + "'";
+          result.error =
+            "Formation non trouvée pour la demande : '" + request.formation +
+            "'. Formations disponibles : " + availableNames.join(" | ");
         }
       }
     } else if (action == "updateParticipants") {
@@ -2189,11 +2196,34 @@ function clearLogs() {
       success: true,
       message: "Logs vidés avec succès"
     })).setMimeType(ContentService.MimeType.JSON);
-    
+
   } catch (error) {
     return ContentService.createTextOutput(JSON.stringify({
       success: false,
       error: error.toString()
     })).setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+/**
+ * Normalise un nom de formation pour permettre une comparaison fiable.
+ * Gère les différences invisibles fréquentes (copier-coller, Google Sheets) :
+ *  - accents composés / décomposés (é = U+00E9 ou e + accent combinant) -> NFC
+ *  - espaces insécables (U+00A0) -> espace normal
+ *  - caractères de largeur nulle invisibles -> supprimés
+ *  - tirets variés (en-dash, em-dash, minus, etc.) -> trait d'union "-"
+ *  - espaces multiples -> un seul espace
+ *  - trim + minuscules
+ * @param {*} name Nom brut (cellule ou demande)
+ * @returns {string} Nom normalisé
+ */
+function normalizeFormationName(name) {
+  return String(name == null ? "" : name)
+    .normalize("NFC")
+    .replace(/\u00A0/g, " ")
+    .replace(/[\u200B-\u200D\uFEFF]/g, "")
+    .replace(/[\u2010-\u2015\u2212]/g, "-")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
 }

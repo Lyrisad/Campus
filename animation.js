@@ -9,7 +9,7 @@ import {
 
 // URL de votre Web App Google Apps Script
 const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzHd9eBsHJQmmq0vVGrPxI-tvSfsAn8qdK9ZjBpN3PT7jLLBOzF3o4ie7oQ76Qmz8jJrw/exec";
+  "https://script.google.com/macros/s/AKfycbxxmuEWcFS_qRdZ_ZFZgr9kzaehWnxs2ujIytpt6SMQHw96CIRJC9fLZhKU2KGcWL_qDA/exec";
 
 // ---------------------- Fonctions Utilitaires Globales ----------------------
 
