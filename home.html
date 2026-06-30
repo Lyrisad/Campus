@@ -145,6 +145,17 @@
               de plus d'informations sur une formation en particulier, veuillez
               cliquer sur les boîtes ci-dessous.
             </p>
+            <div class="catalogue-cta">
+              <button type="button" id="openCatalogueBtn" class="catalogue-btn">
+                <span class="catalogue-btn__icon">📖</span>
+                <span class="catalogue-btn__label">Consulter notre catalogue</span>
+                <span class="catalogue-btn__arrow" aria-hidden="true">→</span>
+              </button>
+              <p class="catalogue-cta__hint">
+                Toutes nos formations réunies dans un document à feuilleter ou à
+                télécharger.
+              </p>
+            </div>
             <div class="services-list">
               <div class="service-item" id="item-for001">
                 <h3>
@@ -947,7 +958,7 @@
           <div class="form-group">
             <label>
               <input type="checkbox" id="confirmObjectives" required />
-              Je confirme que les objectifs de formation sont conformes à ceux attendus par le Campus CANDOR et en cohérence avec le plan de développement de chaque agent.
+              Je certifie que les objectifs de formation définis par le Campus Candor sont en parfaite cohérence avec le plan de développement des compétences de chaque agent inscrit, répondant ainsi à ses besoins d'évolution et aux exigences de son parcours professionnel.
             </label>
           </div>
 
@@ -965,7 +976,7 @@
           <div class="form-group" id="rqthBlock">
             <label>
               <input type="checkbox" id="rqthCheck" />
-              Je confirme qu'un ou plusieurs agents sont reconnus en tant que travailleurs handicapés (RQTH) (cocher uniquement si applicable).
+              Je confirme qu'un ou plusieurs agents inscrits présentent des besoins spécifiques, notamment une reconnaissance RQTH, des troubles, des difficultés de lecture, d'écriture ou de compréhension (illettrisme), ou toute autre situation nécessitant des adaptations pédagogiques (cocher uniquement si applicable).
             </label>
             <div id="rqthDetails" style="display:none; margin-top:8px;">
               <div style="margin-bottom:8px;">
@@ -2368,5 +2379,127 @@
         </div>
       </div>
     </footer>
+
+    <!-- Modal Catalogue de formations -->
+    <div
+      id="catalogueModal"
+      class="catalogue-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Catalogue de formations Candor Campus"
+    >
+      <div class="catalogue-modal__backdrop" data-close-catalogue></div>
+      <div class="catalogue-modal__dialog" role="document">
+        <header class="catalogue-modal__bar">
+          <div class="catalogue-modal__titlewrap">
+            <span class="catalogue-modal__icon" aria-hidden="true">📚</span>
+            <h2 class="catalogue-modal__title">Notre catalogue de formations</h2>
+          </div>
+          <div class="catalogue-modal__actions">
+            <a
+              class="catalogue-modal__action"
+              href="catalogue.pdf"
+              target="_blank"
+              rel="noopener"
+              title="Ouvrir dans un nouvel onglet"
+              aria-label="Ouvrir dans un nouvel onglet"
+            >↗</a>
+            <a
+              class="catalogue-modal__action"
+              href="catalogue.pdf"
+              download="Catalogue-Candor-Campus.pdf"
+              title="Télécharger le PDF"
+              aria-label="Télécharger le PDF"
+            >⬇</a>
+            <button
+              type="button"
+              class="catalogue-modal__close"
+              data-close-catalogue
+              aria-label="Fermer le catalogue"
+            >&times;</button>
+          </div>
+        </header>
+        <div class="catalogue-modal__viewer">
+          <div class="catalogue-modal__loader" aria-hidden="true">
+            <div class="catalogue-modal__spinner"></div>
+            <p>Chargement du catalogue…</p>
+          </div>
+          <div class="catalogue-modal__fallback">
+            <span class="catalogue-modal__fallback-icon" aria-hidden="true">📕</span>
+            <p class="catalogue-modal__fallback-text">
+              Votre appareil n'affiche pas le PDF directement ici.
+            </p>
+            <a
+              class="catalogue-btn"
+              href="catalogue.pdf"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="catalogue-btn__label">Ouvrir le catalogue</span>
+              <span class="catalogue-btn__arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <iframe
+            class="catalogue-modal__frame"
+            title="Catalogue de formations Candor Campus"
+            referrerpolicy="no-referrer"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var modal = document.getElementById("catalogueModal");
+        var openBtn = document.getElementById("openCatalogueBtn");
+        if (!modal || !openBtn) return;
+
+        var frame = modal.querySelector(".catalogue-modal__frame");
+        var loader = modal.querySelector(".catalogue-modal__loader");
+        var PDF_SRC = "catalogue.pdf";
+
+        var isMobile = window.matchMedia("(max-width: 767px)");
+
+        function openCatalogue() {
+          // Sur mobile, l'iframe est masquée et le repli ouvre le PDF dans un
+          // nouvel onglet : on évite de charger 6 Mo inutilement.
+          if (!isMobile.matches) {
+            if (loader) loader.style.display = "";
+            // Chargement différé : on ne charge le PDF qu'à l'ouverture.
+            if (frame && !frame.getAttribute("src")) {
+              frame.setAttribute("src", PDF_SRC);
+            }
+          }
+          modal.classList.add("is-open");
+          modal.setAttribute("aria-hidden", "false");
+          document.body.classList.add("catalogue-open");
+        }
+
+        function closeCatalogue() {
+          modal.classList.remove("is-open");
+          modal.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("catalogue-open");
+        }
+
+        if (frame) {
+          frame.addEventListener("load", function () {
+            if (loader) loader.style.display = "none";
+          });
+        }
+
+        openBtn.addEventListener("click", openCatalogue);
+
+        modal.querySelectorAll("[data-close-catalogue]").forEach(function (el) {
+          el.addEventListener("click", closeCatalogue);
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && modal.classList.contains("is-open")) {
+            closeCatalogue();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

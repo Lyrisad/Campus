@@ -7408,3 +7408,322 @@ footer {
 #participantsModal .rqth-callout {
   font-size: 0.96rem;
 }
+
+/* =========================================================
+   Catalogue de formations — bouton CTA + visionneuse modale
+   ========================================================= */
+
+/* --- Bloc d'appel à l'action --- */
+.catalogue-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  margin: 10px auto 38px;
+}
+
+.catalogue-cta__hint {
+  margin: 0;
+  max-width: 460px;
+  font-size: 0.95rem;
+  color: #5b6b7d;
+  line-height: 1.5;
+}
+
+/* --- Bouton "Consulter notre catalogue" --- */
+.catalogue-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 30px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, #0077cc 0%, #005fa3 100%);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    background 0.25s ease;
+  box-shadow: 0 10px 22px rgba(0, 119, 204, 0.32),
+    0 4px 8px rgba(0, 119, 204, 0.2);
+}
+
+.catalogue-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transition: left 0.55s ease;
+}
+
+.catalogue-btn:hover {
+  background: linear-gradient(135deg, #008ae6 0%, #006bb8 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 30px rgba(0, 119, 204, 0.42),
+    0 6px 12px rgba(0, 119, 204, 0.28);
+}
+
+.catalogue-btn:hover::before {
+  left: 100%;
+}
+
+.catalogue-btn:active {
+  transform: translateY(-1px);
+}
+
+.catalogue-btn__icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.catalogue-btn__arrow {
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.catalogue-btn:hover .catalogue-btn__arrow {
+  transform: translateX(4px);
+}
+
+/* --- Overlay / modale --- */
+.catalogue-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 6000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(8px, 3vw, 40px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.catalogue-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.catalogue-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 25, 41, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.catalogue-modal__dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1080px;
+  height: 92vh;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+  transform: translateY(24px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.catalogue-modal.is-open .catalogue-modal__dialog {
+  transform: translateY(0) scale(1);
+}
+
+/* --- Barre supérieure --- */
+.catalogue-modal__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #0077cc 0%, #005fa3 100%);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.catalogue-modal__titlewrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.catalogue-modal__icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.catalogue-modal__title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.catalogue-modal__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.catalogue-modal__action,
+.catalogue-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.catalogue-modal__close {
+  font-size: 1.7rem;
+}
+
+.catalogue-modal__action:hover,
+.catalogue-modal__close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* --- Zone d'affichage du PDF --- */
+.catalogue-modal__viewer {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #e9eef4;
+}
+
+.catalogue-modal__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #e9eef4;
+  z-index: 2;
+}
+
+/* Chargement */
+.catalogue-modal__loader {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #5b6b7d;
+  background: #e9eef4;
+  pointer-events: none;
+}
+
+.catalogue-modal__spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid rgba(0, 119, 204, 0.2);
+  border-top-color: #0077cc;
+  border-radius: 50%;
+  animation: catalogueSpin 0.8s linear infinite;
+}
+
+@keyframes catalogueSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Repli (mobile / PDF non affichable en ligne) */
+.catalogue-modal__fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px;
+  text-align: center;
+}
+
+.catalogue-modal__fallback-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.catalogue-modal__fallback-text {
+  margin: 0;
+  max-width: 320px;
+  color: #5b6b7d;
+  line-height: 1.5;
+}
+
+body.catalogue-open {
+  overflow: hidden;
+}
+
+/* Sur mobile, les visionneuses PDF en iframe sont peu fiables :
+   on masque l'iframe et on propose l'ouverture en plein écran. */
+@media (max-width: 767px) {
+  .catalogue-modal__dialog {
+    height: 100%;
+    border-radius: 12px;
+  }
+
+  .catalogue-modal__frame,
+  .catalogue-modal__loader {
+    display: none;
+  }
+
+  .catalogue-modal__fallback {
+    display: flex;
+  }
+
+  .catalogue-modal__title {
+    font-size: 1.05rem;
+  }
+}
+
+/* Respect des préférences de réduction de mouvement */
+@media (prefers-reduced-motion: reduce) {
+  .catalogue-modal,
+  .catalogue-modal__dialog,
+  .catalogue-btn,
+  .catalogue-btn__arrow {
+    transition: none;
+  }
+  .catalogue-modal__spinner {
+    animation: none;
+  }
+}
